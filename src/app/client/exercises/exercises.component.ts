@@ -11,6 +11,7 @@ export class ExercisesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // TODO ALH: Dynamically insert videoID!
     this.currentVideoId = '8GI7pzelfJk';
   }
 
