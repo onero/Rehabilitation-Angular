@@ -8,7 +8,8 @@ export class YoutubeService {
   YOUTUBE_QUERY_PARAMS = '?part=id%2C+snippet&id=';
   YOUTUBE_API_KEY = '&key=AIzaSyAsMiGn7Z09Yh1zYyJlmPf0ak8XwZ7lFJY';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getVideoInformation(videoId: string) {
     return this.http.get(`${this.YOUTUBE_API}${this.YOUTUBE_QUERY_PARAMS}${videoId}${this.YOUTUBE_API_KEY}`);
@@ -16,7 +17,7 @@ export class YoutubeService {
 
   getIdFromURL(url: string) {
     // adapted from http://brandly.github.io/angular-youtube-embed/ and http://stackoverflow.com/a/5831191/1614967
-    var youtubeRegexp = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
+    const youtubeRegexp = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
 
     // https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig
     function contains(str: string, substr: string) {
