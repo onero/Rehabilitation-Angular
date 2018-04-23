@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {YoutubeService} from './youtube.service';
-import {YoutubeResponseItemSnippet} from './models/YoutubeResponseItemSnippet.model';
 import {YoutubeResponse} from './models/YoutubeResponse.model';
 
 @Component({
@@ -27,7 +26,6 @@ export class YoutubePlayerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.videoId = '8GI7pzelfJk';
     this.ytService.getVideoInformation(this.videoId)
       .subscribe(result => {
         const ytResponse = result as YoutubeResponse;

@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./exercises.component.scss']
 })
 export class ExercisesComponent implements OnInit {
+  currentVideoId: string;
 
   constructor() { }
 
   ngOnInit() {
+    this.currentVideoId = '8GI7pzelfJk';
   }
 
 }
