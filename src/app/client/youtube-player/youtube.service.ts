@@ -1,8 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {YoutubeResponse} from './models/YoutubeResponse.model';
-import {YoutubeResponseItemSnippet} from './models/YoutubeResponseItemSnippet.model';
-import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class YoutubeService {
