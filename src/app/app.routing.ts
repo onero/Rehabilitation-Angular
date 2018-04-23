@@ -10,6 +10,10 @@ export const AppRoutes = RouterModule.forRoot(
       pathMatch: 'full'
     },
     {
+      path: 'client/exercises',
+      component: ExercisesComponent
+    },
+    {
       path: 'login',
       component: LoginComponent
     },
