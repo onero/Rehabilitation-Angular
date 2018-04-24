@@ -1,3 +1,51 @@
-<p>
-  new-exercise works!
-</p>
+<div class="container">
+  <form>
+    <!--TITLE-->
+    <div class="form-group">
+      <input type="text"
+             class="form-control"
+             id="exerciseFormControlTitle"
+             placeholder="Enter exercise title">
+    </div>
+    <div class="row">
+      <!--CATEGORIES & VIDEO-->
+      <div class="col">
+        <!--CATEGORIES-->
+        <label>Categories</label>
+      </div>
+      <div class="col">
+        <!--VIDEO-->
+        <div class="form-group">
+          <label for="exerciseFormControlVideo">Video</label>
+          <input type="text"
+                 class="form-control"
+                 id="exerciseFormControlVideo"
+                 placeholder="www.youtube.com/example">
+        </div>
+      </div>
+
+    </div>
+    <!--DESCRIPTION & REPETITIONS-->
+    <div class="row">
+      <div class="col">
+        <!--DESCRIPTIONS-->
+        <div class="form-group">
+          <label for="exerciseFormControlDescription">Description</label>
+          <textarea class="form-control"
+                    id="exerciseFormControlDescription"
+                    rows="3"></textarea>
+        </div>
+      </div>
+      <div class="col">
+        <!--REPETITIONS-->
+        <div class="form-group">
+          <label for="exerciseFormControlRepetitions">Description</label>
+          <input type="text"
+                 class="form-control"
+                 id="exerciseFormControlRepetitions"
+                 placeholder="3 x 5">
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
