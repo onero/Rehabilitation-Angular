@@ -23,4 +23,7 @@ export class ExerciseInformationComponent implements OnInit {
     };
   }
 
+  updateInformation(newExercise: ExerciseModel) {
+    this.exerciseModel = newExercise;
+  }
 }
