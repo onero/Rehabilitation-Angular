@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ExerciseModel} from '../../shared/exercise.model';
 import {ExerciseService} from '../shared/exercise.service';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'rehab-exercise-list',
@@ -30,9 +31,12 @@ export class ExerciseListComponent implements OnInit {
 
   ngOnInit() {
     this.exercisesFromClient = [];
-    this.fillListWithMock();
-    this.exerciseService.getExercises().subscribe(result =>
-      console.log(result[0].title));
+    // this.fillListWithMock();
+    this.exerciseService.getExercises().subscribe(exercises => {
+      for (let i = 0; i < exercises.length; i++) {
+        this.exercisesFromClient.push(exercises[i]);
+      }
+    });
   }
 
   onExerciseClick(exercise: ExerciseModel) {
