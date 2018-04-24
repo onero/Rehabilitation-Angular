@@ -35,7 +35,8 @@ export class YoutubePlayerComponent implements OnInit {
     this.instantiateVideo();
   }
 
-  loadVideoById(videoId: string) {
+  loadVideoByUrl(videoUrl: string) {
+    const videoId = this.ytService.getIdFromURL(videoUrl);
     this.player.loadVideoById(videoId);
   }
 

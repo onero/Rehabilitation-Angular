@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {YoutubePlayerComponent} from './youtube-player/youtube-player.component';
+import { ExerciseModel } from '../shared/exercise.model';
 
 @Component({
   selector: 'rehab-exercises',
@@ -20,12 +21,17 @@ export class ExercisesComponent implements OnInit {
     this.currentVideoId = '8GI7pzelfJk';
   }
 
+  notifyOnNewVideoSelected(exercise: ExerciseModel) {
+    this.loadNewVideoById(exercise.videoUrl);
+    console.log(exercise.title);
+  }
+
   /**
    * Load a new video, by its id
    * @param {string} videoId
    */
   loadNewVideoById(videoId: string) {
-    this.child.loadVideoById(videoId);
+    this.child.loadVideoByUrl(videoId);
   }
 
 }
