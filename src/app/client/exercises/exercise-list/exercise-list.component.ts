@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ExerciseModel} from '../../shared/exercise.model';
+import {ExerciseService} from '../shared/exercise.service';
 
 @Component({
   selector: 'rehab-exercise-list',
@@ -10,7 +11,7 @@ export class ExerciseListComponent implements OnInit {
 
   exercisesFromClient: ExerciseModel[];
 
-  constructor() {
+  constructor(private exerciseService: ExerciseService) {
   }
 
   private fillListWithMock() {
@@ -34,6 +35,7 @@ export class ExerciseListComponent implements OnInit {
 
   onExerciseClick(exercise: ExerciseModel) {
     // TODO MSP Dependency inject this exercise into videocomponent.
-    console.log(exercise.title);
-  }
+    // console.log(exercise.title);
+    console.log(this.exerciseService.getExercises());
+  }5
 }

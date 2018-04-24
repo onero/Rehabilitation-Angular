@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {YoutubePlayerComponent} from './exercises/youtube-player/youtube-player.component';
 import {YoutubeService} from './exercises/youtube-player/youtube.service';
 import {ExerciseListComponent} from './exercises/exercise-list/exercise-list.component';
+import {ExerciseService} from './exercises/shared/exercise.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import {ExerciseListComponent} from './exercises/exercise-list/exercise-list.com
     HttpClientModule
   ],
   declarations: [ExercisesComponent, ExerciseInformationComponent, YoutubePlayerComponent, ExerciseListComponent],
-  providers: [YoutubeService]
+  providers: [YoutubeService, ExerciseService]
 })
 export class ClientModule { }
