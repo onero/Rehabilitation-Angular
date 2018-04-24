@@ -1,7 +1,7 @@
-<ul>
-  <li *ngFor="let exercise of $exercises | async">
-    <div class="card" (click)="onExerciseSelected(exercise)">
-      <h5>{{exercise.title}}</h5>'
-    </div>
-  </li>
-</ul>
+<div *ngFor="let exercise of $exercises | async"
+     class="card" (click)="onExerciseSelected(exercise); currentExercise = exercise"
+                  [ngClass]="{'selected': currentExercise === exercise}">
+  <div class="card-body">
+    <h5 class="card-title">{{exercise.title}}</h5>
+  </div>
+</div>

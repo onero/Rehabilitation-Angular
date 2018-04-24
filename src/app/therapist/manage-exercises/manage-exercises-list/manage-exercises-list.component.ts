@@ -11,6 +11,7 @@ import {ExerciseService} from '../../../client/exercises/shared/exercise.service
 export class ManageExercisesListComponent implements OnInit {
   @Output()
   exerciseSelected = new EventEmitter<ExerciseModel>();
+  currentExercise: ExerciseModel;
 
   $exercises: Observable<ExerciseModel[]>;
 
