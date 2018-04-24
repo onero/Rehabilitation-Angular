@@ -16,15 +16,15 @@ export class ExerciseInformationComponent implements OnInit {
 
   ngOnInit() {
     this.exerciseModel = {
-      title: 'Fine motor control',
-      category: 'Hand',
-      description: 'This is good for your hand',
-      repetition: '3x15, 3 times a day',
-      videoUrl: 'www.videoLINK.dk'
+      title: '',
+      category: '',
+      description: '',
+      repetition: '',
+      videoUrl: ''
     };
   }
 
-  updateInformation(newExercise: ExerciseModel) {
+  public updateInformation(newExercise: ExerciseModel) {
     this.exerciseModel = newExercise;
   }
 }
