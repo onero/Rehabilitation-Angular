@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment.prod';
+import { ClientModule } from './client/client.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { environment } from '../environments/environment.prod';
     AppRoutes,
     SharedModule,
     AuthModule,
-    AngularFireModule.initializeApp(environment.firebase)    
+    AngularFireModule.initializeApp(environment.firebase),
+    ClientModule
   ],
   declarations: [
     AppComponent
