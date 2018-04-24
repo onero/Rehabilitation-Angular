@@ -12,4 +12,8 @@ export class ExerciseService {
     return this.angularFireStore.collection<ExerciseModel>('Exercises').valueChanges();
   }
 
+  addExercise(newExercise: ExerciseModel) {
+  //  TODO ALH: Add to firebase!
+    console.log('Hello from exercise service', newExercise)
+  }
 }

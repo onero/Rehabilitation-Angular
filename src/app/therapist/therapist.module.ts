@@ -4,10 +4,12 @@ import { ManageExercisesComponent } from './manage-exercises/manage-exercises.co
 import { ManageExercisesListComponent } from './manage-exercises/manage-exercises-list/manage-exercises-list.component';
 import { ManageExercisesDetailComponent } from './manage-exercises/manage-exercises-detail/manage-exercises-detail.component';
 import { NewExerciseComponent } from './manage-exercises/new-exercise/new-exercise.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   declarations: [ManageExercisesComponent, ManageExercisesListComponent, ManageExercisesDetailComponent, NewExerciseComponent]
 })
