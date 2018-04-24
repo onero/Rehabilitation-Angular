@@ -24,8 +24,8 @@
     </div>
     <div class="col-md-6">
       <!--MANAGE-EXERCISES-DETAIL COMPONENT-->
-      <h1>Exercise</h1>
       <rehab-manage-exercises-detail *ngIf="selectedExercise"
+                                     (deletedExercise)="selectedExercise = null"
                                      [currentExercise]="selectedExercise"></rehab-manage-exercises-detail>
     </div>
   </div>

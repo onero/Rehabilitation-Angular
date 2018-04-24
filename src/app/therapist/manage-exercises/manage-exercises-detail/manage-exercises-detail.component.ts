@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ExerciseModel} from '../../../client/shared/exercise.model';
+import {ExerciseService} from '../../../shared/services/exercise.service';
 
 @Component({
   selector: 'rehab-manage-exercises-detail',
@@ -10,9 +11,18 @@ export class ManageExercisesDetailComponent implements OnInit {
   @Input()
   currentExercise: ExerciseModel;
 
-  constructor() { }
+  @Output()
+  deletedExercise = new EventEmitter();
+
+  constructor(private exerciseService: ExerciseService) { }
 
   ngOnInit() {
   }
 
+  deleteExercise() {
+    this.exerciseService.deleteExercise(this.currentExercise)
+      .then(() => {
+        this.deletedExercise.emit();
+      });
+  }
 }

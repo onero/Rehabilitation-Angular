@@ -1,8 +1,10 @@
+<h1>{{currentExercise.title}}</h1>
 <div class="container-fluid">
   <!--TITLE-->
   <div class="row">
     <div class="col">
-      <h3 style="text-align: center">{{currentExercise.title}}</h3>
+      <button class="btn btn-danger pull-left" (click)="deleteExercise()">Delete</button>
+      <i class="fa fa-edit fa-2x pull-right"></i>
     </div>
   </div>
   <!--CATEGORIES & VIDEO INFO-->

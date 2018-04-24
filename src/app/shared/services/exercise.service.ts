@@ -26,6 +26,11 @@ export class ExerciseService {
    */
   addExercise(newExercise: ExerciseModel) {
     const id = this.angularFireStore.createId();
+    newExercise.uid = id;
     return this.angularFireStore.collection<ExerciseModel>(this.EXERCISES_COLLECTION).doc(id).set(newExercise);
+  }
+
+  deleteExercise(currentExercise: ExerciseModel) {
+    return this.angularFireStore.collection<ExerciseModel>(this.EXERCISES_COLLECTION).doc(currentExercise.uid).delete();
   }
 }
