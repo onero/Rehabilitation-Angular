@@ -31,11 +31,12 @@ export class ExerciseListComponent implements OnInit {
   ngOnInit() {
     this.exercisesFromClient = [];
     this.fillListWithMock();
+    this.exerciseService.getExercises().subscribe(result =>
+      console.log(result[0].title));
   }
 
   onExerciseClick(exercise: ExerciseModel) {
     // TODO MSP Dependency inject this exercise into videocomponent.
     // console.log(exercise.title);
-    console.log(this.exerciseService.getExercises());
-  }5
+  }
 }
