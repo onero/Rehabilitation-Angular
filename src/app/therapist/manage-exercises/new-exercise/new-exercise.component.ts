@@ -21,12 +21,12 @@ export class NewExerciseComponent implements OnInit {
     this.router.navigateByUrl('therapist/exercises');
   }
 
-  createNewExercise(newExerciseForm: NgForm) {
+  createNewExercise(newExerciseForm: ExerciseModel) {
     const newExercise: ExerciseModel = {
-      title: newExerciseForm.value.title,
-      description: newExerciseForm.value.description,
-      repetition: newExerciseForm.value.repetition,
-      videoUrl: newExerciseForm.value.videoUrl,
+      title: newExerciseForm.title,
+      description: newExerciseForm.description,
+      repetition: newExerciseForm.repetition,
+      videoUrl: newExerciseForm.videoUrl,
       category: 'Hand' // TODO ALH: Replace!
     };
     this.exerciseService.addExercise(newExercise)

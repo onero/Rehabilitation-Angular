@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
-      <form novalidate #newExerciseForm="ngForm" (submit)="createNewExercise(newExerciseForm)">
+      <form novalidate #newExerciseForm="ngForm" (submit)="createNewExercise(newExerciseForm.value)">
         <h1>Add Exercise</h1>
         <!--TITLE-->
         <div class="form-group">
