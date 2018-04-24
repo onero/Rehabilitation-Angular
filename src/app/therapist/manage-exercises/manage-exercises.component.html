@@ -13,7 +13,7 @@
     <div class="col">
       <!--MANAGE-EXERCISES-LIST COMPONENT-->
       <h1>Categories</h1>
-      <rehab-manage-exercises-list (exerciseSelected)="exerciseSelected = true"></rehab-manage-exercises-list>
+      <rehab-manage-exercises-list (exerciseSelected)="exerciseSelected = $event"></rehab-manage-exercises-list>
     </div>
     <div class="col">
       <!--MANAGE-EXERCISES-DETAIL COMPONENT-->
