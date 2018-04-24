@@ -17,7 +17,8 @@ export class ManageExercisesComponent implements OnInit {
       title: 'Test',
       category: 'Test',
       description: 'BlaBlaBlaBlaBla BlaBlaBlaBlaBla BlaBlaBla',
-      repetition: '3x3'
+      repetition: '3x3',
+      videoUrl: 'http://adamino.dk'
     };
   }
 
