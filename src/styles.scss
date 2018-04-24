@@ -3,6 +3,7 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
 $rehab-blue: #1726f0;
+$rehab-green: green;
 
 .card.selected {
   background-color: $rehab-blue;
@@ -10,4 +11,8 @@ $rehab-blue: #1726f0;
   .card-title {
     color: white;
   }
+}
+
+.add-button {
+  color: $rehab-green;
 }

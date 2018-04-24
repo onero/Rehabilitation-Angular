@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ExerciseModel} from '../../../client/shared/exercise.model';
-import {ExerciseService} from '../../../client/exercises/shared/exercise.service';
+import {ExerciseService} from '../../../shared/services/exercise.service';
 
 @Component({
   selector: 'rehab-manage-exercises-list',

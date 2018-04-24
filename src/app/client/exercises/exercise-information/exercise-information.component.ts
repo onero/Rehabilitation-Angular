@@ -19,7 +19,8 @@ export class ExerciseInformationComponent implements OnInit {
       title: 'Fine motor control',
       category: 'Hand',
       description: 'This is good for your hand',
-      repetition: '3x15, 3 times a day'
+      repetition: '3x15, 3 times a day',
+      videoUrl: 'adamino.dk'
     };
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ExerciseModel} from '../../client/shared/exercise.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'rehab-manage-exercises',
@@ -9,17 +10,12 @@ import {ExerciseModel} from '../../client/shared/exercise.model';
 export class ManageExercisesComponent implements OnInit {
   selectedExercise: ExerciseModel;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
-    // TODO ALH: Remove!
-    this.selectedExercise = {
-      title: 'Test',
-      category: 'Test',
-      description: 'BlaBlaBlaBlaBla BlaBlaBlaBlaBla BlaBlaBla',
-      repetition: '3x3',
-      videoUrl: 'http://adamino.dk'
-    };
   }
 
+  addExercise() {
+    this.router.navigateByUrl('therapist/exercises/new');
+  }
 }

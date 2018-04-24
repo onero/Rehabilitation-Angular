@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ExerciseModel} from '../../shared/exercise.model';
-import {ExerciseService} from '../shared/exercise.service';
+import {ExerciseService} from '../../../shared/services/exercise.service';
 import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
@@ -22,7 +22,8 @@ export class ExerciseListComponent implements OnInit {
           title: `MockClient${i}`,
           repetition: `${i} x ${i}`,
           category: `MockCategory${i}`,
-          description: `Mock Description ${i}`
+          description: `Mock Description ${i}`,
+          videoUrl: 'adamino.dk'
         }
       );
     }
