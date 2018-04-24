@@ -1,6 +1,6 @@
 <ul>
   <li *ngFor="let exercise of $exercises | async">
-    <div class="card">
+    <div class="card" (click)="onExerciseSelected()">
       <h5>{{exercise.title}}</h5>'
     </div>
   </li>

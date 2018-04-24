@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ExerciseModel} from '../../../client/shared/exercise.model';
 import {ExerciseService} from '../../../client/exercises/shared/exercise.service';
@@ -9,11 +9,17 @@ import {ExerciseService} from '../../../client/exercises/shared/exercise.service
   styleUrls: ['./manage-exercises-list.component.scss']
 })
 export class ManageExercisesListComponent implements OnInit {
+  @Output()
+  exerciseSelected = new EventEmitter<Boolean>();
 
   $exercises: Observable<ExerciseModel[]>;
 
   constructor(private exerciseService: ExerciseService) {
     this.$exercises = exerciseService.getExercises();
+  }
+
+  onExerciseSelected() {
+    this.exerciseSelected.emit(true);
   }
 
   ngOnInit() {

@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-exercises.component.scss']
 })
 export class ManageExercisesComponent implements OnInit {
+  exerciseSelected = false;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  selectExercise() {
+    this.exerciseSelected = true;
   }
 
 }
