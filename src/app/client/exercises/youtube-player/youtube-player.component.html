@@ -1,7 +1,7 @@
-<iframe [id]="playerId"
-        [width]="width"
-        [height]="height"
-        [src]="src"
-        frameborder="0"
-        allowfullscreen>
-</iframe>
+<youtube-player
+  [videoId]="videoId"
+  [width]="width"
+  [height]="height"
+  (ready)="savePlayer($event)"
+  (change)="onStateChange($event)"
+></youtube-player>
