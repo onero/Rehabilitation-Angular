@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ExerciseModel} from '../../client/shared/exercise.model';
 
 @Component({
   selector: 'rehab-manage-exercises',
@@ -6,15 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-exercises.component.scss']
 })
 export class ManageExercisesComponent implements OnInit {
-  exerciseSelected = true;
+  selectedExercise: ExerciseModel;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  selectExercise() {
-    this.exerciseSelected = true;
+  selectExercise(exercise: ExerciseModel) {
+    this.selectedExercise = exercise;
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ExerciseModel} from '../../../client/shared/exercise.model';
 
 @Component({
   selector: 'rehab-manage-exercises-detail',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-exercises-detail.component.scss']
 })
 export class ManageExercisesDetailComponent implements OnInit {
+  @Input()
+  currentExercise: ExerciseModel;
 
   constructor() { }
 

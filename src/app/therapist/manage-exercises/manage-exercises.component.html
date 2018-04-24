@@ -13,13 +13,13 @@
     <div class="col">
       <!--MANAGE-EXERCISES-LIST COMPONENT-->
       <h1>Categories</h1>
-      <rehab-manage-exercises-list (exerciseSelected)="exerciseSelected = $event"></rehab-manage-exercises-list>
+      <rehab-manage-exercises-list (exerciseSelected)="selectedExercise = $event"></rehab-manage-exercises-list>
     </div>
     <div class="col">
       <!--MANAGE-EXERCISES-DETAIL COMPONENT-->
       <!--TODO ALH: Replace-->
       <h1>Exercise</h1>
-      <rehab-manage-exercises-detail *ngIf="exerciseSelected"></rehab-manage-exercises-detail>
+      <rehab-manage-exercises-detail *ngIf="selectedExercise" [currentExercise]="selectedExercise"></rehab-manage-exercises-detail>
     </div>
   </div>
 </div>

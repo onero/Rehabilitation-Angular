@@ -10,7 +10,7 @@ import {ExerciseService} from '../../../client/exercises/shared/exercise.service
 })
 export class ManageExercisesListComponent implements OnInit {
   @Output()
-  exerciseSelected = new EventEmitter<Boolean>();
+  exerciseSelected = new EventEmitter<ExerciseModel>();
 
   $exercises: Observable<ExerciseModel[]>;
 
@@ -18,8 +18,8 @@ export class ManageExercisesListComponent implements OnInit {
     this.$exercises = exerciseService.getExercises();
   }
 
-  onExerciseSelected() {
-    this.exerciseSelected.emit(true);
+  onExerciseSelected(exercise: ExerciseModel) {
+    this.exerciseSelected.emit(exercise);
   }
 
   ngOnInit() {
