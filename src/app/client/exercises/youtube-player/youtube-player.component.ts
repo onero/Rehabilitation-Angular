@@ -16,7 +16,7 @@ export class YoutubePlayerComponent implements OnInit {
   @Input() playerId = 'player';
   @Input() playlistId = '';
 
-  public player: any;
+  public player: YT.Player;
   public src: SafeResourceUrl;
   public title = '';
   public description = '';
@@ -33,6 +33,13 @@ export class YoutubePlayerComponent implements OnInit {
         this.description = ytResponse.items[0].snippet.description;
       });
     this.instantiateVideo();
+  }
+
+  savePlayer (player) {
+    this.player = player;
+  }
+  onStateChange(event) {
+    console.log('player state', event.data);
   }
 
   private instantiateVideo() {

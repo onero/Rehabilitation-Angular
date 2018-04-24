@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 
 @Component({
   selector: 'rehab-exercises',
@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class ExercisesComponent implements OnInit {
   currentVideoId: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     // TODO ALH: Dynamically insert videoID!
