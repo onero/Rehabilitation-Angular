@@ -41,6 +41,5 @@ export class ExerciseListComponent implements OnInit {
 
   onExerciseClick(exercise: ExerciseModel) {
     // TODO MSP Dependency inject this exercise into videocomponent.
-    // console.log(exercise.title);
   }
 }

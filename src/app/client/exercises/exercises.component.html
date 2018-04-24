@@ -1,5 +1,14 @@
-<p>
-  <rehab-exercise-information></rehab-exercise-information>
-</p>
-<rehab-exercise-list></rehab-exercise-list>
-<rehab-youtube-player [videoId]="currentVideoId"></rehab-youtube-player>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <!--YOUTUBE COMPONENT-->
+      <rehab-youtube-player #youtubePlayer [videoId]="currentVideoId"></rehab-youtube-player>
+      <!--VIDEO INFO COMPONENT-->
+      <rehab-exercise-information></rehab-exercise-information>
+    </div>
+    <div class="col">
+      <!--VIDEO PLAYLIST COMPONENT-->
+      <rehab-exercise-list></rehab-exercise-list>
+    </div>
+  </div>
+</div>
