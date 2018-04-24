@@ -10,13 +10,18 @@ import {ExerciseService} from '../../../shared/services/exercise.service';
 export class ManageExercisesDetailComponent implements OnInit {
   @Input()
   currentExercise: ExerciseModel;
-
   @Output()
   deletedExercise = new EventEmitter();
+
+  editMode = false;
 
   constructor(private exerciseService: ExerciseService) { }
 
   ngOnInit() {
+  }
+
+  toggleEdit() {
+    this.editMode = !this.editMode;
   }
 
   deleteExercise() {
@@ -24,5 +29,9 @@ export class ManageExercisesDetailComponent implements OnInit {
       .then(() => {
         this.deletedExercise.emit();
       });
+  }
+
+  updateExercise() {
+  //  TODO ALH: Implement
   }
 }

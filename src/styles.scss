@@ -4,6 +4,7 @@
 
 $rehab-blue: #1726f0;
 $rehab-green: green;
+$rehab-edit: #00FFFF;
 
 .card.selected {
   background-color: $rehab-blue;
@@ -15,4 +16,8 @@ $rehab-green: green;
 
 .add-button {
   color: $rehab-green;
+}
+
+.center {
+  text-align: center
 }
