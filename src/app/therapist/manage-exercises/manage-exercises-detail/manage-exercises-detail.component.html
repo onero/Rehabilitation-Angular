@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col">
       <!--TODO ALH: Replace-->
-      <h3>{{currentExercise.title}}</h3>
+      <h3 style="text-align: center">{{currentExercise.title}}</h3>
     </div>
   </div>
   <!--CATEGORIES & VIDEO INFO-->
@@ -11,10 +11,16 @@
     <div class="col">
       <!--TODO ALH: Replace-->
       <h3>CATEGORIES</h3>
+      <ul>
+        <li>Hands</li>
+        <li>Fingers</li>
+      </ul>
     </div>
     <div class="col">
       <!--TODO ALH: Replace-->
       <h3>VIDEO</h3>
+      <img src="/assets/placeholders/youtube-icon.png">
+      <a target="_blank" href="http://adamino.dk">Ring finger Exercise</a>
     </div>
   </div>
   <!--DESCRIPTION & REPETITIONS-->
@@ -22,10 +28,12 @@
     <div class="col">
       <!--TODO ALH: Replace-->
       <h3>DESCRIPTION</h3>
+      <p>{{currentExercise.description}}</p>
     </div>
     <div class="col">
       <!--TODO ALH: Replace-->
       <h3>REPETITIONS</h3>
+      <p>{{currentExercise.repetition}}</p>
     </div>
   </div>
 </div>

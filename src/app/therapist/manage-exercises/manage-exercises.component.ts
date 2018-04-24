@@ -12,10 +12,13 @@ export class ManageExercisesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
-
-  selectExercise(exercise: ExerciseModel) {
-    this.selectedExercise = exercise;
+    // TODO ALH: Remove!
+    this.selectedExercise = {
+      title: 'Test',
+      category: 'Test',
+      description: 'BlaBlaBlaBlaBla BlaBlaBlaBlaBla BlaBlaBla',
+      repetition: '3x3'
+    };
   }
 
 }
