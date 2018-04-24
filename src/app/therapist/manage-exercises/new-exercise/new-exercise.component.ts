@@ -27,8 +27,12 @@ export class NewExerciseComponent implements OnInit {
       description: newExerciseForm.value.description,
       repetition: newExerciseForm.value.repetition,
       videoUrl: newExerciseForm.value.videoUrl,
-      category: newExerciseForm.value.category,
+      category: 'Hand' // TODO ALH: Replace!
     };
-    this.exerciseService.addExercise(newExercise);
+    this.exerciseService.addExercise(newExercise)
+      .then(() => {
+        this.router.navigateByUrl('therapist/exercises');
+      })
+      .catch(err => console.log(err));
   }
 }
