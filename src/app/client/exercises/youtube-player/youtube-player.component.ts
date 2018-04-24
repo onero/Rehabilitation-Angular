@@ -35,9 +35,14 @@ export class YoutubePlayerComponent implements OnInit {
     this.instantiateVideo();
   }
 
-  savePlayer (player) {
+  loadVideoById(videoId: string) {
+    this.player.loadVideoById(videoId);
+  }
+
+  savePlayer(player) {
     this.player = player;
   }
+
   onStateChange(event) {
     console.log('player state', event.data);
   }

@@ -2,11 +2,10 @@
   <div class="row">
     <div class="col">
       <!--YOUTUBE COMPONENT-->
-      <rehab-youtube-player [videoId]="currentVideoId"></rehab-youtube-player>
+      <rehab-youtube-player #youtubePlayer [videoId]="currentVideoId"></rehab-youtube-player>
       <!--VIDEO INFO COMPONENT-->
       <h1>VIDEO INFO COMPONENT</h1>
       <!--TODO ALH: remove when implementing video info-->
-      <!--<button class="btn btn-primary" (click)="onVideoIdChanged('vntAEVjPBzQ')">CHANGE VIDEO!</button>-->
     </div>
     <div class="col">
       <!--VIDEO PLAYLIST COMPONENT-->
