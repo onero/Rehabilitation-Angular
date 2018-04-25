@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
+import {ClientModel} from '../../therapist/shared/client.model';
 
 @Injectable()
 export class ClientService {
 
-  CLIENTS_COLLECTION = 'Clients';
+  private CLIENTS_COLLECTION = 'Clients';
 
   constructor(private afs: AngularFirestore) {
   }
@@ -31,5 +32,14 @@ export class ClientService {
       email: clientEmail
     };
     return this.afs.collection(this.CLIENTS_COLLECTION).add(newClient);
+  }
+
+  /**
+   * Delete provided client
+   * @param {ClientModel} currentClient
+   * @returns {AngularFirestoreCollection<any>}
+   */
+  deleteClient(currentClient: ClientModel) {
+    return this.afs.collection(this.CLIENTS_COLLECTION);
   }
 }
