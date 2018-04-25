@@ -8,12 +8,55 @@
       <!--Contact Information-->
       <h3>
         {{currentModel.fullName}}
-        <i class="fa fa-edit pull-right"
-           (click)="editContactInformation()"></i>
+        <div *ngIf="!editMode; then editIcon else saveIcon"></div>
+        <ng-template #editIcon>
+          <i class="fa fa-edit pull-right" (click)="toggleEdit()"></i>
+        </ng-template>
+        <ng-template #saveIcon>
+          <i class="fa fa-floppy-o pull-right"
+             (click)="updateClientContactInformation()"></i>
+        </ng-template>
       </h3>
-      <h5>Address: {{currentModel.address}}</h5>
-      <h5>Phone number: {{currentModel.phone}}</h5>
-      <h5>Email: {{currentModel.email}}</h5>
+
+      <div *ngIf="!editMode; then contactInformation else editContactInformation"></div>
+      <ng-template #contactInformation>
+        <h5>Address: {{currentModel.address}}</h5>
+        <h5>Phone number: {{currentModel.phone}}</h5>
+        <h5>Email: {{currentModel.email}}</h5>
+      </ng-template>
+      <ng-template #editContactInformation>
+        <form novalidate #contactInformationForm="ngForm">
+          <label for="addressInput">Address: </label>
+          <input style="width: 50%"
+                 type="text"
+                 #addressInput="ngModel"
+                 required
+                 id="addressInput"
+                 name="addressInput"
+                 class="edit-mode"
+                 [(ngModel)]="currentModel.address">
+          <br>
+          <label for="addressInput">Phone: </label>
+          <input style="width: 50%"
+                 type="text"
+                 #phoneInput="ngModel"
+                 required
+                 name="phoneInput"
+                 id="phoneInput"
+                 class="edit-mode"
+                 [(ngModel)]="currentModel.phone">
+          <br>
+          <label for="addressInput">Email: </label>
+          <input style="width: 50%"
+                 type="text"
+                 #emailInput="ngModel"
+                 required
+                 name="emailInput"
+                 id="emailInput"
+                 class="edit-mode"
+                 [(ngModel)]="currentModel.email">
+        </form>
+      </ng-template>
     </a>
   </div>
 </div>

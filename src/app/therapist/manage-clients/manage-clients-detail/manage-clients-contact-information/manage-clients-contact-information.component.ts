@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ClientModel } from '../../../shared/client.model';
+import {Component, Input, OnInit} from '@angular/core';
+import {ClientModel} from '../../../shared/client.model';
+import {ClientService} from '../../../../shared/services/client.service';
 
 @Component({
   selector: 'rehab-manage-clients-contact-information',
@@ -11,22 +12,25 @@ export class ManageClientsContactInformationComponent implements OnInit {
   @Input()
   currentModel: ClientModel;
 
-  constructor() { }
+  editMode = false;
 
-  ngOnInit() {}
+  constructor(private clientService: ClientService) {
+  }
+
+  ngOnInit() {
+  }
+
+  toggleEdit() {
+    this.editMode = !this.editMode;
+  }
 
   /**
    * Updates the client contact information
    * @param {ClientModel} newClient
    */
-  public updateClientContactInformation(newClient: ClientModel) {
-    this.currentModel = newClient;
+  public updateClientContactInformation() {
+    this.clientService.updateClient(this.currentModel);
+    this.editMode = false;
   }
 
-  /**
-   * Edit btn will change the view to be editable.
-   */
-  editContactInformation() {
-    console.log('EDIT EDIT EDIT!');
-  }
 }

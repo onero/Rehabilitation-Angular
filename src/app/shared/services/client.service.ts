@@ -32,10 +32,19 @@ export class ClientService {
 
   /**
    * Delete provided client
-   * @param {ClientModel} currentClient
+   * @param {ClientModel} clientToDelete
    * @returns {AngularFirestoreCollection<any>}
    */
-  deleteClient(currentClient: ClientModel) {
-    return this.afs.collection(this.CLIENTS_COLLECTION).doc(currentClient.uid).delete();
+  deleteClient(clientToDelete: ClientModel) {
+    return this.afs.collection(this.CLIENTS_COLLECTION).doc(clientToDelete.uid).delete();
+  }
+
+  /**
+   * Update client doc on FireStore
+   * @param {ClientModel} clientToUpdate
+   * @returns {Promise<void>}
+   */
+  updateClient(clientToUpdate: ClientModel) {
+    return this.afs.collection(this.CLIENTS_COLLECTION).doc(clientToUpdate.uid).set(clientToUpdate, {merge: true});
   }
 }
