@@ -7,7 +7,7 @@ import {NewExerciseComponent} from './manage-exercises/new-exercise/new-exercise
 import {FormsModule} from '@angular/forms';
 import {ManageCategoriesListComponent} from './manage-exercises/manage-categories-list/manage-categories-list.component';
 import {SharedModule} from '../shared/shared.module';
-import { ManageClientsComponent } from './manage-clients/manage-clients.component';
+import {ManageClientsComponent} from './manage-clients/manage-clients.component';
 import {ManageClientsDetailComponent} from './manage-clients/manage-clients-detail/manage-clients-detail.component';
 import {DiagnosisComponent} from './manage-clients/manage-clients-detail/diagnosis/diagnosis.component';
 import {ManageClientsListComponent} from './manage-clients/manage-clients-list/manage-clients-list.component';
@@ -27,7 +27,6 @@ import {ManageClientsGoalComponent} from './manage-clients/manage-clients-detail
     NewExerciseComponent,
     ManageCategoriesListComponent,
     ManageClientsComponent,
-    DiagnosisComponent,
     ManageClientsListComponent,
     ManageClientsDetailComponent,
     ManageClientsContactInformationComponent,
