@@ -16,4 +16,12 @@ export class CategoryService {
     return this.angularFireStore.collection(this.CATEGORIES_COLLECTION).valueChanges();
   }
 
+  /**
+   * Create new category in the CATEGORIES_COLLECTION
+   * @param {string} categoryName
+   */
+  createCategory(categoryName: string) {
+    const newCategory = {name: categoryName};
+    return this.angularFireStore.collection(this.CATEGORIES_COLLECTION).add(newCategory);
+  }
 }

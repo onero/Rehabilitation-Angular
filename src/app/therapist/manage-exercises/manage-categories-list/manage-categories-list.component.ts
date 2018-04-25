@@ -46,7 +46,10 @@ export class ManageCategoriesListComponent implements OnInit {
     }
   }
 
-  addCategory(value: string) {
-    console.log(value)
+  addCategory(categoryName: string) {
+    this.categoryService.createCategory(categoryName)
+      .then(() => {
+      //  TODO ALH: Add awesome message to user!
+      });
   }
 }
