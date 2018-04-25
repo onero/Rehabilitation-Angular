@@ -1,7 +1,6 @@
-export class ClientModel {
-  fullName: string;
-  address: string;
+import { UserModel } from './user.model';
+
+export class ClientModel extends UserModel {
   email: string;
-  phone: string;
   // TODO: Skovgaard - Make ClientModel extend UserModel.
 }
