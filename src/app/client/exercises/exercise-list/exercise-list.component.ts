@@ -21,12 +21,16 @@ export class ExerciseListComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Instantiation of array.
     this.exercisesFromClient = [];
+    // Gets all exercises from the service
     this.exerciseService.getExercises().subscribe(exercises => {
       for (const exercise of exercises) {
+        // Gets the videoId on the exercise
         const videoId = this.youtubeService.getIdFromURL(exercise.videoUrl);
         this.youtubeService.getVideoInformation(videoId)
           .subscribe(result => {
+            // Gets the imgUrl from the youtubeService.
             const ytResponse = result as YoutubeResponse;
             exercise.imgUrl = ytResponse.items[0].snippet.thumbnails.default.url;
             this.exercisesFromClient.push(exercise);
@@ -35,6 +39,10 @@ export class ExerciseListComponent implements OnInit {
     });
   }
 
+  /**
+   * Emits the exercise clicked to the mother component.
+   * @param {ExerciseModel} exercise
+   */
   onExerciseClick(exercise: ExerciseModel) {
     this.exerciseSelected.emit(exercise);
   }

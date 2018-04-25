@@ -9,6 +9,7 @@ export class ExerciseService {
   constructor(private angularFireStore: AngularFirestore) { }
 
   public getExercises(): Observable<ExerciseModel[]> {
+    // TODO MSP Refactor this with Client.
     return this.angularFireStore.collection<ExerciseModel>('Exercises').valueChanges();
   }
 
