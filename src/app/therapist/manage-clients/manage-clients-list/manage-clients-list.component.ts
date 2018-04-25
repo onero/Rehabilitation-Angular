@@ -22,7 +22,6 @@ export class ManageClientsListComponent implements OnInit {
 
   ngOnInit() {
     this.$clients = this.clientService.getClients();
-    // this.mockClient2();
   }
 
   onClientSelected(client) {
@@ -37,20 +36,11 @@ export class ManageClientsListComponent implements OnInit {
     });
   }
 
-  private mockClient2() {
-    this.currentClient = {
-      fullName: 'Mathias Plougmann',
-      address: 'Intetsted 15',
-      phone: '1234',
-      email: 'HrJensen@gmail.com'
-    };
-  }
-
   addClient(clientName: string) {
     this.clientService.createClient(clientName)
       .then(() => {
       // TODO Skovgaard: Add message to user.
-      })
+      });
   }
 
   private getDismissReason(reason: any): string {
