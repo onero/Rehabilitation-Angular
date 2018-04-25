@@ -29,8 +29,7 @@ import { ManageClientsListComponent } from './therapist/manage-clients/manage-cl
     NgbModule.forRoot()
   ],
   declarations: [
-    AppComponent,
-    ManageClientsDetailComponent
+    AppComponent
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]

@@ -9,6 +9,7 @@ import {ManageCategoriesListComponent} from './manage-exercises/manage-categorie
 import {SharedModule} from '../shared/shared.module';
 import { ManageClientsComponent } from './manage-clients/manage-clients.component';
 import { ManageClientsListComponent } from './manage-clients/manage-clients-list/manage-clients-list.component';
+import { ManageClientsDetailComponent } from './manage-clients/manage-clients-detail/manage-clients-detail.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { ManageClientsListComponent } from './manage-clients/manage-clients-list
     NewExerciseComponent,
     ManageCategoriesListComponent,
     ManageClientsComponent,
-    ManageClientsListComponent]
+    ManageClientsListComponent,
+    ManageClientsDetailComponent]
 })
 export class TherapistModule {
 }
