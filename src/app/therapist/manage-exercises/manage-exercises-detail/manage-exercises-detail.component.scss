@@ -1,20 +1,8 @@
 @import "src/styles.scss";
 
-.fa-edit {
-  color: $rehab-blue;
-}
-
-.fa-floppy-o {
-  color: $rehab-green;
-}
-
 .center-input {
   display: block;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-}
-
-.edit-mode {
-  border-color: $rehab-edit;
 }

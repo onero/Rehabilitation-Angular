@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Diagnosis
+        <div *ngIf="!editMode; then editIcon else saveIcon"></div>
+        <ng-template #editIcon>
+          <i class="fa fa-edit fa-1x pull-right" (click)="toggleEdit()"></i>
+        </ng-template>
+        <ng-template #saveIcon>
+          <i class="fa fa-floppy-o fa-1x pull-right" (click)="updateDiagnosis()"></i>
+        </ng-template>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngIf="!editMode; then diagnosis else editDiagnosis"></div>
+    <ng-template #diagnosis>
+  <textarea disabled class="diagnosis-text">
+  {{currentDiagnosis}}
+  </textarea>
+    </ng-template>
+    <ng-template #editDiagnosis>
+  <textarea type="text"
+            required
+            [(ngModel)]="currentDiagnosis"
+            class="edit-mode diagnosis-text"
+            #diagnosisInput
+            name="descriptionInput"
+            rows="3">
+  {{currentDiagnosis}}
+  </textarea>
+    </ng-template>
+  </div>
+</div>

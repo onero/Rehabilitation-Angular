@@ -6,6 +6,14 @@ $rehab-blue: #1726f0;
 $rehab-green: green;
 $rehab-edit: #00FFFF;
 
+.fa-edit {
+  color: $rehab-blue;
+}
+
+.fa-floppy-o {
+  color: $rehab-green;
+}
+
 .card.selected {
   background-color: $rehab-blue;
 
@@ -20,4 +28,8 @@ $rehab-edit: #00FFFF;
 
 .center {
   text-align: center
+}
+
+.edit-mode {
+  border-color: $rehab-edit;
 }
