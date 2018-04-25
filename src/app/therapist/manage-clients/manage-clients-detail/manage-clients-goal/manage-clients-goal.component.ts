@@ -12,4 +12,7 @@ export class ManageClientsGoalComponent implements OnInit {
   ngOnInit() {
   }
 
+  editGoal() {
+    console.log('New goal new goal new goal!');
+  }
 }
