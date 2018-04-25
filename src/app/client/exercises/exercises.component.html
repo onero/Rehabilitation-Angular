@@ -4,19 +4,11 @@
       <!--YOUTUBE COMPONENT-->
       <rehab-youtube-player #youtubePlayer [videoId]="currentVideoId"></rehab-youtube-player>
       <!--VIDEO INFO COMPONENT-->
-      <h1>VIDEO INFO COMPONENT</h1>
+      <rehab-exercise-information #exerciseInformation></rehab-exercise-information>
     </div>
     <div class="col">
       <!--VIDEO PLAYLIST COMPONENT-->
-      <!--TODO ALH: Replace with real implementation-->
-      <h1>VIDEO PLAYLIST COMPONENT</h1>
-      <ul>
-        <li>
-          <button class="btn btn-primary" (click)="loadNewVideoById('o8NPllzkFhE')">
-            Hands
-          </button>
-        </li>
-      </ul>
+      <rehab-exercise-list (exerciseSelected)="notifyOnNewVideoSelected($event)"></rehab-exercise-list>
     </div>
   </div>
 </div>

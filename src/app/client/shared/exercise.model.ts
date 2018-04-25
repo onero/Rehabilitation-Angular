@@ -3,4 +3,6 @@ export class ExerciseModel {
   category: string;
   description: string;
   repetition: string;
+  videoUrl?: string;
+  imgUrl?: string;
 }
