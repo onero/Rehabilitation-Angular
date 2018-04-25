@@ -1,0 +1,90 @@
+<!--TITLE-->
+<form novalidate #updateExerciseForm="ngForm">
+  <div *ngIf="!editMode; then title else editTitle"></div>
+  <ng-template #title>
+    <h1 class="center">{{currentExercise.title}}</h1>
+  </ng-template>
+  <ng-template #editTitle>
+    <input class="center-input edit-mode"
+           type="text"
+           #titleInput
+           [(ngModel)]="currentExercise.title"
+           name="titleInput"
+           required>
+  </ng-template>
+  <div class="container-fluid">
+    <!--ACTION BUTTONS-->
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-danger pull-left" (click)="deleteExercise()">Delete</button>
+        <div *ngIf="!editMode; then editIcon else saveIcon"></div>
+        <ng-template #editIcon>
+          <i class="fa fa-edit fa-2x pull-right" (click)="toggleEdit()"></i>
+        </ng-template>
+        <ng-template #saveIcon>
+          <i class="fa fa-floppy-o fa-2x pull-right" (click)="updateExercise(updateExerciseForm.value)"></i>
+        </ng-template>
+      </div>
+    </div>
+    <!--CATEGORIES & VIDEO INFO-->
+    <div class="row">
+      <div class="col">
+        <h3>CATEGORY</h3>
+        <h5>{{currentExercise.category}}</h5>
+      </div>
+      <div class="col">
+        <h3>VIDEO</h3>
+        <img src="/assets/placeholders/youtube-icon.png">
+        <br>
+        <div *ngIf="!editMode; then link else editLink"></div>
+        <ng-template #link>
+          <a target="_blank" href="{{currentExercise.videoUrl}}">{{currentExercise.title}}</a>
+        </ng-template>
+        <ng-template #editLink>
+          <input class="center-input edit-mode"
+                 style="width: 100%"
+                 type="text"
+                 [(ngModel)]="currentExercise.videoUrl"
+                 #videoUrlInput
+                 name="videoUrlInput"
+                 required>
+        </ng-template>
+      </div>
+    </div>
+    <!--DESCRIPTION & REPETITIONS-->
+    <div class="row">
+      <div class="col">
+        <h3>DESCRIPTION</h3>
+        <div *ngIf="!editMode; then description else editDescription"></div>
+        <ng-template #description>
+          <textarea disabled>{{currentExercise.description}}</textarea>
+        </ng-template>
+        <ng-template #editDescription>
+         <textarea type="text"
+                   required
+                   [(ngModel)]="currentExercise.description"
+                   class="edit-mode"
+                   #descriptionInput
+                   name="descriptionInput"
+                   rows="3"></textarea>
+        </ng-template>
+      </div>
+      <div class="col">
+        <h3>REPETITIONS</h3>
+        <div *ngIf="!editMode; then repetitions else editRepetitions"></div>
+        <ng-template #repetitions>
+          <p>{{currentExercise.repetition}}</p>
+        </ng-template>
+        <ng-template #editRepetitions>
+          <input class="center-input edit-mode"
+                 style="width: 100%;"
+                 type="text"
+                 [(ngModel)]="currentExercise.repetition"
+                 #repetitionsInput
+                 name="repetitionsInput"
+                 required>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</form>

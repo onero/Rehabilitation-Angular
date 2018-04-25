@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {ExerciseModel} from '../../shared/exercise.model';
-import {ExerciseService} from '../shared/exercise.service';
 import {YoutubeService} from '../../../shared/services/youtube.service';
 import {YoutubeResponse} from '../../../shared/models/YoutubeResponse.model';
+import {ExerciseService} from '../../../shared/services/exercise.service';
 
 @Component({
   selector: 'rehab-exercise-list',
