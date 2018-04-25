@@ -9,7 +9,6 @@ import {ManageCategoriesListComponent} from './manage-exercises/manage-categorie
 import {SharedModule} from '../shared/shared.module';
 import {ManageClientsComponent} from './manage-clients/manage-clients.component';
 import {ManageClientsDetailComponent} from './manage-clients/manage-clients-detail/manage-clients-detail.component';
-import {DiagnosisComponent} from './manage-clients/manage-clients-detail/diagnosis/diagnosis.component';
 import {ManageClientsListComponent} from './manage-clients/manage-clients-list/manage-clients-list.component';
 import {ManageClientsDiagnosisComponent} from './manage-clients/manage-clients-detail/manage-clients-diagnosis/manage-clients-diagnosis.component';
 import {ManageClientsContactInformationComponent} from './manage-clients/manage-clients-detail/manage-clients-contact-information/manage-clients-contact-information.component';
