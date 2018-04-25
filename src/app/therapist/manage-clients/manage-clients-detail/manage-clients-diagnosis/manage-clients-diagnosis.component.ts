@@ -12,4 +12,7 @@ export class ManageClientsDiagnosisComponent implements OnInit {
   ngOnInit() {
   }
 
+  editDiagnosis() {
+    console.log('EDIT THIS SHEIT!');
+  }
 }

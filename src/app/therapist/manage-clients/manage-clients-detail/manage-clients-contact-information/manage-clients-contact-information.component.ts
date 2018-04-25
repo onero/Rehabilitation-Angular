@@ -12,7 +12,7 @@ export class ManageClientsContactInformationComponent implements OnInit {
   ngOnInit() {
   }
 
-  edit() {
+  editContactInformation() {
     console.log('EDIT EDIT EDIT!');
   }
 }
