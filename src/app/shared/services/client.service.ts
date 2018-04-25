@@ -14,7 +14,8 @@ export class ClientService {
    * @returns {Observable<any[]>}
    */
   getClients() {
-    return this.afs.collection(this.CLIENTS_COLLECTION).valueChanges();
+    const clientCollection = this.afs.collection(this.CLIENTS_COLLECTION).valueChanges();
+    return clientCollection;
   }
 
   /**

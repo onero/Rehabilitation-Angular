@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ClientModel } from '../../shared/client.model';
 
 @Component({
   selector: 'rehab-manage-clients-detail',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-clients-detail.component.scss']
 })
 export class ManageClientsDetailComponent implements OnInit {
+
+  @Input()
+  currentClient: ClientModel;
 
   constructor() { }
 

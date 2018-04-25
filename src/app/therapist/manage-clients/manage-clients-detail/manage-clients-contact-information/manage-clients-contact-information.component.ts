@@ -9,7 +9,7 @@ import { ClientModel } from '../../../shared/client.model';
 export class ManageClientsContactInformationComponent implements OnInit {
 
   @Input()
-  clientModel: ClientModel;
+  currentModel: ClientModel;
 
   constructor() { }
 
@@ -18,7 +18,7 @@ export class ManageClientsContactInformationComponent implements OnInit {
   }
 
   private emptyClientContactInformation() {
-    this.clientModel = {
+    this.currentModel = {
       fullName: 'Clients name',
       address: '',
       phone: '',
@@ -27,7 +27,7 @@ export class ManageClientsContactInformationComponent implements OnInit {
   }
 
   public updateClientContactInformation(newClient: ClientModel) {
-    this.clientModel = newClient;
+    this.currentModel = newClient;
   }
 
   editContactInformation() {

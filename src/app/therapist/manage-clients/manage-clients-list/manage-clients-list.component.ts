@@ -12,7 +12,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ManageClientsListComponent implements OnInit {
 
   @Output()
-  clientSelected = new EventEmitter<string>();
+  clientSelected = new EventEmitter<ClientModel>();
   currentClient: ClientModel;
   $clients: Observable<any[]>;
   closeResult: string;
@@ -24,8 +24,8 @@ export class ManageClientsListComponent implements OnInit {
     this.$clients = this.clientService.getClients();
   }
 
-  onClientSelected(client) {
-    this.clientSelected.emit(client.name);
+  onClientSelected(client: ClientModel) {
+    this.clientSelected.emit(client);
   }
 
   open(content) {
