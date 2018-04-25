@@ -1,9 +1,38 @@
 <h1 class="center">Clients
   <i class="fa fa-plus-circle pull-right add-button"
-     (click)="addClient()"></i></h1>
-<div>
+     (click)="open(newClient)"></i></h1>
+<div *ngFor="let client of $clients | async"
+     class="card" (click)="onClientSelected(client); currentClient = client"
+     [ngClass]="{'selected': currentClient === client}">
   <div class="card-body">
-    {{clientsModel.fullName}}
-    <h5> TEST </h5>
+    <h5 class="card-title">{{client.fullName}}</h5>
+
   </div>
 </div>
+
+
+<!--NEW CLIENT-->
+<ng-template #newClient let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">New Client</h4>
+  </div>
+  <div class="modal-body">
+    <input #clientInput="ngModel"
+           style="width: 100%"
+           name="clientName"
+           minlength="3"
+           ngModel
+           required
+           type="text"
+           placeholder="Enter the name of the client">
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-danger"
+            (click)="c('Close click')">Close</button>
+    <button [disabled]="!clientInput.valid"
+            type="button"
+            class="btn btn-success pull-right"
+            (click)="addClient(clientInput.value); c('Close click')">Add</button>
+  </div>
+</ng-template>
