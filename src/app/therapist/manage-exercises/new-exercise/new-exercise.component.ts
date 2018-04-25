@@ -20,11 +20,18 @@ export class NewExerciseComponent implements OnInit {
     this.category = this.route.snapshot.params.category;
   }
 
+  /**
+  * Navigate back to exercises
+  */
   cancelForm() {
     this.router.navigateByUrl('therapist/exercises');
   }
 
+  /**
+  * Create new exercise with information from the form
+  */
   createNewExercise(newExerciseForm: ExerciseModel) {
+    // Create exercise object with information from fields
     const newExercise: ExerciseModel = {
       title: newExerciseForm.title,
       description: newExerciseForm.description,
