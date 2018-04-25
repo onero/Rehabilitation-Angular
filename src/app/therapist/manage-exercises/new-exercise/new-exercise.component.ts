@@ -27,7 +27,7 @@ export class NewExerciseComponent implements OnInit {
       description: newExerciseForm.description,
       repetition: newExerciseForm.repetition,
       videoUrl: newExerciseForm.videoUrl,
-      category: 'Hand' // TODO ALH: Replace!
+      categories: ['Hand'] // TODO ALH: Replace!
     };
     this.exerciseService.addExercise(newExercise)
       .then(() => {

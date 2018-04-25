@@ -39,7 +39,7 @@ export class ManageExercisesDetailComponent implements OnInit {
       description: updateExerciseForm.description ? updateExerciseForm.description : this.currentExercise.description,
       repetition: updateExerciseForm.repetition ? updateExerciseForm.repetition : this.currentExercise.repetition,
       videoUrl: updateExerciseForm.videoUrl ? updateExerciseForm.videoUrl : this.currentExercise.videoUrl,
-      category: 'Hand' // TODO ALH: Replace!
+      categories: ['Hand'] // TODO ALH: Replace!
     };
     this.exerciseService.updateExercise(updatedExercise)
       .then(() => {

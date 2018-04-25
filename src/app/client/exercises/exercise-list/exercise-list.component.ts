@@ -15,21 +15,6 @@ export class ExerciseListComponent implements OnInit {
   constructor(private exerciseService: ExerciseService) {
   }
 
-  private fillListWithMock() {
-    for (let i = 0; i <= 4; i++) {
-      this.exercisesFromClient.push(
-        {
-          title: `MockClient${i}`,
-          repetition: `${i} x ${i}`,
-          category: `MockCategory${i}`,
-          description: `Mock Description ${i}`,
-          videoUrl: 'adamino.dk'
-        }
-      );
-    }
-    this.exercisesFromClient.push();
-  }
-
   ngOnInit() {
     this.exercisesFromClient = [];
     // this.fillListWithMock();

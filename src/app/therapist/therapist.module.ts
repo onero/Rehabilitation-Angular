@@ -5,12 +5,13 @@ import { ManageExercisesListComponent } from './manage-exercises/manage-exercise
 import { ManageExercisesDetailComponent } from './manage-exercises/manage-exercises-detail/manage-exercises-detail.component';
 import { NewExerciseComponent } from './manage-exercises/new-exercise/new-exercise.component';
 import {FormsModule} from '@angular/forms';
+import { ManageCategoriesListComponent } from './manage-exercises/manage-categories-list/manage-categories-list.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule
   ],
-  declarations: [ManageExercisesComponent, ManageExercisesListComponent, ManageExercisesDetailComponent, NewExerciseComponent]
+  declarations: [ManageExercisesComponent, ManageExercisesListComponent, ManageExercisesDetailComponent, NewExerciseComponent, ManageCategoriesListComponent]
 })
 export class TherapistModule { }
