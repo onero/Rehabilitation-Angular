@@ -1,3 +1,36 @@
-<p>
-  manage-categories-list works!
-</p>
+<h1 class="center">Categories
+  <i class="fa fa-plus-circle pull-right add-button"
+     (click)="open(newCategory)"></i></h1>
+<div *ngFor="let category of $categories | async"
+     class="card" (click)="onCategorySelected(category); currentCategory = category"
+     [ngClass]="{'selected': currentCategory === category}">
+  <div class="card-body">
+    <h5 class="card-title">{{category.name}}</h5>
+  </div>
+</div>
+
+<!--NEW CATEGORY-->
+<ng-template #newCategory let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">New Category</h4>
+  </div>
+  <div class="modal-body">
+    <input #categoryInput="ngModel"
+           style="width: 100%"
+           name="categoryName"
+           minlength="3"
+           ngModel
+           required
+           type="text"
+           placeholder="Enter the name of the category">
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-danger"
+            (click)="c('Close click')">Close</button>
+    <button [disabled]="!categoryInput.valid"
+            type="button"
+            class="btn btn-success pull-right"
+            (click)="addCategory(categoryInput.value); c('Close click')">Add</button>
+  </div>
+</ng-template>

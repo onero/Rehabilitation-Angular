@@ -8,14 +8,16 @@ import {YoutubePlayerComponent} from './exercises/youtube-player/youtube-player.
 import {YoutubeService} from './exercises/youtube-player/youtube.service';
 import {YoutubePlayerModule} from 'ngx-youtube-player';
 import {ExerciseInformationComponent} from './exercises/exercise-information/exercise-information.component';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     YoutubePlayerModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   declarations: [ExercisesComponent, ExerciseInformationComponent, YoutubePlayerComponent, ExerciseListComponent],
-  providers: [YoutubeService, ExerciseService]
+  providers: [YoutubeService]
 })
 export class ClientModule { }

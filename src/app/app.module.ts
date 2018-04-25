@@ -11,6 +11,7 @@ import { environment } from '../environments/environment.prod';
 import { ClientModule } from './client/client.module';
 import {AngularFirestore, AngularFirestoreModule} from 'angularfire2/firestore';
 import { TherapistModule } from './therapist/therapist.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { TherapistModule } from './therapist/therapist.module';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     ClientModule,
-    TherapistModule
+    TherapistModule,
+    NgbModule.forRoot()
   ],
   declarations: [
     AppComponent
