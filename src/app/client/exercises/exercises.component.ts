@@ -23,6 +23,10 @@ export class ExercisesComponent implements OnInit {
     this.currentVideoId = '8GI7pzelfJk';
   }
 
+  /**
+   * As the mother class of my children og want to notify my children when a new video is selected.
+   * @param {ExerciseModel} exercise
+   */
   notifyOnNewVideoSelected(exercise: ExerciseModel) {
     this.loadNewVideoById(exercise.videoUrl);
     this.loadNewExerciseInformation(exercise);
@@ -36,6 +40,10 @@ export class ExercisesComponent implements OnInit {
     this.youtubeChild.loadVideoByUrl(videoId);
   }
 
+  /**
+   * Loads the new exercise information.
+   * @param {ExerciseModel} exercise
+   */
   loadNewExerciseInformation (exercise: ExerciseModel) {
     this.exerciseInformationChild.updateInformation(exercise);
   }
