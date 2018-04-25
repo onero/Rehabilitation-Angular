@@ -1,7 +1,5 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ExerciseModel} from '../../client/shared/exercise.model';
-import {Router} from '@angular/router';
-import {YoutubePlayerComponent} from '../../client/exercises/youtube-player/youtube-player.component';
 import {ManageExercisesListComponent} from './manage-exercises-list/manage-exercises-list.component';
 
 @Component({
@@ -14,13 +12,9 @@ export class ManageExercisesComponent implements OnInit {
   selectedCategory: string;
   selectedExercise: ExerciseModel;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-
-  addExercise() {
-    this.router.navigateByUrl('therapist/exercises/new');
   }
 
   updateList(categoryName: string) {

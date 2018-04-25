@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ExerciseModel} from '../../../client/shared/exercise.model';
 import {ExerciseService} from '../../../shared/services/exercise.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'rehab-manage-exercises-list',
@@ -17,7 +18,8 @@ export class ManageExercisesListComponent implements OnInit {
 
   $exercises: Observable<ExerciseModel[]>;
 
-  constructor(private exerciseService: ExerciseService) {
+  constructor(private exerciseService: ExerciseService,
+              private router: Router) {
   }
 
   onExerciseSelected(exercise: ExerciseModel) {
@@ -25,6 +27,10 @@ export class ManageExercisesListComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  addExercise() {
+    this.router.navigate(['therapist/exercises/new', {category: this.currentCategoryName}]);
   }
 
   updateList(categoryName: string) {

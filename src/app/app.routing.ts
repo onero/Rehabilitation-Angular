@@ -28,7 +28,8 @@ export const AppRoutes = RouterModule.forRoot(
     },
     {
       path: 'therapist/exercises/new',
-      component: NewExerciseComponent
+      component: NewExerciseComponent,
+      data: [{category: ''}]
     },
     { path: '**', component: PageNotFoundComponent } // This must be last!
   ]

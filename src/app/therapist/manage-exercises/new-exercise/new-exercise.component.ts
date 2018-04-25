@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {ExerciseModel} from '../../../client/shared/exercise.model';
 import {ExerciseService} from '../../../shared/services/exercise.service';
@@ -10,11 +10,14 @@ import {ExerciseService} from '../../../shared/services/exercise.service';
   styleUrls: ['./new-exercise.component.scss']
 })
 export class NewExerciseComponent implements OnInit {
+  category = '';
 
   constructor(private router: Router,
-              private exerciseService: ExerciseService) { }
+              private exerciseService: ExerciseService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.category = this.route.snapshot.params.category;
   }
 
   cancelForm() {
@@ -27,7 +30,7 @@ export class NewExerciseComponent implements OnInit {
       description: newExerciseForm.description,
       repetition: newExerciseForm.repetition,
       videoUrl: newExerciseForm.videoUrl,
-      category: 'Hand' // TODO ALH: Replace!
+      category: this.category
     };
     this.exerciseService.addExercise(newExercise)
       .then(() => {

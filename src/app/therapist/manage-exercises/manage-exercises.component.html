@@ -6,10 +6,7 @@
     </div>
     <div class="col-md-3">
       <!--MANAGE-EXERCISES-LIST COMPONENT-->
-      <h1>Exercises
-        <i class="fa fa-plus-circle pull-right add-button"
-           (click)="addExercise()"></i></h1>
-      <rehab-manage-exercises-list #exerciseList
+      <rehab-manage-exercises-list *ngIf="selectedCategory" #exerciseList
                                    [currentCategoryName]="selectedCategory"
                                    (exerciseSelected)="selectedExercise = $event"></rehab-manage-exercises-list>
     </div>
