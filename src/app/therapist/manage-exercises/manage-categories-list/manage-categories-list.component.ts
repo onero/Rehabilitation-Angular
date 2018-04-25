@@ -24,10 +24,16 @@ export class ManageCategoriesListComponent implements OnInit {
     this.$categories = this.categoryService.getCategories();
   }
 
+  /**
+  * When a category is clicked emit update
+  */
   onCategorySelected(category) {
     this.categorySelected.emit(category.name);
   }
 
+  /**
+  * Open modal
+  */
   open(content) {
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -36,6 +42,9 @@ export class ManageCategoriesListComponent implements OnInit {
     });
   }
 
+  /**
+  * Check if user canceled modal
+  */
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -46,6 +55,9 @@ export class ManageCategoriesListComponent implements OnInit {
     }
   }
 
+  /**
+  * Add category with the parsed category name
+  */
   addCategory(categoryName: string) {
     this.categoryService.createCategory(categoryName)
       .then(() => {
