@@ -13,6 +13,7 @@ import {AngularFirestore, AngularFirestoreModule} from 'angularfire2/firestore';
 import { TherapistModule } from './therapist/therapist.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ManageClientsDetailComponent } from './therapist/manage-clients/manage-clients-detail/manage-clients-detail.component';
+import { ManageClientsListComponent } from './therapist/manage-clients/manage-clients-list/manage-clients-list.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ManageClientsDetailComponent } from './therapist/manage-clients/manage-
   ],
   declarations: [
     AppComponent,
-    ManageClientsDetailComponent
+    ManageClientsDetailComponent,
+    ManageClientsListComponent
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]
