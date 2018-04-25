@@ -12,6 +12,9 @@ export class ManageClientsDiagnosisComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Edit btn will change the view to be editable.
+   */
   editDiagnosis() {
     console.log('EDIT THIS SHEIT!');
   }

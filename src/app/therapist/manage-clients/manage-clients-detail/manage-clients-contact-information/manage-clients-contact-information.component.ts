@@ -13,23 +13,19 @@ export class ManageClientsContactInformationComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    this.emptyClientContactInformation();
-  }
+  ngOnInit() {}
 
-  private emptyClientContactInformation() {
-    this.currentModel = {
-      fullName: 'Clients name',
-      address: '',
-      phone: '',
-      email: ''
-    };
-  }
-
+  /**
+   * Updates the client contact information
+   * @param {ClientModel} newClient
+   */
   public updateClientContactInformation(newClient: ClientModel) {
     this.currentModel = newClient;
   }
 
+  /**
+   * Edit btn will change the view to be editable.
+   */
   editContactInformation() {
     console.log('EDIT EDIT EDIT!');
   }

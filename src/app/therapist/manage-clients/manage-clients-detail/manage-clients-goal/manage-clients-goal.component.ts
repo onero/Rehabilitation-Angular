@@ -12,6 +12,9 @@ export class ManageClientsGoalComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Edit btn will change the view to be editable.
+   */
   editGoal() {
     console.log('New goal new goal new goal!');
   }

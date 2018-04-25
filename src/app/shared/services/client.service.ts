@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { ClientModel } from '../../therapist/shared/client.model';
 
 @Injectable()
 export class ClientService {
@@ -23,13 +24,9 @@ export class ClientService {
    * @param {string} clientName
    * @returns {Promise<DocumentReference>}
    */
-  createClient(clientName: string, clientAddress: string, clientPhone: string, clientEmail: string) {
-    const newClient = {
-      fullName: clientName,
-      address: clientAddress,
-      phone: clientPhone,
-      email: clientEmail
-    };
-    return this.afs.collection(this.CLIENTS_COLLECTION).add(newClient);
+  createClient(newClient: ClientModel) {
+    const id = this.afs.createId();
+    newClient.uid = id;
+    return this.afs.collection(this.CLIENTS_COLLECTION).doc(id).set(newClient);
   }
 }
