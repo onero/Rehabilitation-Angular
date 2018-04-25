@@ -29,6 +29,13 @@ $rehab-edit: #00FFFF;
 .center {
   text-align: center
 }
+.fa-edit {
+  color: $rehab-blue;
+}
+
+.fa-floppy-o {
+  color: $rehab-green;
+}
 
 .edit-mode {
   border-color: $rehab-edit;

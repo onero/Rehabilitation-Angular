@@ -1,6 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgForm} from '@angular/forms';
 import {ExerciseModel} from '../../../client/shared/exercise.model';
 import {ExerciseService} from '../../../shared/services/exercise.service';
 

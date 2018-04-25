@@ -1,0 +1,73 @@
+<h1 class="center">Clients
+  <i class="fa fa-plus-circle pull-right add-button"
+     (click)="open(newClient)"></i></h1>
+<div *ngFor="let client of $clients | async"
+     class="card" (click)="onClientSelected(client); currentClient = client"
+     [ngClass]="{'selected': currentClient === client}">
+  <div class="card-body">
+    <h5 class="card-title">{{client.fullName}}</h5>
+
+  </div>
+</div>
+
+
+<!--NEW CLIENT-->
+<ng-template #newClient let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">New Client</h4>
+  </div>
+  <div class="modal-body">
+
+    <!--Client name-->
+    <input #clientName="ngModel"
+           style="width: 100%"
+           name="clientName"
+           minlength="3"
+           ngModel
+           required
+           type="text"
+           placeholder="Clients name">
+
+    <!--Client Address-->
+    <input #clientAddress="ngModel"
+           style="width: 100%"
+           name="clientAddress"
+           minlength="3"
+           ngModel
+           required
+           type="text"
+           placeholder="Address 123, ZIPCODE CITY">
+
+    <!--Client Phone-->
+    <input #clientPhone="ngModel"
+           style="width: 100%"
+           name="clientPhone"
+           minlength="8"
+           ngModel
+           required
+           type="number"
+           placeholder="Phone number">
+
+    <!--Client Email-->
+    <input #clientEmail="ngModel"
+           style="width: 100%"
+           name="clientEmail"
+           minlength="3"
+           ngModel
+           required
+           type="email"
+           placeholder="Clients@email.com">
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-danger"
+            (click)="c('Close click')">Close</button>
+    <button [disabled]="!clientName.valid"
+            type="button"
+            class="btn btn-success pull-right"
+            (click)="addClient(clientName.value, clientAddress.value, clientPhone.value, clientEmail.value);
+            c('Close click')">Add</button>
+  </div>
+</ng-template>

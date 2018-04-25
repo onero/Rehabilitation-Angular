@@ -8,8 +8,12 @@ import {FormsModule} from '@angular/forms';
 import {ManageCategoriesListComponent} from './manage-exercises/manage-categories-list/manage-categories-list.component';
 import {SharedModule} from '../shared/shared.module';
 import { ManageClientsComponent } from './manage-clients/manage-clients.component';
-import { DiagnosisComponent } from './manage-clients/manage-clients-detail/diagnosis/diagnosis.component';
 import {ManageClientsDetailComponent} from './manage-clients/manage-clients-detail/manage-clients-detail.component';
+import {DiagnosisComponent} from './manage-clients/manage-clients-detail/diagnosis/diagnosis.component';
+import {ManageClientsListComponent} from './manage-clients/manage-clients-list/manage-clients-list.component';
+import {ManageClientsDiagnosisComponent} from './manage-clients/manage-clients-detail/manage-clients-diagnosis/manage-clients-diagnosis.component';
+import {ManageClientsContactInformationComponent} from './manage-clients/manage-clients-detail/manage-clients-contact-information/manage-clients-contact-information.component';
+import {ManageClientsGoalComponent} from './manage-clients/manage-clients-detail/manage-clients-goal/manage-clients-goal.component';
 
 @NgModule({
   imports: [
@@ -23,8 +27,12 @@ import {ManageClientsDetailComponent} from './manage-clients/manage-clients-deta
     NewExerciseComponent,
     ManageCategoriesListComponent,
     ManageClientsComponent,
+    DiagnosisComponent,
+    ManageClientsListComponent,
     ManageClientsDetailComponent,
-    DiagnosisComponent]
+    ManageClientsContactInformationComponent,
+    ManageClientsDiagnosisComponent,
+    ManageClientsGoalComponent]
 })
 export class TherapistModule {
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { ClientModel } from '../../shared/client.model';
+import {ClientService} from '../../../shared/services/client.service';
 
 @Component({
   selector: 'rehab-manage-clients-detail',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageClientsDetailComponent implements OnInit {
 
+  @Input()
+  currentClient: ClientModel;
+
+  @Output()
+  clientDeleted = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  /**
+   * Send request to delete currentClient
+   */
+  deleteClient() {
+    this.clientDeleted.emit();
+  }
 }
