@@ -2,14 +2,16 @@
   <div class="row">
     <div class="col-md-3">
       <!--MANAGE-EXERCISES-CATEGORIES COMPONENT-->
-      <rehab-manage-categories-list></rehab-manage-categories-list>
+      <rehab-manage-categories-list (categorySelected)="selectedCategory = $event; updateList($event)"></rehab-manage-categories-list>
     </div>
     <div class="col-md-3">
       <!--MANAGE-EXERCISES-LIST COMPONENT-->
       <h1>Exercises
         <i class="fa fa-plus-circle pull-right add-button"
            (click)="addExercise()"></i></h1>
-      <rehab-manage-exercises-list (exerciseSelected)="selectedExercise = $event"></rehab-manage-exercises-list>
+      <rehab-manage-exercises-list #exerciseList
+                                   [currentCategoryName]="selectedCategory"
+                                   (exerciseSelected)="selectedExercise = $event"></rehab-manage-exercises-list>
     </div>
     <div class="col-md-6">
       <!--MANAGE-EXERCISES-DETAIL COMPONENT-->

@@ -11,7 +11,7 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ManageCategoriesListComponent implements OnInit {
   @Output()
-  categorySelected = new EventEmitter<ExerciseModel>();
+  categorySelected = new EventEmitter<string>();
   currentCategory: ExerciseModel;
   $categories: Observable<any[]>;
   closeResult: string;
@@ -24,8 +24,8 @@ export class ManageCategoriesListComponent implements OnInit {
     this.$categories = this.categoryService.getCategories();
   }
 
-  onCategorySelected(exercise: ExerciseModel) {
-    this.categorySelected.emit(exercise);
+  onCategorySelected(category) {
+    this.categorySelected.emit(category.name);
   }
 
   open(content) {

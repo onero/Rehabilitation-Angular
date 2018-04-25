@@ -1,7 +1,7 @@
 export class ExerciseModel {
   uid?: string;
   title: string;
-  categories?: string[];
+  category?: string;
   description: string;
   repetition: string;
   videoUrl: string;

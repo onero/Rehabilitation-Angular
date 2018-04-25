@@ -6,7 +6,7 @@ import {ExerciseModel} from '../../client/shared/exercise.model';
 @Injectable()
 export class ExerciseService {
 
-  EXERCISES_COLLECTION = 'Exercises';
+  private EXERCISES_COLLECTION = 'Exercises';
 
   constructor(private angularFireStore: AngularFirestore) {
   }
@@ -17,6 +17,14 @@ export class ExerciseService {
    */
   public getExercises(): Observable<ExerciseModel[]> {
     return this.angularFireStore.collection<ExerciseModel>(this.EXERCISES_COLLECTION).valueChanges();
+  }
+  /**
+   * Get observable list of exercise collection in provided category from FireStore
+   * @returns {Observable<ExerciseModel[]>}
+   */
+  public getExercisesByCategoryName(categoryName: string): Observable<ExerciseModel[]> {
+    return this.angularFireStore.collection<ExerciseModel>(this.EXERCISES_COLLECTION,
+      ref => ref.where('category', '==', categoryName)).valueChanges();
   }
 
   /**

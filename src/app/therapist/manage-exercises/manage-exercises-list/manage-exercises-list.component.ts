@@ -9,6 +9,8 @@ import {ExerciseService} from '../../../shared/services/exercise.service';
   styleUrls: ['./manage-exercises-list.component.scss']
 })
 export class ManageExercisesListComponent implements OnInit {
+  @Input()
+  currentCategoryName = '';
   @Output()
   exerciseSelected = new EventEmitter<ExerciseModel>();
   currentExercise: ExerciseModel;
@@ -16,7 +18,6 @@ export class ManageExercisesListComponent implements OnInit {
   $exercises: Observable<ExerciseModel[]>;
 
   constructor(private exerciseService: ExerciseService) {
-    this.$exercises = exerciseService.getExercises();
   }
 
   onExerciseSelected(exercise: ExerciseModel) {
@@ -24,6 +25,10 @@ export class ManageExercisesListComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  updateList(categoryName: string) {
+    this.$exercises = this.exerciseService.getExercisesByCategoryName(categoryName);
   }
 
 }

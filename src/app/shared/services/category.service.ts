@@ -9,7 +9,7 @@ export class CategoryService {
   constructor(private angularFireStore: AngularFirestore) { }
 
   /**
-   * Get list of categories
+   * Get list of category
    * @returns {Observable<any[]>}
    */
   getCategories() {
