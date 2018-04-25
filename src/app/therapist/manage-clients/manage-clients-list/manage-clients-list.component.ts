@@ -12,4 +12,7 @@ export class ManageClientsListComponent implements OnInit {
   ngOnInit() {
   }
 
+  addClient() {
+    console.log('Adding!!');
+  }
 }
