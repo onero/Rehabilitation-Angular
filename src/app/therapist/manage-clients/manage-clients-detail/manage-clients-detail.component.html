@@ -3,23 +3,27 @@
 
     <!--Clients contact information-->
     <div class="col-md-12">
-      <rehab-manage-clients-contact-information [currentModel]="currentClient"></rehab-manage-clients-contact-information>
+      <rehab-manage-clients-contact-information
+        [currentModel]="currentClient"></rehab-manage-clients-contact-information>
+    </div>
+  </div>
+
+  <div class="row">
+    <!--Clients Diagnosis-->
+    <div class="col-md-7">
+      <rehab-manage-clients-diagnosis></rehab-manage-clients-diagnosis>
     </div>
 
-    <!--Clients Diagnosis-->
-      <div class="col-md-7">
-        <rehab-manage-clients-diagnosis></rehab-manage-clients-diagnosis>
-      </div>
-
     <!--Clients goal-->
-      <div class="col-md-5">
-        <rehab-manage-clients-goal></rehab-manage-clients-goal>
-      </div>
+    <div class="col-md-5">
+      <rehab-manage-clients-goal></rehab-manage-clients-goal>
+    </div>
+  </div>
 
+  <div class="row">
     <!--Delete-->
     <div class="col-md-12">
       <button class="btn btn-danger" (click)="deleteClient()">Delete</button>
     </div>
-
   </div>
 </div>

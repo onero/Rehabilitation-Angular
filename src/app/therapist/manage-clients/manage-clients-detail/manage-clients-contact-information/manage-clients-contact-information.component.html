@@ -1,23 +1,20 @@
-<div class="container">
+<div class="row" style="text-align:left">
+  <div class="col-md-12">
+    <a class="list-group-item">
 
-  <div class="row" style="text-align:left">
-    <div class="col-md-12">
-      <a class="list-group-item">
+      <!--Profile icon-->
+      <i class="fa fa-user" style="font-size: 150px; float: left; padding-right: 20px"></i>
 
-        <!--Profile icon-->
-        <i class="fa fa-user" style="font-size: 150px; float: left; padding-right: 20px"></i>
-
-        <!--Contact Information-->
-        <h3>
-          {{currentModel.fullName}}
-          <i class="fa fa-edit pull-right"
-             (click)="editContactInformation()"></i>
-        </h3>
-        <h5>Address: {{currentModel.address}}</h5>
-        <h5>Phone number: {{currentModel.phone}}</h5>
-        <h5>Email: {{currentModel.email}}</h5>
-      </a>
-    </div>
+      <!--Contact Information-->
+      <h3>
+        {{currentModel.fullName}}
+        <i class="fa fa-edit pull-right"
+           (click)="editContactInformation()"></i>
+      </h3>
+      <h5>Address: {{currentModel.address}}</h5>
+      <h5>Phone number: {{currentModel.phone}}</h5>
+      <h5>Email: {{currentModel.email}}</h5>
+    </a>
   </div>
-
 </div>
+
