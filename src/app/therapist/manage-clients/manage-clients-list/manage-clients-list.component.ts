@@ -36,8 +36,8 @@ export class ManageClientsListComponent implements OnInit {
     });
   }
 
-  addClient(clientName: string) {
-    this.clientService.createClient(clientName)
+  addClient(clientName: string, clientAddress: string, clientPhone: string, clientEmail: string) {
+    this.clientService.createClient(clientName, clientAddress, clientPhone, clientEmail)
       .then(() => {
       // TODO Skovgaard: Add message to user.
       });

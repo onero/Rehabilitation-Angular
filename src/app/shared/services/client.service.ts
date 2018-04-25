@@ -22,8 +22,13 @@ export class ClientService {
    * @param {string} clientName
    * @returns {Promise<DocumentReference>}
    */
-  createClient(clientName: string) {
-    const newClient = {fullName: clientName};
+  createClient(clientName: string, clientAddress: string, clientPhone: string, clientEmail: string) {
+    const newClient = {
+      fullName: clientName,
+      address: clientAddress,
+      phone: clientPhone,
+      email: clientEmail
+    };
     return this.afs.collection(this.CLIENTS_COLLECTION).add(newClient);
   }
 }

@@ -36,7 +36,7 @@
            ngModel
            required
            type="text"
-           placeholder="Address 123, ZIPCODE Esbjerg Ø">
+           placeholder="Address 123, ZIPCODE CITY">
 
     <!--Client Phone-->
     <input #clientPhone="ngModel"
@@ -67,6 +67,7 @@
     <button [disabled]="!clientName.valid"
             type="button"
             class="btn btn-success pull-right"
-            (click)="addClient(clientName.value); c('Close click')">Add</button>
+            (click)="addClient(clientName.value, clientAddress.value, clientPhone.value, clientEmail.value);
+            c('Close click')">Add</button>
   </div>
 </ng-template>
