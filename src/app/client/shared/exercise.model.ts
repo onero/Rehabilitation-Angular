@@ -4,4 +4,5 @@ export class ExerciseModel {
   description: string;
   repetition: string;
   videoUrl: string;
+  imgUrl: string;
 }

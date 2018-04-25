@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {YoutubeService} from './youtube.service';
-import {YoutubeResponse} from './models/YoutubeResponse.model';
+import {YoutubeService} from '../../../shared/services/youtube.service';
+import {YoutubeResponse} from '../../../shared/models/YoutubeResponse.model';
 
 @Component({
   selector: 'rehab-youtube-player',
@@ -28,7 +28,7 @@ export class YoutubePlayerComponent implements OnInit {
   ngOnInit() {
     this.ytService.getVideoInformation(this.videoId)
       .subscribe(result => {
-        const ytResponse = result as YoutubeResponse;
+        const ytResponse = result as YoutubeResponse
         this.title = ytResponse.items[0].snippet.title;
         this.description = ytResponse.items[0].snippet.description;
       });

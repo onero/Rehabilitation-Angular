@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {ExerciseModel} from '../../shared/exercise.model';
 import {ExerciseService} from '../shared/exercise.service';
+import {YoutubeService} from '../../../shared/services/youtube.service';
+import {YoutubeResponse} from '../../../shared/models/YoutubeResponse.model';
 
 @Component({
   selector: 'rehab-exercise-list',
@@ -14,15 +16,21 @@ export class ExerciseListComponent implements OnInit {
 
   exercisesFromClient: ExerciseModel[];
 
-  constructor(private exerciseService: ExerciseService) {
+  constructor(private exerciseService: ExerciseService,
+              private youtubeService: YoutubeService) {
   }
 
   ngOnInit() {
     this.exercisesFromClient = [];
-    // this.fillListWithMock();
     this.exerciseService.getExercises().subscribe(exercises => {
-      for (let i = 0; i < exercises.length; i++) {
-        this.exercisesFromClient.push(exercises[i]);
+      for (const exercise of exercises) {
+        const videoId = this.youtubeService.getIdFromURL(exercise.videoUrl);
+        this.youtubeService.getVideoInformation(videoId)
+          .subscribe(result => {
+            const ytResponse = result as YoutubeResponse;
+            exercise.imgUrl = ytResponse.items[0].snippet.thumbnails.default.url;
+            this.exercisesFromClient.push(exercise);
+          });
       }
     });
   }
