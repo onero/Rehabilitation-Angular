@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ExerciseModel} from '../../../client/shared/exercise.model';
 import {ExerciseService} from '../../../shared/services/exercise.service';
@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   templateUrl: './manage-exercises-list.component.html',
   styleUrls: ['./manage-exercises-list.component.scss']
 })
-export class ManageExercisesListComponent implements OnInit {
+export class ManageExercisesListComponent implements OnInit, OnChanges {
   @Input()
   currentCategoryName = '';
   @Output()
@@ -27,14 +27,15 @@ export class ManageExercisesListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.$exercises = this.exerciseService.getExercisesByCategoryName(this.currentCategoryName);
   }
 
   addExercise() {
     this.router.navigate(['therapist/exercises/new', {category: this.currentCategoryName}]);
   }
 
-  updateList(categoryName: string) {
-    this.$exercises = this.exerciseService.getExercisesByCategoryName(categoryName);
+  ngOnChanges(changes: SimpleChanges): void {
+    this.$exercises = this.exerciseService.getExercisesByCategoryName(this.currentCategoryName);
   }
 
 }
