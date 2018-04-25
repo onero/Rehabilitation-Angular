@@ -24,10 +24,18 @@ export class ManageClientsListComponent implements OnInit {
     this.$clients = this.clientService.getClients();
   }
 
+  /**
+   * Gets the information when the client is selected
+   * @param {ClientModel} client
+   */
   onClientSelected(client: ClientModel) {
     this.clientSelected.emit(client);
   }
 
+  /**
+   * Opens up the modal to add a new client.
+   * @param content
+   */
   open(content) {
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -36,13 +44,29 @@ export class ManageClientsListComponent implements OnInit {
     });
   }
 
-  addClient(clientName: string, clientAddress: string, clientPhone: string, clientEmail: string) {
-    this.clientService.createClient(clientName, clientAddress, clientPhone, clientEmail)
+  /**
+   * Adds a client to DB
+   * @param {ClientModel} newClientForm
+   */
+  addClient(newClientForm: ClientModel) {
+    const newClient: ClientModel = {
+      uid: newClientForm.uid,
+      fullName: newClientForm.fullName,
+      address: newClientForm.address,
+      phone: newClientForm.phone,
+      email: newClientForm.email
+    };
+    this.clientService.createClient(newClient)
       .then(() => {
       // TODO Skovgaard: Add message to user.
       });
   }
 
+  /**
+   * Method to dismiss the modal popup.
+   * @param reason
+   * @returns {string}
+   */
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';

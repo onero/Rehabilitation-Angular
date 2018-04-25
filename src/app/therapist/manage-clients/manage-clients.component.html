@@ -1,11 +1,12 @@
-<p>
-  manage-clients works!
-</p>
 <div class="container">
   <div class="row">
+
+    <!--Clients list-->
   <div class="col-md-4">
 <rehab-manage-clients-list (clientSelected)="selectedClient = $event"></rehab-manage-clients-list>
   </div>
+
+    <!--Clients detail-->
   <div class="col-md-8">
     <rehab-manage-clients-detail *ngIf="selectedClient" [currentClient]="selectedClient"></rehab-manage-clients-detail>
   </div>
