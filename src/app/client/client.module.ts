@@ -5,7 +5,7 @@ import {CommonModule} from '@angular/common';
 import {ExercisesComponent} from './exercises/exercises.component';
 import {HttpClientModule} from '@angular/common/http';
 import {YoutubePlayerComponent} from './exercises/youtube-player/youtube-player.component';
-import {YoutubeService} from './exercises/youtube-player/youtube.service';
+import {YoutubeService} from '../shared/services/youtube.service';
 import {YoutubePlayerModule} from 'ngx-youtube-player';
 import {ExerciseInformationComponent} from './exercises/exercise-information/exercise-information.component';
 import {SharedModule} from '../shared/shared.module';

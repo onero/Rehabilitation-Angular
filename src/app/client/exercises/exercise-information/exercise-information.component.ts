@@ -15,6 +15,23 @@ export class ExerciseInformationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.emptyExercise();
   }
 
+  /**
+   * Sets the exercise to be empty.
+   */
+  private emptyExercise() {
+    this.exerciseModel = {
+      title: '',
+      category: '',
+      description: '',
+      repetition: '',
+      videoUrl: ''
+    };
+  }
+
+  public updateInformation(newExercise: ExerciseModel) {
+    this.exerciseModel = newExercise;
+  }
 }

@@ -4,11 +4,11 @@
       <!--YOUTUBE COMPONENT-->
       <rehab-youtube-player #youtubePlayer [videoId]="currentVideoId"></rehab-youtube-player>
       <!--VIDEO INFO COMPONENT-->
-      <rehab-exercise-information></rehab-exercise-information>
+      <rehab-exercise-information #exerciseInformation></rehab-exercise-information>
     </div>
     <div class="col">
       <!--VIDEO PLAYLIST COMPONENT-->
-      <rehab-exercise-list></rehab-exercise-list>
+      <rehab-exercise-list (exerciseSelected)="notifyOnNewVideoSelected($event)"></rehab-exercise-list>
     </div>
   </div>
 </div>

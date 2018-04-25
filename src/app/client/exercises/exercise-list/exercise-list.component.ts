@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {ExerciseModel} from '../../shared/exercise.model';
+import {YoutubeService} from '../../../shared/services/youtube.service';
+import {YoutubeResponse} from '../../../shared/models/YoutubeResponse.model';
 import {ExerciseService} from '../../../shared/services/exercise.service';
-import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'rehab-exercise-list',
@@ -10,22 +11,39 @@ import {forEach} from '@angular/router/src/utils/collection';
 })
 export class ExerciseListComponent implements OnInit {
 
+  @Output()
+  exerciseSelected = new EventEmitter<ExerciseModel>();
+
   exercisesFromClient: ExerciseModel[];
 
-  constructor(private exerciseService: ExerciseService) {
+  constructor(private exerciseService: ExerciseService,
+              private youtubeService: YoutubeService) {
   }
 
   ngOnInit() {
+    // Instantiation of array.
     this.exercisesFromClient = [];
-    // this.fillListWithMock();
+    // Gets all exercises from the service
     this.exerciseService.getExercises().subscribe(exercises => {
-      for (let i = 0; i < exercises.length; i++) {
-        this.exercisesFromClient.push(exercises[i]);
+      for (const exercise of exercises) {
+        // Gets the videoId on the exercise
+        const videoId = this.youtubeService.getIdFromURL(exercise.videoUrl);
+        this.youtubeService.getVideoInformation(videoId)
+          .subscribe(result => {
+            // Gets the imgUrl from the youtubeService.
+            const ytResponse = result as YoutubeResponse;
+            exercise.imgUrl = ytResponse.items[0].snippet.thumbnails.default.url;
+            this.exercisesFromClient.push(exercise);
+          });
       }
     });
   }
 
+  /**
+   * Emits the exercise clicked to the mother component.
+   * @param {ExerciseModel} exercise
+   */
   onExerciseClick(exercise: ExerciseModel) {
-    // TODO MSP Dependency inject this exercise into videocomponent.
+    this.exerciseSelected.emit(exercise);
   }
 }

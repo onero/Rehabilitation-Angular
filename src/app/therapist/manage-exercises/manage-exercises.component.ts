@@ -16,8 +16,4 @@ export class ManageExercisesComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  updateList() {
-    this.childExerciseList.ngOnInit();
-  }
 }
