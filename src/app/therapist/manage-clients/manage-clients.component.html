@@ -8,7 +8,9 @@
 
     <!--Clients detail-->
   <div class="col-md-8">
-    <rehab-manage-clients-detail *ngIf="selectedClient" [currentClient]="selectedClient"></rehab-manage-clients-detail>
+    <rehab-manage-clients-detail *ngIf="selectedClient"
+                                 (clientDeleted)="deleteClient()"
+                                 [currentClient]="selectedClient"></rehab-manage-clients-detail>
   </div>
   </div>
 </div>

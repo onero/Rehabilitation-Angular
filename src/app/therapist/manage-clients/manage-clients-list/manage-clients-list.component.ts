@@ -46,15 +46,17 @@ export class ManageClientsListComponent implements OnInit {
 
   /**
    * Adds a client to DB
-   * @param {ClientModel} newClientForm
+   * @param clientName
+   * @param clientAddress
+   * @param clientPhone
+   * @param clientEmail
    */
-  addClient(newClientForm: ClientModel) {
+  addClient(clientName: string, clientAddress: string, clientPhone: string, clientEmail: string) {
     const newClient: ClientModel = {
-      uid: newClientForm.uid,
-      fullName: newClientForm.fullName,
-      address: newClientForm.address,
-      phone: newClientForm.phone,
-      email: newClientForm.email
+      fullName: clientName,
+      address: clientAddress,
+      phone: clientPhone,
+      email: clientEmail
     };
     this.clientService.createClient(newClient)
       .then(() => {

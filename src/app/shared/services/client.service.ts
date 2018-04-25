@@ -36,6 +36,6 @@ export class ClientService {
    * @returns {AngularFirestoreCollection<any>}
    */
   deleteClient(currentClient: ClientModel) {
-    return this.afs.collection(this.CLIENTS_COLLECTION);
+    return this.afs.collection(this.CLIENTS_COLLECTION).doc(currentClient.uid).delete();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ClientModel } from '../../shared/client.model';
 import {ClientService} from '../../../shared/services/client.service';
 
@@ -12,15 +12,18 @@ export class ManageClientsDetailComponent implements OnInit {
   @Input()
   currentClient: ClientModel;
 
-  constructor(private clientService: ClientService) { }
+  @Output()
+  clientDeleted = new EventEmitter();
+
+  constructor() { }
 
   ngOnInit() {
   }
 
   /**
-   * Delete the current client
+   * Send request to delete currentClient
    */
   deleteClient() {
-    this.clientService.deleteClient(this.currentClient);
+    this.clientDeleted.emit();
   }
 }
