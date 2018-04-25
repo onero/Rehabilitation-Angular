@@ -10,6 +10,9 @@ import {SharedModule} from '../shared/shared.module';
 import { ManageClientsComponent } from './manage-clients/manage-clients.component';
 import { ManageClientsListComponent } from './manage-clients/manage-clients-list/manage-clients-list.component';
 import { ManageClientsDetailComponent } from './manage-clients/manage-clients-detail/manage-clients-detail.component';
+import { ManageClientsContactInformationComponent } from './manage-clients/manage-clients-detail/manage-clients-contact-information/manage-clients-contact-information.component';
+import { ManageClientsDiagnosisComponent } from './manage-clients/manage-clients-detail/manage-clients-diagnosis/manage-clients-diagnosis.component';
+import { ManageClientsGoalComponent } from './manage-clients/manage-clients-detail/manage-clients-goal/manage-clients-goal.component';
 
 @NgModule({
   imports: [
@@ -24,7 +27,10 @@ import { ManageClientsDetailComponent } from './manage-clients/manage-clients-de
     ManageCategoriesListComponent,
     ManageClientsComponent,
     ManageClientsListComponent,
-    ManageClientsDetailComponent]
+    ManageClientsDetailComponent,
+    ManageClientsContactInformationComponent,
+    ManageClientsDiagnosisComponent,
+    ManageClientsGoalComponent]
 })
 export class TherapistModule {
 }
