@@ -7,6 +7,7 @@ import {NewExerciseComponent} from './manage-exercises/new-exercise/new-exercise
 import {FormsModule} from '@angular/forms';
 import {ManageCategoriesListComponent} from './manage-exercises/manage-categories-list/manage-categories-list.component';
 import {SharedModule} from '../shared/shared.module';
+import { ManageClientsComponent } from './manage-clients/manage-clients.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import {SharedModule} from '../shared/shared.module';
     ManageExercisesListComponent,
     ManageExercisesDetailComponent,
     NewExerciseComponent,
-    ManageCategoriesListComponent]
+    ManageCategoriesListComponent,
+    ManageClientsComponent]
 })
 export class TherapistModule {
 }
