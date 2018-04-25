@@ -8,6 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {ManageCategoriesListComponent} from './manage-exercises/manage-categories-list/manage-categories-list.component';
 import {SharedModule} from '../shared/shared.module';
 import { ManageClientsComponent } from './manage-clients/manage-clients.component';
+import { ManageClientsListComponent } from './manage-clients/manage-clients-list/manage-clients-list.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { ManageClientsComponent } from './manage-clients/manage-clients.componen
     ManageExercisesDetailComponent,
     NewExerciseComponent,
     ManageCategoriesListComponent,
-    ManageClientsComponent]
+    ManageClientsComponent,
+    ManageClientsListComponent]
 })
 export class TherapistModule {
 }
