@@ -30,8 +30,7 @@ import { ManageClientsListComponent } from './therapist/manage-clients/manage-cl
   ],
   declarations: [
     AppComponent,
-    ManageClientsDetailComponent,
-    ManageClientsListComponent
+    ManageClientsDetailComponent
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]
