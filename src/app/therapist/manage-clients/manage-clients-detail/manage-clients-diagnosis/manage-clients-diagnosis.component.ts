@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'rehab-manage-clients-diagnosis',
@@ -6,16 +6,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-clients-diagnosis.component.scss']
 })
 export class ManageClientsDiagnosisComponent implements OnInit {
+  @Input()
+  currentDiagnosis: string;
 
-  constructor() { }
+  @Output()
+  diagnosisUpdated = new EventEmitter<string>();
+
+  editMode = false;
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
+  toggleEdit() {
+    this.editMode = !this.editMode;
+  }
+
   /**
-   * Edit btn will change the view to be editable.
+   * Send out word that diagnosis has been updated!
    */
-  editDiagnosis() {
-    console.log('EDIT THIS SHEIT!');
+  onDiagnosisUpdated() {
+    this.diagnosisUpdated.emit(this.currentDiagnosis);
+    this.editMode = false;
   }
 }
