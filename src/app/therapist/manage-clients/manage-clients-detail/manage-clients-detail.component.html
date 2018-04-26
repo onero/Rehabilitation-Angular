@@ -1,0 +1,37 @@
+<div class="container">
+
+    <div class="row">
+      <div class="col-md-7">
+
+      <!--Clients contact information-->
+      <div class="col">
+        <rehab-manage-clients-contact-information
+          [currentModel]="currentClient"></rehab-manage-clients-contact-information>
+      </div>
+
+      <!--Clients Diagnosis-->
+      <div class="col">
+        <rehab-manage-clients-diagnosis></rehab-manage-clients-diagnosis>
+      </div>
+
+      <!--Clients goal-->
+      <div class="col">
+        <rehab-manage-clients-goal></rehab-manage-clients-goal>
+      </div>
+    </div>
+
+      <!--YouTube assignments-->
+    <div class="col-md-5">
+      <!--Insert Youtube HTML in HERE!-->
+      Her kommer der en liste af youtube videoer!
+    </div>
+
+  </div>
+
+  <div class="row">
+    <!--Delete-->
+    <div class="col-md-12">
+      <button class="btn btn-danger" (click)="deleteClient()">Delete</button>
+    </div>
+  </div>
+</div>
