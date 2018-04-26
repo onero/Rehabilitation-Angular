@@ -1,23 +1,31 @@
 <div class="container">
-  <div class="row">
 
-    <!--Clients contact information-->
-    <div class="col-md-12">
-      <rehab-manage-clients-contact-information
-        [currentModel]="currentClient"></rehab-manage-clients-contact-information>
+    <div class="row">
+      <div class="col-md-7">
+
+      <!--Clients contact information-->
+      <div class="col">
+        <rehab-manage-clients-contact-information
+          [currentModel]="currentClient"></rehab-manage-clients-contact-information>
+      </div>
+
+      <!--Clients Diagnosis-->
+      <div class="col">
+        <rehab-manage-clients-diagnosis></rehab-manage-clients-diagnosis>
+      </div>
+
+      <!--Clients goal-->
+      <div class="col">
+        <rehab-manage-clients-goal></rehab-manage-clients-goal>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <!--Clients Diagnosis-->
-    <div class="col-md-7">
-      <rehab-manage-clients-diagnosis></rehab-manage-clients-diagnosis>
-    </div>
-
-    <!--Clients goal-->
+      <!--YouTube assignments-->
     <div class="col-md-5">
-      <rehab-manage-clients-goal></rehab-manage-clients-goal>
+      <!--Insert Youtube HTML in HERE!-->
+      Her kommer der en liste af youtube videoer!
     </div>
+
   </div>
 
   <div class="row">

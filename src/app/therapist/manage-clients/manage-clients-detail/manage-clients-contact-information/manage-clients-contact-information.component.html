@@ -2,9 +2,6 @@
   <div class="col-md-12">
     <a class="list-group-item">
 
-      <!--Profile icon-->
-      <i class="fa fa-user" style="font-size: 150px; float: left; padding-right: 20px"></i>
-
       <!--Contact Information-->
       <h3>
         {{currentModel.fullName}}
@@ -20,9 +17,11 @@
 
       <div *ngIf="!editMode; then contactInformation else editContactInformation"></div>
       <ng-template #contactInformation>
-        <h5>Address: {{currentModel.address}}</h5>
-        <h5>Phone number: {{currentModel.phone}}</h5>
-        <h5>Email: {{currentModel.email}}</h5>
+
+        <h6>Address: {{currentModel.address}}</h6>
+        <h6>Phone number: {{currentModel.phone}}</h6>
+        <h6>Email: {{currentModel.email}}</h6>
+
       </ng-template>
       <ng-template #editContactInformation>
         <form novalidate #contactInformationForm="ngForm">
