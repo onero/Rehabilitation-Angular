@@ -18,8 +18,9 @@ export class ProfileComponent implements OnInit {
     this.clientFromUser = {
       fullName: 'Mathias Test Plougmann',
       email: 'mathiasplougmann@test.dk',
-      address: 'Testvej 25, 6700 Esbjerg',  
+      address: 'Testvej 25, 6700 Esbjerg',
       phone: '12345678'
+    };
   }
 
 
