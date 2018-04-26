@@ -1,5 +1,6 @@
 <div class="container">
   <div class="row">
+    <!--DIAGNOSIS HEADLINE-->
     <div class="col">
       <h1>Diagnosis
         <div *ngIf="!editMode; then editIcon else saveIcon"></div>
@@ -12,6 +13,7 @@
       </h1>
     </div>
   </div>
+  <!--DIAGNOSIS TEXT-->
   <div class="row">
     <div *ngIf="!editMode; then diagnosis else editDiagnosis"></div>
     <ng-template #diagnosis>
