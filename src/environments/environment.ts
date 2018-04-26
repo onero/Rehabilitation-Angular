@@ -12,5 +12,6 @@ export const environment = {
     projectId: "d4ff-rehabilitation",
     storageBucket: "d4ff-rehabilitation.appspot.com",
     messagingSenderId: "1058777192969"
-  }
+  },
+  clientMode: true
 };

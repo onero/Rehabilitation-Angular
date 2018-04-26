@@ -20,6 +20,11 @@ import { ManageClientsGoalComponent } from './manage-clients/manage-clients-deta
     FormsModule,
     SharedModule
   ],
+  exports: [
+    ManageClientsContactInformationComponent,
+    ManageClientsDiagnosisComponent,
+    ManageClientsGoalComponent
+  ],
   declarations: [ManageExercisesComponent,
     ManageExercisesListComponent,
     ManageExercisesDetailComponent,

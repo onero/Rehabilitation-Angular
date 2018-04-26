@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'rehab-manage-clients-diagnosis',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-clients-diagnosis.component.scss']
 })
 export class ManageClientsDiagnosisComponent implements OnInit {
+
+  clientMode = environment.clientMode;
 
   constructor() { }
 
