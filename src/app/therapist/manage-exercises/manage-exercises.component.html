@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <!--MANAGE-EXERCISES-CATEGORIES COMPONENT-->
+      <rehab-manage-categories-list (categorySelected)="selectedCategory = $event"></rehab-manage-categories-list>
+    </div>
+    <div class="col-md-3">
+      <!--MANAGE-EXERCISES-LIST COMPONENT-->
+      <rehab-manage-exercises-list *ngIf="selectedCategory" #exerciseList
+                                   [currentCategoryName]="selectedCategory"
+                                   (exerciseSelected)="selectedExercise = $event"></rehab-manage-exercises-list>
+    </div>
+    <div class="col-md-6">
+      <!--MANAGE-EXERCISES-DETAIL COMPONENT-->
+      <rehab-manage-exercises-detail *ngIf="selectedExercise"
+                                     (deletedExercise)="selectedExercise = null"
+                                     [currentExercise]="selectedExercise"></rehab-manage-exercises-detail>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<h1>Exercises
+  <i class="fa fa-plus-circle pull-right add-button"
+     (click)="addExercise()"></i></h1>
+<div *ngFor="let exercise of $exercises | async"
+     class="card" (click)="onExerciseSelected(exercise); currentExercise = exercise"
+                  [ngClass]="{'selected': currentExercise === exercise}">
+  <div class="card-body">
+    <h5 class="card-title">{{exercise.title}}</h5>
+  </div>
+</div>

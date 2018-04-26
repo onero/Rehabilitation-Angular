@@ -8,6 +8,10 @@ import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment.prod';
+import { ClientModule } from './client/client.module';
+import {AngularFirestore, AngularFirestoreModule} from 'angularfire2/firestore';
+import { TherapistModule } from './therapist/therapist.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -16,12 +20,16 @@ import { environment } from '../environments/environment.prod';
     AppRoutes,
     SharedModule,
     AuthModule,
-    AngularFireModule.initializeApp(environment.firebase)    
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    ClientModule,
+    TherapistModule,
+    NgbModule.forRoot()
   ],
   declarations: [
     AppComponent
   ],
-  providers: [],
+  providers: [AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <form novalidate #newExerciseForm="ngForm" (submit)="createNewExercise(newExerciseForm.value)">
+        <h1>Add Exercise</h1>
+        <!--TITLE-->
+        <div class="form-group">
+          <input class="form-control"
+                 type="text"
+                 ngModel
+                 minlength="3"
+                 name="title"
+                 #title="ngModel"
+                 placeholder="Enter exercise title"
+                 required>
+          <div *ngIf="!title.valid && title.touched">
+            <h5 class="warning">Title is required!</h5>
+          </div>
+        </div>
+        <div class="row">
+          <!--CATEGORIES & VIDEO-->
+          <div class="col">
+            <!--CATEGORIES-->
+            <label>Category</label>
+            <h5>{{category}}</h5>
+          </div>
+          <div class="col">
+            <!--VIDEO-->
+            <div class="form-group">
+              <label for="exerciseFormControlVideo">Video</label>
+              <input class="form-control"
+                     type="text"
+                     ngModel
+                     minlength="5"
+                     name="videoUrl"
+                     #videoUrl="ngModel"
+                     placeholder="www.youtube.com/example"
+                     required
+                     id="exerciseFormControlVideo">
+              <div *ngIf="!videoUrl.valid && videoUrl.touched">
+                <h5 class="warning">Video is required!</h5>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!--DESCRIPTION & REPETITIONS-->
+        <div class="row">
+          <div class="col">
+            <!--DESCRIPTIONS-->
+            <div class="form-group">
+              <label for="exerciseFormControlDescription">Description</label>
+              <textarea class="form-control"
+                        type="text"
+                        ngModel
+                        minlength="5"
+                        name="description"
+                        #description="ngModel"
+                        required
+                        id="exerciseFormControlDescription"
+                        rows="3"></textarea>
+              <div *ngIf="!description.valid && description.touched">
+                <h5 class="warning">Description is required!</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <!--REPETITIONS-->
+            <div class="form-group">
+              <label for="exerciseFormControlRepetitions">Repetitions</label>
+              <input class="form-control"
+                     type="text"
+                     ngModel
+                     minlength="3"
+                     name="repetition"
+                     #repetition="ngModel"
+                     required
+                     id="exerciseFormControlRepetitions"
+                     placeholder="3 x 5">
+              <div *ngIf="!repetition.valid && repetition.touched">
+                <h5 class="warning">Repetitions is required!</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-danger" (click)="cancelForm()">Cancel</button>
+        <button  [disabled]="!newExerciseForm.valid" class="btn btn-success pull-right" type="submit">Add</button>
+      </form>
+    </div>
+    <div class="col-3"></div>
+  </div>
+</div>

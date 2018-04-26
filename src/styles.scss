@@ -1,3 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+$rehab-blue: #1726f0;
+$rehab-green: green;
+$rehab-edit: #00FFFF;
+
+.fa-edit {
+  color: $rehab-blue;
+}
+
+.fa-floppy-o {
+  color: $rehab-green;
+}
+
+.card.selected {
+  background-color: $rehab-blue;
+
+  .card-title {
+    color: white;
+  }
+}
+
+.add-button {
+  color: $rehab-green;
+}
+
+.center {
+  text-align: center
+}
+.fa-edit {
+  color: $rehab-blue;
+}
+
+.fa-floppy-o {
+  color: $rehab-green;
+}
+
+.edit-mode {
+  border-color: $rehab-edit;
+}
