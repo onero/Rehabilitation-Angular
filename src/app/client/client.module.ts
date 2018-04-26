@@ -9,6 +9,7 @@ import {YoutubeService} from '../shared/services/youtube.service';
 import {YoutubePlayerModule} from 'ngx-youtube-player';
 import {ExerciseInformationComponent} from './exercises/exercise-information/exercise-information.component';
 import {SharedModule} from '../shared/shared.module';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import {SharedModule} from '../shared/shared.module';
     HttpClientModule,
     SharedModule
   ],
-  declarations: [ExercisesComponent, ExerciseInformationComponent, YoutubePlayerComponent, ExerciseListComponent],
+  declarations: [ExercisesComponent, ExerciseInformationComponent, YoutubePlayerComponent, ExerciseListComponent, ProfileComponent],
   providers: [YoutubeService]
 })
 export class ClientModule { }
