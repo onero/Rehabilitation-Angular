@@ -5,6 +5,7 @@ import {ExercisesComponent} from './client/exercises/exercises.component';
 import {ManageExercisesComponent} from './therapist/manage-exercises/manage-exercises.component';
 import {NewExerciseComponent} from './therapist/manage-exercises/new-exercise/new-exercise.component';
 import {ProfileComponent} from './client/profile/profile.component';
+import {ManageClientsComponent} from './therapist/manage-clients/manage-clients.component';
 
 export const AppRoutes = RouterModule.forRoot(
   [
@@ -27,6 +28,10 @@ export const AppRoutes = RouterModule.forRoot(
       component: ProfileComponent
     },
     // THERAPIST ROUTES
+    {
+      path: 'therapist/clients',
+      component: ManageClientsComponent
+    },
     {
       path: 'therapist/exercises',
       component: ManageExercisesComponent
