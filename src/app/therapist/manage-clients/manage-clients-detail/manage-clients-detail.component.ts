@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ClientModel} from '../../shared/client.model';
-import {ClientService} from '../../../shared/services/client.service';
 import {RehabilitationPlanService} from '../../../shared/services/rehabilitation-plan.service';
 import {RehabilitationPlan} from '../../../client/shared/rehabilitation-plan.model';
 
