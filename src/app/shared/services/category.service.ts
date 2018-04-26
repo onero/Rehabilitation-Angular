@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
+import {FirestoreModel} from './firestore.model';
 
 @Injectable()
 export class CategoryService {
-
-  CATEGORIES_COLLECTION = 'Categories';
 
   constructor(private angularFireStore: AngularFirestore) { }
 
@@ -13,7 +12,7 @@ export class CategoryService {
    * @returns {Observable<any[]>}
    */
   getCategories() {
-    return this.angularFireStore.collection(this.CATEGORIES_COLLECTION).valueChanges();
+    return this.angularFireStore.collection(FirestoreModel.CATEGORIES_COLLECTION).valueChanges();
   }
 
   /**
@@ -22,6 +21,6 @@ export class CategoryService {
    */
   createCategory(categoryName: string) {
     const newCategory = {name: categoryName};
-    return this.angularFireStore.collection(this.CATEGORIES_COLLECTION).add(newCategory);
+    return this.angularFireStore.collection(FirestoreModel.CATEGORIES_COLLECTION).add(newCategory);
   }
 }

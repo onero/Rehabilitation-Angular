@@ -1,3 +1,5 @@
+import {RehabilitationPlan} from './rehabilitation-plan.model';
+
 export class ExerciseModel {
   uid?: string;
   title: string;

@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { ClientModel } from '../../shared/client.model';
+import {ClientModel} from '../../shared/client.model';
+import {RehabilitationPlanService} from '../../../shared/services/rehabilitation-plan.service';
+import {RehabilitationPlan} from '../../../client/shared/rehabilitation-plan.model';
 
 @Component({
   selector: 'rehab-manage-clients-detail',
@@ -10,13 +12,26 @@ export class ManageClientsDetailComponent implements OnInit {
 
   @Input()
   currentClient: ClientModel;
+  rehabilitationPlan: RehabilitationPlan;
 
   @Output()
   clientDeleted = new EventEmitter();
 
-  constructor() { }
+  constructor(private rehabilitationPlanService: RehabilitationPlanService) {
+  }
 
   ngOnInit() {
+    this.rehabilitationPlan = this.currentClient.rehabilitationPlan;
+  }
+
+  /**
+   * Update rehabilitation plan on database
+   */
+  updateRehabilitationPlan() {
+    this.rehabilitationPlanService.updatePlan(this.currentClient.uid, this.rehabilitationPlan)
+      .then(() => {
+      //  TODO ALH: Notify user!
+      });
   }
 
   /**

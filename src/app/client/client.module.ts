@@ -1,5 +1,4 @@
 import {ExerciseListComponent} from './exercises/exercise-list/exercise-list.component';
-import {ExerciseService} from '../shared/services/exercise.service';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ExercisesComponent} from './exercises/exercises.component';

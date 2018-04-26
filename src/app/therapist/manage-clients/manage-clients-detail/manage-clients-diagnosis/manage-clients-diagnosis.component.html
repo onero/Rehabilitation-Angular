@@ -1,15 +1,38 @@
 <div class="card">
-
-  <!--Diagnosis-->
-  <h3>Diagnosis
-    <i *ngIf="!clientMode" class="fa fa-edit pull-right"
-       (click)="editDiagnosis()"></i>
-  </h3>
-
-  <!--Description of the diagnosis-->
-  <p>Text in a pre is displayed in a fixed-width font, and it preserves
-    both spaces and
-    line breaks.
-  </p>
-
+<div class="container">
+  <div class="row">
+    <!--DIAGNOSIS HEADLINE-->
+    <div class="col">
+      <h1>Diagnosis
+        <div *ngIf="!editMode; then editIcon else saveIcon"></div>
+        <ng-template #editIcon>
+          <i class="fa fa-edit fa-1x pull-right" (click)="toggleEdit()"></i>
+        </ng-template>
+        <ng-template #saveIcon>
+          <i class="fa fa-floppy-o fa-1x pull-right" (click)="onDiagnosisUpdated()"></i>
+        </ng-template>
+      </h1>
+    </div>
+  </div>
+  <!--DIAGNOSIS TEXT-->
+  <div class="row">
+    <div *ngIf="!editMode; then diagnosis else editDiagnosis"></div>
+    <ng-template #diagnosis>
+  <textarea disabled class="diagnosis-text" rows="10">
+  {{currentDiagnosis}}
+  </textarea>
+    </ng-template>
+    <ng-template #editDiagnosis>
+  <textarea type="text"
+            rows="10"
+            required
+            [(ngModel)]="currentDiagnosis"
+            class="edit-mode diagnosis-text"
+            #diagnosisInput
+            name="descriptionInput">
+  {{currentDiagnosis}}
+  </textarea>
+    </ng-template>
+  </div>
+</div>
 </div>
