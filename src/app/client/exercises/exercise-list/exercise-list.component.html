@@ -2,7 +2,7 @@
 
 <div class="list-group">
   <div *ngFor="let exercise of exercisesFromClient">
-    <a class="list-group-item list-group-item-action" (click)="onExerciseClick(exercise)">
+    <a class="list-group-item list-group-item-action menu_links" (click)="onExerciseClick(exercise)" onmouseover="curser: pointer;">
       <!--The exercise thumbnail-->
       <img src="{{exercise.imgUrl}}" alt="" style="float: left">
       <!--The Exercise list information-->
