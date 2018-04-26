@@ -1,7 +1,7 @@
 <div class="container">
 
-    <div class="row">
-      <div class="col-md-7">
+  <div class="row">
+    <div class="col-md-7">
 
       <!--Clients contact information-->
       <div class="col">
@@ -11,7 +11,9 @@
 
       <!--Clients Diagnosis-->
       <div class="col">
-        <rehab-manage-clients-diagnosis></rehab-manage-clients-diagnosis>
+        <rehab-manage-clients-diagnosis
+          (diagnosisUpdated)="rehabilitationPlan.diagnosis = $event; updateRehabilitationPlan()"
+          [currentDiagnosis]="currentClient.rehabilitationPlan.diagnosis"></rehab-manage-clients-diagnosis>
       </div>
 
       <!--Clients goal-->
@@ -20,7 +22,7 @@
       </div>
     </div>
 
-      <!--YouTube assignments-->
+    <!--YouTube assignments-->
     <div class="col-md-5">
       <!--Insert Youtube HTML in HERE!-->
       Her kommer der en liste af youtube videoer!
@@ -28,10 +30,12 @@
 
   </div>
 
-  <div class="row">
-    <!--Delete-->
-    <div class="col-md-12">
-      <button class="btn btn-danger" (click)="deleteClient()">Delete</button>
+  <div class="container">
+    <div class="row">
+      <!--Delete-->
+      <div class="col-md-12">
+        <button class="btn btn-danger" (click)="deleteClient()">Delete</button>
+      </div>
     </div>
   </div>
 </div>

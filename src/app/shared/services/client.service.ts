@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { ClientModel } from '../../therapist/shared/client.model';
+import {FirestoreModel} from './firestore.model';
 
 @Injectable()
 export class ClientService {
-
-  private CLIENTS_COLLECTION = 'Clients';
 
   constructor(private afs: AngularFirestore) {
   }
@@ -15,19 +14,18 @@ export class ClientService {
    * @returns {Observable<any[]>}
    */
   getClients() {
-    const clientCollection = this.afs.collection(this.CLIENTS_COLLECTION).valueChanges();
-    return clientCollection;
+    return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION).valueChanges();
   }
 
   /**
    * Create new client in the CLIENTS_COLLECTION
-   * @param {string} clientName
    * @returns {Promise<DocumentReference>}
+   * @param newClient
    */
   createClient(newClient: ClientModel) {
     const id = this.afs.createId();
     newClient.uid = id;
-    return this.afs.collection(this.CLIENTS_COLLECTION).doc(id).set(newClient);
+    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(id).set(newClient);
   }
 
   /**
@@ -36,7 +34,7 @@ export class ClientService {
    * @returns {AngularFirestoreCollection<any>}
    */
   deleteClient(clientToDelete: ClientModel) {
-    return this.afs.collection(this.CLIENTS_COLLECTION).doc(clientToDelete.uid).delete();
+    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(clientToDelete.uid).delete();
   }
 
   /**
@@ -45,6 +43,6 @@ export class ClientService {
    * @returns {Promise<void>}
    */
   updateClient(clientToUpdate: ClientModel) {
-    return this.afs.collection(this.CLIENTS_COLLECTION).doc(clientToUpdate.uid).set(clientToUpdate, {merge: true});
+    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(clientToUpdate.uid).set(clientToUpdate, {merge: true});
   }
 }
