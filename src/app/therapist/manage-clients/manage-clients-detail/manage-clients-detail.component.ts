@@ -18,10 +18,21 @@ export class ManageClientsDetailComponent implements OnInit {
   @Output()
   clientDeleted = new EventEmitter();
 
-  constructor() {
+  constructor(private rehabilitationPlanService: RehabilitationPlanService) {
   }
 
-  ngOnInit() {;
+  ngOnInit() {
+    this.rehabilitationPlan = this.currentClient.rehabilitationPlan;
+  }
+
+  /**
+   * Update rehabilitation plan on database
+   */
+  updateRehabilitationPlan() {
+    this.rehabilitationPlanService.updatePlan(this.currentClient.uid, this.rehabilitationPlan)
+      .then(() => {
+      //  TODO ALH: Notify user!
+      });
   }
 
   /**

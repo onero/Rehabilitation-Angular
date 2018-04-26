@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'rehab-manage-clients-diagnosis',
@@ -8,6 +8,10 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ManageClientsDiagnosisComponent implements OnInit {
   @Input()
   currentDiagnosis: string;
+
+  @Output()
+  diagnosisUpdated = new EventEmitter<string>();
+
   editMode = false;
 
   constructor() {
@@ -20,9 +24,11 @@ export class ManageClientsDiagnosisComponent implements OnInit {
     this.editMode = !this.editMode;
   }
 
-  updateDiagnosis() {
-    // TODO ALH: Replace!
-    console.log(this.currentDiagnosis);
+  /**
+   * Send out word that diagnosis has been updated!
+   */
+  onDiagnosisUpdated() {
+    this.diagnosisUpdated.emit(this.currentDiagnosis);
     this.editMode = false;
   }
 }

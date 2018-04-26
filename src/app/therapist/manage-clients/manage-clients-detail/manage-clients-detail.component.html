@@ -11,7 +11,8 @@
   <div class="row">
     <!--Clients Diagnosis-->
     <div class="col-md-7">
-      <rehab-manage-clients-diagnosis [currentDiagnosis]="currentClient.rehabilitationPlan.diagnosis"></rehab-manage-clients-diagnosis>
+      <rehab-manage-clients-diagnosis (diagnosisUpdated)="rehabilitationPlan.diagnosis = $event; updateRehabilitationPlan()"
+                                      [currentDiagnosis]="currentClient.rehabilitationPlan.diagnosis"></rehab-manage-clients-diagnosis>
     </div>
 
     <!--Clients goal-->
