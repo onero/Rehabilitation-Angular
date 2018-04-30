@@ -16,6 +16,9 @@ export class AssignExerciseComponent implements OnInit {
   @Output()
   exerciseUnassigned = new EventEmitter<string>();
 
+  @Output()
+  exerciseAssigned = new EventEmitter<string>();
+
   constructor(private modalService: NgbModal) {
   }
 
@@ -36,6 +39,7 @@ export class AssignExerciseComponent implements OnInit {
    */
   assignSelectedExercise(exercise: ExerciseModel) {
     this.exercises.push(exercise);
+    this.exerciseAssigned.emit(exercise.uid);
   }
 
   /**
@@ -43,8 +47,6 @@ export class AssignExerciseComponent implements OnInit {
    * @param content
    */
   open(content) {
-    this.modalService.open(content).result.then((result) => {
-    }, (reason) => {
-    });
+    this.modalService.open(content);
   }
 }

@@ -80,4 +80,13 @@ export class ManageClientsDetailComponent implements OnInit, OnChanges {
     this.rehabilitationPlan.exerciseIds.splice(id, 1);
     this.updateRehabilitationPlan();
   }
+
+  /**
+   * Assign exercise to plan
+   * @param {string} exerciseId
+   */
+  assignExerciseToClient(exerciseId: string) {
+    this.rehabilitationPlan.exerciseIds.push(exerciseId);
+    this.updateRehabilitationPlan();
+  }
 }

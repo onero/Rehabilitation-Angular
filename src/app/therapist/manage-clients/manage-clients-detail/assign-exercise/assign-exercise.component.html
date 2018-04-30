@@ -1,6 +1,7 @@
 <h1>Exercises
   <i class="fa fa-plus-circle pull-right add-button"
   (click)="open(assignExercise)"></i></h1>
+<!--List of assigned exercises-->
 <div *ngFor="let exercise of exercises"
      class="card" style="text-align: center">
   <div class="card-header">
@@ -16,7 +17,7 @@
   </div>
 </div>
 
-<!--Assign Exercise-->
+<!--Assign Exercise Modal-->
 <ng-template #assignExercise let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Assign Exercise</h4>
@@ -29,10 +30,5 @@
     <button type="button"
             class="btn btn-danger"
             (click)="c('Close click')">Close</button>
-    <!--<button-->
-            <!--type="button"-->
-            <!--class="btn btn-success pull-right"-->
-
-            <!--(click)="c('Close click')">Add</button>-->
   </div>
 </ng-template>
