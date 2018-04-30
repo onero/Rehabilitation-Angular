@@ -13,6 +13,7 @@ import {ManageClientsListComponent} from './manage-clients/manage-clients-list/m
 import {ManageClientsDiagnosisComponent} from './manage-clients/manage-clients-detail/manage-clients-diagnosis/manage-clients-diagnosis.component';
 import {ManageClientsContactInformationComponent} from './manage-clients/manage-clients-detail/manage-clients-contact-information/manage-clients-contact-information.component';
 import {ManageClientsGoalComponent} from './manage-clients/manage-clients-detail/manage-clients-goal/manage-clients-goal.component';
+import {AssignExerciseComponent} from './manage-clients/manage-clients-detail/assign-exercise/assign-exercise.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import {ManageClientsGoalComponent} from './manage-clients/manage-clients-detail
     ManageClientsDetailComponent,
     ManageClientsContactInformationComponent,
     ManageClientsDiagnosisComponent,
-    ManageClientsGoalComponent]
+    ManageClientsGoalComponent,
+    AssignExerciseComponent]
 })
 export class TherapistModule {
 }

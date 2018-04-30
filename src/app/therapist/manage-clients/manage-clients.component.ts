@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ClientModel } from '../../shared/entities/client.model';
+import {Component, OnInit} from '@angular/core';
+import {ClientModel} from '../../shared/entities/client.model';
 import {ClientService} from '../../shared/services/client.service';
 
 @Component({
@@ -11,6 +11,7 @@ export class ManageClientsComponent implements OnInit {
   selectedClient: ClientModel;
 
   constructor(private clientService: ClientService) { }
+
 
   ngOnInit() {
   }

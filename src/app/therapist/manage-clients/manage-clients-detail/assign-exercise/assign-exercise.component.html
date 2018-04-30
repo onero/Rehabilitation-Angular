@@ -1,0 +1,34 @@
+<h1>Exercises
+  <i class="fa fa-plus-circle pull-right add-button"
+  (click)="open(assignExercise)"></i></h1>
+<!--List of assigned exercises-->
+<div *ngFor="let exercise of exercises"
+     class="card" style="text-align: center">
+  <div class="card-header">
+    <h3 class="pull-left">{{exercise.title}}</h3>
+    <button class="btn btn-danger pull-right"
+            (click)="onExerciseUnassigned(exercise.uid)">X
+    </button>
+  </div>
+  <div class="card-body">
+    <img src="/assets/placeholders/youtube-icon.png">
+    <h5 class="card-title">{{exercise.repetition}}</h5>
+    <p class="card-text">{{exercise.description}}</p>
+  </div>
+</div>
+
+<!--Assign Exercise Modal-->
+<ng-template #assignExercise let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Assign Exercise</h4>
+  </div>
+  <div class="modal-body">
+    <rehab-manage-exercises-list (exerciseSelected)="assignSelectedExercise($event); c('Close click')"
+                                 [allowAddExercise]="false"></rehab-manage-exercises-list>
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-danger"
+            (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>

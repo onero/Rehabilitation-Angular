@@ -14,7 +14,14 @@ export class ManageExercisesListComponent implements OnInit, OnChanges {
   currentCategoryName = '';
   @Output()
   exerciseSelected = new EventEmitter<ExerciseModel>();
+
+  @Input()
+  hiddenExercises: ExerciseModel[];
+
   currentExercise: ExerciseModel;
+
+  @Input()
+  allowAddExercise = true;
 
   $exercises: Observable<ExerciseModel[]>;
 
@@ -27,7 +34,13 @@ export class ManageExercisesListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.$exercises = this.exerciseService.getExercisesByCategoryName(this.currentCategoryName);
+    // Check for category name (if one is present, we are in Manage Exercises)
+    if (this.currentCategoryName.length > 0) {
+      this.$exercises = this.exerciseService.getExercisesByCategoryName(this.currentCategoryName);
+      // If no category name we're in Manage Clients
+    } else {
+      this.$exercises = this.exerciseService.getExercises();
+    }
   }
 
   addExercise() {

@@ -27,7 +27,9 @@
     <!--YouTube assignments-->
     <div class="col-md-5">
       <!--Insert Youtube HTML in HERE!-->
-      Her kommer der en liste af youtube videoer!
+      <rehab-assign-exercise [exercises]="exercises"
+                             (exerciseUnassigned)="unassignExerciseFromClient($event)"
+                             (exerciseAssigned)="assignExerciseToClient($event)"></rehab-assign-exercise>
     </div>
 
   </div>
