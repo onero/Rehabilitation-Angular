@@ -3,6 +3,7 @@ import { ClientModel } from '../../../shared/entities/client.model';
 import { Observable } from 'rxjs/Observable';
 import { ClientService } from '../../../shared/services/client.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {AuthService} from '../../../auth/shared/auth.service';
 
 @Component({
   selector: 'rehab-manage-clients-list',
@@ -18,6 +19,7 @@ export class ManageClientsListComponent implements OnInit {
   closeResult: string;
 
   constructor(private clientService: ClientService,
+              private authService: AuthService,
               private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -61,9 +63,14 @@ export class ManageClientsListComponent implements OnInit {
         diagnosis: ''
       }
     };
-    this.clientService.createClient(newClient)
-      .then(() => {
-      // TODO Skovgaard: Add message to user.
+    this.authService.createClientAuthUser(newClient.email)
+      .then(authUser => {
+        // TODO MSP: Add message?
+        newClient.uid = authUser.user.uid;
+        this.clientService.createClient(newClient)
+          .then(() => {
+            // TODO Skovgaard: Add message to user.
+          });
       });
   }
 
