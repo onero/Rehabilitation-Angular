@@ -1,10 +1,9 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {ClientModel} from '../../shared/client.model';
+import {ClientModel} from '../../../shared/entities/client.model';
 import {RehabilitationPlanService} from '../../../shared/services/rehabilitation-plan.service';
 import {RehabilitationPlan} from '../../../client/shared/rehabilitation-plan.model';
 import {ExerciseModel} from '../../../client/shared/exercise.model';
 import {ExerciseService} from '../../../shared/services/exercise.service';
-import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'rehab-manage-clients-detail',

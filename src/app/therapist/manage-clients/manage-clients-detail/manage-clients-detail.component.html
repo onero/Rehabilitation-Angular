@@ -18,7 +18,9 @@
 
       <!--Clients goal-->
       <div class="col">
-        <rehab-manage-clients-goal></rehab-manage-clients-goal>
+        <rehab-manage-clients-goal
+          (goalUpdated)="rehabilitationPlan.goal = $event; updateRehabilitationPlan()"
+          [currentGoal]="currentClient.rehabilitationPlan.goal"></rehab-manage-clients-goal>
       </div>
     </div>
 

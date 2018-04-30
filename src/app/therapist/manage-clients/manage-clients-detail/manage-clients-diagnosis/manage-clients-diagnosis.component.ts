@@ -1,4 +1,3 @@
-import {environment} from '../../../../../environments/environment';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
@@ -14,7 +13,6 @@ export class ManageClientsDiagnosisComponent implements OnInit {
   @Output()
   diagnosisUpdated = new EventEmitter<string>();
 
-  clientMode = environment.clientMode;
   editMode = false;
 
   constructor() {

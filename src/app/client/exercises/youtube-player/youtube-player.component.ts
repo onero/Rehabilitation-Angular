@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {YoutubeService} from '../../../shared/services/youtube.service';
-import {YoutubeResponse} from '../../../shared/models/YoutubeResponse.model';
+import {YoutubeResponse} from '../../../shared/entities/YoutubeResponse.model';
 
 @Component({
   selector: 'rehab-youtube-player',

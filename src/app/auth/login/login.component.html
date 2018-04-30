@@ -1,3 +1,49 @@
-<p>
-  login works!
-</p>
+<!-- All the files that are required -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<h1 class="text-center">GetRehabilitated</h1>
+<!-- Where all the magic happens -->
+<!-- LOGIN FORM -->
+<div class="text-center" style="padding:50px 0">
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <div class="logo">Login</div>
+
+    <!-- Main Form -->
+    <div class="login-form-1">
+      <div class="main-login-form">
+
+        <!--Email-->
+        <div class="form-group">
+          <input type="text" class="form-control" id="email" placeholder="Email"
+                 required
+                 [(ngModel)]="user.email" name="email"
+                 #email="ngModel">
+          <div [hidden]="email.valid || email.pristine"
+               class="alert alert-warning">
+            <div [hidden]="!email.hasError('required')">Please enter <strong>email</strong></div>
+          </div>
+        </div>
+
+        <!--Password-->
+        <div class="form-group">
+          <input type="password" class="form-control" id="password" placeholder="Password"
+                 required
+                 [(ngModel)]="user.password" name="password"
+                 #password="ngModel">
+          <div [hidden]="password.valid || password.pristine"
+               class="alert alert-warning">
+            <div [hidden]="!password.hasError('required')">Please enter a <strong>password</strong></div>
+          </div>
+        </div>
+        <button type="submit" class="login-button"
+                [disabled]="!loginForm.form.valid"
+                (click)="login(email.value, password.value)">OK</button>
+      </div>
+
+    </div>
+    <!-- end:Main Form -->
+  </form>
+</div>

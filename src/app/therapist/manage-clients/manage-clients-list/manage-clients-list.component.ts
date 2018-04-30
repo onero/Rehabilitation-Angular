@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ClientModel } from '../../shared/client.model';
+import { ClientModel } from '../../../shared/entities/client.model';
 import { Observable } from 'rxjs/Observable';
 import { ClientService } from '../../../shared/services/client.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -58,7 +58,8 @@ export class ManageClientsListComponent implements OnInit {
       phone: clientPhone,
       email: clientEmail,
       rehabilitationPlan: {
-        diagnosis: ''
+        diagnosis: '',
+        goal: ''
       }
     };
     this.clientService.createClient(newClient)
