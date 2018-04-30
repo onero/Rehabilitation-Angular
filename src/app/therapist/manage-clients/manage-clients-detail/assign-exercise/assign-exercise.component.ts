@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ExerciseModel} from '../../../../client/shared/exercise.model';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'rehab-assign-exercise',
@@ -15,7 +16,7 @@ export class AssignExerciseComponent implements OnInit {
   @Output()
   exerciseUnassigned = new EventEmitter<string>();
 
-  constructor() {
+  constructor(private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -27,5 +28,23 @@ export class AssignExerciseComponent implements OnInit {
    */
   onExerciseUnassigned(uid: string) {
     this.exerciseUnassigned.emit(uid);
+  }
+
+  /**
+   * Assign selected exercise
+   * @param {ExerciseModel} exercise
+   */
+  assignSelectedExercise(exercise: ExerciseModel) {
+    this.exercises.push(exercise);
+  }
+
+  /**
+   * Opens up the modal to add a new client.
+   * @param content
+   */
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+    }, (reason) => {
+    });
   }
 }
