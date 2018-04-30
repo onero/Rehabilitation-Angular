@@ -1,7 +1,9 @@
 <h1>Exercises</h1>
-<div *ngFor="let exercise of exercises" class="card">
+<div *ngFor="let exercise of exercises"
+     class="card" style="text-align: center">
   <div class="card-header">
-    {{exercise.title}}
+    <h3 class="pull-left">{{exercise.title}}</h3>
+    <button class="btn btn-danger pull-right">X</button>
   </div>
   <div class="card-body">
     <img src="/assets/placeholders/youtube-icon.png">
