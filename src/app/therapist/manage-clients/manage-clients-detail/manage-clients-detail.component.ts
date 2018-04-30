@@ -17,7 +17,7 @@ export class ManageClientsDetailComponent implements OnInit {
 
   rehabilitationPlan: RehabilitationPlan;
 
-  exercises: ExerciseModel[];
+  exercises: ExerciseModel[] = [];
 
   @Output()
   clientDeleted = new EventEmitter();
@@ -30,7 +30,7 @@ export class ManageClientsDetailComponent implements OnInit {
     this.rehabilitationPlan = this.currentClient.rehabilitationPlan;
     this.rehabilitationPlan.exerciseIds.forEach(exerciseId => {
       this.exerciseService.getExerciseById(exerciseId)
-        .subscribe(result => console.log(result));
+        .subscribe(clientExercise => this.exercises.push(clientExercise));
     });
   }
 

@@ -1,21 +1,11 @@
 <h1>Exercises</h1>
-<div class="card">
+<div *ngFor="let exercise of exercises" class="card">
   <div class="card-header">
-    Hand
+    {{exercise.title}}
   </div>
   <div class="card-body">
     <img src="/assets/placeholders/youtube-icon.png">
-    <h5 class="card-title">3 x 15</h5>
-    <p class="card-text">This is good for you.</p>
-  </div>
-</div>
-<div class="card">
-  <div class="card-header">
-    Finger
-  </div>
-  <div class="card-body">
-    <img src="/assets/placeholders/youtube-icon.png">
-    <h5 class="card-title">3 x 5</h5>
-    <p class="card-text">This is also good for you.</p>
+    <h5 class="card-title">{{exercise.repetition}}</h5>
+    <p class="card-text">{{exercise.description}}</p>
   </div>
 </div>

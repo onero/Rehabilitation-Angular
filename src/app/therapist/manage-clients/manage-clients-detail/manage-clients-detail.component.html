@@ -25,7 +25,7 @@
     <!--YouTube assignments-->
     <div class="col-md-5">
       <!--Insert Youtube HTML in HERE!-->
-      <rehab-assign-exercise ></rehab-assign-exercise>
+      <rehab-assign-exercise *ngIf="exercises" [exercises]="exercises"></rehab-assign-exercise>
     </div>
 
   </div>
