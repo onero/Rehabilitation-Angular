@@ -14,7 +14,6 @@ export class ManageClientsDiagnosisComponent implements OnInit {
   @Output()
   diagnosisUpdated = new EventEmitter<string>();
 
-  clientMode = environment.clientMode;
   editMode = false;
 
   constructor() {

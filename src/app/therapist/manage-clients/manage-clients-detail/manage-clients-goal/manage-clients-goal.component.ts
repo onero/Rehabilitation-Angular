@@ -1,5 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {environment} from '../../../../../environments/environment';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'rehab-manage-clients-goal',
@@ -8,17 +7,25 @@ import {environment} from '../../../../../environments/environment';
 })
 export class ManageClientsGoalComponent implements OnInit {
 
-  clientMode = environment.clientMode;
+  @Input()
+  currentGoal: string;
+
+  @Output()
+  goalUpdated = new EventEmitter<string>();
+
+  editMode = false;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  /**
-   * Edit btn will change the view to be editable.
-   */
-  editGoal() {
-    console.log('New goal new goal new goal!');
+  toggleGoalEdit() {
+    this.editMode = !this.editMode;
+  }
+
+  onGoalUpdated() {
+    this.goalUpdated.emit(this.currentGoal);
+    this.editMode = false;
   }
 }

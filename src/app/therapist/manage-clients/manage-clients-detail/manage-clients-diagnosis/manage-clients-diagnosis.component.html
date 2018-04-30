@@ -3,7 +3,7 @@
   <div class="row">
     <!--DIAGNOSIS HEADLINE-->
     <div class="col">
-      <h1>Diagnosis
+      <h3>Diagnosis
         <div *ngIf="!editMode; then editIcon else saveIcon"></div>
         <ng-template #editIcon>
           <i class="fa fa-edit fa-1x pull-right" (click)="toggleEdit()"></i>
@@ -11,7 +11,7 @@
         <ng-template #saveIcon>
           <i class="fa fa-floppy-o fa-1x pull-right" (click)="onDiagnosisUpdated()"></i>
         </ng-template>
-      </h1>
+      </h3>
     </div>
   </div>
   <!--DIAGNOSIS TEXT-->
