@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { ClientModel } from '../../therapist/shared/client.model';
+import { ClientModel } from '../entities/client.model';
 import {FirestoreModel} from './firestore.model';
 
 @Injectable()

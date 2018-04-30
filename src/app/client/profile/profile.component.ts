@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ClientModel} from '../../therapist/shared/client.model';
+import {ClientModel} from '../../shared/entities/client.model';
 
 @Component({
   selector: 'rehab-profile',

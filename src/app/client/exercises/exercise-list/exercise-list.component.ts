@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {ExerciseModel} from '../../shared/exercise.model';
 import {YoutubeService} from '../../../shared/services/youtube.service';
-import {YoutubeResponse} from '../../../shared/models/YoutubeResponse.model';
+import {YoutubeResponse} from '../../../shared/entities/YoutubeResponse.model';
 import {ExerciseService} from '../../../shared/services/exercise.service';
 
 @Component({
