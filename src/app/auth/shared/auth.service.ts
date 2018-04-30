@@ -1,13 +1,17 @@
-import { Injectable } from '@angular/core';
-import {Router} from '@angular/router';
+import {Injectable} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
+  static CLIENT_ID_KEY = 'clientId';
 
-  constructor(private fireAuth: AngularFireAuth,
-              private router: Router) { }
+  constructor(public fireAuth: AngularFireAuth) {
+    fireAuth.authState.subscribe(result => {
+      if (result) {
+        localStorage.setItem(AuthService.CLIENT_ID_KEY, result.uid);
+      }
+    });
+  }
 
   login(email: string, password: string): Promise<any> {
     return this.fireAuth.auth
