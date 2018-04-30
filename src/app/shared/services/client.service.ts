@@ -23,9 +23,7 @@ export class ClientService {
    * @param newClient
    */
   createClient(newClient: ClientModel) {
-    const id = this.afs.createId();
-    newClient.uid = id;
-    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(id).set(newClient);
+    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(newClient.uid).set(newClient);
   }
 
   /**
