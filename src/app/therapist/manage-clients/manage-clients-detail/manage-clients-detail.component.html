@@ -18,14 +18,18 @@
 
       <!--Clients goal-->
       <div class="col">
-        <rehab-manage-clients-goal></rehab-manage-clients-goal>
+        <rehab-manage-clients-goal
+          (goalUpdated)="rehabilitationPlan.goal = $event; updateRehabilitationPlan()"
+          [currentGoal]="currentClient.rehabilitationPlan.goal"></rehab-manage-clients-goal>
       </div>
     </div>
 
     <!--YouTube assignments-->
     <div class="col-md-5">
       <!--Insert Youtube HTML in HERE!-->
-      Her kommer der en liste af youtube videoer!
+      <rehab-assign-exercise [exercises]="exercises"
+                             (exerciseUnassigned)="unassignExerciseFromClient($event)"
+                             (exerciseAssigned)="assignExerciseToClient($event)"></rehab-assign-exercise>
     </div>
 
   </div>
