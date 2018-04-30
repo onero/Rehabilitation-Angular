@@ -15,15 +15,15 @@
     <div class="login-form-1">
       <div class="main-login-form">
 
-        <!--Username-->
+        <!--Email-->
         <div class="form-group">
           <input type="text" class="form-control" id="email" placeholder="Email"
                  required
                  [(ngModel)]="user.email" name="email"
-                 #username="ngModel">
-          <div [hidden]="username.valid || username.pristine"
+                 #email="ngModel">
+          <div [hidden]="email.valid || email.pristine"
                class="alert alert-warning">
-            <div [hidden]="!username.hasError('required')">Please enter <strong>email</strong></div>
+            <div [hidden]="!email.hasError('required')">Please enter <strong>email</strong></div>
           </div>
         </div>
 
@@ -38,14 +38,11 @@
             <div [hidden]="!password.hasError('required')">Please enter a <strong>password</strong></div>
           </div>
         </div>
-        <button type="submit" class="login-button" (click)="login(username.value, password.value)"
-                [disabled]="!loginForm.form.valid">OK</button>
+        <button type="submit" class="login-button"
+                [disabled]="!loginForm.form.valid"
+                (click)="login(email.value, password.value)">OK</button>
       </div>
 
-      <!--<div class="etc-login-form">-->
-        <!--&lt;!&ndash;  For new group!!!  &ndash;&gt;-->
-        <!--<p>New group? <a href="#" routerLink="/newGroup">Create new group</a></p>-->
-      <!--</div>-->
     </div>
     <!-- end:Main Form -->
   </form>
