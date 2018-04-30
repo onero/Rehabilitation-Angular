@@ -3,7 +3,8 @@
      class="card" style="text-align: center">
   <div class="card-header">
     <h3 class="pull-left">{{exercise.title}}</h3>
-    <button class="btn btn-danger pull-right">X</button>
+    <button class="btn btn-danger pull-right"
+            (click)="onExerciseUnassigned(exercise.uid)">X</button>
   </div>
   <div class="card-body">
     <img src="/assets/placeholders/youtube-icon.png">

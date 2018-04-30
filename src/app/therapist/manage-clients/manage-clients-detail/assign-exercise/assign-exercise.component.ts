@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ExerciseModel} from '../../../../client/shared/exercise.model';
 
@@ -10,7 +10,10 @@ import {ExerciseModel} from '../../../../client/shared/exercise.model';
 export class AssignExerciseComponent implements OnInit {
 
   @Input()
-  exercises: ExerciseModel[];
+  exercises: ExerciseModel[] = [];
+
+  @Output()
+  exerciseUnassigned = new EventEmitter<string>();
 
   constructor() {
   }
@@ -18,4 +21,11 @@ export class AssignExerciseComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Unassign exercise from client
+   * @param {string} uid
+   */
+  onExerciseUnassigned(uid: string) {
+    this.exerciseUnassigned.emit(uid);
+  }
 }
