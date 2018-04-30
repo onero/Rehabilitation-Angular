@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientModel } from '../shared/client.model';
+import { ClientModel } from '../../shared/entities/client.model';
 import {ClientService} from '../../shared/services/client.service';
 
 @Component({
