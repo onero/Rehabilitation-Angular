@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'rehab-manage-clients-goal',
@@ -14,6 +15,8 @@ export class ManageClientsGoalComponent implements OnInit {
   goalUpdated = new EventEmitter<string>();
 
   editMode = false;
+
+  allowEdit = !environment.clientMode;
 
   constructor() { }
 
