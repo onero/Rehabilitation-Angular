@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginEntity } from '../shared/login.entity';
+import {AuthService} from '../shared/auth.service';
+import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'rehab-login',
@@ -8,13 +11,35 @@ import { LoginEntity } from '../shared/login.entity';
 })
 export class LoginComponent implements OnInit {
 
-  user = new LoginEntity('', '');
-  submitted = false;
+  private static THERAPIST_EMAIL = 'therapist@test.dk';
+  private static THERAPIST_URL = 'therapist/clients';
+  private static CLIENT_URL = 'client/exercises';
 
-  constructor() { }
+  user = new LoginEntity('', '');
+
+  constructor(private authservice: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
   }
 
-  onSubmit() { this.submitted = true; }
+  onSubmit() {
+  }
+
+  login(email: string, password: string)  {
+    this.authservice.login(email, password)
+      .then(authUser => {
+        if (email === LoginComponent.THERAPIST_EMAIL) {
+          environment.clientMode = false;
+          this.router.navigateByUrl(LoginComponent.THERAPIST_URL);
+        } else {
+          environment.clientMode = true;
+          this.router.navigateByUrl(LoginComponent.CLIENT_URL);
+        }
+        // this.router.navigateByUrl('therapist/clients');
+      })
+      .catch(error => {
+        this.router.navigateByUrl('**');
+      });
+  }
 }
