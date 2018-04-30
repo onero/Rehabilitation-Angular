@@ -1,4 +1,3 @@
-import {environment} from '../../../../../environments/environment';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({

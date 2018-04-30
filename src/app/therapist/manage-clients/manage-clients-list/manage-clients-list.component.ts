@@ -58,7 +58,8 @@ export class ManageClientsListComponent implements OnInit {
       phone: clientPhone,
       email: clientEmail,
       rehabilitationPlan: {
-        diagnosis: ''
+        diagnosis: '',
+        goal: ''
       }
     };
     this.clientService.createClient(newClient)

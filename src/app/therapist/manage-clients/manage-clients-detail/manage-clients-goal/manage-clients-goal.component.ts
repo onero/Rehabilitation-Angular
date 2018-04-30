@@ -20,10 +20,16 @@ export class ManageClientsGoalComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Change save icon to edit icon and so on.
+   */
   toggleGoalEdit() {
     this.editMode = !this.editMode;
   }
 
+  /**
+   * Tells when the update is called.
+   */
   onGoalUpdated() {
     this.goalUpdated.emit(this.currentGoal);
     this.editMode = false;
