@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ClientModel} from '../../shared/client.model';
 import {RehabilitationPlanService} from '../../../shared/services/rehabilitation-plan.service';
 import {RehabilitationPlan} from '../../../client/shared/rehabilitation-plan.model';
+import {ExerciseModel} from '../../../client/shared/exercise.model';
+import {ExerciseService} from '../../../shared/services/exercise.service';
 
 @Component({
   selector: 'rehab-manage-clients-detail',
@@ -12,16 +14,24 @@ export class ManageClientsDetailComponent implements OnInit {
 
   @Input()
   currentClient: ClientModel;
+
   rehabilitationPlan: RehabilitationPlan;
+
+  exercises: ExerciseModel[];
 
   @Output()
   clientDeleted = new EventEmitter();
 
-  constructor(private rehabilitationPlanService: RehabilitationPlanService) {
+  constructor(private rehabilitationPlanService: RehabilitationPlanService,
+              private exerciseService: ExerciseService) {
   }
 
   ngOnInit() {
     this.rehabilitationPlan = this.currentClient.rehabilitationPlan;
+    this.rehabilitationPlan.exerciseIds.forEach(exerciseId => {
+      this.exerciseService.getExerciseById(exerciseId)
+        .subscribe(result => console.log(result));
+    });
   }
 
   /**
