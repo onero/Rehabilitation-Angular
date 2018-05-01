@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(LoginComponent.THERAPIST_URL);
         } else {
           environment.clientMode = true;
-          console.log(authUser.user.uid)
           this.router.navigateByUrl(LoginComponent.CLIENT_URL);
         }
       })
