@@ -16,12 +16,17 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.saveClientToLocalStorage();
+  }
+
+  /**
+   * Saves the client to the local storage, so the user wont login every time.
+   */
+  private saveClientToLocalStorage() {
     const uid = localStorage.getItem(AuthService.CLIENT_ID_KEY);
     this.clientService.getCurrentClientById(uid)
       .subscribe(clientFromDB => {
         this.clientFromUser = clientFromDB as ClientModel;
       });
   }
-
-
 }

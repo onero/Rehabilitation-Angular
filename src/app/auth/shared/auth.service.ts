@@ -13,11 +13,22 @@ export class AuthService {
     });
   }
 
+  /**
+   * Signing in with email & password.
+   * @param {string} email
+   * @param {string} password
+   * @returns {Promise<any>}
+   */
   login(email: string, password: string): Promise<any> {
     return this.fireAuth.auth
       .signInAndRetrieveDataWithEmailAndPassword(email, password);
   }
 
+  /**
+   * When creating a client make the password '123456' as a default password (for now).
+   * @param {string} email
+   * @returns {Promise<any>}
+   */
   createClientAuthUser(email: string): Promise<any> {
     // TODO MSP Make real password creation?
     const password = '123456';
