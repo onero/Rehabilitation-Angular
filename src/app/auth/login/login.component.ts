@@ -26,6 +26,12 @@ export class LoginComponent implements OnInit {
   onSubmit() {
   }
 
+  /**
+   * Logging in as a Therapist if the email matches the THERAPIST_EMAIL,
+   * Else log in as a Client.
+   * @param {string} email
+   * @param {string} password
+   */
   login(email: string, password: string)  {
     this.authservice.login(email, password)
       .then(authUser => {
@@ -36,7 +42,6 @@ export class LoginComponent implements OnInit {
           environment.clientMode = true;
           this.router.navigateByUrl(LoginComponent.CLIENT_URL);
         }
-        // this.router.navigateByUrl('therapist/clients');
       })
       .catch(error => {
         this.router.navigateByUrl('**');
