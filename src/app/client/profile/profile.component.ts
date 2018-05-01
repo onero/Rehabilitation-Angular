@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ClientModel} from '../../shared/entities/client.model';
+import {ClientService} from '../../shared/services/client.service';
+import {AuthService} from '../../auth/shared/auth.service';
 
 @Component({
   selector: 'rehab-profile',
@@ -10,17 +12,15 @@ export class ProfileComponent implements OnInit {
 
   clientFromUser: ClientModel;
 
-  constructor() {
+  constructor(private clientService: ClientService) {
   }
 
   ngOnInit() {
-    // TODO MSP Get user/client from db
-    this.clientFromUser = {
-      fullName: 'Mathias Test Plougmann',
-      email: 'mathiasplougmann@test.dk',
-      address: 'Testvej 25, 6700 Esbjerg',
-      phone: '12345678'
-    };
+    const uid = localStorage.getItem(AuthService.CLIENT_ID_KEY);
+    this.clientService.getCurrentClientById(uid)
+      .subscribe(clientFromDB => {
+        this.clientFromUser = clientFromDB as ClientModel;
+      });
   }
 
 
