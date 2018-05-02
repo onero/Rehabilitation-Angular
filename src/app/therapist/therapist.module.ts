@@ -14,12 +14,14 @@ import {ManageClientsDiagnosisComponent} from './manage-clients/manage-clients-d
 import {ManageClientsContactInformationComponent} from './manage-clients/manage-clients-detail/manage-clients-contact-information/manage-clients-contact-information.component';
 import {ManageClientsGoalComponent} from './manage-clients/manage-clients-detail/manage-clients-goal/manage-clients-goal.component';
 import {AssignExerciseComponent} from './manage-clients/manage-clients-detail/assign-exercise/assign-exercise.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    NgbModule.forRoot()
   ],
   exports: [
     ManageClientsContactInformationComponent,

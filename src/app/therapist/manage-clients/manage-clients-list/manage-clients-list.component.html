@@ -1,12 +1,21 @@
 <h1 class="center">Clients
   <i class="fa fa-plus-circle pull-right add-button"
      (click)="open(newClient)"></i></h1>
-<div *ngFor="let client of $clients | async"
-     class="card" (click)="onClientSelected(client); currentClient = client"
-     [ngClass]="{'selected': currentClient === client}">
-  <div class="card-body">
-    <h5 class="card-title">{{client.fullName}}</h5>
+
+<div *ngIf="paginatedClients">
+  <div *ngFor="let client of paginatedClients"
+       class="card" (click)="onClientSelected(client); currentClient = client"
+       [ngClass]="{'selected': currentClient === client}">
+    <div class="card-body">
+      <h5 class="card-title">{{client.fullName}}</h5>
+    </div>
   </div>
+  <ngb-pagination [collectionSize]="allClients.length"
+                  [(page)]="page"
+                  [maxSize]="5"
+                  [pageSize]="5"
+                  (pageChange)="paginate($event)">
+  </ngb-pagination>
 </div>
 
 
