@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { ClientModel } from '../entities/client.model';
+import {Injectable} from '@angular/core';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {ClientModel} from '../entities/client.model';
 import {FirestoreModel} from './firestore.model';
 
 @Injectable()
@@ -15,9 +15,9 @@ export class ClientService {
    * Get list of category.
    * @returns {Observable<any[]>}
    */
-    getClients() {
+  getClients() {
     return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION,
-        ref => ref.orderBy('fullName')).valueChanges();
+      ref => ref.orderBy('fullName')).valueChanges();
   }
 
   /**
@@ -25,14 +25,8 @@ export class ClientService {
    * @returns {Observable<any[]>}
    */
   getClientsPaginated(limit: number, lastClient?: ClientModel) {
-
-    if (!lastClient) {
-      return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION,
-        ref => ref.orderBy('fullName').limit(limit)).valueChanges();
-    } else {
-      return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION,
-        ref => ref.orderBy('fullName').startAfter(lastClient.fullName).limit(limit)).valueChanges();
-    }
+    return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION,
+      ref => ref.orderBy('fullName').startAt(lastClient.fullName).limit(limit)).valueChanges();
   }
 
   /**

@@ -12,7 +12,7 @@ import {environment} from '../../../environments/environment';
 export class LoginComponent implements OnInit {
 
   private static THERAPIST_EMAIL = 'therapist@test.dk';
-  private static THERAPIST_URL = 'therapist/clients';
+  private static THERAPIST_URL = 'therapist/allClients';
   private static CLIENT_URL = 'client/exercises';
 
   user = new LoginEntity('', '');
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
           environment.clientMode = true;
           this.router.navigateByUrl(LoginComponent.CLIENT_URL);
         }
-        // this.router.navigateByUrl('therapist/clients');
+        // this.router.navigateByUrl('therapist/allClients');
       })
       .catch(error => {
         this.router.navigateByUrl('**');
