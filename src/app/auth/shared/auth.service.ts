@@ -13,6 +13,10 @@ export class AuthService {
     });
   }
 
+  /**
+   * Gets the Clients Id from localStorage.
+   * @returns {string}
+   */
   getUserId() {
     return localStorage.getItem(AuthService.CLIENT_ID_KEY);
   }
@@ -40,4 +44,12 @@ export class AuthService {
       .createUserAndRetrieveDataWithEmailAndPassword(email, password);
   }
 
+  /**
+   * Sign out the user
+   * @returns {Promise<any>}
+   */
+  logout() {
+    localStorage.clear();
+    return this.fireAuth.auth.signOut();
+  }
 }
