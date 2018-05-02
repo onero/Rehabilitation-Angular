@@ -61,7 +61,8 @@ export class ManageClientsListComponent implements OnInit {
       email: clientEmail,
       rehabilitationPlan: {
         diagnosis: '',
-        goal: ''
+        goal: '',
+        exerciseIds: []
       }
     };
     this.authService.createClientAuthUser(newClient.email)

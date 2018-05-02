@@ -13,6 +13,10 @@ export class AuthService {
     });
   }
 
+  getUserId() {
+    return localStorage.getItem(AuthService.CLIENT_ID_KEY);
+  }
+
   /**
    * Signing in with email & password.
    * @param {string} email

@@ -1,9 +1,8 @@
-import {Injectable} from '@angular/core';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {Observable} from 'rxjs/Observable';
-import {ExerciseModel} from '../../client/shared/exercise.model';
-import {FirestoreModel} from './firestore.model';
-import {E} from '@angular/core/src/render3';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
+import { ExerciseModel } from '../../client/shared/exercise.model';
+import { FirestoreModel } from './firestore.model';
 import 'rxjs/add/operator/first';
 
 @Injectable()
@@ -37,21 +36,24 @@ export class ExerciseService {
   addExercise(newExercise: ExerciseModel) {
     const id = this.angularFireStore.createId();
     newExercise.uid = id;
-    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION).doc(id).set(newExercise);
+    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION)
+      .doc(id).set(newExercise);
   }
 
   /**
    * Delete parsed exercise
    */
   deleteExercise(currentExercise: ExerciseModel) {
-    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION).doc(currentExercise.uid).delete();
+    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION)
+      .doc(currentExercise.uid).delete();
   }
 
   /**
    * Update parsed exercise
    */
   updateExercise(updatedExercise: ExerciseModel) {
-    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION).doc(updatedExercise.uid).set(updatedExercise);
+    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION)
+      .doc(updatedExercise.uid).set(updatedExercise);
   }
 
   /**
@@ -66,5 +68,11 @@ export class ExerciseService {
       .map(result => {
         return result[0];
       });
+  }
+
+  getExercisesFromClientId(clientId: string) {
+    const exercise = this.angularFireStore.collection<ExerciseModel>(FirestoreModel.CLIENTS_COLLECTION).valueChanges();
+    console.log('TEST', exercise);
+    return exercise;
   }
 }
