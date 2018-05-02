@@ -3,17 +3,42 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/client/profile">Profile</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/client/exercises">Exercises</a>
-      </li>
-    </ul>
-    <div class="nav-item logoutBtn" >
-      <a class="nav-link"  (click)="logout()">Logout</a>
+
+  <!--Check what we are logged in as-->
+  <div *ngIf="!isClientMode(); then therapist else client"></div>
+
+  <!--CLIENT-->
+  <ng-template #client>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/client/profile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/client/exercises">Exercises</a>
+        </li>
+      </ul>
+      <div class="nav-item logoutBtn" >
+        <a class="nav-link"  (click)="logout()">Logout</a>
+      </div>
     </div>
-  </div>
+  </ng-template>
+
+  <!--THERAPIST-->
+  <ng-template #therapist>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/therapist/clients">Clients</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/therapist/exercises">Exercises</a>
+        </li>
+      </ul>
+      <div class="nav-item logoutBtn" >
+        <a class="nav-link"  (click)="logout()">Logout</a>
+      </div>
+    </div>
+  </ng-template>
+
 </nav>

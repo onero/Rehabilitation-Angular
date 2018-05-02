@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {environment} from '../../../environments/environment';
 import {AuthService} from '../../auth/shared/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'rehab-toolbar',
@@ -17,6 +17,9 @@ export class ToolbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Sign out and clear localStorage.
+   */
   logout() {
     this.authService.logout()
       .then(() => {
@@ -24,10 +27,21 @@ export class ToolbarComponent implements OnInit {
       });
   }
 
+  /**
+   * Checks if we are logged in.
+   * @returns {boolean}
+   */
   loggedIn() {
     if (this.authService.getUserId()) {
-      console.log('true');
       return true;
     }
+  }
+
+  /**
+   * Checks if we are in Client or Therapist mode.
+   * @returns {boolean}
+   */
+  isClientMode() {
+    return environment.clientMode;
   }
 }
