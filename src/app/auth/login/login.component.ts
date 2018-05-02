@@ -3,7 +3,6 @@ import {LoginEntity} from '../shared/login.entity';
 import {AuthService} from '../shared/auth.service';
 import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
-import {ClientService} from '../../shared/services/client.service';
 
 @Component({
   selector: 'rehab-login',
@@ -48,4 +47,6 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('**');
       });
   }
+
+
 }
