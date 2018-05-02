@@ -50,8 +50,8 @@ export class ManageClientsListComponent implements OnInit {
     }
 
     // Paginate from last element on current page
-    this.clientService.getClientsPaginated(this.limit, latest).subscribe(paginatedMessages => {
-      this.paginatedClients = paginatedMessages;
+    this.clientService.getClientsPaginated(this.limit, latest).subscribe(paginatedClients => {
+      this.paginatedClients = paginatedClients;
     });
   }
 
