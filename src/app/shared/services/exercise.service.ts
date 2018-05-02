@@ -91,7 +91,6 @@ export class ExerciseService {
 
   getExercisesFromClientId(clientId: string) {
     const exercise = this.angularFireStore.collection<ExerciseModel>(FirestoreModel.CLIENTS_COLLECTION).valueChanges();
-    console.log('TEST', exercise);
     return exercise;
   }
 

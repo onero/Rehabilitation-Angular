@@ -38,14 +38,10 @@ export class ManageExercisesListComponent implements OnInit, OnChanges {
     // Check for category name (if one is present, we are in Manage Exercises)
     if (this.currentCategoryName.length > 0) {
       this.instanciateExercises();
-      // this.instanciateExercises();
-      // If no category name we're in Manage Clients
     } else {
        this.exerciseService.getExercises().subscribe(
          exercises => this.allExercises = exercises as ExerciseModel[]
        );
-      // this.exerciseService.getExercises().subscribe(exercises => {
-      //   this.paginatedExercises = exercises;
       }
     }
 
