@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../../auth/shared/auth.service';
 
 @Component({
   selector: 'rehab-toolbar',
@@ -8,15 +10,22 @@ import { Router } from '@angular/router';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   logout() {
-    localStorage.setItem('loggedIn', 'false');
     this.router.navigateByUrl('login');
+    localStorage.clear();
     console.log('Loggin out...');
   }
 
+  loggedIn() {
+    if (this.authService.getUserId()) {
+      console.log('true');
+      return true;
+    }
+  }
 }

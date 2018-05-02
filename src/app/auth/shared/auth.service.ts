@@ -13,6 +13,10 @@ export class AuthService {
     });
   }
 
+  /**
+   * Gets the Clients Id from localStorage.
+   * @returns {string}
+   */
   getUserId() {
     return localStorage.getItem(AuthService.CLIENT_ID_KEY);
   }
