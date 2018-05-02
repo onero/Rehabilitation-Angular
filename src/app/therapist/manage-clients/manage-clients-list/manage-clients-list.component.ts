@@ -1,8 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ClientModel } from '../../../shared/entities/client.model';
-import { Observable } from 'rxjs/Observable';
-import { ClientService } from '../../../shared/services/client.service';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ClientModel} from '../../../shared/entities/client.model';
+import {Observable} from 'rxjs/Observable';
+import {ClientService} from '../../../shared/services/client.service';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../../auth/shared/auth.service';
 
 @Component({
@@ -15,20 +15,44 @@ export class ManageClientsListComponent implements OnInit {
   @Output()
   clientSelected = new EventEmitter<ClientModel>();
   currentClient: ClientModel;
-  $totalClients;
-  $clients: Observable<ClientModel[]>;
+  allClients: ClientModel[];
+  paginatedClients: ClientModel[];
   closeResult: string;
   page: number;
   limit = 5;
 
   constructor(private clientService: ClientService,
               private authService: AuthService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal) {
+  }
 
   ngOnInit() {
     this.page = 1;
-    this.$totalClients = this.clientService.getClients();
-    this.$clients = this.clientService.getClientsPaginated(this.limit);
+    this.clientService.getClients().subscribe(clients => {
+      this.allClients = clients as ClientModel[];
+      this.paginatedClients = this.allClients.slice(0, this.limit);
+    });
+  }
+
+  /**
+   * We will paginate
+   * @param {number} page
+   */
+  paginate(page: number) {
+    let latest: any;
+
+    // Check for first page
+    if (page === 1) {
+      latest = this.allClients[0];
+      // Get a hold of last element on current page
+    } else {
+      latest = this.allClients[(page - 1) * this.limit];
+    }
+
+    // Paginate from last element on current page
+    this.clientService.getClientsPaginated(this.limit, latest).subscribe(paginatedMessages => {
+      this.paginatedClients = paginatedMessages;
+    });
   }
 
   /**
@@ -91,12 +115,8 @@ export class ManageClientsListComponent implements OnInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
 
-  paginate(page: number, client?: ClientModel) {
-    console.log(client);
-    this.$clients = this.clientService.getClientsPaginated(this.limit, client);
-  }
 }
