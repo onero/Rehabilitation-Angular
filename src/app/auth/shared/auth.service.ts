@@ -44,4 +44,12 @@ export class AuthService {
       .createUserAndRetrieveDataWithEmailAndPassword(email, password);
   }
 
+  /**
+   * Sign out the user
+   * @returns {Promise<any>}
+   */
+  logout() {
+    localStorage.clear();
+    return this.fireAuth.auth.signOut();
+  }
 }
