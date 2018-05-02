@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { ExerciseModel } from '../../client/shared/exercise.model';
 import { FirestoreModel } from './firestore.model';
 import 'rxjs/add/operator/first';
+import {ClientModel} from '../entities/client.model';
 
 @Injectable()
 export class ExerciseService {
@@ -15,17 +16,35 @@ export class ExerciseService {
    * Get observable list of exercise collection from FireStore
    * @returns {Observable<ExerciseModel[]>}
    */
-  public getExercises(): Observable<ExerciseModel[]> {
-    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION).valueChanges();
+  public getExercises() {
+    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION,
+      ref => ref.orderBy('title')).valueChanges();
   }
 
   /**
    * Get observable list of exercise collection in provided category from FireStore
    * @returns {Observable<ExerciseModel[]>}
    */
-  public getExercisesByCategoryName(categoryName: string): Observable<ExerciseModel[]> {
+  public getExercisesByCategoryNamePaginated(categoryName: string, limit: number, lastExercise?: ExerciseModel) {
     return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION,
-      ref => ref.where('category', '==', categoryName)).valueChanges();
+      ref => ref
+        .where('category', '==', categoryName)
+        .orderBy('title')
+        .startAt(lastExercise.title)
+        .limit(limit))
+      .valueChanges();
+  }
+
+  /**
+   * Get observable list of exercise collection in provided category from FireStore
+   * @returns {Observable<ExerciseModel[]>}
+   */
+  public getExercisesByCategoryName(categoryName: string) {
+    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION,
+      ref => ref
+        .where('category', '==', categoryName)
+        .orderBy('title'))
+        .valueChanges();
   }
 
   /**
@@ -74,5 +93,14 @@ export class ExerciseService {
     const exercise = this.angularFireStore.collection<ExerciseModel>(FirestoreModel.CLIENTS_COLLECTION).valueChanges();
     console.log('TEST', exercise);
     return exercise;
+  }
+
+  /**
+   * Get list of category.
+   * @returns {Observable<any[]>}
+   */
+  getExercisesPaginated(limit: number, lastExercise?: ExerciseModel) {
+    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION,
+      ref => ref.orderBy('title').startAt(lastExercise.title).limit(limit)).valueChanges();
   }
 }

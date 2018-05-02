@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import {ExerciseModel} from '../../../client/shared/exercise.model';
 import {ExerciseService} from '../../../shared/services/exercise.service';
 import {Router} from '@angular/router';
@@ -23,11 +22,13 @@ export class ManageExercisesListComponent implements OnInit, OnChanges {
   @Input()
   allowAddExercise = true;
 
-  $exercises: Observable<ExerciseModel[]>;
+  allExercises: ExerciseModel[];
+  paginatedExercises: ExerciseModel[];
+  page: number;
+  limit = 5;
 
   constructor(private exerciseService: ExerciseService,
-              private router: Router) {
-  }
+              private router: Router) { }
 
   onExerciseSelected(exercise: ExerciseModel) {
     this.exerciseSelected.emit(exercise);
@@ -36,11 +37,25 @@ export class ManageExercisesListComponent implements OnInit, OnChanges {
   ngOnInit() {
     // Check for category name (if one is present, we are in Manage Exercises)
     if (this.currentCategoryName.length > 0) {
-      this.$exercises = this.exerciseService.getExercisesByCategoryName(this.currentCategoryName);
+      this.instanciateExercises();
+      // this.instanciateExercises();
       // If no category name we're in Manage Clients
     } else {
-      this.$exercises = this.exerciseService.getExercises();
+       this.exerciseService.getExercises().subscribe(
+         exercises => this.allExercises = exercises as ExerciseModel[]
+       );
+      // this.exerciseService.getExercises().subscribe(exercises => {
+      //   this.paginatedExercises = exercises;
+      }
     }
+
+  instanciateExercises() {
+    this.page = 1;
+    this.exerciseService.getExercisesByCategoryName(this.currentCategoryName).subscribe(
+      exercises => {
+        this.allExercises = exercises as ExerciseModel[];
+        this.paginatedExercises = this.allExercises .slice(0, this.limit);
+      });
   }
 
   addExercise() {
@@ -48,7 +63,26 @@ export class ManageExercisesListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.$exercises = this.exerciseService.getExercisesByCategoryName(this.currentCategoryName);
+    this.instanciateExercises();
+  }
+
+  /**
+   * We will paginate
+   * @param {number} page
+   */
+  paginate(page: number) {
+    let latest: any;
+    // Check for first page
+    if (page === 1) {
+      latest = this.allExercises[0];
+      // Get a hold of last element on current page
+    } else {
+      latest = this.allExercises[(page - 1) * this.limit];
+    }
+
+    this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit, latest).subscribe(paginatedExercises => {
+        this.paginatedExercises = paginatedExercises;
+      });
   }
 
 }
