@@ -26,7 +26,6 @@ export class ManageCategoriesListComponent implements OnInit {
   ngOnInit() {
     this.page = 1;
     this.categoryService.getCategories().subscribe(categories => {
-      console.log('All categories', categories)
       this.allCategories = categories;
       this.paginatedCategories = this.allCategories.slice(0, this.limit);
     });
@@ -38,7 +37,6 @@ export class ManageCategoriesListComponent implements OnInit {
    */
   paginate(page: number) {
     let latest: any;
-    console.log('Page',page)
 
     // Check for first page
     if (page === 1) {
@@ -47,7 +45,6 @@ export class ManageCategoriesListComponent implements OnInit {
     } else {
       latest = this.allCategories[(page - 1) * this.limit];
     }
-    console.log('Latest', latest)
 
     // Paginate from last element on current page
     this.categoryService.getCategoriesPaginated(this.limit, latest).subscribe(paginatedCategories => {

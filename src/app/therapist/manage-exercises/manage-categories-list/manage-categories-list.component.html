@@ -1,6 +1,7 @@
 <h1 class="center">Categories
   <i class="fa fa-plus-circle pull-right add-button"
      (click)="open(newCategory)"></i></h1>
+<!--Paginated list of categories-->
 <div *ngIf="paginatedCategories">
   <div *ngFor="let category of paginatedCategories"
        class="card" (click)="onCategorySelected(category); currentCategory = category"
@@ -9,6 +10,7 @@
       <h5 class="card-title">{{category.name}}</h5>
     </div>
   </div>
+  <!--Awesome pagination component-->
   <ngb-pagination [collectionSize]="allCategories.length"
                   [(page)]="page"
                   [maxSize]="5"
