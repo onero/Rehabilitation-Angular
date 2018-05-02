@@ -6,10 +6,12 @@ import { CategoryService } from './services/category.service';
 import {ExerciseService} from './services/exercise.service';
 import { ClientService } from './services/client.service';
 import { RehabilitationPlanService } from './services/rehabilitation-plan.service';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   declarations: [ToolbarComponent, PageNotFoundComponent],
   exports: [ToolbarComponent],

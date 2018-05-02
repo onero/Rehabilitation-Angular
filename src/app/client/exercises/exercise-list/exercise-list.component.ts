@@ -48,6 +48,7 @@ export class ExerciseListComponent implements OnInit {
 
   /**
    * Get exercises from RehabilitationPlan.
+   * TODO: Skovgaard (refactor to ExerciseService)
    */
   private getExercisesFromRehabilitationPlan(rehabilitationPlan: RehabilitationPlan) {
     if (rehabilitationPlan.exerciseIds) {
