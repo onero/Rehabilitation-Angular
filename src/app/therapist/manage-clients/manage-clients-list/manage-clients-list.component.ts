@@ -15,15 +15,20 @@ export class ManageClientsListComponent implements OnInit {
   @Output()
   clientSelected = new EventEmitter<ClientModel>();
   currentClient: ClientModel;
-  $clients: Observable<any[]>;
+  $totalClients;
+  $clients: Observable<ClientModel[]>;
   closeResult: string;
+  page: number;
+  limit = 5;
 
   constructor(private clientService: ClientService,
               private authService: AuthService,
               private modalService: NgbModal) { }
 
   ngOnInit() {
-    this.$clients = this.clientService.getClients();
+    this.page = 1;
+    this.$totalClients = this.clientService.getClients();
+    this.$clients = this.clientService.getClientsPaginated(this.limit);
   }
 
   /**
@@ -88,5 +93,10 @@ export class ManageClientsListComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
+  }
+
+  paginate(page: number, client?: ClientModel) {
+    console.log(client);
+    this.$clients = this.clientService.getClientsPaginated(this.limit, client);
   }
 }

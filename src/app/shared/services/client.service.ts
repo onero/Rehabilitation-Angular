@@ -6,6 +6,8 @@ import {FirestoreModel} from './firestore.model';
 @Injectable()
 export class ClientService {
 
+  clients: ClientModel[];
+
   constructor(private afs: AngularFirestore) {
   }
 
@@ -13,8 +15,24 @@ export class ClientService {
    * Get list of category.
    * @returns {Observable<any[]>}
    */
-  getClients() {
-    return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION).valueChanges();
+    getClients() {
+    return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION,
+        ref => ref.orderBy('fullName')).valueChanges();
+  }
+
+  /**
+   * Get list of category.
+   * @returns {Observable<any[]>}
+   */
+  getClientsPaginated(limit: number, lastClient?: ClientModel) {
+
+    if (!lastClient) {
+      return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION,
+        ref => ref.orderBy('fullName').limit(limit)).valueChanges();
+    } else {
+      return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION,
+        ref => ref.orderBy('fullName').startAfter(lastClient.fullName).limit(limit)).valueChanges();
+    }
   }
 
   /**
