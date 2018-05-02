@@ -13,15 +13,43 @@ export class ManageCategoriesListComponent implements OnInit {
   @Output()
   categorySelected = new EventEmitter<string>();
   currentCategory: ExerciseModel;
-  $categories: Observable<any[]>;
+  allCategories: any[];
+  paginatedCategories: any[];
   closeResult: string;
+  page: number;
+  limit = 5;
 
 
   constructor(private categoryService: CategoryService,
               private modalService: NgbModal) { }
 
   ngOnInit() {
-    this.$categories = this.categoryService.getCategories();
+    this.page = 1;
+    this.categoryService.getCategories().subscribe(categories => {
+      this.allCategories = categories;
+      this.paginatedCategories = this.allCategories.slice(0, this.limit);
+    });
+  }
+
+  /**
+   * We will paginate
+   * @param {number} page
+   */
+  paginate(page: number) {
+    let latest: any;
+
+    // Check for first page
+    if (page === 1) {
+      latest = this.allCategories[0];
+      // Get a hold of last element on current page
+    } else {
+      latest = this.allCategories[(page - 1) * this.limit];
+    }
+
+    // Paginate from last element on current page
+    this.categoryService.getCategoriesPaginated(this.limit, latest).subscribe(paginatedCategories => {
+      this.paginatedCategories = paginatedCategories;
+    });
   }
 
   /**
