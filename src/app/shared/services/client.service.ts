@@ -55,4 +55,13 @@ export class ClientService {
   updateClient(clientToUpdate: ClientModel) {
     return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(clientToUpdate.uid).set(clientToUpdate, {merge: true});
   }
+
+  /**
+   * Get currentClient by id
+   */
+  getCurrentClientById(uid: string) {
+    return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION)
+      .doc(uid)
+      .valueChanges();
+  }
 }

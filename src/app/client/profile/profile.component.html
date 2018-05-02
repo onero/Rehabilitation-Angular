@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" *ngIf="clientFromUser">
     <div class="col-md-7">
 
       <!--Clients contact information-->
@@ -10,12 +10,12 @@
 
       <!--Clients Diagnosis-->
       <div class="col">
-        <rehab-manage-clients-diagnosis></rehab-manage-clients-diagnosis>
+        <rehab-manage-clients-diagnosis [currentDiagnosis]="clientFromUser.rehabilitationPlan.diagnosis"></rehab-manage-clients-diagnosis>
       </div>
 
       <!--Clients goal-->
       <div class="col">
-        <rehab-manage-clients-goal></rehab-manage-clients-goal>
+        <rehab-manage-clients-goal [currentGoal]="clientFromUser.rehabilitationPlan.goal"></rehab-manage-clients-goal>
       </div>
     </div>
   </div>
