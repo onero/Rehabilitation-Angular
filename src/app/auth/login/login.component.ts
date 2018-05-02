@@ -24,6 +24,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  onSubmit() {
+  }
+
   /**
    * Logging in as a Therapist if the email matches the THERAPIST_EMAIL,
    * Else log in as a Client.
