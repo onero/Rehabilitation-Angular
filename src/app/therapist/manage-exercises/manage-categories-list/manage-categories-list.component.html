@@ -1,12 +1,20 @@
 <h1 class="center">Categories
   <i class="fa fa-plus-circle pull-right add-button"
      (click)="open(newCategory)"></i></h1>
-<div *ngFor="let category of $categories | async"
-     class="card" (click)="onCategorySelected(category); currentCategory = category"
-     [ngClass]="{'selected': currentCategory === category}">
-  <div class="card-body">
-    <h5 class="card-title">{{category.name}}</h5>
+<div *ngIf="paginatedCategories">
+  <div *ngFor="let category of paginatedCategories"
+       class="card" (click)="onCategorySelected(category); currentCategory = category"
+       [ngClass]="{'selected': currentCategory === category}">
+    <div class="card-body">
+      <h5 class="card-title">{{category.name}}</h5>
+    </div>
   </div>
+  <ngb-pagination [collectionSize]="allCategories.length"
+                  [(page)]="page"
+                  [maxSize]="5"
+                  [pageSize]="5"
+                  (pageChange)="paginate($event)">
+  </ngb-pagination>
 </div>
 
 <!--NEW CATEGORY-->
@@ -27,10 +35,12 @@
   <div class="modal-footer">
     <button type="button"
             class="btn btn-danger"
-            (click)="c('Close click')">Close</button>
+            (click)="c('Close click')">Close
+    </button>
     <button [disabled]="!categoryInput.valid"
             type="button"
             class="btn btn-success pull-right"
-            (click)="addCategory(categoryInput.value); c('Close click')">Add</button>
+            (click)="addCategory(categoryInput.value); c('Close click')">Add
+    </button>
   </div>
 </ng-template>
