@@ -44,8 +44,8 @@ export class ToolbarComponent implements OnInit {
    */
   isClientMode() {
     if (this.authService.fireAuth.auth.currentUser) {
-      // Checks if the uid is not the same as the Therapist's UID.
-      if (this.authService.fireAuth.auth.currentUser.uid !== AuthService.THERAPIST_UID) {
+      // Checks if the uid is the same as the Therapist's UID.
+      if (this.authService.fireAuth.auth.currentUser.uid === AuthService.THERAPIST_UID) {
         environment.clientMode = false;
         return false;
       } else {
