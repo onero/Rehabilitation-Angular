@@ -1,10 +1,10 @@
+<h1>{{currentModel.fullName}}</h1>
 <div class="row" style="text-align:left">
   <div class="col-md-12">
     <a class="list-group-item">
 
       <!--Contact Information-->
       <h3>
-        {{currentModel.fullName}}
         <div *ngIf="!editMode; then editIcon else saveIcon"></div>
         <ng-template #editIcon>
           <i class="fa fa-edit pull-right" (click)="toggleEdit()"></i>
