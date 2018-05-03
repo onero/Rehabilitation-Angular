@@ -28,7 +28,9 @@ export class ManageExercisesListComponent implements OnInit, OnChanges {
   limit = 5;
 
   constructor(private exerciseService: ExerciseService,
-              private router: Router) { }
+              private router: Router) {
+    this.allExercises = [];
+  }
 
   onExerciseSelected(exercise: ExerciseModel) {
     this.exerciseSelected.emit(exercise);
@@ -40,10 +42,10 @@ export class ManageExercisesListComponent implements OnInit, OnChanges {
       this.instanciateExercises();
     } else {
        this.exerciseService.getExercises().subscribe(
-         exercises => this.allExercises = exercises as ExerciseModel[]
+         exercises => this.paginatedExercises = exercises as ExerciseModel[]
        );
-      }
     }
+  }
 
   instanciateExercises() {
     this.page = 1;
@@ -59,7 +61,7 @@ export class ManageExercisesListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.instanciateExercises();
+      this.instanciateExercises();
   }
 
   /**
