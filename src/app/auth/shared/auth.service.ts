@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { environment } from '../../../environments/environment';
+import * as firebase from 'firebase';
+import {environment} from '../../../environments/environment';
+
+// Added to enable programmatic creation of clients, without also changing AuthState!
+const secondaryApp = firebase.initializeApp(environment.firebase, 'Secondary');
 
 @Injectable()
 export class AuthService {
   static USER_ID_KEY = 'userId';
   static THERAPIST_UID = 'VztfbLv4PyZd8KRtbeMhrw17aZp1';
 
-  constructor(public fireAuth: AngularFireAuth) {
 
+
+  constructor(public fireAuth: AngularFireAuth) {
   }
 
   /**
@@ -38,7 +43,7 @@ export class AuthService {
   createClientAuthUser(email: string): Promise<any> {
     // TODO MSP Make real password creation?
     const password = '123456';
-    return this.fireAuth.auth
+    return secondaryApp.auth()
       .createUserAndRetrieveDataWithEmailAndPassword(email, password);
   }
 
