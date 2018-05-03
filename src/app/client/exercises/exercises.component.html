@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row">
-    <div *ngIf="currentVideoId" class="col">
+    <div *ngIf="currentExercise" class="col">
       <!--YOUTUBE COMPONENT-->
-      <rehab-youtube-player #youtubePlayer [videoId]="currentVideoId"></rehab-youtube-player>
+      <rehab-youtube-player #youtubePlayer [videoId]="currentExercise.videoUrl"></rehab-youtube-player>
       <!--VIDEO INFO COMPONENT-->
-      <rehab-exercise-information #exerciseInformation></rehab-exercise-information>
+      <rehab-exercise-information [exerciseModel]="currentExercise"></rehab-exercise-information>
     </div>
     <div class="col">
       <!--VIDEO PLAYLIST COMPONENT-->
