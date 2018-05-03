@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LoginEntity} from '../shared/login.entity';
 import {AuthService} from '../shared/auth.service';
 import {Router} from '@angular/router';
-import {environment} from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'rehab-login',
@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
   login(email: string, password: string)  {
     this.authService.login(email, password)
       .then(authUser => {
+        localStorage.setItem(AuthService.USER_ID_KEY, authUser.user.uid);
         if (email === LoginComponent.THERAPIST_EMAIL) {
           environment.clientMode = false;
           this.router.navigateByUrl(LoginComponent.THERAPIST_URL);

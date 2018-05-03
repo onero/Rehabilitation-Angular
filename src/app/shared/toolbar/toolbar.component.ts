@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../auth/shared/auth.service';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'rehab-toolbar',
@@ -13,6 +12,7 @@ export class ToolbarComponent implements OnInit {
   constructor(private router: Router,
               private authService: AuthService) {
   }
+
 
   ngOnInit() {
   }
@@ -42,6 +42,11 @@ export class ToolbarComponent implements OnInit {
    * @returns {boolean}
    */
   isClientMode() {
-    return environment.clientMode;
+    if (this.authService.fireAuth.auth.currentUser) {
+      // Checks if the uid is not the same as the Therapist's UID.
+      return this.authService.fireAuth.auth.currentUser.uid !== AuthService.THERAPIST_UID;
+    } else {
+      return true;
+    }
   }
 }
