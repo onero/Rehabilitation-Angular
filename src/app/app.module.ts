@@ -12,6 +12,7 @@ import { ClientModule } from './client/client.module';
 import {AngularFirestore, AngularFirestoreModule} from 'angularfire2/firestore';
 import { TherapistModule } from './therapist/therapist.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {SnackbarModule} from 'ngx-snackbar';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AngularFirestoreModule,
     ClientModule,
     TherapistModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    SnackbarModule.forRoot()
   ],
   declarations: [
     AppComponent
