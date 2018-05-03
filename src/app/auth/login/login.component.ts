@@ -37,10 +37,8 @@ export class LoginComponent implements OnInit {
       .then(authUser => {
         localStorage.setItem(AuthService.USER_ID_KEY, authUser.user.uid);
         if (email === LoginComponent.THERAPIST_EMAIL) {
-          environment.clientMode = false;
           this.router.navigateByUrl(LoginComponent.THERAPIST_URL);
         } else {
-          environment.clientMode = true;
           this.router.navigateByUrl(LoginComponent.CLIENT_URL);
         }
       })
