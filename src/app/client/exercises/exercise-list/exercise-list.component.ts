@@ -1,13 +1,12 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ExerciseModel} from '../../shared/exercise.model';
 import {YoutubeService} from '../../../shared/services/youtube.service';
 import {YoutubeResponse} from '../../../shared/entities/YoutubeResponse.model';
 import {ExerciseService} from '../../../shared/services/exercise.service';
-import { RehabilitationPlan } from '../../shared/rehabilitation-plan.model';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AuthService } from '../../../auth/shared/auth.service';
-import { ClientService } from '../../../shared/services/client.service';
-import { ClientModel } from '../../../shared/entities/client.model';
+import {RehabilitationPlan} from '../../shared/rehabilitation-plan.model';
+import {AuthService} from '../../../auth/shared/auth.service';
+import {ClientService} from '../../../shared/services/client.service';
+import {ClientModel} from '../../../shared/entities/client.model';
 
 @Component({
   selector: 'rehab-exercise-list',
@@ -66,6 +65,10 @@ export class ExerciseListComponent implements OnInit {
                   const ytResponse = result as YoutubeResponse;
                   clientExercise.imgUrl = ytResponse.items[0].snippet.thumbnails.default.url;
                   this.exercisesFromClient.push(clientExercise);
+                  // Make sure first exercise in list is selected
+                  if (this.exercisesFromClient.length === 1) {
+                    this.onExerciseClick(this.exercisesFromClient[0]);
+                  }
                 });
             });
         });
