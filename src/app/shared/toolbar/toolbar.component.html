@@ -5,7 +5,7 @@
   </button>
 
   <!--Check what we are logged in as-->
-  <div *ngIf="!isClientMode(); then therapist else client"></div>
+  <div *ngIf="isClientMode(); then client else therapist"></div>
 
   <!--CLIENT-->
   <ng-template #client>
