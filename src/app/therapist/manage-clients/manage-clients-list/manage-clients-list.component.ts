@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {ClientService} from '../../../shared/services/client.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../../auth/shared/auth.service';
+import {RehabErrorService} from '../../../shared/services/rehab-error.service';
 
 @Component({
   selector: 'rehab-manage-clients-list',
@@ -23,7 +24,8 @@ export class ManageClientsListComponent implements OnInit {
 
   constructor(private clientService: ClientService,
               private authService: AuthService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private rehabErrorService: RehabErrorService) {
   }
 
   ngOnInit() {
@@ -102,6 +104,9 @@ export class ManageClientsListComponent implements OnInit {
           .then(() => {
             // TODO Skovgaard: Add message to user.
           });
+      })
+      .catch(error => {
+        this.rehabErrorService.displayError(error.message);
       });
   }
 

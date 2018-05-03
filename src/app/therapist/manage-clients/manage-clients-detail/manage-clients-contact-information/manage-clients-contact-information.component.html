@@ -1,10 +1,10 @@
+<h1>{{currentModel.fullName}}</h1>
 <div class="row" style="text-align:left">
   <div class="col-md-12">
     <a class="list-group-item">
 
       <!--Contact Information-->
       <h3>
-        {{currentModel.fullName}}
         <div *ngIf="!editMode; then editIcon else saveIcon"></div>
         <ng-template #editIcon>
           <i class="fa fa-edit pull-right" (click)="toggleEdit()"></i>
@@ -25,6 +25,17 @@
       </ng-template>
       <ng-template #editContactInformation>
         <form novalidate #contactInformationForm="ngForm">
+
+          <label for="addressInput">Name: </label>
+          <input style="width: 50%"
+                 type="text"
+                 #emailInput="ngModel"
+                 required
+                 name="nameInput"
+                 id="nameInput"
+                 class="edit-mode"
+                 [(ngModel)]="currentModel.fullName">
+          <br>
           <label for="addressInput">Address: </label>
           <input style="width: 50%"
                  type="text"
@@ -44,16 +55,6 @@
                  id="phoneInput"
                  class="edit-mode"
                  [(ngModel)]="currentModel.phone">
-          <br>
-          <label for="addressInput">Email: </label>
-          <input style="width: 50%"
-                 type="text"
-                 #emailInput="ngModel"
-                 required
-                 name="emailInput"
-                 id="emailInput"
-                 class="edit-mode"
-                 [(ngModel)]="currentModel.email">
         </form>
       </ng-template>
     </a>
