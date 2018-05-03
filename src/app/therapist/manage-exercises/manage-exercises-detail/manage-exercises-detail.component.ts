@@ -25,6 +25,9 @@ export class ManageExercisesDetailComponent implements OnInit {
     this.editMode = !this.editMode;
   }
 
+  /**
+   * Deletes the selected exercise.
+   */
   deleteExercise() {
     this.exerciseService.deleteExercise(this.currentExercise)
       .then(() => {
@@ -32,6 +35,10 @@ export class ManageExercisesDetailComponent implements OnInit {
       });
   }
 
+  /**
+   * Updates the exercise.
+   * @param {ExerciseModel} updateExerciseForm
+   */
   updateExercise(updateExerciseForm: ExerciseModel) {
     const updatedExercise: ExerciseModel = {
       uid: this.currentExercise.uid,

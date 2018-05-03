@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {FirestoreModel} from './firestore.model';
+import {ClientModel} from '../entities/client.model';
 
 @Injectable()
 export class CategoryService {
@@ -12,7 +13,17 @@ export class CategoryService {
    * @returns {Observable<any[]>}
    */
   getCategories() {
-    return this.angularFireStore.collection(FirestoreModel.CATEGORIES_COLLECTION).valueChanges();
+    return this.angularFireStore.collection(FirestoreModel.CATEGORIES_COLLECTION,
+      ref => ref.orderBy('name')).valueChanges();
+  }
+
+  /**
+   * Get list of category.
+   * @returns {Observable<any[]>}
+   */
+  getCategoriesPaginated(limit: number, lastCategory) {
+    return this.angularFireStore.collection(FirestoreModel.CATEGORIES_COLLECTION,
+      ref => ref.orderBy('name').startAt(lastCategory.name).limit(limit)).valueChanges();
   }
 
   /**

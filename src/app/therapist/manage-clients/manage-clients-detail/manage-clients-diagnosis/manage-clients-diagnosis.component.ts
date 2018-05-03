@@ -1,5 +1,5 @@
-import {environment} from '../../../../../environments/environment';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'rehab-manage-clients-diagnosis',
@@ -14,13 +14,15 @@ export class ManageClientsDiagnosisComponent implements OnInit {
   @Output()
   diagnosisUpdated = new EventEmitter<string>();
 
-  clientMode = environment.clientMode;
   editMode = false;
+
+  allowEdit = !environment.clientMode;
 
   constructor() {
   }
 
   ngOnInit() {
+    console.log('ClientMode:', environment.clientMode)
   }
 
   toggleEdit() {

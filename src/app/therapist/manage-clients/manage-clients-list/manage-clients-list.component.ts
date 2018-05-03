@@ -1,8 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ClientModel } from '../../shared/client.model';
-import { Observable } from 'rxjs/Observable';
-import { ClientService } from '../../../shared/services/client.service';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ClientModel} from '../../../shared/entities/client.model';
+import {Observable} from 'rxjs/Observable';
+import {ClientService} from '../../../shared/services/client.service';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AuthService} from '../../../auth/shared/auth.service';
+import {RehabErrorService} from '../../../shared/services/rehab-error.service';
 
 @Component({
   selector: 'rehab-manage-clients-list',
@@ -14,14 +16,45 @@ export class ManageClientsListComponent implements OnInit {
   @Output()
   clientSelected = new EventEmitter<ClientModel>();
   currentClient: ClientModel;
-  $clients: Observable<any[]>;
+  allClients: ClientModel[];
+  paginatedClients: ClientModel[];
   closeResult: string;
+  page: number;
+  limit = 5;
 
   constructor(private clientService: ClientService,
-              private modalService: NgbModal) { }
+              private authService: AuthService,
+              private modalService: NgbModal,
+              private rehabErrorService: RehabErrorService) {
+  }
 
   ngOnInit() {
-    this.$clients = this.clientService.getClients();
+    this.page = 1;
+    this.clientService.getClients().subscribe(clients => {
+      this.allClients = clients as ClientModel[];
+      this.paginatedClients = this.allClients.slice(0, this.limit);
+    });
+  }
+
+  /**
+   * We will paginate
+   * @param {number} page
+   */
+  paginate(page: number) {
+    let latest: any;
+
+    // Check for first page
+    if (page === 1) {
+      latest = this.allClients[0];
+      // Get a hold of last element on current page
+    } else {
+      latest = this.allClients[(page - 1) * this.limit];
+    }
+
+    // Paginate from last element on current page
+    this.clientService.getClientsPaginated(this.limit, latest).subscribe(paginatedClients => {
+      this.paginatedClients = paginatedClients;
+    });
   }
 
   /**
@@ -58,12 +91,22 @@ export class ManageClientsListComponent implements OnInit {
       phone: clientPhone,
       email: clientEmail,
       rehabilitationPlan: {
-        diagnosis: ''
+        diagnosis: '',
+        goal: '',
+        exerciseIds: []
       }
     };
-    this.clientService.createClient(newClient)
-      .then(() => {
-      // TODO Skovgaard: Add message to user.
+    this.authService.createClientAuthUser(newClient.email)
+      .then(authUser => {
+        // TODO MSP: Add message?
+        newClient.uid = authUser.user.uid;
+        this.clientService.createClient(newClient)
+          .then(() => {
+            // TODO Skovgaard: Add message to user.
+          });
+      })
+      .catch(error => {
+        this.rehabErrorService.displayError(error.message);
       });
   }
 
@@ -78,7 +121,8 @@ export class ManageClientsListComponent implements OnInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
+
 }

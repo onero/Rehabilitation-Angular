@@ -11,16 +11,14 @@ import { ExerciseInformationComponent } from './exercise-information/exercise-in
 export class ExercisesComponent implements OnInit {
   // Set reference to youtubeChild youtube player
   @ViewChild('youtubePlayer') youtubeChild: YoutubePlayerComponent;
-  @ViewChild('exerciseInformation') exerciseInformationChild: ExerciseInformationComponent;
-  currentVideoId: string;
+
+  currentExercise: ExerciseModel;
 
 
   constructor() {
   }
 
   ngOnInit() {
-    // TODO ALH: Dynamically insert videoID!
-    this.currentVideoId = '8GI7pzelfJk';
   }
 
   /**
@@ -28,24 +26,16 @@ export class ExercisesComponent implements OnInit {
    * @param {ExerciseModel} exercise
    */
   notifyOnNewVideoSelected(exercise: ExerciseModel) {
-    this.loadNewVideoById(exercise.videoUrl);
-    this.loadNewExerciseInformation(exercise);
+    this.currentExercise = exercise;
+    this.loadNewVideoByURL(exercise.videoUrl);
   }
 
   /**
    * Load a new video, by its id
-   * @param {string} videoId
+   * @param {string} videoURL
    */
-  loadNewVideoById(videoId: string) {
-    this.youtubeChild.loadVideoByUrl(videoId);
-  }
-
-  /**
-   * Loads the new exercise information.
-   * @param {ExerciseModel} exercise
-   */
-  loadNewExerciseInformation (exercise: ExerciseModel) {
-    this.exerciseInformationChild.updateInformation(exercise);
+  loadNewVideoByURL(videoURL: string) {
+    this.youtubeChild.loadVideoByUrl(videoURL);
   }
 
 }

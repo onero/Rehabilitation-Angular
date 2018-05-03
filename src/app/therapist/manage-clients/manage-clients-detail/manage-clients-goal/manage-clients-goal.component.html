@@ -1,14 +1,42 @@
 <div class="card">
+  <div class="container">
+    <div class="row">
 
-  <!--Goal-->
-  <h3>
-    Goal
-    <i *ngIf="!clientMode" class="fa fa-edit pull-right"
-       (click)="editGoal()"></i>
-  </h3>
+      <!--GOAL HEADLINE-->
+      <div class="col">
+        <h3>Goal
+          <div *ngIf="allowEdit">
+          <div *ngIf="!editMode; then editIcon else saveIcon"></div>
+          <ng-template #editIcon>
+            <i class="fa fa-edit fa-1x pull-right" (click)="toggleGoalEdit()"></i>
+          </ng-template>
+          <ng-template #saveIcon>
+            <i class="fa fa-floppy-o fa-1x pull-right" (click)="onGoalUpdated()"></i>
+          </ng-template>
+          </div>
+        </h3>
+      </div>
+    </div>
 
-  <!--Description of the goal-->
-  <p>
-    The client would like to run a marathon.
-  </p>
+    <!--GOAL TEXT-->
+    <div class="row">
+      <div *ngIf="!editMode; then goal else editGoal"></div>
+      <ng-template #goal>
+  <textarea disabled class="goal-text" rows="1">
+  {{currentGoal}}
+  </textarea>
+      </ng-template>
+      <ng-template #editGoal>
+  <textarea type="text"
+            rows="1"
+            required
+            [(ngModel)]="currentGoal"
+            class="edit-mode goal-text"
+            #goalInput
+            name="goalInput">
+  {{currentGoal}}
+  </textarea>
+      </ng-template>
+    </div>
+  </div>
 </div>

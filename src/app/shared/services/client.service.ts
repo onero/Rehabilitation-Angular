@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { ClientModel } from '../../therapist/shared/client.model';
+import {Injectable} from '@angular/core';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {ClientModel} from '../entities/client.model';
 import {FirestoreModel} from './firestore.model';
 
 @Injectable()
 export class ClientService {
+
+  clients: ClientModel[];
 
   constructor(private afs: AngularFirestore) {
   }
@@ -14,7 +16,17 @@ export class ClientService {
    * @returns {Observable<any[]>}
    */
   getClients() {
-    return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION).valueChanges();
+    return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION,
+      ref => ref.orderBy('fullName')).valueChanges();
+  }
+
+  /**
+   * Get list of category.
+   * @returns {Observable<any[]>}
+   */
+  getClientsPaginated(limit: number, lastClient?: ClientModel) {
+    return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION,
+      ref => ref.orderBy('fullName').startAt(lastClient.fullName).limit(limit)).valueChanges();
   }
 
   /**
@@ -23,9 +35,7 @@ export class ClientService {
    * @param newClient
    */
   createClient(newClient: ClientModel) {
-    const id = this.afs.createId();
-    newClient.uid = id;
-    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(id).set(newClient);
+    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(newClient.uid).set(newClient);
   }
 
   /**
@@ -44,5 +54,14 @@ export class ClientService {
    */
   updateClient(clientToUpdate: ClientModel) {
     return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(clientToUpdate.uid).set(clientToUpdate, {merge: true});
+  }
+
+  /**
+   * Get currentClient by id
+   */
+  getCurrentClientById(uid: string) {
+    return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION)
+      .doc(uid)
+      .valueChanges();
   }
 }

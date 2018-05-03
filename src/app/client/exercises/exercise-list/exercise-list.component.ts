@@ -1,8 +1,12 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ExerciseModel} from '../../shared/exercise.model';
 import {YoutubeService} from '../../../shared/services/youtube.service';
-import {YoutubeResponse} from '../../../shared/models/YoutubeResponse.model';
+import {YoutubeResponse} from '../../../shared/entities/YoutubeResponse.model';
 import {ExerciseService} from '../../../shared/services/exercise.service';
+import {RehabilitationPlan} from '../../shared/rehabilitation-plan.model';
+import {AuthService} from '../../../auth/shared/auth.service';
+import {ClientService} from '../../../shared/services/client.service';
+import {ClientModel} from '../../../shared/entities/client.model';
 
 @Component({
   selector: 'rehab-exercise-list',
@@ -17,26 +21,59 @@ export class ExerciseListComponent implements OnInit {
   exercisesFromClient: ExerciseModel[];
 
   constructor(private exerciseService: ExerciseService,
-              private youtubeService: YoutubeService) {
+              private youtubeService: YoutubeService,
+              private authService: AuthService,
+              private clientService: ClientService) {
   }
 
   ngOnInit() {
     // Instantiation of array.
     this.exercisesFromClient = [];
-    // Gets all exercises from the service
-    this.exerciseService.getExercises().subscribe(exercises => {
-      for (const exercise of exercises) {
-        // Gets the videoId on the exercise
-        const videoId = this.youtubeService.getIdFromURL(exercise.videoUrl);
-        this.youtubeService.getVideoInformation(videoId)
-          .subscribe(result => {
-            // Gets the imgUrl from the youtubeService.
-            const ytResponse = result as YoutubeResponse;
-            exercise.imgUrl = ytResponse.items[0].snippet.thumbnails.default.url;
-            this.exercisesFromClient.push(exercise);
-          });
-      }
+
+    this.getLoggedInUser();
+  }
+
+  /**
+      Gets the uid from the logged in user.
+   */
+  private getLoggedInUser() {
+    const userId = this.authService.getUserId();
+    this.clientService.getCurrentClientById(userId).subscribe(user => {
+      const loggedInUser = user as ClientModel;
+      const rehabilitationPlan = loggedInUser.rehabilitationPlan;
+      this.getExercisesFromRehabilitationPlan(rehabilitationPlan);
     });
+  }
+
+  /**
+   * Get exercises from RehabilitationPlan.
+   * TODO: Skovgaard (refactor to ExerciseService)
+   */
+  private getExercisesFromRehabilitationPlan(rehabilitationPlan: RehabilitationPlan) {
+    if (rehabilitationPlan.exerciseIds) {
+      // Run only if there is an exercise.
+      if (rehabilitationPlan.exerciseIds.length > 0) {
+        // Adds the exercises one by one.
+        rehabilitationPlan.exerciseIds.forEach(exerciseId => {
+          this.exerciseService.getExerciseById(exerciseId)
+            .subscribe(clientExercise => {
+              // Gets the id from the url.
+              const videoId = this.youtubeService.getIdFromURL(clientExercise.videoUrl);
+              this.youtubeService.getVideoInformation(videoId)
+                .subscribe(result => {
+                  // Gets the imgUrl from the youtubeService.
+                  const ytResponse = result as YoutubeResponse;
+                  clientExercise.imgUrl = ytResponse.items[0].snippet.thumbnails.default.url;
+                  this.exercisesFromClient.push(clientExercise);
+                  // Make sure first exercise in list is selected
+                  if (this.exercisesFromClient.length === 1) {
+                    this.onExerciseClick(this.exercisesFromClient[0]);
+                  }
+                });
+            });
+        });
+      }
+    }
   }
 
   /**
