@@ -19,8 +19,6 @@ export class ExercisesComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO ALH: Dynamically insert videoID!
-    this.currentVideoId = '8GI7pzelfJk';
   }
 
   /**
@@ -28,6 +26,7 @@ export class ExercisesComponent implements OnInit {
    * @param {ExerciseModel} exercise
    */
   notifyOnNewVideoSelected(exercise: ExerciseModel) {
+    this.currentVideoId = exercise.videoUrl;
     this.loadNewVideoById(exercise.videoUrl);
     this.loadNewExerciseInformation(exercise);
   }
