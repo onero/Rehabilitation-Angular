@@ -1,16 +1,14 @@
-import {Injectable} from '@angular/core';
-import {AngularFireAuth} from 'angularfire2/auth';
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthService {
-  static CLIENT_ID_KEY = 'clientId';
+  static USER_ID_KEY = 'userId';
+  static THERAPIST_UID = 'VztfbLv4PyZd8KRtbeMhrw17aZp1';
 
   constructor(public fireAuth: AngularFireAuth) {
-    fireAuth.authState.subscribe(result => {
-      if (result) {
-        localStorage.setItem(AuthService.CLIENT_ID_KEY, result.uid);
-      }
-    });
+
   }
 
   /**
@@ -18,7 +16,7 @@ export class AuthService {
    * @returns {string}
    */
   getUserId() {
-    return localStorage.getItem(AuthService.CLIENT_ID_KEY);
+    return localStorage.getItem(AuthService.USER_ID_KEY);
   }
 
   /**
