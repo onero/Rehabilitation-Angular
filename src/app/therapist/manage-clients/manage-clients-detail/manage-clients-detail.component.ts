@@ -27,8 +27,6 @@ export class ManageClientsDetailComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.rehabilitationPlan = this.currentClient.rehabilitationPlan;
-    this.updateExercises();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
