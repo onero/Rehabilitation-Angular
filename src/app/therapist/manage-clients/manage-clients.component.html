@@ -27,6 +27,7 @@
       </div>
       <div class="col-md-3">
         <!--VISITS-->
+        <rehab-visit-list *ngIf="selectedMilestone" [allVisits]="selectedMilestone.visits"></rehab-visit-list>
       </div>
       <div class="col-md-6">
         <!--Evaluation Detail-->

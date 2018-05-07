@@ -31,7 +31,14 @@ export class MilestoneListComponent implements OnInit {
       {
         uid: '1',
         title: 'Stir in pot',
-        purpose: 'Be able to stir with right hand'
+        purpose: 'Be able to stir with right hand',
+        visits: [
+          {
+            uid: '1',
+            date: new Date(),
+            note: "Didn't do sheit"
+          }
+        ]
       }
     ];
     this.paginatedMilestones = this.allMilestones.slice(0, this.limit);
