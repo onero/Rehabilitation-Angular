@@ -23,6 +23,10 @@
           (goalUpdated)="rehabilitationPlan.goal = $event; updateRehabilitationPlan()"
           [currentGoal]="currentClient.rehabilitationPlan.goal"></rehab-manage-clients-goal>
       </div>
+      <div class="col">
+        <button class="btn btn-primary"
+                (click)="evaluationsClicked.emit()">Evaluations</button>
+      </div>
     </div>
 
     <!--YouTube assignments-->

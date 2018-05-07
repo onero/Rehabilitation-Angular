@@ -21,6 +21,8 @@ export class ManageClientsDetailComponent implements OnInit, OnChanges {
 
   @Output()
   clientDeleted = new EventEmitter();
+  @Output()
+  evaluationsClicked = new EventEmitter();
 
   constructor(private rehabilitationPlanService: RehabilitationPlanService,
               private exerciseService: ExerciseService) {

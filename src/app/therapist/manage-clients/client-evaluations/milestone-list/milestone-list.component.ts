@@ -29,16 +29,18 @@ export class MilestoneListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.milestoneIds = ['VbvYbb1tVy0BFHgXqGSS'];
+    // this.milestoneIds = ['VbvYbb1tVy0BFHgXqGSS'];
     this.page = 1;
-    this.milestoneIds.forEach(id => {
-      this.milestoneService.getMilestoneById(id)
-        .subscribe(milestone => {
-          const milestoneEntity = milestone[0] as MilestoneEntity;
-          this.allMilestones.push(milestoneEntity);
-          this.paginatedMilestones = this.allMilestones.slice(0, this.limit);
-        });
-    });
+    if (this.milestoneIds) {
+      this.milestoneIds.forEach(id => {
+        this.milestoneService.getMilestoneById(id)
+          .subscribe(milestone => {
+            const milestoneEntity = milestone[0] as MilestoneEntity;
+            this.allMilestones.push(milestoneEntity);
+            this.paginatedMilestones = this.allMilestones.slice(0, this.limit);
+          });
+      });
+    }
   }
 
   /**

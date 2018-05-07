@@ -15,7 +15,7 @@ export class ManageClientsComponent implements OnInit {
   currentVisit: VisitEntity;
 
   // TODO ALH: Should be false!
-  evaluationMode = true;
+  evaluationMode = false;
 
   constructor(private clientService: ClientService) { }
 
