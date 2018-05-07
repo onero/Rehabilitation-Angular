@@ -37,6 +37,10 @@ export class VisitListComponent implements OnInit {
     this.paginatedVisits = this.allVisits.slice(0, this.limit);
   }
 
+  addVisit(visitNote: string) {
+  //  TODO ALH
+  }
+
   /**
    * Gets the information when the visit is selected
    * @param {ClientModel} visit

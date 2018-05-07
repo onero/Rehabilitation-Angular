@@ -3,12 +3,12 @@
      (click)="open(newMilestone)"></i></h1>
 <!--Paginated list of milestones-->
 <div *ngIf="paginatedMilestones">
-  <div *ngFor="let milestone of paginatedMilestones"
+  <div *ngFor="let milestone of paginatedMilestones; let i = index"
        class="card"
        (click)="onMilestoneSelected(milestone); currentMilestone = milestone"
        [ngClass]="{'selected': currentMilestone === milestone}">
     <div class="card-body">
-      <h5 class="card-title">{{milestone.title}}</h5>
+      <h5 class="card-title">{{i + 1}} - {{milestone.title}}</h5>
     </div>
   </div>
   <!--Awesome pagination component-->
