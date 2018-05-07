@@ -3,6 +3,8 @@ import {ClientModel} from '../../shared/entities/client.model';
 import {ClientService} from '../../shared/services/client.service';
 import {MilestoneEntity} from '../../shared/entities/milestone.entity';
 import {VisitEntity} from '../../shared/entities/visit.entity';
+import {Router} from '@angular/router';
+import {LoginComponent} from '../../auth/login/login.component';
 
 @Component({
   selector: 'rehab-manage-clients',
@@ -14,7 +16,6 @@ export class ManageClientsComponent implements OnInit {
   selectedMilestone: MilestoneEntity;
   currentVisit: VisitEntity;
 
-  // TODO ALH: Should be false!
   evaluationMode = false;
 
   constructor(private clientService: ClientService) { }
@@ -33,4 +34,10 @@ export class ManageClientsComponent implements OnInit {
       });
   }
 
+  /**
+   * Navigate back to clients
+   */
+  setEvaluationMode(shouldBeEvaluation: boolean) {
+    this.evaluationMode = shouldBeEvaluation;
+  }
 }

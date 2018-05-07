@@ -18,6 +18,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { MilestoneListComponent } from './manage-clients/client-evaluations/milestone-list/milestone-list.component';
 import { VisitListComponent } from './manage-clients/client-evaluations/visit-list/visit-list.component';
 import { MilestoneDetailComponent } from './manage-clients/client-evaluations/milestone-detail/milestone-detail.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [
