@@ -1,9 +1,6 @@
 import * as functions from 'firebase-functions';
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
-
+exports.onDeleteUser = functions.auth.user().onDelete(event => {
+  const uid = event.uid;
+  console.log(uid);
+});
