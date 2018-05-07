@@ -1,8 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ExerciseModel} from '../../../../client/shared/exercise.model';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MilestoneEntity} from '../../../../shared/entities/milestone.entity';
-import {VisitEntity} from '../../../../shared/entities/visit.entity';
 
 @Component({
   selector: 'rehab-milestone-list',
@@ -12,8 +10,8 @@ import {VisitEntity} from '../../../../shared/entities/visit.entity';
 export class MilestoneListComponent implements OnInit {
 
   @Output()
-  milestoneSelected = new EventEmitter<string>();
-  currentCategory: ExerciseModel;
+  milestoneSelected = new EventEmitter<MilestoneEntity>();
+  currentMilestone: MilestoneEntity;
   allMilestones: MilestoneEntity[];
   paginatedMilestones: MilestoneEntity[];
   closeResult: string;
@@ -63,8 +61,8 @@ export class MilestoneListComponent implements OnInit {
   /**
    * When a category is clicked emit update
    */
-  onMilestoneSelected(milestone) {
-    this.milestoneSelected.emit(milestone.title);
+  onMilestoneSelected(milestone: MilestoneEntity) {
+    this.milestoneSelected.emit(milestone);
   }
 
   /**

@@ -5,7 +5,8 @@
 <div *ngIf="paginatedMilestones">
   <div *ngFor="let milestone of paginatedMilestones"
        class="card"
-       [ngClass]="{'selected': currentCategory === milestone}">
+       (click)="onMilestoneSelected(milestone); currentMilestone = milestone"
+       [ngClass]="{'selected': currentMilestone === milestone}">
     <div class="card-body">
       <h5 class="card-title">{{milestone.title}}</h5>
     </div>

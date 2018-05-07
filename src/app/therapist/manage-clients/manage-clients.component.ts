@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientModel} from '../../shared/entities/client.model';
 import {ClientService} from '../../shared/services/client.service';
+import {MilestoneEntity} from '../../shared/entities/milestone.entity';
 
 @Component({
   selector: 'rehab-manage-clients',
@@ -9,6 +10,7 @@ import {ClientService} from '../../shared/services/client.service';
 })
 export class ManageClientsComponent implements OnInit {
   selectedClient: ClientModel;
+  selectedMilestone: MilestoneEntity;
 
   // TODO ALH: Should be false!
   evaluationMode = true;
