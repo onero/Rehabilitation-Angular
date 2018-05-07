@@ -27,13 +27,6 @@ export class VisitListComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.page = 1;
-    // This subscribe will trigger each time information is updated!
-    // this.clientService.getClients().subscribe(clients => {
-    //   // If a current client is selected we will update it with new info
-    //   this.updateSelectedClient(clients);
-    //   this.allClients = clients as ClientModel[];
-    //   this.paginatedClients = this.allClients.slice(0, this.limit);
-    // });
     if (this.allVisits) {
       this.paginatedVisits = this.allVisits.slice(0, this.limit);
     }

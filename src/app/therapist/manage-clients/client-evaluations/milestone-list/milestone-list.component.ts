@@ -29,9 +29,10 @@ export class MilestoneListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.milestoneIds = ['VbvYbb1tVy0BFHgXqGSS'];
     this.page = 1;
+    // Verify that we have milestones
     if (this.milestoneIds) {
+      // Get milestones from firebase
       this.milestoneIds.forEach(id => {
         this.milestoneService.getMilestoneById(id)
           .subscribe(milestone => {
