@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import { ExerciseModel } from '../../client/shared/exercise.model';
-import { FirestoreModel } from './firestore.model';
+import {Injectable} from '@angular/core';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {Observable} from 'rxjs/Observable';
+import {ExerciseModel} from '../../client/shared/exercise.model';
+import {FirestoreModel} from './firestore.model';
 import 'rxjs/add/operator/first';
-import {ClientModel} from '../entities/client.model';
 
 @Injectable()
 export class ExerciseService {

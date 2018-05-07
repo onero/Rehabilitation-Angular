@@ -1,6 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MilestoneEntity} from '../../../../shared/entities/milestone.entity';
+import {MilestoneService} from '../../../../shared/services/milestone.service';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'rehab-milestone-list',
@@ -9,39 +11,34 @@ import {MilestoneEntity} from '../../../../shared/entities/milestone.entity';
 })
 export class MilestoneListComponent implements OnInit {
 
+  @Input()
+  milestoneIds: string[];
+
   @Output()
   milestoneSelected = new EventEmitter<MilestoneEntity>();
+
   currentMilestone: MilestoneEntity;
-  allMilestones: MilestoneEntity[];
+  allMilestones: MilestoneEntity[] = [];
   paginatedMilestones: MilestoneEntity[];
   closeResult: string;
   page: number;
   limit = 5;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal,
+              private milestoneService: MilestoneService) {
+  }
 
   ngOnInit() {
-  //  TODO ALH: Replace
+    this.milestoneIds = ['VbvYbb1tVy0BFHgXqGSS'];
     this.page = 1;
-    // this.categoryService.getCategories().subscribe(categories => {
-    //   this.allCategories = categories;
-    //   this.paginatedCategories = this.allCategories.slice(0, this.limit);
-    // });
-    this.allMilestones = [
-      {
-        uid: '1',
-        title: 'Stir in pot',
-        purpose: 'Be able to stir with right hand',
-        visits: [
-          {
-            uid: '1',
-            date: new Date(),
-            note: "Didn't do sheit"
-          }
-        ]
-      }
-    ];
-    this.paginatedMilestones = this.allMilestones.slice(0, this.limit);
+    this.milestoneIds.forEach(id => {
+      this.milestoneService.getMilestoneById(id)
+        .subscribe(milestone => {
+          const milestoneEntity = milestone[0] as MilestoneEntity;
+          this.allMilestones.push(milestoneEntity);
+          this.paginatedMilestones = this.allMilestones.slice(0, this.limit);
+        });
+    });
   }
 
   /**
@@ -92,7 +89,7 @@ export class MilestoneListComponent implements OnInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
 
