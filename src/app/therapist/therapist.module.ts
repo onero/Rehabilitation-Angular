@@ -15,6 +15,7 @@ import {ManageClientsContactInformationComponent} from './manage-clients/manage-
 import {ManageClientsGoalComponent} from './manage-clients/manage-clients-detail/manage-clients-goal/manage-clients-goal.component';
 import {AssignExerciseComponent} from './manage-clients/manage-clients-detail/assign-exercise/assign-exercise.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MilestoneListComponent } from './manage-clients/client-evaluations/milestone-list/milestone-list.component';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ManageClientsContactInformationComponent,
     ManageClientsDiagnosisComponent,
     ManageClientsGoalComponent,
-    AssignExerciseComponent]
+    AssignExerciseComponent,
+    MilestoneListComponent]
 })
 export class TherapistModule {
 }
