@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MilestoneEntity} from '../../../../shared/entities/milestone.entity';
 import {MilestoneService} from '../../../../shared/services/milestone.service';
@@ -9,38 +9,30 @@ import 'rxjs/add/operator/take';
   templateUrl: './milestone-list.component.html',
   styleUrls: ['./milestone-list.component.scss']
 })
-export class MilestoneListComponent implements OnInit {
+export class MilestoneListComponent implements OnInit, OnChanges {
 
   @Input()
-  milestoneIds: string[];
+  milestones: MilestoneEntity[];
 
   @Output()
   milestoneSelected = new EventEmitter<MilestoneEntity>();
 
   currentMilestone: MilestoneEntity;
-  allMilestones: MilestoneEntity[] = [];
   paginatedMilestones: MilestoneEntity[];
   closeResult: string;
   page: number;
   limit = 5;
 
-  constructor(private modalService: NgbModal,
-              private milestoneService: MilestoneService) {
+  constructor(private modalService: NgbModal) {
   }
 
   ngOnInit() {
     this.page = 1;
-    // Verify that we have milestones
-    if (this.milestoneIds) {
-      // Get milestones from firebase
-      this.milestoneIds.forEach(id => {
-        this.milestoneService.getMilestoneById(id)
-          .subscribe(milestone => {
-            const milestoneEntity = milestone[0] as MilestoneEntity;
-            this.allMilestones.push(milestoneEntity);
-            this.paginatedMilestones = this.allMilestones.slice(0, this.limit);
-          });
-      });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.milestones) {
+      this.paginatedMilestones = this.milestones.slice(0, this.limit);
     }
   }
 
@@ -49,6 +41,7 @@ export class MilestoneListComponent implements OnInit {
    * @param {number} page
    */
   paginate(page: number) {
+    // TODO ALH: Reimplement
     // let latest: any;
     //
     // // Check for first page
@@ -66,7 +59,7 @@ export class MilestoneListComponent implements OnInit {
   }
 
   /**
-   * When a category is clicked emit update
+   * When a milestone is clicked, emit update
    */
   onMilestoneSelected(milestone: MilestoneEntity) {
     this.milestoneSelected.emit(milestone);

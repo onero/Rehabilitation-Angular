@@ -13,7 +13,7 @@
       <div class="col-md-8">
         <rehab-manage-clients-detail *ngIf="selectedClient"
                                      (clientDeleted)="deleteClient()"
-                                     (evaluationsClicked)="evaluationMode = true"
+                                     (evaluationsClicked)="evaluationMode = true; loadClientMilestones()"
                                      [currentClient]="selectedClient"></rehab-manage-clients-detail>
       </div>
     </div>
@@ -21,12 +21,12 @@
 
   <!--Client Evaluations View-->
   <ng-template #ClientEvaluations>
-    <button class="btn btn-primary" (click)="setEvaluationMode(false)">Back</button>
+    <button class="btn btn-primary" (click)="setEvaluationMode(false); resetData()">Back</button>
     <div class="row">
       <div class="col-md-3">
         <!--MILESTONES-->
         <rehab-milestone-list (milestoneSelected)="selectedMilestone = $event"
-                              [milestoneIds]="selectedClient?.rehabilitationPlan?.milestoneIds"></rehab-milestone-list>
+                              [milestones]="milestones"></rehab-milestone-list>
       </div>
       <div class="col-md-3">
         <!--VISITS-->

@@ -4,5 +4,5 @@ export class MilestoneEntity {
   uid: string;
   title: string;
   purpose: string;
-  visits?: VisitEntity[] = [];
+  visits?: VisitEntity[];
 }

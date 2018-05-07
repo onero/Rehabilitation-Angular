@@ -18,4 +18,13 @@ export class MilestoneService {
       .valueChanges();
   }
 
+  /**
+   * Get all milestones from user
+   * @param {string} clientUid
+   */
+  getMilestonesByClientUid(clientUid: string) {
+    return this.angularFireStore.collection<MilestoneEntity>(FirestoreModel.MILESTONE_COLLECTION,
+      ref => ref.where('clientUid', '==', clientUid)).valueChanges();
+  }
+
 }

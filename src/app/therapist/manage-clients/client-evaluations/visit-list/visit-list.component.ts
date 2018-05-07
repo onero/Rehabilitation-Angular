@@ -32,6 +32,10 @@ export class VisitListComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * Add a new visit to the milestone
+   * @param {string} visitNote
+   */
   addVisit(visitNote: string) {
     //  TODO ALH
   }
@@ -76,6 +80,7 @@ export class VisitListComponent implements OnInit, OnChanges {
    * @param {number} page
    */
   paginate(page: number) {
+    // TODO ALH: Reimplement
     // let latest: any;
     //
     // // Check for first page
