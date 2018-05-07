@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ClientModel} from '../../../../shared/entities/client.model';
 import {ClientService} from '../../../../shared/services/client.service';
 
@@ -11,6 +11,9 @@ export class ManageClientsContactInformationComponent implements OnInit {
 
   @Input()
   currentModel: ClientModel;
+
+  @Output()
+  contactInfoUpdated = new EventEmitter();
 
   editMode = false;
 
@@ -29,7 +32,7 @@ export class ManageClientsContactInformationComponent implements OnInit {
    * @param {ClientModel} newClient
    */
   public updateClientContactInformation() {
-    this.clientService.updateClient(this.currentModel);
+    this.clientService.updateClient(this.currentModel)
     this.editMode = false;
   }
 
