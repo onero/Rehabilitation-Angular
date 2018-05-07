@@ -2,13 +2,13 @@
   <div class="row">
     <div *ngIf="currentExercise" class="col">
       <!--YOUTUBE COMPONENT-->
-      <rehab-youtube-player #youtubePlayer [videoId]="currentExercise.videoUrl"></rehab-youtube-player>
+      <rehab-youtube-player [videoUrl]="currentExercise.videoUrl"></rehab-youtube-player>
       <!--VIDEO INFO COMPONENT-->
       <rehab-exercise-information [exerciseModel]="currentExercise"></rehab-exercise-information>
     </div>
     <div class="col">
       <!--VIDEO PLAYLIST COMPONENT-->
-      <rehab-exercise-list (exerciseSelected)="notifyOnNewVideoSelected($event)"></rehab-exercise-list>
+      <rehab-exercise-list (exerciseSelected)="currentExercise = $event"></rehab-exercise-list>
     </div>
   </div>
 </div>
