@@ -11,7 +11,7 @@ const secondaryApp = firebase.initializeApp(environment.firebase, 'Secondary');
 export class AuthService {
   static USER_ID_KEY = 'userId';
   static THERAPIST_UID = 'VztfbLv4PyZd8KRtbeMhrw17aZp1';
-
+  static THERAPIST_EMAIL = 'therapist@test.dk';
 
 
   constructor(public fireAuth: AngularFireAuth) {
@@ -62,5 +62,9 @@ export class AuthService {
       .map(authState => {
         return authState !== null;
       });
+  }
+
+  isTherapistLogin() {
+    return this.fireAuth.auth.currentUser.email === AuthService.THERAPIST_EMAIL;
   }
 }

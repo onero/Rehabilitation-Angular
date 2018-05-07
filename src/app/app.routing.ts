@@ -7,17 +7,19 @@ import {NewExerciseComponent} from './therapist/manage-exercises/new-exercise/ne
 import {ProfileComponent} from './client/profile/profile.component';
 import {ManageClientsComponent} from './therapist/manage-clients/manage-clients.component';
 import {AuthGuard} from './auth/shared/auth.guard';
+import {LoggedInGuard} from './auth/shared/logged-in.guard';
 
 export const AppRoutes = RouterModule.forRoot(
   [
     {
       path: '',
-      redirectTo: 'login',
+        redirectTo: 'login',
       pathMatch: 'full'
     },
     {
       path: 'login',
-      component: LoginComponent
+      component: LoginComponent,
+      canActivate: [LoggedInGuard]
     },
     // CLIENT ROUTES
     {
