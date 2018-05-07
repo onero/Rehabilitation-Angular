@@ -27,10 +27,16 @@
       </div>
       <div class="col-md-3">
         <!--VISITS-->
-        <rehab-visit-list *ngIf="selectedMilestone" [allVisits]="selectedMilestone.visits"></rehab-visit-list>
+        <rehab-visit-list [allVisits]="selectedMilestone?.visits"
+                          (visitSelected)="currentVisit = $event"></rehab-visit-list>
       </div>
       <div class="col-md-6">
-        <!--Evaluation Detail-->
+        <!--Milestone Detail-->
+        <rehab-milestone-detail *ngIf="currentVisit"
+                                [currentVisit]="currentVisit"
+                                [title]="selectedMilestone.title"
+                                [purpose]="selectedMilestone.purpose"
+                                [note]="currentVisit.note"></rehab-milestone-detail>
       </div>
     </div>
   </ng-template>

@@ -17,6 +17,7 @@ import {AssignExerciseComponent} from './manage-clients/manage-clients-detail/as
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { MilestoneListComponent } from './manage-clients/client-evaluations/milestone-list/milestone-list.component';
 import { VisitListComponent } from './manage-clients/client-evaluations/visit-list/visit-list.component';
+import { MilestoneDetailComponent } from './manage-clients/client-evaluations/milestone-detail/milestone-detail.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { VisitListComponent } from './manage-clients/client-evaluations/visit-li
     ManageClientsGoalComponent,
     AssignExerciseComponent,
     MilestoneListComponent,
-    VisitListComponent]
+    VisitListComponent,
+    MilestoneDetailComponent]
 })
 export class TherapistModule {
 }

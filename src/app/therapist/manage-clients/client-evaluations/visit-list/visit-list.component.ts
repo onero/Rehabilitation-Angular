@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ClientModel} from '../../../../shared/entities/client.model';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {VisitEntity} from '../../../../shared/entities/visit.entity';
@@ -8,7 +8,7 @@ import {VisitEntity} from '../../../../shared/entities/visit.entity';
   templateUrl: './visit-list.component.html',
   styleUrls: ['./visit-list.component.scss']
 })
-export class VisitListComponent implements OnInit {
+export class VisitListComponent implements OnInit, OnChanges {
 
   @Output()
   visitSelected = new EventEmitter<VisitEntity>();
@@ -34,11 +34,13 @@ export class VisitListComponent implements OnInit {
     //   this.allClients = clients as ClientModel[];
     //   this.paginatedClients = this.allClients.slice(0, this.limit);
     // });
-    this.paginatedVisits = this.allVisits.slice(0, this.limit);
+    if (this.allVisits) {
+      this.paginatedVisits = this.allVisits.slice(0, this.limit);
+    }
   }
 
   addVisit(visitNote: string) {
-  //  TODO ALH
+    //  TODO ALH
   }
 
   /**
@@ -95,6 +97,12 @@ export class VisitListComponent implements OnInit {
     // this.clientService.getClientsPaginated(this.limit, latest).subscribe(paginatedClients => {
     //   this.paginatedClients = paginatedClients;
     // });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.allVisits) {
+      this.paginatedVisits = this.allVisits.slice(0, this.limit);
+    }
   }
 
 }
