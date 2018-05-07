@@ -11,10 +11,10 @@
   <ng-template #client>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li [routerLinkActive]="['router-link-active']" class="nav-item ">
           <a class="nav-link" routerLink="/client/profile">Profile</a>
         </li>
-        <li class="nav-item">
+        <li [routerLinkActive]="['router-link-active']" class="nav-item">
           <a class="nav-link" routerLink="/client/exercises">Exercises</a>
         </li>
       </ul>
@@ -28,10 +28,10 @@
   <ng-template #therapist>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li [routerLinkActive]="['router-link-active']" class="nav-item">
           <a class="nav-link" routerLink="/therapist/clients">Clients</a>
         </li>
-        <li class="nav-item">
+        <li [routerLinkActive]="['router-link-active']" class="nav-item">
           <a class="nav-link" routerLink="/therapist/exercises">Exercises</a>
         </li>
       </ul>
