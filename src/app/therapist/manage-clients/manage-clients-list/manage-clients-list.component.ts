@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ClientModel} from '../../../shared/entities/client.model';
 import {Observable} from 'rxjs/Observable';
 import {ClientService} from '../../../shared/services/client.service';
@@ -30,10 +30,24 @@ export class ManageClientsListComponent implements OnInit {
 
   ngOnInit() {
     this.page = 1;
+    // This subscribe will trigger each time information is updated!
     this.clientService.getClients().subscribe(clients => {
+      // If a current client is selected we will update it with new info
+      this.updateSelectedClient(clients);
       this.allClients = clients as ClientModel[];
       this.paginatedClients = this.allClients.slice(0, this.limit);
     });
+  }
+
+  /**
+   * Update currently selected client
+   * @param clients
+   */
+  private updateSelectedClient(clients) {
+    // Check for a selected client
+    if (this.currentClient) {
+      this.currentClient = clients.find(client => client.uid === this.currentClient.uid);
+    }
   }
 
   /**
