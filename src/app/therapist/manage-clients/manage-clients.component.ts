@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientModel} from '../../shared/entities/client.model';
 import {ClientService} from '../../shared/services/client.service';
+import { AuthService } from '../../auth/shared/auth.service';
 
 @Component({
   selector: 'rehab-manage-clients',
@@ -10,7 +11,8 @@ import {ClientService} from '../../shared/services/client.service';
 export class ManageClientsComponent implements OnInit {
   selectedClient: ClientModel;
 
-  constructor(private clientService: ClientService) { }
+  constructor(private clientService: ClientService,
+              private authService: AuthService) { }
 
 
   ngOnInit() {
@@ -20,10 +22,12 @@ export class ManageClientsComponent implements OnInit {
    * Delete selectedClient!
    */
   deleteClient() {
-    this.clientService.deleteClient(this.selectedClient)
-      .then(() => {
-        this.selectedClient = null;
-      });
+    // this.clientService.deleteClient(this.selectedClient)
+    //   .then(() => {
+    //     this.selectedClient = null;
+    //   });
+
+    this.authService.deleteUser(this.selectedClient);
   }
 
 }
