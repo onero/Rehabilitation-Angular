@@ -1,12 +1,13 @@
 <div class="container">
 
-  <div class="row">
+  <div class="row" *ngIf="currentClient">
     <div class="col-md-7">
 
       <!--Clients contact information-->
       <div class="col">
         <rehab-manage-clients-contact-information
-          [currentModel]="currentClient"></rehab-manage-clients-contact-information>
+          [currentModel]="currentClient"
+          (contactInfoUpdated)="currentClient = null"></rehab-manage-clients-contact-information>
       </div>
 
       <!--Clients Diagnosis-->
