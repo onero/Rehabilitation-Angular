@@ -56,7 +56,7 @@
            type="number"
            placeholder="Phone number">
 
-    <!--Client Email-->
+    <!--Client Email (Pattern checks if it is a valid email)-->
     <input #clientEmail="ngModel"
            style="width: 100%"
            name="clientEmail"
@@ -64,18 +64,35 @@
            ngModel
            required
            type="email"
+           pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
            placeholder="Clients@email.com">
+
+    <!--Validation on Client's Email-->
+    <div [hidden]="clientEmail.valid || clientEmail.pristine"
+         class="alert alert-warning">
+      <div [hidden]="!clientEmail.hasError('required')">Email is required</div>
+      <div [hidden]="!clientEmail.hasError('pattern')">Badly formatted Email <small><b> example: client@mail.com</b></small></div>
+    </div>
+
+    <!--Validation on Client's name-->
+    <div [hidden]="clientName.valid || clientName.pristine"
+         class="alert alert-warning">
+      <div [hidden]="!clientName.hasError('required')">Client's name is required</div>
+      <div> Client's name must be atleast 3 characters</div>
+    </div>
 
 
   </div>
   <div class="modal-footer">
     <button type="button"
             class="btn btn-danger"
-            (click)="c('Close click')">Close</button>
-    <button [disabled]="!clientName.valid"
+            (click)="c('Close click')">Close
+    </button>
+    <button [disabled]="!clientName.valid || !clientEmail.valid"
             type="button"
             class="btn btn-success pull-right"
             (click)="addClient(clientName.value, clientAddress.value, clientPhone.value, clientEmail.value);
-            c('Close click')">Add</button>
+            c('Close click')">Add
+    </button>
   </div>
 </ng-template>
