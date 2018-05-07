@@ -49,10 +49,18 @@ export class ManageExercisesListComponent implements OnInit, OnChanges {
     }
   }
 
+  private updateSelectedExercise(exercises) {
+    if (this.currentExercise) {
+      this.currentExercise = exercises.find(exercise => exercise.uid === this.currentExercise.uid);
+    }
+  }
+
   instanciateExercises() {
     this.page = 1;
     this.exerciseService.getExercisesByCategoryName(this.currentCategoryName).subscribe(
       exercises => {
+        // If a current client is selected we will update it with new info
+        this.updateSelectedExercise(exercises);
         this.allExercises = exercises as ExerciseModel[];
         this.paginatedExercises = this.allExercises.slice(0, this.limit);
       });
