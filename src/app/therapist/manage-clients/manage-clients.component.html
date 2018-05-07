@@ -1,15 +1,35 @@
 <div class="container">
-  <div class="row">
-    <!--Clients list-->
-  <div class="col-md-4">
-<rehab-manage-clients-list (clientSelected)="selectedClient = $event"></rehab-manage-clients-list>
-  </div>
+  <div *ngIf="evaluationMode; then ClientEvaluations else ManageClients"></div>
+  
+  <!--Normal Manage Clients View-->
+  <ng-template #ManageClients>
+    <div class="row">
+      <!--Clients list-->
+      <div class="col-md-4">
+        <rehab-manage-clients-list (clientSelected)="selectedClient = $event"></rehab-manage-clients-list>
+      </div>
 
-    <!--Clients detail-->
-  <div class="col-md-8">
-    <rehab-manage-clients-detail *ngIf="selectedClient"
-                                 (clientDeleted)="deleteClient()"
-                                 [currentClient]="selectedClient"></rehab-manage-clients-detail>
-  </div>
-  </div>
+      <!--Clients detail-->
+      <div class="col-md-8">
+        <rehab-manage-clients-detail *ngIf="selectedClient"
+                                     (clientDeleted)="deleteClient()"
+                                     [currentClient]="selectedClient"></rehab-manage-clients-detail>
+      </div>
+    </div>
+  </ng-template>
+
+  <!--Client Evaluations View-->
+  <ng-template #ClientEvaluations>
+    <div class="row">
+      <div class="col-md-3">
+        <!--MILESTONES-->
+      </div>
+      <div class="col-md-3">
+        <!--VISITS-->
+      </div>
+      <div class="col-md-6">
+        <!--Evaluation Detail-->
+      </div>
+    </div>
+  </ng-template>
 </div>

@@ -10,6 +10,8 @@ import {ClientService} from '../../shared/services/client.service';
 export class ManageClientsComponent implements OnInit {
   selectedClient: ClientModel;
 
+  evaluationMode = false;
+
   constructor(private clientService: ClientService) { }
 
 
