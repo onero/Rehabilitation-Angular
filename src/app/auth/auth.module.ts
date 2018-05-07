@@ -6,6 +6,8 @@ import { AuthService } from './shared/auth.service';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from './shared/login.service';
+import { AuthGuard } from './shared/auth.guard';
+import { LoggedInGuard } from './shared/logged-in.guard';
 
 
 @NgModule({
@@ -16,6 +18,6 @@ import { LoginService } from './shared/login.service';
     HttpModule
   ],
   declarations: [LoginComponent],
-  providers: [AuthService, LoginService]
+  providers: [AuthService, LoginService, AuthGuard, LoggedInGuard]
 })
 export class AuthModule { }
