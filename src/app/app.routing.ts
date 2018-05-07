@@ -6,39 +6,47 @@ import {ManageExercisesComponent} from './therapist/manage-exercises/manage-exer
 import {NewExerciseComponent} from './therapist/manage-exercises/new-exercise/new-exercise.component';
 import {ProfileComponent} from './client/profile/profile.component';
 import {ManageClientsComponent} from './therapist/manage-clients/manage-clients.component';
+import {AuthGuard} from './auth/shared/auth.guard';
+import {LoggedInGuard} from './auth/shared/logged-in.guard';
 
 export const AppRoutes = RouterModule.forRoot(
   [
     {
       path: '',
-      redirectTo: '',
+        redirectTo: 'login',
       pathMatch: 'full'
     },
     {
       path: 'login',
-      component: LoginComponent
+      component: LoginComponent,
+      canActivate: [LoggedInGuard]
     },
     // CLIENT ROUTES
     {
       path: 'client/exercises',
-      component: ExercisesComponent
+      component: ExercisesComponent,
+      canActivate: [AuthGuard]
     },
     {
       path: 'client/profile',
-      component: ProfileComponent
+      component: ProfileComponent,
+      canActivate: [AuthGuard]
     },
     // THERAPIST ROUTES
     {
       path: 'therapist/clients',
-      component: ManageClientsComponent
+      component: ManageClientsComponent,
+      canActivate: [AuthGuard]
     },
     {
       path: 'therapist/exercises',
-      component: ManageExercisesComponent
+      component: ManageExercisesComponent,
+      canActivate: [AuthGuard]
     },
     {
       path: 'therapist/exercises/new',
       component: NewExerciseComponent,
+      canActivate: [AuthGuard],
       data: [{category: ''}]
     },
     { path: '**', component: PageNotFoundComponent } // This must be last!
