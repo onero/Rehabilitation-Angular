@@ -3,6 +3,7 @@ import {LoginEntity} from '../shared/login.entity';
 import {AuthService} from '../shared/auth.service';
 import {Router} from '@angular/router';
 import { environment } from '../../../environments/environment';
+import {RehabErrorService} from '../../shared/services/rehab-error.service';
 
 @Component({
   selector: 'rehab-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   user = new LoginEntity('', '');
 
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private errorService: RehabErrorService) { }
 
   ngOnInit() {
   }
@@ -45,7 +47,7 @@ export class LoginComponent implements OnInit {
         }
       })
       .catch(error => {
-        this.router.navigateByUrl('**');
+        this.errorService.displayError(error.toString());
       });
   }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import {environment} from '../../../environments/environment';
+import {Observable} from 'rxjs/Observable';
 
 // Added to enable programmatic creation of clients, without also changing AuthState!
 const secondaryApp = firebase.initializeApp(environment.firebase, 'Secondary');
@@ -10,7 +11,7 @@ const secondaryApp = firebase.initializeApp(environment.firebase, 'Secondary');
 export class AuthService {
   static USER_ID_KEY = 'userId';
   static THERAPIST_UID = 'VztfbLv4PyZd8KRtbeMhrw17aZp1';
-
+  static THERAPIST_EMAIL = 'therapist@test.dk';
 
 
   constructor(public fireAuth: AngularFireAuth) {
@@ -54,5 +55,16 @@ export class AuthService {
   logout() {
     localStorage.clear();
     return this.fireAuth.auth.signOut();
+  }
+
+  isAuthenticated(): Observable<boolean> {
+    return this.fireAuth.authState
+      .map(authState => {
+        return authState !== null;
+      });
+  }
+
+  isTherapistLogin() {
+    return this.fireAuth.auth.currentUser.email === AuthService.THERAPIST_EMAIL;
   }
 }
