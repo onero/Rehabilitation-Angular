@@ -1,0 +1,49 @@
+<h1>Visits
+  <i class="fa fa-plus-circle pull-right add-button"
+     (click)="open(newVisit)"></i>
+</h1>
+<div *ngIf="allVisits && paginatedVisits">
+  <div *ngFor="let visit of paginatedVisits"
+       class="card" (click)="onVisitSelected(visit); currentVisit = visit"
+       [ngClass]="{'selected': currentVisit === visit}">
+    <div class="card-body">
+      <h5 class="card-title"
+          style="text-align: center">{{visit.date | date: 'd/M - yyyy'}}</h5>
+    </div>
+  </div>
+  <ngb-pagination [collectionSize]="allVisits.length"
+                  [(page)]="page"
+                  [maxSize]="5"
+                  [pageSize]="5"
+                  (pageChange)="paginate($event)">
+  </ngb-pagination>
+</div>
+
+<!--NEW VISIT-->
+<ng-template #newVisit let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">New Visit</h4>
+  </div>
+  <div class="modal-body">
+    <input #visitInput="ngModel"
+           style="width: 100%"
+           name="visitNote"
+           minlength="3"
+           ngModel
+           required
+           type="text"
+           placeholder="Enter the note of the visit">
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-danger"
+            (click)="c('Close click')">Close
+    </button>
+    <button [disabled]="!visitInput.valid"
+            type="button"
+            class="btn btn-success pull-right"
+            (click)="addVisit(visitInput.value); c('Close click')">Add
+    </button>
+  </div>
+</ng-template>
+
