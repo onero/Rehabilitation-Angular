@@ -16,19 +16,13 @@ export class ManageClientsComponent implements OnInit {
   milestones: MilestoneEntity[];
   selectedMilestone: MilestoneEntity;
   currentVisit: VisitEntity;
-
-  constructor(private clientService: ClientService,
-              private authService: AuthService) { }
-
   evaluationMode = false;
 
   constructor(private clientService: ClientService,
-              private milestoneService: MilestoneService) { }
+              private milestoneService: MilestoneService,
+              private authService: AuthService) { }
 
-
-
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   /**
    * Load all milestones into client
