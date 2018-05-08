@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {VisitEntity} from '../../../../shared/entities/visit.entity';
 import { environment } from '../../../../../environments/environment';
+import { MilestoneEntity } from '../../../../shared/entities/milestone.entity';
 
 @Component({
   selector: 'rehab-milestone-detail',
@@ -20,7 +21,7 @@ export class MilestoneDetailComponent implements OnInit {
   currentVisit: VisitEntity;
 
   @Output()
-  updateEvaluation = new EventEmitter<string>();
+  updateEvaluation = new EventEmitter<MilestoneEntity>();
 
   allowEdit = !environment.clientMode;
 
@@ -42,7 +43,14 @@ export class MilestoneDetailComponent implements OnInit {
    * Tells when the update is called.
    */
   onEvaluationUpdated() {
-    this.updateEvaluation.emit(this.purpose);
+    this.currentVisit.note = this.note;
+    const newMilestone: MilestoneEntity = {
+      title: this.title,
+      purpose: this.purpose,
+      visits: []
+    }
+    newMilestone.visits.push(this.currentVisit);
+    this.updateEvaluation.emit(newMilestone);
     this.editMode = false;
   }
 }

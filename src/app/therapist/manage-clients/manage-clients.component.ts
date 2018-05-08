@@ -73,6 +73,29 @@ export class ManageClientsComponent implements OnInit {
   }
 
   /**
+   * Updates the milestone for the client.
+   * @param {MilestoneEntity} milestoneToUpdate
+   */
+  updateMilestone(milestoneToUpdate: MilestoneEntity) {
+    this.selectedMilestone.title = milestoneToUpdate.title;
+    this.selectedMilestone.purpose = milestoneToUpdate.purpose;
+
+    // Finds the index of the updated visit.
+    const indexOfVisitToUpdate = this.selectedMilestone.visits.indexOf(milestoneToUpdate.visits[0]);
+
+    // Find updated visit.
+    const visitToUpdate = this.selectedMilestone.visits[indexOfVisitToUpdate];
+
+    // Updates the visit.
+    visitToUpdate.note = milestoneToUpdate.visits[0].note;
+
+    this.milestoneService.updateMilestone(this.selectedMilestone)
+      .then(() => {
+      // TODO: SKOVGAARD NOTIFY USER!
+      });
+  }
+
+  /**
    * Delete selectedClient!
    */
   deleteClient() {
