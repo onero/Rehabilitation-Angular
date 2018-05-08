@@ -8,7 +8,21 @@
     <div class="col-md-12">
       <div *ngIf="allowEdit">
         <div *ngIf="!editMode; then editIcon else saveIcon"></div>
-        <h3>{{title}}</h3>
+        <div *ngIf="!editMode; then evaluationTitle else editEvaluationTitle"></div>
+        <ng-template #evaluationTitle>
+          <h3 disabled class="evaluation-text">
+            {{title}}
+          </h3>
+        </ng-template>
+        <ng-template #editEvaluationTitle>
+          <input     type="text"
+                    [(ngModel)]="title"
+                    class="edit-mode evaluation-text"
+                    #titleInput
+                    name="titleInput">
+        </ng-template>
+
+        <!--Edit icons-->
         <ng-template #editIcon>
           <i class="fa fa-edit fa-1x pull-right" (click)="toggleEvaluationEdit()"></i>
         </ng-template>
