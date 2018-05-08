@@ -3,6 +3,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs/Observable';
+import { UserModel } from '../../shared/entities/user.model';
+import { MessageService } from '../../shared/services/message.service';
 
 // Added to enable programmatic creation of clients, without also changing AuthState!
 const secondaryApp = firebase.initializeApp(environment.firebase, 'Secondary');
@@ -12,9 +14,11 @@ export class AuthService {
   static USER_ID_KEY = 'userId';
   static THERAPIST_UID = 'VztfbLv4PyZd8KRtbeMhrw17aZp1';
   static THERAPIST_EMAIL = 'therapist@test.dk';
+  static USER_PASSWORD = '123456';
 
 
-  constructor(public fireAuth: AngularFireAuth) {
+  constructor(public fireAuth: AngularFireAuth,
+              private message: MessageService) {
   }
 
   /**
@@ -43,7 +47,7 @@ export class AuthService {
    */
   createClientAuthUser(email: string): Promise<any> {
     // TODO MSP Make real password creation?
-    const password = '123456';
+    const password = AuthService.USER_PASSWORD;
     return secondaryApp.auth()
       .createUserAndRetrieveDataWithEmailAndPassword(email, password);
   }
@@ -66,5 +70,18 @@ export class AuthService {
 
   isTherapistLogin() {
     return this.fireAuth.auth.currentUser.email === AuthService.THERAPIST_EMAIL;
+  }
+
+  /**
+   * Deletes the selected user from the DB.
+   * @param {UserModel} user
+   */
+  deleteUser(user: UserModel) {
+    secondaryApp.auth().signInAndRetrieveDataWithEmailAndPassword(user.email, AuthService.USER_PASSWORD)
+      .then(selectedUser => {
+      secondaryApp.auth().currentUser.delete();
+        // TODO: SKOV show the deleted user.
+        this.message.displayMessage(`The user is now deleted...`, 2);
+      });
   }
 }
