@@ -1,24 +1,45 @@
 <div class="container">
-  <div *ngIf="allowEdit" class="row">
+  <div class="row">
+
     <!--MILESTONE DATE-->
     <h1>{{currentVisit.date | date: 'd/M - yyyy'}}</h1>
+
     <!--MILESTONE TITLE-->
     <div class="col-md-12">
-      <h3>{{title}}</h3>
-      <div *ngIf="!editMode; then editIcon else saveIcon"></div>
-      <ng-template #editIcon>
-        <i class="fa fa-edit fa-1x pull-right" (click)="toggleEvaluationEdit()"></i>
-      </ng-template>
-      <ng-template #saveIcon>
-        <i class="fa fa-floppy-o fa-1x pull-right" (click)="onEvaluationUpdated()"></i>
-      </ng-template>
+      <div *ngIf="allowEdit">
+        <div *ngIf="!editMode; then editIcon else saveIcon"></div>
+        <h3>{{title}}</h3>
+        <ng-template #editIcon>
+          <i class="fa fa-edit fa-1x pull-right" (click)="toggleEvaluationEdit()"></i>
+        </ng-template>
+        <ng-template #saveIcon>
+          <i class="fa fa-floppy-o fa-1x pull-right" (click)="onEvaluationUpdated()"></i>
+        </ng-template>
+      </div>
     </div>
+
+
+    <!--Purpose-->
     <div class="row">
-      <!--Purpose-->
       <div class="col-md-6">
         <h3>Purpose</h3>
-        <p>{{purpose}}</p>
+        <div *ngIf="!editMode; then evaluation else editEvaluation"></div>
+        <ng-template #evaluation>
+          <textarea disabled class="evaluation-text">
+            {{purpose}}
+          </textarea>
+        </ng-template>
+        <ng-template #editEvaluation>
+          <textarea type="text"
+                    [(ngModel)]="purpose"
+                    class="edit-mode evaluation-text"
+                    #evaluationInput
+                    name="evaluationInput">
+            {{purpose}}
+          </textarea>
+        </ng-template>
       </div>
+
       <!--Note-->
       <div class="col-md-6">
         <h3>Note</h3>
@@ -26,4 +47,6 @@
       </div>
     </div>
   </div>
+
+
 </div>

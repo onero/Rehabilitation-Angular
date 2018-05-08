@@ -42,7 +42,7 @@ export class MilestoneDetailComponent implements OnInit {
    * Tells when the update is called.
    */
   onEvaluationUpdated() {
-    this.updateEvaluation.emit(this.title);
+    this.updateEvaluation.emit(this.purpose);
     this.editMode = false;
   }
 }
