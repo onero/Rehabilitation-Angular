@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {VisitEntity} from '../../../../shared/entities/visit.entity';
+import {MilestoneService} from '../../../../shared/services/milestone.service';
 
 @Component({
   selector: 'rehab-milestone-detail',
@@ -14,13 +15,17 @@ export class MilestoneDetailComponent implements OnInit {
   purpose: string;
   @Input()
   note: string;
-
   @Input()
   currentVisit: VisitEntity;
+  @Output()
+  deletedVisit = new EventEmitter();
 
-  constructor() { }
+  constructor(private milestoneService: MilestoneService) { }
 
   ngOnInit() {
   }
 
+  deleteVisit() {
+    this.deletedVisit.emit();
+  }
 }
