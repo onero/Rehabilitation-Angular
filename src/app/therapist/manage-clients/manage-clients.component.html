@@ -1,15 +1,46 @@
 <div class="container">
-  <div class="row">
-    <!--Clients list-->
-  <div class="col-md-4">
-<rehab-manage-clients-list (clientSelected)="selectedClient = $event"></rehab-manage-clients-list>
-  </div>
+  <div *ngIf="evaluationMode; then ClientEvaluations else ManageClients"></div>
 
-    <!--Clients detail-->
-  <div class="col-md-8">
-    <rehab-manage-clients-detail *ngIf="selectedClient"
-                                 (clientDeleted)="deleteClient()"
-                                 [currentClient]="selectedClient"></rehab-manage-clients-detail>
-  </div>
-  </div>
+  <!--Normal Manage Clients View-->
+  <ng-template #ManageClients>
+    <div class="row">
+      <!--Clients list-->
+      <div class="col-md-4">
+        <rehab-manage-clients-list (clientSelected)="selectedClient = $event"></rehab-manage-clients-list>
+      </div>
+
+      <!--Clients detail-->
+      <div class="col-md-8">
+        <rehab-manage-clients-detail *ngIf="selectedClient"
+                                     (clientDeleted)="deleteClient()"
+                                     (evaluationsClicked)="evaluationMode = true; loadClientMilestones()"
+                                     [currentClient]="selectedClient"></rehab-manage-clients-detail>
+      </div>
+    </div>
+  </ng-template>
+
+  <!--Client Evaluations View-->
+  <ng-template #ClientEvaluations>
+    <button class="btn btn-primary" (click)="setEvaluationMode(false); resetData()">Back</button>
+    <div class="row">
+      <div class="col-md-3">
+        <!--MILESTONES-->
+        <rehab-milestone-list (milestoneSelected)="selectedMilestone = $event"
+                              [milestones]="milestones"></rehab-milestone-list>
+      </div>
+      <div class="col-md-3">
+        <!--VISITS-->
+        <rehab-visit-list [allVisits]="selectedMilestone?.visits"
+                          (visitSelected)="currentVisit = $event"></rehab-visit-list>
+      </div>
+      <div class="col-md-6">
+        <!--Milestone Detail-->
+        <rehab-milestone-detail *ngIf="currentVisit"
+                                [currentVisit]="currentVisit"
+                                [title]="selectedMilestone.title"
+                                [purpose]="selectedMilestone.purpose"
+                                [note]="currentVisit.note"></rehab-milestone-detail>
+      </div>
+    </div>
+  </ng-template>
 </div>

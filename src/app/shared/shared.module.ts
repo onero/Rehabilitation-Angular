@@ -10,6 +10,7 @@ import {RouterModule} from '@angular/router';
 import {RehabErrorService} from './services/rehab-error.service';
 import { MessageService } from './services/message.service';
 import { RehabModalService } from './services/rehab-modal.service';
+import { MilestoneService } from './services/milestone.service';
 
 @NgModule({
   imports: [
@@ -24,7 +25,9 @@ import { RehabModalService } from './services/rehab-modal.service';
     RehabilitationPlanService,
     RehabErrorService,
     MessageService,
-    RehabModalService]
+    RehabModalService,
+    MilestoneService]
 })
+
 export class SharedModule {
 }
