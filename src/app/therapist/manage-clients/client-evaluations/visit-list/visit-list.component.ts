@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {ClientModel} from '../../../../shared/entities/client.model';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {VisitEntity} from '../../../../shared/entities/visit.entity';
+import {RehabModalService} from '../../../../shared/services/rehab-modal.service';
+import {V} from '@angular/core/src/render3';
 
 @Component({
   selector: 'rehab-visit-list',
@@ -12,17 +14,18 @@ export class VisitListComponent implements OnInit, OnChanges {
 
   @Output()
   visitSelected = new EventEmitter<VisitEntity>();
+  @Output()
+  visitAdded = new EventEmitter<VisitEntity>();
 
   @Input()
   allVisits: VisitEntity[];
 
   currentVisit: VisitEntity;
   paginatedVisits: VisitEntity[];
-  closeResult: string;
   page: number;
   limit = 5;
 
-  constructor(private modalService: NgbModal) {
+  constructor(public modalService: RehabModalService) {
   }
 
   ngOnInit() {
@@ -37,7 +40,11 @@ export class VisitListComponent implements OnInit, OnChanges {
    * @param {string} visitNote
    */
   addVisit(visitNote: string) {
-    //  TODO ALH
+    const newVisit: VisitEntity = {
+      note: visitNote,
+      date: new Date()
+    };
+    this.visitAdded.emit(newVisit);
   }
 
   /**
@@ -46,33 +53,6 @@ export class VisitListComponent implements OnInit, OnChanges {
    */
   onVisitSelected(visit: VisitEntity) {
     this.visitSelected.emit(visit);
-  }
-
-  /**
-   * Opens up the modal to add a new visit.
-   * @param content
-   */
-  open(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  /**
-   * Method to dismiss the modal popup.
-   * @param reason
-   * @returns {string}
-   */
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
   }
 
   /**

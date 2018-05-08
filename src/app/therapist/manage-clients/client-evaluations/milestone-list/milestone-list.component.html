@@ -1,6 +1,6 @@
 <h1 class="center">Milestones
   <i class="fa fa-plus-circle pull-right add-button"
-     (click)="open(newMilestone)"></i></h1>
+     (click)="modalService.open(newMilestone)"></i></h1>
 <!--Paginated list of milestones-->
 <div *ngIf="paginatedMilestones">
   <div *ngFor="let milestone of paginatedMilestones; let i = index"
@@ -26,24 +26,32 @@
     <h4 class="modal-title">New Milestone</h4>
   </div>
   <div class="modal-body">
-    <input #milestoneInput="ngModel"
+    <input #milestoneTitle="ngModel"
            style="width: 100%"
-           name="milestoneName"
+           name="milestoneTitle"
            minlength="3"
            ngModel
            required
            type="text"
-           placeholder="Enter the name of the milestone">
+           placeholder="Enter the title of the milestone">
+    <input #milestonePurpose="ngModel"
+           style="width: 100%"
+           name="milestonePurpose"
+           minlength="3"
+           ngModel
+           required
+           type="text"
+           placeholder="Enter the purpose of the milestone">
   </div>
   <div class="modal-footer">
     <button type="button"
             class="btn btn-danger"
             (click)="c('Close click')">Close
     </button>
-    <button [disabled]="!milestoneInput.valid"
+    <button [disabled]="!milestoneTitle.valid || !milestonePurpose.valid"
             type="button"
             class="btn btn-success pull-right"
-            (click)=" c('Close click')">Add
+            (click)="addMilestone(milestoneTitle.value, milestonePurpose.value); c('Close click')">Add
     </button>
   </div>
 </ng-template>
