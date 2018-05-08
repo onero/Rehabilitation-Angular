@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MilestoneEntity} from '../../../../shared/entities/milestone.entity';
-import {MilestoneService} from '../../../../shared/services/milestone.service';
 import 'rxjs/add/operator/take';
+import {RehabModalService} from '../../../../shared/services/rehab-modal.service';
+import {AuthService} from '../../../../auth/shared/auth.service';
 
 @Component({
   selector: 'rehab-milestone-list',
@@ -16,14 +16,15 @@ export class MilestoneListComponent implements OnInit, OnChanges {
 
   @Output()
   milestoneSelected = new EventEmitter<MilestoneEntity>();
+  @Output()
+  milestoneCreated = new EventEmitter<MilestoneEntity>();
 
   currentMilestone: MilestoneEntity;
   paginatedMilestones: MilestoneEntity[];
-  closeResult: string;
   page: number;
   limit = 5;
 
-  constructor(private modalService: NgbModal) {
+  constructor(public modalService: RehabModalService) {
   }
 
   ngOnInit() {
@@ -66,27 +67,16 @@ export class MilestoneListComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Open modal
+   * Create new Milestone
+   * @param {string} title
+   * @param {string} purpose
    */
-  open(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  addMilestone(title: string, purpose: string) {
+    const newMilestone: MilestoneEntity = {
+      title: title,
+      purpose: purpose
+    };
+    // Inform "mother" about new milestone
+    this.milestoneCreated.emit(newMilestone);
   }
-
-  /**
-   * Check if user canceled modal
-   */
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
 }

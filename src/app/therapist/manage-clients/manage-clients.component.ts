@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientModel} from '../../shared/entities/client.model';
 import {ClientService} from '../../shared/services/client.service';
+import { AuthService } from '../../auth/shared/auth.service';
 import {MilestoneEntity} from '../../shared/entities/milestone.entity';
 import {VisitEntity} from '../../shared/entities/visit.entity';
 import {MilestoneService} from '../../shared/services/milestone.service';
@@ -15,15 +16,13 @@ export class ManageClientsComponent implements OnInit {
   milestones: MilestoneEntity[];
   selectedMilestone: MilestoneEntity;
   currentVisit: VisitEntity;
-
   evaluationMode = false;
 
   constructor(private clientService: ClientService,
-              private milestoneService: MilestoneService) { }
+              private milestoneService: MilestoneService,
+              private authService: AuthService) { }
 
-
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   /**
    * Load all milestones into client
@@ -36,13 +35,48 @@ export class ManageClientsComponent implements OnInit {
   }
 
   /**
+   * Add new milestone to firestore
+   * @param {MilestoneEntity} newMilestone
+   */
+  addMilestone(newMilestone: MilestoneEntity) {
+    this.milestoneService.addMilestoneWithClientUid(this.selectedClient.uid, newMilestone)
+      .then(() => {
+        this.resetCurrentMilestoneSelection();
+      });
+  }
+
+  /**
+   * Reset the current selected milestone
+   */
+  private resetCurrentMilestoneSelection() {
+    this.selectedMilestone = null;
+    this.currentVisit = null;
+  }
+
+  /**
+   * Add new visit to selectedMilestone
+   * @param {VisitEntity} newVisit
+   */
+  addVisitToMilestone(newVisit: VisitEntity) {
+    // Check for visits in selected milestone
+    if (!this.selectedMilestone.visits) {
+      this.selectedMilestone.visits = [];
+    }
+    this.selectedMilestone.visits.push(newVisit);
+    // Update milestone on firestore with new data
+    this.milestoneService.updateMilestone(this.selectedMilestone)
+      .then(() => {
+        // Reset view afterwards
+        this.selectedMilestone = null;
+        this.currentVisit = null;
+      });
+  }
+
+  /**
    * Delete selectedClient!
    */
   deleteClient() {
-    this.clientService.deleteClient(this.selectedClient)
-      .then(() => {
-        this.selectedClient = null;
-      });
+    this.authService.deleteUser(this.selectedClient);
   }
 
   /**
@@ -61,4 +95,5 @@ export class ManageClientsComponent implements OnInit {
     this.milestones = null;
     this.selectedMilestone = null;
   }
+
 }

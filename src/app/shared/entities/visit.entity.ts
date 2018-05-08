@@ -1,5 +1,5 @@
 export class VisitEntity {
-  uid: string;
+  uid?: string;
   date: Date;
   note: string;
 }

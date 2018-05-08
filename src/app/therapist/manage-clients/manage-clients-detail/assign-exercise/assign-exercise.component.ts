@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ExerciseModel} from '../../../../client/shared/exercise.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {RehabModalService} from '../../../../shared/services/rehab-modal.service';
 
 @Component({
   selector: 'rehab-assign-exercise',
@@ -19,7 +20,7 @@ export class AssignExerciseComponent implements OnInit {
   @Output()
   exerciseAssigned = new EventEmitter<string>();
 
-  constructor(private modalService: NgbModal) {
+  constructor(public modalService: RehabModalService) {
   }
 
   ngOnInit() {
@@ -40,13 +41,5 @@ export class AssignExerciseComponent implements OnInit {
   assignSelectedExercise(exercise: ExerciseModel) {
     this.exercises.push(exercise);
     this.exerciseAssigned.emit(exercise.uid);
-  }
-
-  /**
-   * Opens up the modal to add a new client.
-   * @param content
-   */
-  open(content) {
-    this.modalService.open(content);
   }
 }

@@ -1,6 +1,6 @@
 <h1 class="center">Categories
   <i class="fa fa-plus-circle pull-right add-button"
-     (click)="open(newCategory)"></i></h1>
+     (click)="modalService.open(newCategory)"></i></h1>
 <!--Paginated list of categories-->
 <div *ngIf="paginatedCategories">
   <div *ngFor="let category of paginatedCategories"
