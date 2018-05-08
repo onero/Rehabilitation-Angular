@@ -1,6 +1,6 @@
 <h1 class="center">Clients
   <i class="fa fa-plus-circle pull-right add-button"
-     (click)="open(newClient)"></i></h1>
+     (click)="modalService.open(newClient)"></i></h1>
 
 <div *ngIf="paginatedClients">
   <div *ngFor="let client of paginatedClients"
@@ -78,7 +78,7 @@
     <div [hidden]="clientName.valid || clientName.pristine"
          class="alert alert-warning">
       <div [hidden]="!clientName.hasError('required')">Client's name is required</div>
-      <div> Client's name must be atleast 3 characters</div>
+      <div> Client's name must be at least 3 characters</div>
     </div>
 
 

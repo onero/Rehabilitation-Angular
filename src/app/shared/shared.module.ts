@@ -9,6 +9,7 @@ import {RehabilitationPlanService} from './services/rehabilitation-plan.service'
 import {RouterModule} from '@angular/router';
 import {RehabErrorService} from './services/rehab-error.service';
 import { MessageService } from './services/message.service';
+import { RehabModalService } from './services/rehab-modal.service';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { MessageService } from './services/message.service';
     ClientService,
     RehabilitationPlanService,
     RehabErrorService,
-    MessageService]
+    MessageService,
+    RehabModalService]
 })
 export class SharedModule {
 }

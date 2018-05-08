@@ -5,6 +5,7 @@ import {ClientService} from '../../../shared/services/client.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../../auth/shared/auth.service';
 import {RehabErrorService} from '../../../shared/services/rehab-error.service';
+import {RehabModalService} from '../../../shared/services/rehab-modal.service';
 
 @Component({
   selector: 'rehab-manage-clients-list',
@@ -18,14 +19,13 @@ export class ManageClientsListComponent implements OnInit {
   currentClient: ClientModel;
   allClients: ClientModel[];
   paginatedClients: ClientModel[];
-  closeResult: string;
   page: number;
   limit = 5;
 
   constructor(private clientService: ClientService,
               private authService: AuthService,
-              private modalService: NgbModal,
-              private rehabErrorService: RehabErrorService) {
+              private rehabErrorService: RehabErrorService,
+              public modalService: RehabModalService) {
   }
 
   ngOnInit() {
@@ -80,18 +80,6 @@ export class ManageClientsListComponent implements OnInit {
   }
 
   /**
-   * Opens up the modal to add a new client.
-   * @param content
-   */
-  open(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  /**
    * Adds a client to DB
    * @param clientName
    * @param clientAddress
@@ -122,21 +110,6 @@ export class ManageClientsListComponent implements OnInit {
       .catch(error => {
         this.rehabErrorService.displayError(error.message);
       });
-  }
-
-  /**
-   * Method to dismiss the modal popup.
-   * @param reason
-   * @returns {string}
-   */
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
   }
 
 }
