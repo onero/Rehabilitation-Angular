@@ -27,4 +27,23 @@ export class MilestoneService {
       ref => ref.where('clientUid', '==', clientUid)).valueChanges();
   }
 
+  /**
+   * Add milestone to firestore with provided client uid
+   * @param clientUid
+   * @param {MilestoneEntity} newMilestone
+   */
+  addMilestoneWithClientUid(clientUid: string, newMilestone: MilestoneEntity) {
+    // Create UID for firestore document
+    const docUid = this.angularFireStore.createId();
+    // Create new doc object (specific to firestore)
+    const milestoneDoc = {
+      uid: docUid,
+      clientUid: clientUid,
+      purpose: newMilestone.purpose,
+      title: newMilestone.title
+    };
+    return this.angularFireStore
+      .collection<MilestoneEntity>(FirestoreModel.MILESTONE_COLLECTION)
+      .ref.doc(docUid).set(milestoneDoc);
+  }
 }

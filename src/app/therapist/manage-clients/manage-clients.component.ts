@@ -16,7 +16,8 @@ export class ManageClientsComponent implements OnInit {
   selectedMilestone: MilestoneEntity;
   currentVisit: VisitEntity;
 
-  evaluationMode = false;
+  // TODO ALH: Should be false!
+  evaluationMode = true;
 
   constructor(private clientService: ClientService,
               private milestoneService: MilestoneService) { }
@@ -33,6 +34,14 @@ export class ManageClientsComponent implements OnInit {
       .subscribe(milestonesFromDB => {
         this.milestones = milestonesFromDB;
       });
+  }
+
+  /**
+   * Add new milestone to firestore
+   * @param {MilestoneEntity} newMilestone
+   */
+  addMilestone(newMilestone: MilestoneEntity) {
+    this.milestoneService.addMilestoneWithClientUid(this.selectedClient.uid, newMilestone);
   }
 
   /**
