@@ -73,19 +73,14 @@ export class ManageClientsComponent implements OnInit {
   }
 
   removeVisitFromMilestone() {
-    for (let i = 0; i < this.selectedMilestone.visits.length; i++) {
-      if (this.selectedMilestone.visits[i].uid === this.currentVisit.uid) {
-        this.selectedMilestone.visits.splice(i, 1);
-        break;
-      }
-      this.milestoneService.updateMilestone(this.selectedMilestone)
-        .then(() => {
+    const indexOfVisitToRemove = this.selectedMilestone.visits.indexOf(this.currentVisit);
+    this.selectedMilestone.visits.splice(indexOfVisitToRemove, 1);
+    this.milestoneService.updateMilestone(this.selectedMilestone)
+      .then(() => {
           // Reset view afterwards
           this.selectedMilestone = null;
           this.currentVisit = null;
-        });
-    }
-    // this.selectedMilestone.visits.(visit => visit.uid === visitToRemove.uid);
+      });
   }
 
   /**
