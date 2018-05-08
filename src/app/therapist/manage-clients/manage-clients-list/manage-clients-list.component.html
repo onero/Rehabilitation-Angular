@@ -56,7 +56,14 @@
            type="number"
            placeholder="Phone number">
 
-    <!--Client Email (Pattern checks if it is a valid email)-->
+    <!--Client Email
+
+    The email must have the following order:  characters@characters.domain
+    [a-z0-9._%+-]     - Characters before the "@"
+    +@                - Must contain a "@" after the first characters.
+    [a-z0-9.-]        - After the "@" sign and before the "." you can write the host name.
+    +\.[a-z]{2,63}$   - After the "." sign, you can only write 2 to 63 letters from A to Z (TOP LEVEL DOMAIN)
+    -->
     <input #clientEmail="ngModel"
            style="width: 100%"
            name="clientEmail"
