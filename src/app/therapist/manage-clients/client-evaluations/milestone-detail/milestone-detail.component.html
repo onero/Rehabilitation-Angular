@@ -1,10 +1,17 @@
 <div class="container">
-  <div class="row">
+  <div *ngIf="allowEdit" class="row">
     <!--MILESTONE DATE-->
     <h1>{{currentVisit.date | date: 'd/M - yyyy'}}</h1>
     <!--MILESTONE TITLE-->
     <div class="col-md-12">
       <h3>{{title}}</h3>
+      <div *ngIf="!editMode; then editIcon else saveIcon"></div>
+      <ng-template #editIcon>
+        <i class="fa fa-edit fa-1x pull-right" (click)="toggleEvaluationEdit()"></i>
+      </ng-template>
+      <ng-template #saveIcon>
+        <i class="fa fa-floppy-o fa-1x pull-right" (click)="onEvaluationUpdated()"></i>
+      </ng-template>
     </div>
     <div class="row">
       <!--Purpose-->
