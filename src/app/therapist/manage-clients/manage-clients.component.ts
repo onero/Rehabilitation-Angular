@@ -60,12 +60,15 @@ export class ManageClientsComponent implements OnInit {
    * @param {VisitEntity} newVisit
    */
   addVisitToMilestone(newVisit: VisitEntity) {
+    // Check for visits in selected milestone
     if (!this.selectedMilestone.visits) {
       this.selectedMilestone.visits = [];
     }
     this.selectedMilestone.visits.push(newVisit);
+    // Update milestone on firestore with new data
     this.milestoneService.updateMilestone(this.selectedMilestone)
       .then(() => {
+        // Reset view afterwards
         this.selectedMilestone = null;
         this.currentVisit = null;
       });
