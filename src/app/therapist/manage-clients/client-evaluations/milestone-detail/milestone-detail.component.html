@@ -23,13 +23,13 @@
     <div class="row">
       <div class="col-md-6">
         <h3>Purpose</h3>
-        <div *ngIf="!editMode; then evaluation else editEvaluation"></div>
-        <ng-template #evaluation>
+        <div *ngIf="!editMode; then evaluationPurpose else editEvaluationPurpose"></div>
+        <ng-template #evaluationPurpose>
           <textarea disabled class="evaluation-text">
             {{purpose}}
           </textarea>
         </ng-template>
-        <ng-template #editEvaluation>
+        <ng-template #editEvaluationPurpose>
           <textarea type="text"
                     [(ngModel)]="purpose"
                     class="edit-mode evaluation-text"
@@ -43,7 +43,21 @@
       <!--Note-->
       <div class="col-md-6">
         <h3>Note</h3>
-        {{note}}
+        <div *ngIf="!editMode; then evaluationNote else editEvaluationNote"></div>
+        <ng-template #evaluationNote>
+          <textarea disabled class="evaluation-text">
+            {{note}}
+          </textarea>
+        </ng-template>
+        <ng-template #editEvaluationNote>
+          <textarea type="text"
+                    [(ngModel)]="note"
+                    class="edit-mode evaluation-text"
+                    #evaluationInput
+                    name="evaluationInput">
+            {{note}}
+          </textarea>
+        </ng-template>
       </div>
     </div>
   </div>
