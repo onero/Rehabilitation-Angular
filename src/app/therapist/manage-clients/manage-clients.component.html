@@ -26,11 +26,14 @@
       <div class="col-md-3">
         <!--MILESTONES-->
         <rehab-milestone-list (milestoneSelected)="selectedMilestone = $event"
+                              (milestoneCreated)="addMilestone($event)"
                               [milestones]="milestones"></rehab-milestone-list>
       </div>
       <div class="col-md-3">
         <!--VISITS-->
-        <rehab-visit-list [allVisits]="selectedMilestone?.visits"
+        <rehab-visit-list *ngIf="selectedMilestone"
+                          (visitAdded)="addVisitToMilestone($event)"
+                          [allVisits]="selectedMilestone?.visits"
                           (visitSelected)="currentVisit = $event"></rehab-visit-list>
       </div>
       <div class="col-md-6">

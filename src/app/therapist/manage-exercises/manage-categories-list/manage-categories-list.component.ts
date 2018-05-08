@@ -3,6 +3,7 @@ import {ExerciseModel} from '../../../client/shared/exercise.model';
 import {Observable} from 'rxjs/Observable';
 import {CategoryService} from '../../../shared/services/category.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {RehabModalService} from '../../../shared/services/rehab-modal.service';
 
 @Component({
   selector: 'rehab-manage-categories-list',
@@ -15,13 +16,12 @@ export class ManageCategoriesListComponent implements OnInit {
   currentCategory: ExerciseModel;
   allCategories: any[];
   paginatedCategories: any[];
-  closeResult: string;
   page: number;
   limit = 5;
 
 
   constructor(private categoryService: CategoryService,
-              private modalService: NgbModal) { }
+              public modalService: RehabModalService) { }
 
   ngOnInit() {
     this.page = 1;
@@ -57,30 +57,6 @@ export class ManageCategoriesListComponent implements OnInit {
   */
   onCategorySelected(category) {
     this.categorySelected.emit(category.name);
-  }
-
-  /**
-  * Open modal
-  */
-  open(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  /**
-  * Check if user canceled modal
-  */
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
   }
 
   /**
