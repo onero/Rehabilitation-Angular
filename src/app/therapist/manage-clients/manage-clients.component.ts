@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientModel} from '../../shared/entities/client.model';
 import {ClientService} from '../../shared/services/client.service';
+import { AuthService } from '../../auth/shared/auth.service';
 import {MilestoneEntity} from '../../shared/entities/milestone.entity';
 import {VisitEntity} from '../../shared/entities/visit.entity';
 import {MilestoneService} from '../../shared/services/milestone.service';
@@ -15,16 +16,13 @@ export class ManageClientsComponent implements OnInit {
   milestones: MilestoneEntity[];
   selectedMilestone: MilestoneEntity;
   currentVisit: VisitEntity;
-
   evaluationMode = false;
 
   constructor(private clientService: ClientService,
-              private milestoneService: MilestoneService) {
-  }
+              private milestoneService: MilestoneService,
+              private authService: AuthService) { }
 
-
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   /**
    * Load all milestones into client
@@ -78,10 +76,7 @@ export class ManageClientsComponent implements OnInit {
    * Delete selectedClient!
    */
   deleteClient() {
-    this.clientService.deleteClient(this.selectedClient)
-      .then(() => {
-        this.selectedClient = null;
-      });
+    this.authService.deleteUser(this.selectedClient);
   }
 
   /**
