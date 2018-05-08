@@ -22,11 +22,6 @@ export class ManageClientsComponent implements OnInit {
    * Delete selectedClient!
    */
   deleteClient() {
-    // this.clientService.deleteClient(this.selectedClient)
-    //   .then(() => {
-    //     this.selectedClient = null;
-    //   });
-
     this.authService.deleteUser(this.selectedClient);
   }
 
