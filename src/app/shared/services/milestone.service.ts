@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {MilestoneEntity} from '../entities/milestone.entity';
 import {FirestoreModel} from './firestore.model';
+import {VisitEntity} from '../entities/visit.entity';
+import {s} from '@angular/core/src/render3';
 
 @Injectable()
 export class MilestoneService {
@@ -45,5 +47,16 @@ export class MilestoneService {
     return this.angularFireStore
       .collection<MilestoneEntity>(FirestoreModel.MILESTONE_COLLECTION)
       .ref.doc(docUid).set(milestoneDoc);
+  }
+
+  /**
+   * Update the provided milestone
+   * @param {MilestoneEntity} selectedMilestone
+   * @returns {Promise<void>}
+   */
+  updateMilestone(selectedMilestone: MilestoneEntity) {
+    return this.angularFireStore.collection<MilestoneEntity>(FirestoreModel.MILESTONE_COLLECTION)
+      .doc(selectedMilestone.uid)
+      .set(selectedMilestone, {merge: true});
   }
 }

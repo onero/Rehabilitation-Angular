@@ -31,7 +31,9 @@
       </div>
       <div class="col-md-3">
         <!--VISITS-->
-        <rehab-visit-list [allVisits]="selectedMilestone?.visits"
+        <rehab-visit-list *ngIf="selectedMilestone"
+                          (visitAdded)="addVisitToMilestone($event)"
+                          [allVisits]="selectedMilestone?.visits"
                           (visitSelected)="currentVisit = $event"></rehab-visit-list>
       </div>
       <div class="col-md-6">

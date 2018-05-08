@@ -16,11 +16,11 @@ export class ManageClientsComponent implements OnInit {
   selectedMilestone: MilestoneEntity;
   currentVisit: VisitEntity;
 
-  // TODO ALH: Should be false!
-  evaluationMode = true;
+  evaluationMode = false;
 
   constructor(private clientService: ClientService,
-              private milestoneService: MilestoneService) { }
+              private milestoneService: MilestoneService) {
+  }
 
 
   ngOnInit() {
@@ -41,7 +41,34 @@ export class ManageClientsComponent implements OnInit {
    * @param {MilestoneEntity} newMilestone
    */
   addMilestone(newMilestone: MilestoneEntity) {
-    this.milestoneService.addMilestoneWithClientUid(this.selectedClient.uid, newMilestone);
+    this.milestoneService.addMilestoneWithClientUid(this.selectedClient.uid, newMilestone)
+      .then(() => {
+        this.resetCurrentMilestoneSelection();
+      });
+  }
+
+  /**
+   * Reset the current selected milestone
+   */
+  private resetCurrentMilestoneSelection() {
+    this.selectedMilestone = null;
+    this.currentVisit = null;
+  }
+
+  /**
+   * Add new visit to selectedMilestone
+   * @param {VisitEntity} newVisit
+   */
+  addVisitToMilestone(newVisit: VisitEntity) {
+    if (!this.selectedMilestone.visits) {
+      this.selectedMilestone.visits = [];
+    }
+    this.selectedMilestone.visits.push(newVisit);
+    this.milestoneService.updateMilestone(this.selectedMilestone)
+      .then(() => {
+        this.selectedMilestone = null;
+        this.currentVisit = null;
+      });
   }
 
   /**
@@ -70,4 +97,5 @@ export class ManageClientsComponent implements OnInit {
     this.milestones = null;
     this.selectedMilestone = null;
   }
+
 }

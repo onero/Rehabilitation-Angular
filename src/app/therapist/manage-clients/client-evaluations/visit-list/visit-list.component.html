@@ -1,6 +1,6 @@
 <h1>Visits
   <i class="fa fa-plus-circle pull-right add-button"
-     (click)="open(newVisit)"></i>
+     (click)="modalService.open(newVisit)"></i>
 </h1>
 <div *ngIf="allVisits && paginatedVisits">
   <div *ngFor="let visit of paginatedVisits"
