@@ -16,9 +16,13 @@ export class MilestoneDetailComponent implements OnInit {
   purpose: string;
   @Input()
   note: string;
-
   @Input()
   currentVisit: VisitEntity;
+  @Output()
+  deletedVisit = new EventEmitter();
+
+
+  constructor() { }
 
   @Output()
   updateEvaluation = new EventEmitter<MilestoneEntity>();
@@ -27,9 +31,12 @@ export class MilestoneDetailComponent implements OnInit {
 
   editMode = false;
 
-  constructor() { }
-
   ngOnInit() {
+  }
+
+
+  deleteVisit() {
+    this.deletedVisit.emit();
   }
 
   /**
@@ -53,4 +60,5 @@ export class MilestoneDetailComponent implements OnInit {
     this.updateEvaluation.emit(newMilestone);
     this.editMode = false;
   }
+
 }

@@ -6,6 +6,7 @@
 
     <!--MILESTONE TITLE-->
     <div class="col-md-12">
+
       <div *ngIf="allowEdit">
         <div *ngIf="!editMode; then editIcon else saveIcon"></div>
         <div *ngIf="!editMode; then evaluationTitle else editEvaluationTitle"></div>
@@ -15,6 +16,7 @@
           <h3 disabled class="evaluation-text">
             {{title}}
           </h3>
+          <button class="btn btn-danger pull-right" (click)="deleteVisit()">Delete</button>
         </ng-template>
 
         <!--EDIT-->

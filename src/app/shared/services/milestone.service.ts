@@ -3,7 +3,6 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {MilestoneEntity} from '../entities/milestone.entity';
 import {FirestoreModel} from './firestore.model';
 import {VisitEntity} from '../entities/visit.entity';
-import {s} from '@angular/core/src/render3';
 
 @Injectable()
 export class MilestoneService {

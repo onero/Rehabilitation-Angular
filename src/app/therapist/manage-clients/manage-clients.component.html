@@ -39,6 +39,7 @@
       <div class="col-md-6">
         <!--Milestone Detail-->
         <rehab-milestone-detail *ngIf="currentVisit"
+                                (deletedVisit)="removeVisitFromMilestone()"
                                 [currentVisit]="currentVisit"
                                 [title]="selectedMilestone.title"
                                 [purpose]="selectedMilestone.purpose"

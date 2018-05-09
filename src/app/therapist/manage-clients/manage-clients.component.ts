@@ -72,6 +72,17 @@ export class ManageClientsComponent implements OnInit {
       });
   }
 
+  removeVisitFromMilestone() {
+    const indexOfVisitToRemove = this.selectedMilestone.visits.indexOf(this.currentVisit);
+    this.selectedMilestone.visits.splice(indexOfVisitToRemove, 1);
+    this.milestoneService.updateMilestone(this.selectedMilestone)
+      .then(() => {
+          // Reset view afterwards
+          this.selectedMilestone = null;
+          this.currentVisit = null;
+      });
+  }
+
   /**
    * Updates the milestone for the client.
    * @param {MilestoneEntity} milestoneToUpdate
