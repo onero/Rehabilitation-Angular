@@ -25,6 +25,9 @@ export class ManageClientsDiagnosisComponent implements OnInit {
     console.log('ClientMode:', environment.clientMode)
   }
 
+  /**
+   * Change the edit mode when clicked.
+   */
   toggleEdit() {
     this.editMode = !this.editMode;
   }
