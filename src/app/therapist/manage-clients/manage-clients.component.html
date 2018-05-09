@@ -43,6 +43,7 @@
                                 [currentVisit]="currentVisit"
                                 [title]="selectedMilestone.title"
                                 [purpose]="selectedMilestone.purpose"
+                                (updateEvaluation)="updateMilestone($event)"
                                 [note]="currentVisit.note"></rehab-milestone-detail>
       </div>
     </div>
