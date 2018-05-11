@@ -22,7 +22,7 @@ import {SnackbarModule} from 'ngx-snackbar';
     SharedModule,
     AuthModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     ClientModule,
     TherapistModule,
     NgbModule.forRoot(),

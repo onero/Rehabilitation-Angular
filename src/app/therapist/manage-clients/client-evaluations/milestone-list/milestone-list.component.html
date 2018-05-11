@@ -1,0 +1,57 @@
+<h1 class="center">Milestones
+  <i class="fa fa-plus-circle pull-right add-button"
+     (click)="modalService.open(newMilestone)"></i></h1>
+<!--Paginated list of milestones-->
+<div *ngIf="paginatedMilestones">
+  <div *ngFor="let milestone of paginatedMilestones; let i = index"
+       class="card"
+       (click)="onMilestoneSelected(milestone); currentMilestone = milestone"
+       [ngClass]="{'selected': currentMilestone === milestone}">
+    <div class="card-body">
+      <h5 class="card-title">{{i + 1}} - {{milestone.title}}</h5>
+    </div>
+  </div>
+  <!--Awesome pagination component-->
+  <ngb-pagination [collectionSize]="milestones.length"
+                  [(page)]="page"
+                  [maxSize]="5"
+                  [pageSize]="5"
+                  (pageChange)="paginate($event)">
+  </ngb-pagination>
+</div>
+
+<!--New Milestone-->
+<ng-template #newMilestone let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">New Milestone</h4>
+  </div>
+  <div class="modal-body">
+    <input #milestoneTitle="ngModel"
+           style="width: 100%"
+           name="milestoneTitle"
+           minlength="3"
+           ngModel
+           required
+           type="text"
+           placeholder="Enter the title of the milestone">
+    <input #milestonePurpose="ngModel"
+           style="width: 100%"
+           name="milestonePurpose"
+           minlength="3"
+           ngModel
+           required
+           type="text"
+           placeholder="Enter the purpose of the milestone">
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-danger"
+            (click)="c('Close click')">Close
+    </button>
+    <button [disabled]="!milestoneTitle.valid || !milestonePurpose.valid"
+            type="button"
+            class="btn btn-success pull-right"
+            (click)="addMilestone(milestoneTitle.value, milestonePurpose.value); c('Close click')">Add
+    </button>
+  </div>
+</ng-template>

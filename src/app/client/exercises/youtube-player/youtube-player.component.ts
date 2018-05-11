@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {YoutubeService} from '../../../shared/services/youtube.service';
 import {YoutubeResponse} from '../../../shared/entities/YoutubeResponse.model';
@@ -8,65 +8,76 @@ import {YoutubeResponse} from '../../../shared/entities/YoutubeResponse.model';
   templateUrl: './youtube-player.component.html',
   styleUrls: ['./youtube-player.component.scss']
 })
-export class YoutubePlayerComponent implements OnInit {
+export class YoutubePlayerComponent implements OnInit, OnChanges {
 
+  @Input() videoUrl = '';
   @Input() width = 640;
   @Input() height = 390;
-  @Input() videoId: string;
   @Input() playerId = 'player';
   @Input() playlistId = '';
 
   public player: YT.Player;
-  public src: SafeResourceUrl;
-  public title = '';
-  public description = '';
 
-  constructor(private ytService: YoutubeService,
-              private sanitizer: DomSanitizer) {
+  // public src: SafeResourceUrl;
+
+  constructor(private ytService: YoutubeService) {
   }
 
   ngOnInit() {
-    this.ytService.getVideoInformation(this.videoId)
-      .subscribe(result => {
-        const ytResponse = result as YoutubeResponse
-        this.title = ytResponse.items[0].snippet.title;
-        this.description = ytResponse.items[0].snippet.description;
-      });
     this.instantiateVideo();
   }
 
-  loadVideoByUrl(videoUrl: string) {
-    const videoId = this.ytService.getIdFromURL(videoUrl);
-    this.player.loadVideoById(videoId);
+  ngOnChanges(changes: SimpleChanges): void {
+    this.loadVideoByUrl(this.videoUrl);
   }
 
+  /**
+   * Load video into player by url
+   * @param {string} videoUrl
+   */
+  loadVideoByUrl(videoUrl: string) {
+    if (videoUrl) {
+      const videoId = this.ytService.getIdFromURL(videoUrl);
+      if (this.player) {
+        this.player.loadVideoById(videoId);
+      }
+    }
+  }
+
+  /**
+   * Save a reference to the YoutubePlayer
+   * @param player
+   */
   savePlayer(player) {
     this.player = player;
   }
 
+  /**
+   * Triggered when player starts, pauses, resumes or stops
+   * @param event
+   */
   onStateChange(event) {
-    console.log('player state', event.data);
   }
 
   private instantiateVideo() {
     // Check for video ID (single video"
-    if (this.videoId) {
-      this.videoId = this.ytService.getIdFromURL(this.videoId);
+    if (this.videoUrl) {
+      this.videoUrl = this.ytService.getIdFromURL(this.videoUrl);
     } else if (this.playlistId !== '') {
-      this.videoId = '';
+      this.videoUrl = '';
     } else {
-      this.videoId = 'vntAEVjPBzQ'; // Ghostbusters!
+      this.videoUrl = 'vntAEVjPBzQ'; // Ghostbusters!
     }
 
-    // Check for playlist
-    if (this.playlistId !== '') {
-      this.src =
-        this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videoId + '?listType=playlist&list=' + this.playlistId);
-    } else {
-      // Sanitize the entry
-      this.src =
-        this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videoId + '?enablejsapi=1');
-    }
+    // // Check for playlist
+    // if (this.playlistId !== '') {
+    //   this.src =
+    //     this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videoUrl + '?listType=playlist&list=' + this.playlistId);
+    // } else {
+    //   // Sanitize the entry
+    //   this.src =
+    //     this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videoUrl + '?enablejsapi=1');
+    // }
   }
 
 }
