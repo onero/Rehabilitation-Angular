@@ -11,6 +11,7 @@ import {SharedModule} from '../shared/shared.module';
 import { ProfileComponent } from './profile/profile.component';
 import {FormsModule} from '@angular/forms';
 import {TherapistModule} from '../therapist/therapist.module';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import {TherapistModule} from '../therapist/therapist.module';
     FormsModule,
     TherapistModule
   ],
-  declarations: [ExercisesComponent, ExerciseInformationComponent, YoutubePlayerComponent, ExerciseListComponent, ProfileComponent],
+  declarations: [ExercisesComponent, ExerciseInformationComponent, YoutubePlayerComponent, ExerciseListComponent, ProfileComponent, ContactComponent],
   providers: [YoutubeService]
 })
 export class ClientModule { }
