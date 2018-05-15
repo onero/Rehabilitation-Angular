@@ -1,12 +1,12 @@
 <h1>Exercises
-  <i class="fa fa-plus-circle pull-right add-button"
+  <i class="fa fa-plus-circle pull-right add-button fat_finger"
   (click)="modalService.open(assignExercise)"></i></h1>
 <!--List of assigned exercises-->
 <div *ngFor="let exercise of exercises"
      class="card" style="text-align: center">
   <div class="card-header">
     <h3 class="pull-left">{{exercise.title}}</h3>
-    <button class="btn btn-danger pull-right"
+    <button class="btn btn-danger pull-right fat_finger"
             (click)="onExerciseUnassigned(exercise.uid)">X
     </button>
   </div>

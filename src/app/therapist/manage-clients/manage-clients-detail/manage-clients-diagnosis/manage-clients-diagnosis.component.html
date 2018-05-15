@@ -7,10 +7,10 @@
           <div *ngIf="allowEdit">
             <div *ngIf="!editMode; then editIcon else saveIcon"></div>
             <ng-template #editIcon>
-              <i class="fa fa-edit fa-1x pull-right" (click)="toggleEdit()"></i>
+              <i class="fa fa-edit fa-1x pull-right fat_finger" (click)="toggleEdit()"></i>
             </ng-template>
             <ng-template #saveIcon>
-              <i class="fa fa-floppy-o fa-1x pull-right" (click)="onDiagnosisUpdated()"></i>
+              <i class="fa fa-floppy-o fa-1x pull-right fat_finger" (click)="onDiagnosisUpdated()"></i>
             </ng-template>
           </div>
         </h3>

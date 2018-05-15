@@ -1,10 +1,10 @@
 <h1>Visits
-  <i *ngIf="allowEdit" class="fa fa-plus-circle pull-right add-button"
+  <i *ngIf="allowEdit" class="fa fa-plus-circle pull-right add-button fat_finger"
      (click)="modalService.open(newVisit)"></i>
 </h1>
 <div *ngIf="allVisits && paginatedVisits">
   <div *ngFor="let visit of paginatedVisits"
-       class="card" (click)="onVisitSelected(visit); currentVisit = visit"
+       class="card fat_finger" (click)="onVisitSelected(visit); currentVisit = visit"
        [ngClass]="{'selected': currentVisit === visit}">
     <div class="card-body">
       <h5 class="card-title"

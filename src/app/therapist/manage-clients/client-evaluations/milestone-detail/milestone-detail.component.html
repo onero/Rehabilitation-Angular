@@ -16,7 +16,7 @@
           <h3 disabled class="evaluation-text">
             {{title}}
           </h3>
-          <button class="btn btn-danger pull-right" (click)="deleteVisit()">Delete</button>
+          <button class="btn btn-danger pull-right fat_finger" (click)="deleteVisit()">Delete</button>
         </ng-template>
 
         <!--EDIT-->
@@ -30,11 +30,11 @@
 
         <!--Edit icon-->
         <ng-template #editIcon>
-          <i class="fa fa-edit fa-1x pull-right" (click)="toggleEvaluationEdit()"></i>
+          <i class="fa fa-edit fa-1x pull-right fat_finger" (click)="toggleEvaluationEdit()"></i>
         </ng-template>
         <!--Save icon-->
         <ng-template #saveIcon>
-          <i class="fa fa-floppy-o fa-1x pull-right" (click)="onEvaluationUpdated()"></i>
+          <i class="fa fa-floppy-o fa-1x pull-right fat_finger" (click)="onEvaluationUpdated()"></i>
         </ng-template>
       </div>
     </div>

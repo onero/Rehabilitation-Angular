@@ -1,12 +1,12 @@
 <h1 class="center">Clients
-  <i class="fa fa-plus-circle pull-right add-button"
+  <i class="fa fa-plus-circle pull-right add-button fat_finger"
      (click)="modalService.open(newClient)"></i></h1>
 
 <div *ngIf="paginatedClients">
   <div *ngFor="let client of paginatedClients"
        class="card" (click)="onClientSelected(client); currentClient = client"
        [ngClass]="{'selected': currentClient === client}">
-    <div class="card-body">
+    <div class="card-body fat_finger">
       <h5 class="card-title">{{client.fullName}}</h5>
     </div>
   </div>
