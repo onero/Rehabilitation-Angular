@@ -30,7 +30,10 @@ import {RouterModule} from '@angular/router';
   exports: [
     ManageClientsContactInformationComponent,
     ManageClientsDiagnosisComponent,
-    ManageClientsGoalComponent
+    ManageClientsGoalComponent,
+    MilestoneListComponent,
+    VisitListComponent,
+    MilestoneDetailComponent
   ],
   declarations: [ManageExercisesComponent,
     ManageExercisesListComponent,

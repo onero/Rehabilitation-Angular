@@ -1,5 +1,5 @@
 <h1 class="center">Milestones
-  <i class="fa fa-plus-circle pull-right add-button"
+  <i *ngIf="allowEdit" class="fa fa-plus-circle pull-right add-button"
      (click)="modalService.open(newMilestone)"></i></h1>
 <!--Paginated list of milestones-->
 <div *ngIf="paginatedMilestones">

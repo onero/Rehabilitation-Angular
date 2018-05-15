@@ -12,6 +12,7 @@ import { ProfileComponent } from './profile/profile.component';
 import {FormsModule} from '@angular/forms';
 import {TherapistModule} from '../therapist/therapist.module';
 import { ContactComponent } from './contact/contact.component';
+import { EvaluationComponent } from './evaluation/evaluation.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { ContactComponent } from './contact/contact.component';
     FormsModule,
     TherapistModule
   ],
-  declarations: [ExercisesComponent, ExerciseInformationComponent, YoutubePlayerComponent, ExerciseListComponent, ProfileComponent, ContactComponent],
+  declarations: [ExercisesComponent, ExerciseInformationComponent, YoutubePlayerComponent, ExerciseListComponent, ProfileComponent, ContactComponent, EvaluationComponent],
   providers: [YoutubeService]
 })
 export class ClientModule { }

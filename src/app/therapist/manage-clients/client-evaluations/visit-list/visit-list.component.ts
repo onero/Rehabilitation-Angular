@@ -4,6 +4,7 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {VisitEntity} from '../../../../shared/entities/visit.entity';
 import {RehabModalService} from '../../../../shared/services/rehab-modal.service';
 import {V} from '@angular/core/src/render3';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'rehab-visit-list',
@@ -16,6 +17,8 @@ export class VisitListComponent implements OnInit, OnChanges {
   visitSelected = new EventEmitter<VisitEntity>();
   @Output()
   visitAdded = new EventEmitter<VisitEntity>();
+
+  allowEdit = !environment.clientMode;
 
   @Input()
   allVisits: VisitEntity[];
