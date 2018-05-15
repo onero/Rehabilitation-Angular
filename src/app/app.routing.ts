@@ -9,6 +9,7 @@ import {ManageClientsComponent} from './therapist/manage-clients/manage-clients.
 import {AuthGuard} from './auth/shared/auth.guard';
 import {LoggedInGuard} from './auth/shared/logged-in.guard';
 import {ContactComponent} from './client/contact/contact.component';
+import {EvaluationComponent} from './client/evaluation/evaluation.component';
 
 export const AppRoutes = RouterModule.forRoot(
   [
@@ -31,6 +32,11 @@ export const AppRoutes = RouterModule.forRoot(
     {
       path: 'client/profile',
       component: ProfileComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'client/evaluations',
+      component: EvaluationComponent,
       canActivate: [AuthGuard]
     },
     {

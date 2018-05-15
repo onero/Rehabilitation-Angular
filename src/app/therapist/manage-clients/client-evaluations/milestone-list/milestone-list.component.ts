@@ -3,6 +3,7 @@ import {MilestoneEntity} from '../../../../shared/entities/milestone.entity';
 import 'rxjs/add/operator/take';
 import {RehabModalService} from '../../../../shared/services/rehab-modal.service';
 import {AuthService} from '../../../../auth/shared/auth.service';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'rehab-milestone-list',
@@ -18,6 +19,8 @@ export class MilestoneListComponent implements OnInit, OnChanges {
   milestoneSelected = new EventEmitter<MilestoneEntity>();
   @Output()
   milestoneCreated = new EventEmitter<MilestoneEntity>();
+
+  allowEdit = !environment.clientMode;
 
   currentMilestone: MilestoneEntity;
   paginatedMilestones: MilestoneEntity[];
