@@ -2,13 +2,15 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {ExerciseModel} from '../../../client/shared/exercise.model';
 import {ExerciseService} from '../../../shared/services/exercise.service';
 import {Router} from '@angular/router';
+import {ISearch} from '../../../shared/component-interfaces/ISearch';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 @Component({
   selector: 'rehab-manage-exercises-list',
   templateUrl: './manage-exercises-list.component.html',
   styleUrls: ['./manage-exercises-list.component.scss']
 })
-export class ManageExercisesListComponent implements OnInit, OnChanges {
+export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch {
   @Input()
   currentCategoryName = '';
   @Output()
@@ -93,6 +95,25 @@ export class ManageExercisesListComponent implements OnInit, OnChanges {
     this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit, latest).subscribe(paginatedExercises => {
       this.paginatedExercises = paginatedExercises;
     });
+  }
+
+  search(query: string) {
+    // Check if user entered text or cleared search
+    if (query.length > 0) {
+      this.paginatedExercises = [];
+      const queriedExercises = this.allExercises.filter(exercise => {
+        // Check if exercise has
+        return exercise.title.includes(query) || // title
+          exercise.category.includes(query) || // category
+          exercise.description.includes(query) || // description
+          exercise.videoUrl.includes(query) || // url
+          exercise.repetition.includes(query); // repetition
+      });
+      this.paginatedExercises = queriedExercises;
+    } else {
+      // Reset to list of paginated exercises
+      this.paginatedExercises = this.allExercises.slice(0, this.limit);
+    }
   }
 
 }
