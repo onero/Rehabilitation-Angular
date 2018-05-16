@@ -130,4 +130,9 @@ export class ManageClientsComponent implements OnInit {
     this.selectedMilestone = null;
   }
 
+  onSelectedMilestone(milestone: MilestoneEntity) {
+    this.selectedMilestone = milestone;
+    this.currentVisit = null;
+  }
+
 }

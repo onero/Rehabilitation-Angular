@@ -25,7 +25,7 @@
     <div class="row">
       <div class="col-md-3">
         <!--MILESTONES-->
-        <rehab-milestone-list (milestoneSelected)="selectedMilestone = $event"
+        <rehab-milestone-list (milestoneSelected)="onSelectedMilestone($event)"
                               (milestoneCreated)="addMilestone($event)"
                               [milestones]="milestones"></rehab-milestone-list>
       </div>

@@ -16,4 +16,9 @@ export class ManageExercisesComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  onSelectedCategory(selectedCategory: string) {
+    this.selectedCategory = selectedCategory;
+    this.selectedExercise = null;
+  }
 }
