@@ -1,10 +1,10 @@
 <h1>Visits
-  <i *ngIf="allowEdit" class="fa fa-plus-circle pull-right add-button"
+  <i *ngIf="allowEdit" class="fa fa-plus-circle pull-right add-button clickable"
      (click)="modalService.open(newVisit)"></i>
 </h1>
 <div *ngIf="allVisits && paginatedVisits">
   <div *ngFor="let visit of paginatedVisits"
-       class="card" (click)="onVisitSelected(visit); currentVisit = visit"
+       class="card clickable" (click)="onVisitSelected(visit); currentVisit = visit"
        [ngClass]="{'selected': currentVisit === visit}">
     <div class="card-body">
       <h5 class="card-title"
@@ -39,9 +39,12 @@
             class="btn btn-danger"
             (click)="c('Close click')">Close
     </button>
+    <!--NgClass check whether or not the requirements are fulfilled, if not,
+   then the button is disabled and without a fat finger-->
     <button [disabled]="!visitInput.valid"
             type="button"
-            class="btn btn-success pull-right"
+            [ngClass]="{'btn btn-success pull-right clickable' : visitInput.valid,
+                        'btn btn-success pull-right' : true}"
             (click)="addVisit(visitInput.value); c('Close click')">Add
     </button>
   </div>

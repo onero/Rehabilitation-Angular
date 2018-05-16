@@ -1,10 +1,10 @@
 <h1 class="center">Categories
-  <i class="fa fa-plus-circle pull-right add-button"
+  <i class="fa fa-plus-circle pull-right add-button clickable"
      (click)="modalService.open(newCategory)"></i></h1>
 <!--Paginated list of categories-->
 <div *ngIf="paginatedCategories">
   <div *ngFor="let category of paginatedCategories"
-       class="card" (click)="onCategorySelected(category); currentCategory = category"
+       class="card clickable" (click)="onCategorySelected(category); currentCategory = category"
        [ngClass]="{'selected': currentCategory === category}">
     <div class="card-body">
       <h5 class="card-title">{{category.name}}</h5>
@@ -36,12 +36,15 @@
   </div>
   <div class="modal-footer">
     <button type="button"
-            class="btn btn-danger"
+            class="btn btn-danger clickable"
             (click)="c('Close click')">Close
     </button>
+    <!--NgClass check whether or not the requirements are fulfilled, if not,
+    then the button is disabled and without a fat finger-->
     <button [disabled]="!categoryInput.valid"
             type="button"
-            class="btn btn-success pull-right"
+            [ngClass]="{'btn btn-success pull-right fat-finger' : categoryInput.valid,
+                        'btn btn-success pull-right' : true}"
             (click)="addCategory(categoryInput.value); c('Close click')">Add
     </button>
   </div>

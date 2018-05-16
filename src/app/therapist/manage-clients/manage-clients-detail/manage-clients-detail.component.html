@@ -24,7 +24,7 @@
           [currentGoal]="currentClient.rehabilitationPlan.goal"></rehab-manage-clients-goal>
       </div>
       <div class="col">
-        <button class="btn btn-primary"
+        <button class="btn btn-primary clickable"
                 (click)="evaluationsClicked.emit()">Evaluations</button>
       </div>
     </div>
@@ -43,7 +43,7 @@
     <div class="row">
       <!--Delete-->
       <div class="col-md-12">
-        <button class="btn btn-danger" (click)="deleteClient()">Delete</button>
+        <button class="btn btn-danger clickable" (click)="deleteClient()">Delete</button>
       </div>
     </div>
   </div>
