@@ -113,4 +113,26 @@ export class ManageClientsListComponent implements OnInit {
       });
   }
 
+  /**
+   * Search.
+   * @param {string} query
+   */
+  clientSearch(query: string) {
+    // Check if user entered text or cleared search
+    if (query.length > 0) {
+      this.paginatedClients = [];
+      const queriedClients = this.allClients.filter(client => {
+        // Check if client has
+        return client.fullName.includes(query) || // Name.
+          client.address.includes(query) || // Address.
+          client.phone.includes(query) || // Phone number.
+          client.email.includes(query); // Email.
+      });
+      this.paginatedClients = queriedClients;
+    } else {
+      // Reset to list of paginated exercises
+      this.paginatedClients = this.allClients.slice(0, this.limit);
+    }
+  }
+
 }

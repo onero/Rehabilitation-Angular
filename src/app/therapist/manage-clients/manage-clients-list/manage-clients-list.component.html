@@ -2,6 +2,10 @@
   <i class="fa fa-plus-circle pull-right add-button clickable"
      (click)="modalService.open(newClient)"></i></h1>
 
+<!--Seach-->
+<h5>Search: <input #searchInput type="text" (keyup)="clientSearch(searchInput.value)"></h5>
+
+<!--Pagination-->
 <div *ngIf="paginatedClients">
   <div *ngFor="let client of paginatedClients"
        class="card" (click)="onClientSelected(client); currentClient = client"
@@ -70,7 +74,9 @@
     <div [hidden]="clientEmail.valid || clientEmail.pristine"
          class="alert alert-warning">
       <div [hidden]="!clientEmail.hasError('required')">Email is required</div>
-      <div [hidden]="!clientEmail.hasError('pattern')">Badly formatted Email <small><b> example: client@mail.com</b></small></div>
+      <div [hidden]="!clientEmail.hasError('pattern')">Badly formatted Email
+        <small><b> example: client@mail.com</b></small>
+      </div>
     </div>
 
     <!--Validation on Client's name-->
