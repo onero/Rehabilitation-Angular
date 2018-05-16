@@ -128,11 +128,10 @@ export class ManageClientsListComponent implements OnInit {
           client.phone.includes(query) || // Phone number.
           client.email.includes(query); // Email.
       });
-      console.log(queriedClients);
       this.paginatedClients = queriedClients;
     } else {
       // Reset to list of paginated exercises
-      this.paginatedClients = this.paginatedClients.slice(0, this.limit);
+      this.paginatedClients = this.allClients.slice(0, this.limit);
     }
   }
 
