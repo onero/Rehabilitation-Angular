@@ -1,10 +1,10 @@
 <h1 class="center">Milestones
-  <i *ngIf="allowEdit" class="fa fa-plus-circle pull-right add-button fat_finger"
+  <i *ngIf="allowEdit" class="fa fa-plus-circle pull-right add-button clickable"
      (click)="modalService.open(newMilestone)"></i></h1>
 <!--Paginated list of milestones-->
 <div *ngIf="paginatedMilestones">
   <div *ngFor="let milestone of paginatedMilestones; let i = index"
-       class="card fat_finger"
+       class="card clickable"
        (click)="onMilestoneSelected(milestone); currentMilestone = milestone"
        [ngClass]="{'selected': currentMilestone === milestone}">
     <div class="card-body">
