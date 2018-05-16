@@ -39,9 +39,12 @@
             class="btn btn-danger"
             (click)="c('Close click')">Close
     </button>
+    <!--NgClass check whether or not the requirements are fulfilled, if not,
+   then the button is disabled and without a fat finger-->
     <button [disabled]="!visitInput.valid"
             type="button"
-            class="btn btn-success pull-right"
+            [ngClass]="{'btn btn-success pull-right clickable' : visitInput.valid,
+                        'btn btn-success pull-right' : true}"
             (click)="addVisit(visitInput.value); c('Close click')">Add
     </button>
   </div>
