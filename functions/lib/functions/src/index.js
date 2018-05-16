@@ -1,41 +1,42 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", {value: true});
+Object.defineProperty(exports, "__esModule", { value: true });
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp(functions.config().firebase);
 const CLIENTS_COLLECTION = 'Clients';
 const MILESTONE_COLLECTION = 'Milestones';
 exports.onDeleteUser = functions.auth.user().onDelete(event => {
-  const uid = event.uid;
-  const clientRef = admin.firestore().doc(`${CLIENTS_COLLECTION}/${uid}`);
-  console.log('Starting to delete milestones');
-  admin.firestore().collection(MILESTONE_COLLECTION)
-    .where('clientUid', '==', uid)
-    .get()
-    .then(querySnapshot => {
-      if (querySnapshot.size > 0) {
-        querySnapshot.docs.forEach(milestone => {
-          milestone.ref.delete();
-        });
-        console.log('Deleted all milestones for client!');
-      } else {
-        console.log('Could not find milestones... :(');
-      }
+    const uid = event.uid;
+    const clientRef = admin.firestore().doc(`${CLIENTS_COLLECTION}/${uid}`);
+    console.log('Starting to delete milestones');
+    admin.firestore().collection(MILESTONE_COLLECTION)
+        .where('clientUid', '==', uid)
+        .get()
+        .then(querySnapshot => {
+        if (querySnapshot.size > 0) {
+            querySnapshot.docs.forEach(milestone => {
+                milestone.ref.delete();
+            });
+            console.log('Deleted all milestones for client!');
+        }
+        else {
+            console.log('Could not find milestones... :(');
+        }
     })
-    .catch(() => {
-      console.log('Error getting milestones');
+        .catch(() => {
+        console.log('Error getting milestones');
     });
-  // Deletes the client in the collection.
-  clientRef.get().then(doc => {
-    if (doc.exists) {
-      clientRef.delete().then(() => {
-        console.log('DELETED USER ID: ', uid);
-      });
-    }
-    else {
-      console.log('COULD NOT DELETED USER ID: ', uid);
-    }
-  });
+    // Deletes the client in the collection.
+    clientRef.get().then(doc => {
+        if (doc.exists) {
+            clientRef.delete().then(() => {
+                console.log('DELETED USER ID: ', uid);
+            });
+        }
+        else {
+            console.log('COULD NOT DELETED USER ID: ', uid);
+        }
+    });
 });
 // Commented out for possible future awesome reference!
 // exports.onClientUpdated = functions.firestore.document('Clients/{clientid}')
