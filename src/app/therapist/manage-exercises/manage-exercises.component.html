@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-3">
       <!--MANAGE-EXERCISES-CATEGORIES COMPONENT-->
-      <rehab-manage-categories-list (categorySelected)="selectedCategory = $event"></rehab-manage-categories-list>
+      <rehab-manage-categories-list (categorySelected)="onSelectedCategory($event)"></rehab-manage-categories-list>
     </div>
     <div class="col-md-3">
       <!--MANAGE-EXERCISES-LIST COMPONENT-->
