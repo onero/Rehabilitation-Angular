@@ -23,6 +23,7 @@ export class VisitListComponent implements OnInit, OnChanges {
   @Input()
   allVisits: VisitEntity[];
 
+  @Input()
   currentVisit: VisitEntity;
   paginatedVisits: VisitEntity[];
   page: number;
