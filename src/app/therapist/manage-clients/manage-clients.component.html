@@ -34,7 +34,8 @@
         <rehab-visit-list *ngIf="selectedMilestone"
                           (visitAdded)="addVisitToMilestone($event)"
                           [allVisits]="selectedMilestone?.visits"
-                          (visitSelected)="currentVisit = $event"></rehab-visit-list>
+                          (visitSelected)="currentVisit = $event"
+                          [currentVisit]="currentVisit"></rehab-visit-list>
       </div>
       <div class="col-md-6">
         <!--Milestone Detail-->
