@@ -1,7 +1,8 @@
 <h2>Exercises</h2>
 
 <div class="list-group">
-  <div *ngFor="let exercise of exercisesFromClient">
+  <div *ngFor="let exercise of exercisesFromClient; let i = index">
+    {{i + 1}}.
     <a class="list-group-item list-group-item-action menu_links" (click)="onExerciseClick(exercise)" ng-mouseover="curser: pointer;">
       <!--The exercise thumbnail-->
       <img src="{{exercise.imgUrl}}" alt="" style="float: left">

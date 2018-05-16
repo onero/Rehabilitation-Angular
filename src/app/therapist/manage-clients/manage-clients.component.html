@@ -21,11 +21,11 @@
 
   <!--Client Evaluations View-->
   <ng-template #ClientEvaluations>
-    <button class="btn btn-primary" (click)="setEvaluationMode(false); resetData()">Back</button>
+    <button class="btn btn-primary clickable" (click)="setEvaluationMode(false); resetData()">Back</button>
     <div class="row">
       <div class="col-md-3">
         <!--MILESTONES-->
-        <rehab-milestone-list (milestoneSelected)="selectedMilestone = $event"
+        <rehab-milestone-list (milestoneSelected)="onSelectedMilestone($event)"
                               (milestoneCreated)="addMilestone($event)"
                               [milestones]="milestones"></rehab-milestone-list>
       </div>
@@ -34,7 +34,8 @@
         <rehab-visit-list *ngIf="selectedMilestone"
                           (visitAdded)="addVisitToMilestone($event)"
                           [allVisits]="selectedMilestone?.visits"
-                          (visitSelected)="currentVisit = $event"></rehab-visit-list>
+                          (visitSelected)="currentVisit = $event"
+                          [currentVisit]="currentVisit"></rehab-visit-list>
       </div>
       <div class="col-md-6">
         <!--Milestone Detail-->

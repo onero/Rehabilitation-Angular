@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <!--MILESTONES-->
+      <rehab-milestone-list (milestoneSelected)="selectedMilestone = $event"
+                            [milestones]="milestones"></rehab-milestone-list>
+    </div>
+    <div class="col-md-3">
+      <!--VISITS-->
+      <rehab-visit-list *ngIf="selectedMilestone"
+                        [allVisits]="selectedMilestone?.visits"
+                        (visitSelected)="currentVisit = $event"></rehab-visit-list>
+    </div>
+    <div class="col-md-6">
+      <!--Milestone Detail-->
+      <rehab-milestone-detail *ngIf="currentVisit"
+                              [currentVisit]="currentVisit"
+                              [title]="selectedMilestone.title"
+                              [purpose]="selectedMilestone.purpose"
+                              [note]="currentVisit.note"></rehab-milestone-detail>
+    </div>
+  </div>
+</div>

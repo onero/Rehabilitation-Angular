@@ -86,11 +86,12 @@ export class ManageClientsListComponent implements OnInit {
    * @param clientPhone
    * @param clientEmail
    */
-  addClient(clientName: string, clientAddress: string, clientPhone: string, clientEmail: string) {
+  addClient(clientName: string, clientAddress: string, clientPhone, clientEmail: string) {
+    const clientPhoneAsString = `${clientPhone}`;
     const newClient: ClientModel = {
       fullName: clientName,
       address: clientAddress,
-      phone: clientPhone,
+      phone: clientPhoneAsString,
       email: clientEmail,
       rehabilitationPlan: {
         diagnosis: '',
@@ -110,6 +111,28 @@ export class ManageClientsListComponent implements OnInit {
       .catch(error => {
         this.rehabErrorService.displayError(error.message);
       });
+  }
+
+  /**
+   * Search.
+   * @param {string} query
+   */
+  clientSearch(query: string) {
+    // Check if user entered text or cleared search
+    if (query.length > 0) {
+      this.paginatedClients = [];
+      const queriedClients = this.allClients.filter(client => {
+        // Check if client has
+        return client.fullName.includes(query) || // Name.
+          client.address.includes(query) || // Address.
+          client.phone.includes(query) || // Phone number.
+          client.email.includes(query); // Email.
+      });
+      this.paginatedClients = queriedClients;
+    } else {
+      // Reset to list of paginated exercises
+      this.paginatedClients = this.allClients.slice(0, this.limit);
+    }
   }
 
 }

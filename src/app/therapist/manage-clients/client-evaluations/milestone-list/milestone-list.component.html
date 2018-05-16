@@ -1,10 +1,10 @@
 <h1 class="center">Milestones
-  <i class="fa fa-plus-circle pull-right add-button"
+  <i *ngIf="allowEdit" class="fa fa-plus-circle pull-right add-button clickable"
      (click)="modalService.open(newMilestone)"></i></h1>
 <!--Paginated list of milestones-->
 <div *ngIf="paginatedMilestones">
   <div *ngFor="let milestone of paginatedMilestones; let i = index"
-       class="card"
+       class="card clickable"
        (click)="onMilestoneSelected(milestone); currentMilestone = milestone"
        [ngClass]="{'selected': currentMilestone === milestone}">
     <div class="card-body">
@@ -45,12 +45,15 @@
   </div>
   <div class="modal-footer">
     <button type="button"
-            class="btn btn-danger"
+            class="btn btn-danger clickable"
             (click)="c('Close click')">Close
     </button>
+    <!--NgClass check whether or not the requirements are fulfilled, if not,
+    then the button is disabled and without a fat finger-->
     <button [disabled]="!milestoneTitle.valid || !milestonePurpose.valid"
             type="button"
-            class="btn btn-success pull-right"
+            [ngClass]="{'btn btn-success pull-right clickable' : milestoneTitle.valid && milestonePurpose.valid,
+                        'btn btn-success pull-right' : true}"
             (click)="addMilestone(milestoneTitle.value, milestonePurpose.value); c('Close click')">Add
     </button>
   </div>
