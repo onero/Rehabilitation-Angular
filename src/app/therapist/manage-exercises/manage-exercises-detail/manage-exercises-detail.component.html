@@ -16,13 +16,13 @@
     <!--ACTION BUTTONS-->
     <div class="row">
       <div class="col">
-        <button class="btn btn-danger pull-left" (click)="deleteExercise()">Delete</button>
+        <button class="btn btn-danger pull-left clickable" (click)="deleteExercise()">Delete</button>
         <div *ngIf="!editMode; then editIcon else saveIcon"></div>
         <ng-template #editIcon>
-          <i class="fa fa-edit fa-2x pull-right" (click)="toggleEdit()"></i>
+          <i class="fa fa-edit fa-2x pull-right clickable" (click)="toggleEdit()"></i>
         </ng-template>
         <ng-template #saveIcon>
-          <i class="fa fa-floppy-o fa-2x pull-right" (click)="updateExercise(updateExerciseForm.value)"></i>
+          <i class="fa fa-floppy-o fa-2x pull-right clickable" (click)="updateExercise(updateExerciseForm.value)"></i>
         </ng-template>
       </div>
     </div>
