@@ -8,10 +8,10 @@
           <div *ngIf="allowEdit">
           <div *ngIf="!editMode; then editIcon else saveIcon"></div>
           <ng-template #editIcon>
-            <i class="fa fa-edit fa-1x pull-right" (click)="toggleGoalEdit()"></i>
+            <i class="fa fa-edit fa-1x pull-right clickable" (click)="toggleGoalEdit()"></i>
           </ng-template>
           <ng-template #saveIcon>
-            <i class="fa fa-floppy-o fa-1x pull-right" (click)="onGoalUpdated()"></i>
+            <i class="fa fa-floppy-o fa-1x pull-right clickable" (click)="onGoalUpdated()"></i>
           </ng-template>
           </div>
         </h3>
