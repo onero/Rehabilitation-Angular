@@ -3,7 +3,6 @@ import {ExerciseModel} from '../../../client/shared/exercise.model';
 import {ExerciseService} from '../../../shared/services/exercise.service';
 import {Router} from '@angular/router';
 import {ISearch} from '../../../shared/component-interfaces/ISearch';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 @Component({
   selector: 'rehab-manage-exercises-list',
@@ -15,6 +14,8 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
   currentCategoryName = '';
   @Output()
   exerciseSelected = new EventEmitter<ExerciseModel>();
+
+  searchValue = ' ';
 
   @Input()
   hiddenExercises: ExerciseModel[];

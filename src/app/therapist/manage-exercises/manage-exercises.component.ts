@@ -20,5 +20,8 @@ export class ManageExercisesComponent implements OnInit {
   onSelectedCategory(selectedCategory: string) {
     this.selectedCategory = selectedCategory;
     this.selectedExercise = null;
+    // Clear search field
+    this.childExerciseList.searchValue = ' ';
+
   }
 }
