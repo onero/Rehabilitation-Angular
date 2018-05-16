@@ -2,7 +2,7 @@
   <i *ngIf="allowAddExercise" class="fa fa-plus-circle pull-right add-button clickable"
      (click)="addExercise()"></i>
 </h1>
-<h5>Search: <input #searchInput type="text" (keyup)="search(searchInput.value)"></h5>
+<h5>Search: <input #searchInput type="text" [(ngModel)]="searchValue" (keyup)="search(searchInput.value)"></h5>
 <div *ngIf="allExercises && paginatedExercises">
   <div *ngFor="let exercise of paginatedExercises"
        class="card clickable" (click)="onExerciseSelected(exercise); currentExercise = exercise"

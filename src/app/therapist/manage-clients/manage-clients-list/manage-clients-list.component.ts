@@ -86,11 +86,12 @@ export class ManageClientsListComponent implements OnInit {
    * @param clientPhone
    * @param clientEmail
    */
-  addClient(clientName: string, clientAddress: string, clientPhone: string, clientEmail: string) {
+  addClient(clientName: string, clientAddress: string, clientPhone, clientEmail: string) {
+    const clientPhoneAsString = `${clientPhone}`;
     const newClient: ClientModel = {
       fullName: clientName,
       address: clientAddress,
-      phone: clientPhone,
+      phone: clientPhoneAsString,
       email: clientEmail,
       rehabilitationPlan: {
         diagnosis: '',
