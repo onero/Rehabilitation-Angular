@@ -16,12 +16,14 @@ exports.onDeleteUser = functions.auth.user().onDelete(event => {
   const uid = event.uid;
   const clientRef = admin.firestore().doc(`${CLIENTS_COLLECTION}/${uid}`);
 
-  console.log('Starting to delete milestones');
+  // Delete milestones from client
   admin.firestore().collection(MILESTONE_COLLECTION)
     .where('clientUid', '==', uid)
     .get()
     .then(querySnapshot => {
+      // Check if client has milestones
       if (querySnapshot.size > 0) {
+        console.log('Starting to delete milestones');
         querySnapshot.docs.forEach(milestone => {
           milestone.ref.delete();
         });
