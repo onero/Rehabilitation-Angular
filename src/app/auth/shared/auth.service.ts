@@ -80,8 +80,7 @@ export class AuthService {
     secondaryApp.auth().signInAndRetrieveDataWithEmailAndPassword(user.email, AuthService.USER_PASSWORD)
       .then(selectedUser => {
       secondaryApp.auth().currentUser.delete();
-        // TODO: SKOV show the deleted user.
-        this.message.displayMessage(`The user is now deleted...`, 2);
+        this.message.displayMessage(`${user.fullName} is now deleted...`, 2);
       });
   }
 }
