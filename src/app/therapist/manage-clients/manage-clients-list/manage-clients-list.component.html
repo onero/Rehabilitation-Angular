@@ -91,7 +91,7 @@
     then the button is disabled and without a fat finger-->
     <button [disabled]="!clientName.valid || !clientEmail.valid"
             type="button"
-            [ngClass]="{'btn btn-success pull-right fat_finger' : clientName.valid && clientEmail.valid,
+            [ngClass]="{'btn btn-success pull-right clickable' : clientName.valid && clientEmail.valid,
                         'btn btn-success pull-right' : true}"
             (click)="addClient(clientName.value, clientAddress.value, clientPhone.value, clientEmail.value);
             c('Close click')">Add
