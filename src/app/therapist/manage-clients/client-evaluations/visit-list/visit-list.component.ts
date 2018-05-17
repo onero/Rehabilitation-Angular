@@ -64,7 +64,7 @@ export class VisitListComponent implements OnInit, OnChanges {
    * @param {number} page
    */
   paginate(page: number) {
-    // TODO ALH: Reimplement
+    // TODO ALH: Remove
     // let latest: any;
     //
     // // Check for first page

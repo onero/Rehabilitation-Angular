@@ -58,7 +58,6 @@ export class ManageClientsDetailComponent implements OnInit, OnChanges {
   updateRehabilitationPlan() {
     this.rehabilitationPlanService.updatePlan(this.currentClient.uid, this.rehabilitationPlan)
       .then(() => {
-        //  TODO ALH: Notify user!
       });
   }
 
