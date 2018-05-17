@@ -5,7 +5,6 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import { AuthService } from './shared/auth.service';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import { LoginService } from './shared/login.service';
 import { AuthGuard } from './shared/auth.guard';
 import { LoggedInGuard } from './shared/logged-in.guard';
 
@@ -18,6 +17,6 @@ import { LoggedInGuard } from './shared/logged-in.guard';
     HttpModule
   ],
   declarations: [LoginComponent],
-  providers: [AuthService, LoginService, AuthGuard, LoggedInGuard]
+  providers: [AuthService, AuthGuard, LoggedInGuard]
 })
 export class AuthModule { }

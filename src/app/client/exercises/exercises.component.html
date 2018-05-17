@@ -2,7 +2,7 @@
   <div class="row">
     <div *ngIf="currentExercise" class="col">
       <!--YOUTUBE COMPONENT-->
-      <rehab-youtube-player [videoUrl]="currentExercise.videoUrl"></rehab-youtube-player>
+      <rehab-youtube-player [videoId]="currentExercise.videoUrl"></rehab-youtube-player>
       <!--VIDEO INFO COMPONENT-->
       <rehab-exercise-information [exerciseModel]="currentExercise"></rehab-exercise-information>
     </div>
