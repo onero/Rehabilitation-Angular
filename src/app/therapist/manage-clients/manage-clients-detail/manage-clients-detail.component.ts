@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ClientEntity} from '../../../shared/entities/client.entity';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {ClientService} from '../../../shared/services/client.service';
+import {e, E} from '@angular/core/src/render3';
 
 @Component({
   selector: 'rehab-manage-clients-detail',
@@ -55,7 +56,17 @@ export class ManageClientsDetailComponent implements OnInit {
    * @param exercise
    */
   assignExerciseToClient(exercise: ExerciseEntity) {
-    this.currentClient.rehabilitationPlan.exercises.push(exercise);
+    // Create partial exercise to save information load for DB
+    const partialNewExercise: ExerciseEntity = {
+      uid: exercise.uid,
+      title: exercise.title,
+      videoUrl: exercise.videoUrl
+    };
+    // Ensure exercises array is instantiated
+    if (!this.currentClient.rehabilitationPlan.exercises) {
+      this.currentClient.rehabilitationPlan.exercises = [];
+    }
+    this.currentClient.rehabilitationPlan.exercises.push(partialNewExercise);
     this.clientService.assignExerciseToClient(this.currentClient.uid, exercise.uid);
     this.updateRehabilitationPlan();
   }
