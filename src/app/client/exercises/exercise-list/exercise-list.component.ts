@@ -7,6 +7,7 @@ import {RehabilitationPlan} from '../../../shared/entities/rehabilitation-plan.e
 import {AuthService} from '../../../auth/shared/auth.service';
 import {ClientService} from '../../../shared/services/client.service';
 import {ClientEntity} from '../../../shared/entities/client.entity';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'rehab-exercise-list',
@@ -30,49 +31,49 @@ export class ExerciseListComponent implements OnInit {
     // Instantiation of array.
     this.exercisesFromClient = [];
 
-    this.getLoggedInUser();
+    this.loadExercisesFromLoggedInClient();
   }
 
   /**
-      Gets the uid from the logged in user.
+   * Loads the exercises from the current Client.
    */
-  private getLoggedInUser() {
+  private loadExercisesFromLoggedInClient() {
+    //
     const userId = this.authService.getUserId();
     this.clientService.getCurrentClientById(userId).subscribe(user => {
       const loggedInUser = user as ClientEntity;
-      const rehabilitationPlan = loggedInUser.rehabilitationPlan;
-      this.getExercisesFromRehabilitationPlan(rehabilitationPlan);
+      const exercises = loggedInUser.rehabilitationPlan.exercises;
+      //
+      exercises.forEach(exercise => {
+        this.addExerciseToList(exercise);
+      });
     });
   }
 
   /**
-   * Get exercises from RehabilitationPlan.
-   * TODO: Skovgaard (refactor to ExerciseService)
+   * Adds the Thumbnail to the Exercise and then adds to the exercisesFromClient List.
+   * @param {ExerciseEntity} exercise
    */
-  private getExercisesFromRehabilitationPlan(rehabilitationPlan: RehabilitationPlan) {
-    if (rehabilitationPlan.exerciseIds) {
-      // Run only if there is an exercise.
-      if (rehabilitationPlan.exerciseIds.length > 0) {
-        // Adds the exercises one by one.
-        rehabilitationPlan.exerciseIds.forEach(exerciseId => {
-          this.exerciseService.getExerciseById(exerciseId)
-            .subscribe(clientExercise => {
-              // Gets the id from the url.
-              const videoId = this.youtubeService.getIdFromURL(clientExercise.videoUrl);
-              this.youtubeService.getVideoInformation(videoId)
-                .subscribe(result => {
-                  // Gets the imgUrl from the youtubeService.
-                  const ytResponse = result as YoutubeResponse;
-                  clientExercise.imgUrl = ytResponse.items[0].snippet.thumbnails.default.url;
-                  this.exercisesFromClient.push(clientExercise);
-                  // Make sure first exercise in list is selected
-                  if (this.exercisesFromClient.length === 1) {
-                    this.onExerciseClick(this.exercisesFromClient[0]);
-                  }
-                });
-            });
+  private addExerciseToList(exercise: ExerciseEntity) {
+    const exerciseAlreadyInList = this.exercisesFromClient.find(
+      exerciseFromlist => exerciseFromlist.uid === exercise.uid);
+    if (!exerciseAlreadyInList) {
+      const videoId = this.youtubeService.getIdFromURL(exercise.videoUrl);
+      this.youtubeService.getVideoInformation(videoId)
+        .subscribe(result => {
+          // Gets the imgUrl from the youtubeService.
+          const ytResponse = result as YoutubeResponse;
+          exercise.imgUrl = ytResponse.items[0].snippet.thumbnails.default.url;
+          this.exercisesFromClient.push(exercise);
+          // Make sure first exercise in list is selected
+          if (this.exercisesFromClient.length === 1) {
+            this.onExerciseClick(this.exercisesFromClient[0]);
+          }
         });
-      }
+    } else {
+      exerciseAlreadyInList.title = exercise.title;
+      exerciseAlreadyInList.description = exercise.description;
+      exerciseAlreadyInList.repetition = exercise.repetition;
     }
   }
 
