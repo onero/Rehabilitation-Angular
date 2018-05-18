@@ -10,10 +10,9 @@ const ASSIGNED_EXERCISE_COLLECTION = 'AssignedExercises';
 
 exports.onExerciseUpdated = functions.firestore.document(`${EXERCISE_COLLECTION}/{uid}`).onUpdate(event => {
   const updatedExerciseRef = event.after.ref;
-  console.log('Updated Exercise: ' + updatedExerciseRef.id);
 
   console.log('Checking if updated exercise is assigned to any clients... Please stand by');
-  // Check Assigned Exercise collection for documents with updated exercise
+  // Check Assigned Exercise collection if exercise was previously assigned to a client
   return admin.firestore().collection(ASSIGNED_EXERCISE_COLLECTION)
     .where('exerciseUid', '==', updatedExerciseRef.id)
     .get()
@@ -25,6 +24,7 @@ exports.onExerciseUpdated = functions.firestore.document(`${EXERCISE_COLLECTION}
           assignedExerciseQuery.docs.forEach(assignedExerciseSnapshot => {
             const assignedExercise = assignedExerciseSnapshot.data();
             const updatedExercise = event.after.data();
+            // Create updated data for CLIENT_COLLECTION document
             const newClient = {
               rehabilitationPlan: {
                 exercises: [{
@@ -34,6 +34,7 @@ exports.onExerciseUpdated = functions.firestore.document(`${EXERCISE_COLLECTION}
                 }]
               }
             };
+            // Update Client document with updated exercise data
             admin.firestore()
               .doc(`${CLIENTS_COLLECTION}/${assignedExercise.clientUid}`)
               .set(newClient, {merge: true})
