@@ -48,6 +48,7 @@ export class ManageClientsComponent implements OnInit {
   /**
    * Reset the current selected milestone
    */
+  // TODO ALH: Refactor this!
   private resetCurrentMilestoneSelection() {
     this.selectedMilestone = null;
     this.currentVisit = null;
@@ -78,6 +79,7 @@ export class ManageClientsComponent implements OnInit {
     this.milestoneService.updateMilestone(this.selectedMilestone)
       .then(() => {
           // Reset view afterwards
+        // TODO ALH: Refactor
           this.selectedMilestone = null;
           this.currentVisit = null;
       });

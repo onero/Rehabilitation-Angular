@@ -16,6 +16,7 @@ export class ManageClientsListComponent implements OnInit {
 
   @Output()
   clientSelected = new EventEmitter<ClientEntity>();
+
   currentClient: ClientEntity;
   allClients: ClientEntity[];
   paginatedClients: ClientEntity[];
@@ -31,6 +32,7 @@ export class ManageClientsListComponent implements OnInit {
   ngOnInit() {
     this.page = 1;
     // This subscribe will trigger each time information is updated!
+    // TODO ALH: Refactor to not both subscribe to all and paginated?
     this.clientService.getClients().subscribe(clients => {
       // If a current client is selected we will update it with new info
       this.updateSelectedClient(clients);
