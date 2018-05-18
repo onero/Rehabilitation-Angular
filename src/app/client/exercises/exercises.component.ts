@@ -1,7 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {YoutubePlayerComponent} from './youtube-player/youtube-player.component';
-import { ExerciseEntity } from '../../shared/entities/exercise.entity';
-import { ExerciseInformationComponent } from './exercise-information/exercise-information.component';
+import {Component, Input, OnInit} from '@angular/core';
+import {ExerciseEntity} from '../../shared/entities/exercise.entity';
 
 @Component({
   selector: 'rehab-exercises',
