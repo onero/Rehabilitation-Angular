@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ExerciseModel} from '../../client/shared/exercise.model';
+import {ExerciseEntity} from '../../shared/entities/exercise.entity';
 import {ManageExercisesListComponent} from './manage-exercises-list/manage-exercises-list.component';
 
 @Component({
@@ -10,7 +10,7 @@ import {ManageExercisesListComponent} from './manage-exercises-list/manage-exerc
 export class ManageExercisesComponent implements OnInit {
   @ViewChild('exerciseList') childExerciseList: ManageExercisesListComponent;
   selectedCategory: string;
-  selectedExercise: ExerciseModel;
+  selectedExercise: ExerciseEntity;
 
   constructor() { }
 

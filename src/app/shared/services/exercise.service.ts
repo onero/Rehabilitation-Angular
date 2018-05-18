@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
-import {ExerciseModel} from '../../client/shared/exercise.model';
+import {ExerciseEntity} from '../entities/exercise.entity';
 import {FirestoreModel} from './firestore.model';
 import 'rxjs/add/operator/first';
 
@@ -13,19 +13,19 @@ export class ExerciseService {
 
   /**
    * Get observable list of exercise collection from FireStore
-   * @returns {Observable<ExerciseModel[]>}
+   * @returns {Observable<ExerciseEntity[]>}
    */
   public getExercises() {
-    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION,
+    return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION,
       ref => ref.orderBy('title')).valueChanges();
   }
 
   /**
    * Get observable list of exercise collection in provided category from FireStore
-   * @returns {Observable<ExerciseModel[]>}
+   * @returns {Observable<ExerciseEntity[]>}
    */
-  public getExercisesByCategoryNamePaginated(categoryName: string, limit: number, lastExercise?: ExerciseModel) {
-    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION,
+  public getExercisesByCategoryNamePaginated(categoryName: string, limit: number, lastExercise?: ExerciseEntity) {
+    return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION,
       ref => ref
         .where('category', '==', categoryName)
         .orderBy('title')
@@ -36,10 +36,10 @@ export class ExerciseService {
 
   /**
    * Get observable list of exercise collection in provided category from FireStore
-   * @returns {Observable<ExerciseModel[]>}
+   * @returns {Observable<ExerciseEntity[]>}
    */
   public getExercisesByCategoryName(categoryName: string) {
-    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION,
+    return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION,
       ref => ref
         .where('category', '==', categoryName)
         .orderBy('title'))
@@ -48,39 +48,39 @@ export class ExerciseService {
 
   /**
    * Add new exercise
-   * @param {ExerciseModel} newExercise
+   * @param {ExerciseEntity} newExercise
    * @returns {Promise<DocumentReference>}
    */
-  addExercise(newExercise: ExerciseModel) {
+  addExercise(newExercise: ExerciseEntity) {
     const id = this.angularFireStore.createId();
     newExercise.uid = id;
-    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION)
+    return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION)
       .doc(id).set(newExercise);
   }
 
   /**
    * Delete parsed exercise
    */
-  deleteExercise(currentExercise: ExerciseModel) {
-    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION)
+  deleteExercise(currentExercise: ExerciseEntity) {
+    return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION)
       .doc(currentExercise.uid).delete();
   }
 
   /**
    * Update parsed exercise
    */
-  updateExercise(updatedExercise: ExerciseModel) {
-    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION)
+  updateExercise(updatedExercise: ExerciseEntity) {
+    return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION)
       .doc(updatedExercise.uid).set(updatedExercise);
   }
 
   /**
    * Get exercise by provided id
    * @param {string} exerciseId
-   * @returns {AngularFirestoreCollection<ExerciseModel[]>}
+   * @returns {AngularFirestoreCollection<ExerciseEntity[]>}
    */
-  getExerciseById(exerciseId: string): Observable<ExerciseModel> {
-    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION,
+  getExerciseById(exerciseId: string): Observable<ExerciseEntity> {
+    return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION,
       ref => ref.where('uid', '==', exerciseId)).valueChanges()
       .first()
       .map(result => {
@@ -89,7 +89,7 @@ export class ExerciseService {
   }
 
   getExercisesFromClientId(clientId: string) {
-    const exercise = this.angularFireStore.collection<ExerciseModel>(FirestoreModel.CLIENTS_COLLECTION).valueChanges();
+    const exercise = this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.CLIENTS_COLLECTION).valueChanges();
     return exercise;
   }
 
@@ -97,8 +97,8 @@ export class ExerciseService {
    * Get list of category.
    * @returns {Observable<any[]>}
    */
-  getExercisesPaginated(limit: number, lastExercise?: ExerciseModel) {
-    return this.angularFireStore.collection<ExerciseModel>(FirestoreModel.EXERCISES_COLLECTION,
+  getExercisesPaginated(limit: number, lastExercise?: ExerciseEntity) {
+    return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION,
       ref => ref.orderBy('title').startAt(lastExercise.title).limit(limit)).valueChanges();
   }
 }

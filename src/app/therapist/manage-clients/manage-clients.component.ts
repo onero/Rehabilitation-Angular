@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ClientModel} from '../../shared/entities/client.model';
+import {ClientEntity} from '../../shared/entities/client.entity';
 import {ClientService} from '../../shared/services/client.service';
 import { AuthService } from '../../auth/shared/auth.service';
 import {MilestoneEntity} from '../../shared/entities/milestone.entity';
@@ -12,7 +12,7 @@ import {MilestoneService} from '../../shared/services/milestone.service';
   styleUrls: ['./manage-clients.component.scss']
 })
 export class ManageClientsComponent implements OnInit {
-  selectedClient: ClientModel;
+  selectedClient: ClientEntity;
   milestones: MilestoneEntity[];
   selectedMilestone: MilestoneEntity;
   currentVisit: VisitEntity;

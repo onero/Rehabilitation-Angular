@@ -43,7 +43,7 @@ exports.onDeleteUser = functions.auth.user().onDelete(event => {
 // Commented out for possible future awesome reference!
 // exports.onClientUpdated = functions.firestore.document('Clients/{clientid}')
 //   .onUpdate(result => {
-//     // const client = result.after.data() as ClientModel;
+//     // const client = result.after.data() as ClientEntity;
 //     const lengthBefore = result.before.data().rehabilitationPlan.exerciseIds.length;
 //     const lengthAfter = result.after.data().rehabilitationPlan.exerciseIds.length;
 //     if (lengthAfter > lengthBefore) {

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ExerciseModel} from '../../../client/shared/exercise.model';
+import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {ExerciseService} from '../../../shared/services/exercise.service';
 import {NgForm} from '@angular/forms';
 
@@ -10,7 +10,7 @@ import {NgForm} from '@angular/forms';
 })
 export class ManageExercisesDetailComponent implements OnInit {
   @Input()
-  currentExercise: ExerciseModel;
+  currentExercise: ExerciseEntity;
   @Output()
   deletedExercise = new EventEmitter();
 
@@ -37,10 +37,10 @@ export class ManageExercisesDetailComponent implements OnInit {
 
   /**
    * Updates the exercise.
-   * @param {ExerciseModel} updateExerciseForm
+   * @param {ExerciseEntity} updateExerciseForm
    */
-  updateExercise(updateExerciseForm: ExerciseModel) {
-    const updatedExercise: ExerciseModel = {
+  updateExercise(updateExerciseForm: ExerciseEntity) {
+    const updatedExercise: ExerciseEntity = {
       uid: this.currentExercise.uid,
       title: updateExerciseForm.title ? updateExerciseForm.title : this.currentExercise.title,
       description: updateExerciseForm.description ? updateExerciseForm.description : this.currentExercise.description,

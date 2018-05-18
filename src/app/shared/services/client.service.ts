@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {ClientModel} from '../entities/client.model';
+import {ClientEntity} from '../entities/client.entity';
 import {FirestoreModel} from './firestore.model';
 
 @Injectable()
 export class ClientService {
 
-  clients: ClientModel[];
+  clients: ClientEntity[];
 
   constructor(private afs: AngularFirestore) {
   }
@@ -16,7 +16,7 @@ export class ClientService {
    * @returns {Observable<any[]>}
    */
   getClients() {
-    return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION,
+    return this.afs.collection<ClientEntity>(FirestoreModel.CLIENTS_COLLECTION,
       ref => ref.orderBy('fullName')).valueChanges();
   }
 
@@ -24,8 +24,8 @@ export class ClientService {
    * Get list of category.
    * @returns {Observable<any[]>}
    */
-  getClientsPaginated(limit: number, lastClient?: ClientModel) {
-    return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION,
+  getClientsPaginated(limit: number, lastClient?: ClientEntity) {
+    return this.afs.collection<ClientEntity>(FirestoreModel.CLIENTS_COLLECTION,
       ref => ref.orderBy('fullName').startAt(lastClient.fullName).limit(limit)).valueChanges();
   }
 
@@ -34,25 +34,25 @@ export class ClientService {
    * @returns {Promise<DocumentReference>}
    * @param newClient
    */
-  createClient(newClient: ClientModel) {
+  createClient(newClient: ClientEntity) {
     return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(newClient.uid).set(newClient);
   }
 
   /**
    * Delete provided client
-   * @param {ClientModel} clientToDelete
+   * @param {ClientEntity} clientToDelete
    * @returns {AngularFirestoreCollection<any>}
    */
-  deleteClient(clientToDelete: ClientModel) {
+  deleteClient(clientToDelete: ClientEntity) {
     return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(clientToDelete.uid).delete();
   }
 
   /**
    * Update client doc on FireStore
-   * @param {ClientModel} clientToUpdate
+   * @param {ClientEntity} clientToUpdate
    * @returns {Promise<void>}
    */
-  updateClient(clientToUpdate: ClientModel) {
+  updateClient(clientToUpdate: ClientEntity) {
     return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(clientToUpdate.uid).set(clientToUpdate, {merge: true});
   }
 
@@ -60,7 +60,7 @@ export class ClientService {
    * Get currentClient by id
    */
   getCurrentClientById(uid: string) {
-    return this.afs.collection<ClientModel>(FirestoreModel.CLIENTS_COLLECTION)
+    return this.afs.collection<ClientEntity>(FirestoreModel.CLIENTS_COLLECTION)
       .doc(uid)
       .valueChanges();
   }

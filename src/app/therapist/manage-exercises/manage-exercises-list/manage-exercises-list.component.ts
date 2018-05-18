@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {ExerciseModel} from '../../../client/shared/exercise.model';
+import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {ExerciseService} from '../../../shared/services/exercise.service';
 import {Router} from '@angular/router';
 import {ISearch} from '../../../shared/component-interfaces/ISearch';
@@ -13,20 +13,20 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
   @Input()
   currentCategoryName = '';
   @Output()
-  exerciseSelected = new EventEmitter<ExerciseModel>();
+  exerciseSelected = new EventEmitter<ExerciseEntity>();
 
   searchValue = ' ';
 
   @Input()
-  hiddenExercises: ExerciseModel[];
+  hiddenExercises: ExerciseEntity[];
 
-  currentExercise: ExerciseModel;
+  currentExercise: ExerciseEntity;
 
   @Input()
   allowAddExercise = true;
 
-  allExercises: ExerciseModel[];
-  paginatedExercises: ExerciseModel[];
+  allExercises: ExerciseEntity[];
+  paginatedExercises: ExerciseEntity[];
   page: number;
   limit = 5;
 
@@ -34,7 +34,7 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
               private router: Router) {
   }
 
-  onExerciseSelected(exercise: ExerciseModel) {
+  onExerciseSelected(exercise: ExerciseEntity) {
     this.exerciseSelected.emit(exercise);
   }
 
@@ -45,8 +45,8 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
     } else {
       this.exerciseService.getExercises().subscribe(
         exercises => {
-          this.allExercises = exercises as ExerciseModel[];
-          this.paginatedExercises = exercises as ExerciseModel[];
+          this.allExercises = exercises as ExerciseEntity[];
+          this.paginatedExercises = exercises as ExerciseEntity[];
         }
       );
     }
@@ -64,7 +64,7 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
       exercises => {
         // If a current client is selected we will update it with new info
         this.updateSelectedExercise(exercises);
-        this.allExercises = exercises as ExerciseModel[];
+        this.allExercises = exercises as ExerciseEntity[];
         this.paginatedExercises = this.allExercises.slice(0, this.limit);
       });
   }

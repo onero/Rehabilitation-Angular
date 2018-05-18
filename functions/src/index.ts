@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import {RehabilitationPlan} from '../../src/app/client/shared/rehabilitation-plan.model';
+import {RehabilitationPlan} from '../../src/app/shared/entities/rehabilitation-plan.entity';
 import {forEach} from '@angular/router/src/utils/collection';
 import {ref} from 'firebase-functions/lib/providers/database';
 import {MilestoneEntity} from '../../src/app/shared/entities/milestone.entity';
@@ -52,7 +52,7 @@ exports.onDeleteUser = functions.auth.user().onDelete(event => {
 // Commented out for possible future awesome reference!
 // exports.onClientUpdated = functions.firestore.document('Clients/{clientid}')
 //   .onUpdate(result => {
-//     // const client = result.after.data() as ClientModel;
+//     // const client = result.after.data() as ClientEntity;
 //     const lengthBefore = result.before.data().rehabilitationPlan.exerciseIds.length;
 //     const lengthAfter = result.after.data().rehabilitationPlan.exerciseIds.length;
 //     if (lengthAfter > lengthBefore) {

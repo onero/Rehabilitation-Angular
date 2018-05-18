@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {ClientModel} from '../../../shared/entities/client.model';
+import {ClientEntity} from '../../../shared/entities/client.entity';
 import {Observable} from 'rxjs/Observable';
 import {ClientService} from '../../../shared/services/client.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -15,10 +15,10 @@ import {RehabModalService} from '../../../shared/services/rehab-modal.service';
 export class ManageClientsListComponent implements OnInit {
 
   @Output()
-  clientSelected = new EventEmitter<ClientModel>();
-  currentClient: ClientModel;
-  allClients: ClientModel[];
-  paginatedClients: ClientModel[];
+  clientSelected = new EventEmitter<ClientEntity>();
+  currentClient: ClientEntity;
+  allClients: ClientEntity[];
+  paginatedClients: ClientEntity[];
   page: number;
   limit = 5;
 
@@ -34,7 +34,7 @@ export class ManageClientsListComponent implements OnInit {
     this.clientService.getClients().subscribe(clients => {
       // If a current client is selected we will update it with new info
       this.updateSelectedClient(clients);
-      this.allClients = clients as ClientModel[];
+      this.allClients = clients as ClientEntity[];
       this.paginatedClients = this.allClients.slice(0, this.limit);
     });
   }
@@ -73,9 +73,9 @@ export class ManageClientsListComponent implements OnInit {
 
   /**
    * Gets the information when the client is selected
-   * @param {ClientModel} client
+   * @param {ClientEntity} client
    */
-  onClientSelected(client: ClientModel) {
+  onClientSelected(client: ClientEntity) {
     this.clientSelected.emit(client);
   }
 
@@ -88,7 +88,7 @@ export class ManageClientsListComponent implements OnInit {
    */
   addClient(clientName: string, clientAddress: string, clientPhone, clientEmail: string) {
     const clientPhoneAsString = `${clientPhone}`;
-    const newClient: ClientModel = {
+    const newClient: ClientEntity = {
       fullName: clientName,
       address: clientAddress,
       phone: clientPhoneAsString,

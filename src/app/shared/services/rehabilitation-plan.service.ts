@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {RehabilitationPlan} from '../../client/shared/rehabilitation-plan.model';
+import {RehabilitationPlan} from '../entities/rehabilitation-plan.entity';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {FirestoreModel} from './firestore.model';
 

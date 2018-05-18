@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { ExerciseModel } from '../../shared/exercise.model';
+import { ExerciseEntity } from '../../../shared/entities/exercise.entity';
 
 @Component({
   selector: 'rehab-exercise-information',
@@ -9,7 +9,7 @@ import { ExerciseModel } from '../../shared/exercise.model';
 export class ExerciseInformationComponent implements OnInit {
 
   @Input()
-  exerciseModel: ExerciseModel;
+  exerciseModel: ExerciseEntity;
 
   constructor() {
   }
@@ -17,7 +17,7 @@ export class ExerciseInformationComponent implements OnInit {
   ngOnInit() {
   }
 
-  public updateInformation(newExercise: ExerciseModel) {
+  public updateInformation(newExercise: ExerciseEntity) {
     this.exerciseModel = newExercise;
   }
 }

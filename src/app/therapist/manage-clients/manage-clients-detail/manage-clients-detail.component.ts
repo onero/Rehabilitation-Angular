@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {ClientModel} from '../../../shared/entities/client.model';
+import {ClientEntity} from '../../../shared/entities/client.entity';
 import {RehabilitationPlanService} from '../../../shared/services/rehabilitation-plan.service';
-import {RehabilitationPlan} from '../../../client/shared/rehabilitation-plan.model';
-import {ExerciseModel} from '../../../client/shared/exercise.model';
+import {RehabilitationPlan} from '../../../shared/entities/rehabilitation-plan.entity';
+import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {ExerciseService} from '../../../shared/services/exercise.service';
 
 @Component({
@@ -13,11 +13,11 @@ import {ExerciseService} from '../../../shared/services/exercise.service';
 export class ManageClientsDetailComponent implements OnInit, OnChanges {
 
   @Input()
-  currentClient: ClientModel;
+  currentClient: ClientEntity;
 
   rehabilitationPlan: RehabilitationPlan;
 
-  exercises: ExerciseModel[] = [];
+  exercises: ExerciseEntity[] = [];
 
   @Output()
   clientDeleted = new EventEmitter();

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {YoutubePlayerComponent} from './youtube-player/youtube-player.component';
-import { ExerciseModel } from '../shared/exercise.model';
+import { ExerciseEntity } from '../../shared/entities/exercise.entity';
 import { ExerciseInformationComponent } from './exercise-information/exercise-information.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { ExerciseInformationComponent } from './exercise-information/exercise-in
 export class ExercisesComponent implements OnInit {
 
   @Input()
-  currentExercise: ExerciseModel;
+  currentExercise: ExerciseEntity;
 
   constructor() {
   }

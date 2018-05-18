@@ -1,12 +1,12 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ExerciseModel} from '../../shared/exercise.model';
+import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {YoutubeService} from '../../../shared/services/youtube.service';
-import {YoutubeResponse} from '../../../shared/entities/YoutubeResponse.model';
+import {YoutubeResponse} from '../../../shared/entities/YoutubeResponse.entity';
 import {ExerciseService} from '../../../shared/services/exercise.service';
-import {RehabilitationPlan} from '../../shared/rehabilitation-plan.model';
+import {RehabilitationPlan} from '../../../shared/entities/rehabilitation-plan.entity';
 import {AuthService} from '../../../auth/shared/auth.service';
 import {ClientService} from '../../../shared/services/client.service';
-import {ClientModel} from '../../../shared/entities/client.model';
+import {ClientEntity} from '../../../shared/entities/client.entity';
 
 @Component({
   selector: 'rehab-exercise-list',
@@ -16,9 +16,9 @@ import {ClientModel} from '../../../shared/entities/client.model';
 export class ExerciseListComponent implements OnInit {
 
   @Output()
-  exerciseSelected = new EventEmitter<ExerciseModel>();
+  exerciseSelected = new EventEmitter<ExerciseEntity>();
 
-  exercisesFromClient: ExerciseModel[];
+  exercisesFromClient: ExerciseEntity[];
 
   constructor(private exerciseService: ExerciseService,
               private youtubeService: YoutubeService,
@@ -39,7 +39,7 @@ export class ExerciseListComponent implements OnInit {
   private getLoggedInUser() {
     const userId = this.authService.getUserId();
     this.clientService.getCurrentClientById(userId).subscribe(user => {
-      const loggedInUser = user as ClientModel;
+      const loggedInUser = user as ClientEntity;
       const rehabilitationPlan = loggedInUser.rehabilitationPlan;
       this.getExercisesFromRehabilitationPlan(rehabilitationPlan);
     });
@@ -78,9 +78,9 @@ export class ExerciseListComponent implements OnInit {
 
   /**
    * Emits the exercise clicked to the mother component.
-   * @param {ExerciseModel} exercise
+   * @param {ExerciseEntity} exercise
    */
-  onExerciseClick(exercise: ExerciseModel) {
+  onExerciseClick(exercise: ExerciseEntity) {
     this.exerciseSelected.emit(exercise);
   }
 }
