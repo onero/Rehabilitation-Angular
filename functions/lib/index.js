@@ -1,43 +1,82 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", {value: true});
+Object.defineProperty(exports, "__esModule", { value: true });
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp(functions.config().firebase);
 const CLIENTS_COLLECTION = 'Clients';
 const MILESTONE_COLLECTION = 'Milestones';
-exports.onDeleteUser = functions.auth.user().onDelete(event => {
-  const uid = event.uid;
-  const clientRef = admin.firestore().doc(`${CLIENTS_COLLECTION}/${uid}`);
-  // Delete milestones from client
-  admin.firestore().collection(MILESTONE_COLLECTION)
-    .where('clientUid', '==', uid)
-    .get()
-    .then(querySnapshot => {
-      // Check if client has milestones
-      if (querySnapshot.size > 0) {
-        console.log('Starting to delete milestones');
-        querySnapshot.docs.forEach(milestone => {
-          milestone.ref.delete();
-        });
-        console.log('Deleted all milestones for client!');
-      } else {
-        console.log('Could not find milestones... :(');
-      }
-    })
-    .catch(() => {
-      console.log('Error getting milestones');
+const EXERCISE_COLLECTION = 'Exercises';
+const ASSIGNED_EXERCISE_COLLECTION = 'AssignedExercises';
+exports.onExerciseUpdated = functions.firestore.document(`${EXERCISE_COLLECTION}/{uid}`).onUpdate(event => {
+    const updatedExerciseRef = event.after.ref;
+    console.log('Updated Exercise: ' + updatedExerciseRef.id);
+    console.log('Checking if updated exercise is assigned to any clients... Please stand by');
+    // Check Assigned Exercise collection for documents with updated exercise
+    return admin.firestore().collection(ASSIGNED_EXERCISE_COLLECTION)
+        .where('exerciseUid', '==', updatedExerciseRef.id)
+        .get()
+        .then(assignedExerciseQuery => {
+        // If we find any clients with the exercise assigned
+        if (assignedExerciseQuery.size > 0) {
+            console.log(`Found ${assignedExerciseQuery.size} clients with updated exercise assigned, updating clients rehabilitation plan!`);
+            // For each found AssignedExercise document
+            assignedExerciseQuery.docs.forEach(assignedExerciseSnapshot => {
+                const assignedExercise = assignedExerciseSnapshot.data();
+                const updatedExercise = event.after.data();
+                const newClient = {
+                    rehabilitationPlan: {
+                        exercises: [{
+                                uid: updatedExercise.uid,
+                                title: updatedExercise.title,
+                                videoUrl: updatedExercise.videoUrl
+                            }]
+                    }
+                };
+                admin.firestore()
+                    .doc(`${CLIENTS_COLLECTION}/${assignedExercise.clientUid}`)
+                    .set(newClient, { merge: true })
+                    .then(() => console.log('Client updated!'));
+            });
+        }
+        else {
+            console.log('Exercise was not assigned to any clients. No update needed');
+        }
     });
-  // Deletes the client in the collection.
-  clientRef.get().then(doc => {
-    if (doc.exists) {
-      clientRef.delete().then(() => {
-        console.log('DELETED USER ID: ', uid);
-      });
-    }
-    else {
-      console.log('COULD NOT DELETED USER ID: ', uid);
-    }
-  });
+});
+exports.onDeleteUser = functions.auth.user().onDelete(event => {
+    const uid = event.uid;
+    const clientRef = admin.firestore().doc(`${CLIENTS_COLLECTION}/${uid}`);
+    // Delete milestones from client
+    admin.firestore().collection(MILESTONE_COLLECTION)
+        .where('clientUid', '==', uid)
+        .get()
+        .then(querySnapshot => {
+        // Check if client has milestones
+        if (querySnapshot.size > 0) {
+            console.log('Starting to delete milestones');
+            querySnapshot.docs.forEach(milestone => {
+                milestone.ref.delete();
+            });
+            console.log('Deleted all milestones for client!');
+        }
+        else {
+            console.log('Could not find milestones... :(');
+        }
+    })
+        .catch(() => {
+        console.log('Error getting milestones');
+    });
+    // Deletes the client in the collection.
+    clientRef.get().then(doc => {
+        if (doc.exists) {
+            clientRef.delete().then(() => {
+                console.log('DELETED USER ID: ', uid);
+            });
+        }
+        else {
+            console.log('COULD NOT DELETED USER ID: ', uid);
+        }
+    });
 });
 // Commented out for possible future awesome reference!
 // exports.onClientUpdated = functions.firestore.document('Clients/{clientid}')

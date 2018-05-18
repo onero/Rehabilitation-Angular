@@ -1,15 +1,50 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import {RehabilitationPlan} from '../../src/app/shared/entities/rehabilitation-plan.entity';
-import {forEach} from '@angular/router/src/utils/collection';
-import {ref} from 'firebase-functions/lib/providers/database';
-import {MilestoneEntity} from '../../src/app/shared/entities/milestone.entity';
-import {FirestoreModel} from '../../src/app/shared/services/firestore.model';
 
 admin.initializeApp(functions.config().firebase);
 
 const CLIENTS_COLLECTION = 'Clients';
 const MILESTONE_COLLECTION = 'Milestones';
+const EXERCISE_COLLECTION = 'Exercises';
+const ASSIGNED_EXERCISE_COLLECTION = 'AssignedExercises';
+
+exports.onExerciseUpdated = functions.firestore.document(`${EXERCISE_COLLECTION}/{uid}`).onUpdate(event => {
+  const updatedExerciseRef = event.after.ref;
+  console.log('Updated Exercise: ' + updatedExerciseRef.id);
+
+  console.log('Checking if updated exercise is assigned to any clients... Please stand by');
+  // Check Assigned Exercise collection for documents with updated exercise
+  return admin.firestore().collection(ASSIGNED_EXERCISE_COLLECTION)
+    .where('exerciseUid', '==', updatedExerciseRef.id)
+    .get()
+    .then(assignedExerciseQuery => {
+        // If we find any clients with the exercise assigned
+        if (assignedExerciseQuery.size > 0) {
+          console.log(`Found ${assignedExerciseQuery.size} clients with updated exercise assigned, updating clients rehabilitation plan!`);
+          // For each found AssignedExercise document
+          assignedExerciseQuery.docs.forEach(assignedExerciseSnapshot => {
+            const assignedExercise = assignedExerciseSnapshot.data();
+            const updatedExercise = event.after.data();
+            const newClient = {
+              rehabilitationPlan: {
+                exercises: [{
+                  uid: updatedExercise.uid,
+                  title: updatedExercise.title,
+                  videoUrl: updatedExercise.videoUrl
+                }]
+              }
+            };
+            admin.firestore()
+              .doc(`${CLIENTS_COLLECTION}/${assignedExercise.clientUid}`)
+              .set(newClient, {merge: true})
+              .then(() => console.log('Client updated!'));
+          });
+        } else {
+          console.log('Exercise was not assigned to any clients. No update needed');
+        }
+      }
+    );
+});
 
 
 exports.onDeleteUser = functions.auth.user().onDelete(event => {

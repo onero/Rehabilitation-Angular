@@ -17,19 +17,10 @@ export class ManageExercisesComponent implements OnInit {
   selectedCategory: string;
   selectedExercise: ExerciseEntity;
 
-  constructor(private clientService: ClientService) {
+  constructor() {
   }
 
   ngOnInit() {
-    // TODO ALH: Move to functions!
-    this.clientService.getAssignedExercisesByExerciseId()
-      .subscribe(result => {
-        result.forEach(assignedExercise => {
-          const assignedExerciseEntity = assignedExercise as AssignedExerciseEntity;
-          this.clientService.getCurrentClientById(assignedExerciseEntity.clientUid)
-            .subscribe(client => console.log(client));
-        });
-      });
   }
 
   onSelectedCategory(selectedCategory: string) {
