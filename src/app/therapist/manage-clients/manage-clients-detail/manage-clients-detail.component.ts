@@ -40,12 +40,13 @@ export class ManageClientsDetailComponent implements OnInit {
 
   /**
    * Unassign exercise from client
-   * @param {string} exerciseId
+   * @param {string} exerciseUid
    */
-  unassignExerciseFromClient(exerciseId: string) {
+  unassignExerciseFromClient(exerciseUid: string) {
     // Reassign array of exercises to a new array without the exercise to remove
     this.currentClient.rehabilitationPlan.exercises =
-      this.currentClient.rehabilitationPlan.exercises.filter(exercise => exercise.uid !== exerciseId);
+      this.currentClient.rehabilitationPlan.exercises.filter(exercise => exercise.uid !== exerciseUid);
+    this.clientService.unassignExerciseFromClient(exerciseUid);
     this.updateRehabilitationPlan();
   }
 
@@ -55,6 +56,7 @@ export class ManageClientsDetailComponent implements OnInit {
    */
   assignExerciseToClient(exercise: ExerciseEntity) {
     this.currentClient.rehabilitationPlan.exercises.push(exercise);
+    this.clientService.assignExerciseToClient(this.currentClient.uid, exercise.uid);
     this.updateRehabilitationPlan();
   }
 }

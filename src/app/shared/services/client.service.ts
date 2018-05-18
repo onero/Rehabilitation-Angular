@@ -3,6 +3,7 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {ClientEntity} from '../entities/client.entity';
 import {FirestoreModel} from './firestore.model';
 import {RehabilitationPlan} from '../entities/rehabilitation-plan.entity';
+import {e} from '@angular/core/src/render3';
 
 @Injectable()
 export class ClientService {
@@ -65,11 +66,39 @@ export class ClientService {
    * @returns {Promise<void>}
    */
   updateRehabilitationPlanByClientUid(clientId: string, rehabilitationPlan: RehabilitationPlan) {
+    this.afs.collection(FirestoreModel.ASSIGNED_EXERCISES_COLLECTION);
     return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION)
       .doc(clientId)
       .set(
         {rehabilitationPlan: rehabilitationPlan}
         , {merge: true});
+  }
+
+  /**
+   * Assign provided exercise id to client
+   * @param {string} clientUid
+   * @param {string} exerciseUid
+   */
+  assignExerciseToClient(clientUid: string, exerciseUid: string) {
+    this.afs.doc(`${FirestoreModel.ASSIGNED_EXERCISES_COLLECTION}/${exerciseUid}`)
+      .set({
+        exerciseUid: exerciseUid,
+        clientUid: clientUid
+      }, {merge: true});
+  }
+
+  /**
+   * Unassign exercise from client, by provided exerciseId
+   * @param exerciseUid
+   */
+  unassignExerciseFromClient(exerciseUid: string) {
+    this.afs.doc(`${FirestoreModel.ASSIGNED_EXERCISES_COLLECTION}/${exerciseUid}`)
+      .delete();
+  }
+
+  getAssignedExercisesByExerciseId() {
+    return this.afs.collection('AssignedExercises', ref =>
+      ref.where('exerciseUid', '==', 'b6qp1932W8CiuzEQCy5r')).valueChanges();
   }
 
   /**

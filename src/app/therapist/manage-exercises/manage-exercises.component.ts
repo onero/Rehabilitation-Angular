@@ -1,6 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ExerciseEntity} from '../../shared/entities/exercise.entity';
 import {ManageExercisesListComponent} from './manage-exercises-list/manage-exercises-list.component';
+import {ClientService} from '../../shared/services/client.service';
+interface AssignedExerciseEntity {
+  clientUid: '';
+  exerciseUid: '';
+}
 
 @Component({
   selector: 'rehab-manage-exercises',
@@ -12,9 +17,19 @@ export class ManageExercisesComponent implements OnInit {
   selectedCategory: string;
   selectedExercise: ExerciseEntity;
 
-  constructor() { }
+  constructor(private clientService: ClientService) {
+  }
 
   ngOnInit() {
+    // TODO ALH: Move to functions!
+    this.clientService.getAssignedExercisesByExerciseId()
+      .subscribe(result => {
+        result.forEach(assignedExercise => {
+          const assignedExerciseEntity = assignedExercise as AssignedExerciseEntity;
+          this.clientService.getCurrentClientById(assignedExerciseEntity.clientUid)
+            .subscribe(client => console.log(client));
+        });
+      });
   }
 
   onSelectedCategory(selectedCategory: string) {
