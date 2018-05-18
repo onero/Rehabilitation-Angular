@@ -3,7 +3,6 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {ClientEntity} from '../entities/client.entity';
 import {FirestoreModel} from './firestore.model';
 import {RehabilitationPlan} from '../entities/rehabilitation-plan.entity';
-import {e} from '@angular/core/src/render3';
 
 @Injectable()
 export class ClientService {
@@ -40,7 +39,7 @@ export class ClientService {
     return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(newClient.uid).set(newClient);
   }
 
-  // TODO ALH: Keep until epic future functions implementation
+  // TODO ALH: Implement with Cloud Functions!
   /**
    * Delete provided client
    * @param {ClientEntity} clientToDelete
@@ -94,11 +93,6 @@ export class ClientService {
   unassignExerciseFromClient(exerciseUid: string) {
     this.afs.doc(`${FirestoreModel.ASSIGNED_EXERCISES_COLLECTION}/${exerciseUid}`)
       .delete();
-  }
-
-  getAssignedExercisesByExerciseId() {
-    return this.afs.collection('AssignedExercises', ref =>
-      ref.where('exerciseUid', '==', 'b6qp1932W8CiuzEQCy5r')).valueChanges();
   }
 
   /**

@@ -22,6 +22,7 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
 
   currentExercise: ExerciseEntity;
 
+  // TODO ALH: Refactor with better solution!
   @Input()
   allowAddExercise = true;
 

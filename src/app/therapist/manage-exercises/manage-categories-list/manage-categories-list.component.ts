@@ -63,9 +63,6 @@ export class ManageCategoriesListComponent implements OnInit {
   * Add category with the parsed category name
   */
   addCategory(categoryName: string) {
-    this.categoryService.createCategory(categoryName)
-      .then(() => {
-      //  TODO ALH: Add awesome message to user!
-      });
+    this.categoryService.createCategory(categoryName);
   }
 }
