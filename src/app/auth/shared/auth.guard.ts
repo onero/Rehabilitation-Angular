@@ -11,6 +11,7 @@ export class AuthGuard implements CanActivate {
               private router: Router,
               private messageService: MessageService) {}
 
+  // TODO: MSP constants + DOC!!!!
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
@@ -22,7 +23,7 @@ export class AuthGuard implements CanActivate {
             this.messageService
               .displayMessage('Please login', 2);
           });
-        return isLoggedIn;
+        return false;
       });
   }
 }

@@ -13,10 +13,11 @@ export class LoggedInGuard implements CanActivate {
               private router: Router,
               private messageService: MessageService) {}
 
-  canActivate(
+    canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.isAuthenticated()
+    // TODO MSP: String constants!!
       .map(isLoggedIn => {
         if (isLoggedIn) {
           if (this.authService.isTherapistLogin()) {

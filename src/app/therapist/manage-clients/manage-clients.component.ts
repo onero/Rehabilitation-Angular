@@ -102,7 +102,6 @@ export class ManageClientsComponent implements OnInit {
 
     this.milestoneService.updateMilestone(this.selectedMilestone)
       .then(() => {
-      // TODO: SKOVGAARD NOTIFY USER!
       });
   }
 

@@ -45,7 +45,7 @@ export class MilestoneListComponent implements OnInit, OnChanges {
    * @param {number} page
    */
   paginate(page: number) {
-    // TODO ALH: Reimplement
+    // TODO ALH: Remove if not used
     // let latest: any;
     //
     // // Check for first page

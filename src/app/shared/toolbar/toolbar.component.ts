@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthService} from '../../auth/shared/auth.service';
-import {environment} from '../../../environments/environment';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../auth/shared/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'rehab-toolbar',
@@ -29,17 +29,16 @@ export class ToolbarComponent implements OnInit {
   }
 
   /**
-   * Checks if we are logged in.
+   * Checks if the user is logged in.
    * @returns {boolean}
    */
-  loggedIn() {
-    if (this.authService.getUserId()) {
-      return true;
-    }
+  isUserLoggedIn() {
+    return this.authService.getUserId();
   }
 
   /**
    * Checks if we are in Client or Therapist mode.
+   * TODO SKOV: Refactor method (no nested if's).
    * @returns {boolean}
    */
   isClientMode() {

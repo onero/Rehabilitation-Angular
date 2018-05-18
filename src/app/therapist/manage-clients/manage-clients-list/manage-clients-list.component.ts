@@ -101,7 +101,6 @@ export class ManageClientsListComponent implements OnInit {
     };
     this.authService.createClientAuthUser(newClient.email)
       .then(authUser => {
-        // TODO MSP: Add message?
         newClient.uid = authUser.user.uid;
         this.clientService.createClient(newClient)
           .then(() => {
