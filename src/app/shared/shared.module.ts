@@ -5,7 +5,6 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {CategoryService} from './services/category.service';
 import {ExerciseService} from './services/exercise.service';
 import {ClientService} from './services/client.service';
-import {RehabilitationPlanService} from './services/rehabilitation-plan.service';
 import {RouterModule} from '@angular/router';
 import {RehabErrorService} from './services/rehab-error.service';
 import { MessageService } from './services/message.service';
@@ -22,7 +21,6 @@ import { MilestoneService } from './services/milestone.service';
   providers: [ExerciseService,
     CategoryService,
     ClientService,
-    RehabilitationPlanService,
     RehabErrorService,
     MessageService,
     RehabModalService,
