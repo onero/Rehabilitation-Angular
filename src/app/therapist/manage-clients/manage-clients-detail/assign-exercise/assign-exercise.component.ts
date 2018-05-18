@@ -18,7 +18,7 @@ export class AssignExerciseComponent implements OnInit {
   exerciseUnassigned = new EventEmitter<string>();
 
   @Output()
-  exerciseAssigned = new EventEmitter<string>();
+  exerciseAssigned = new EventEmitter<ExerciseEntity>();
 
   constructor(public modalService: RehabModalService) {
   }
@@ -39,7 +39,6 @@ export class AssignExerciseComponent implements OnInit {
    * @param {ExerciseEntity} exercise
    */
   assignSelectedExercise(exercise: ExerciseEntity) {
-    this.exercises.push(exercise);
-    this.exerciseAssigned.emit(exercise.uid);
+    this.exerciseAssigned.emit(exercise);
   }
 }

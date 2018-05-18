@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {ClientEntity} from '../entities/client.entity';
 import {FirestoreModel} from './firestore.model';
+import {RehabilitationPlan} from '../entities/rehabilitation-plan.entity';
 
 @Injectable()
 export class ClientService {
@@ -38,6 +39,7 @@ export class ClientService {
     return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(newClient.uid).set(newClient);
   }
 
+  // TODO ALH: Keep until epic future functions implementation
   /**
    * Delete provided client
    * @param {ClientEntity} clientToDelete
@@ -54,6 +56,20 @@ export class ClientService {
    */
   updateClient(clientToUpdate: ClientEntity) {
     return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(clientToUpdate.uid).set(clientToUpdate, {merge: true});
+  }
+
+  /**
+   * Send updated plan to firestore
+   * @param {string} clientId
+   * @param {RehabilitationPlan} rehabilitationPlan
+   * @returns {Promise<void>}
+   */
+  updateRehabilitationPlanByClientUid(clientId: string, rehabilitationPlan: RehabilitationPlan) {
+    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION)
+      .doc(clientId)
+      .set(
+        {rehabilitationPlan: rehabilitationPlan}
+        , {merge: true});
   }
 
   /**

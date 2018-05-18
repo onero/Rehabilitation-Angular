@@ -87,18 +87,4 @@ export class ExerciseService {
         return result[0];
       });
   }
-
-  getExercisesFromClientId(clientId: string) {
-    const exercise = this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.CLIENTS_COLLECTION).valueChanges();
-    return exercise;
-  }
-
-  /**
-   * Get list of category.
-   * @returns {Observable<any[]>}
-   */
-  getExercisesPaginated(limit: number, lastExercise?: ExerciseEntity) {
-    return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION,
-      ref => ref.orderBy('title').startAt(lastExercise.title).limit(limit)).valueChanges();
-  }
 }
