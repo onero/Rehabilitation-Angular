@@ -3,7 +3,6 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
 import {ExerciseEntity} from '../entities/exercise.entity';
 import {FirestoreModel} from './firestore.model';
-import 'rxjs/add/operator/first';
 
 @Injectable()
 export class ExerciseService {
