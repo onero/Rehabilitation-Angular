@@ -12,7 +12,7 @@ import {RehabModalService} from '../../../../shared/services/rehab-modal.service
 export class AssignExerciseComponent implements OnInit {
 
   @Input()
-  exercises: ExerciseEntity[] = [];
+  exercises: ExerciseEntity[];
 
   @Output()
   exerciseUnassigned = new EventEmitter<string>();

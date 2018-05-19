@@ -17,9 +17,6 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
 
   searchValue = ' ';
 
-  @Input()
-  hiddenExercises: ExerciseEntity[];
-
   currentExercise: ExerciseEntity;
 
   // TODO ALH: Refactor with better solution!
