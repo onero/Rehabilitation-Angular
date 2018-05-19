@@ -77,14 +77,10 @@ export class ExerciseService {
   /**
    * Get exercise by provided id
    * @param {string} exerciseId
-   * @returns {AngularFirestoreCollection<ExerciseEntity[]>}
+   * @returns {Observable<ExerciseEntity>}
    */
   getExerciseById(exerciseId: string): Observable<ExerciseEntity> {
-    return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION,
-      ref => ref.where('uid', '==', exerciseId)).valueChanges()
-      .first()
-      .map(result => {
-        return result[0];
-      });
+    return this.angularFireStore.collection(FirestoreModel.EXERCISES_COLLECTION)
+      .doc(exerciseId).valueChanges();
   }
 }
