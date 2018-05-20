@@ -128,11 +128,10 @@ export class ManageClientsListComponent implements OnInit {
       this.$paginatedClients = this.clientService.getClients()
         .map(clients => {
           // Filter on attributes from client
-          const filteredClients = clients.filter(client => {
+          const filteredClients = clients.filter((client: ClientEntity) => {
             // Check if client has
             return client.fullName.includes(query) || // Name.
               client.address.includes(query) || // Address.
-              client.phone.includes(query) || // Phone number.
               client.email.includes(query); // Email.
           });
           // Update paginated amount of exercises to result amount
