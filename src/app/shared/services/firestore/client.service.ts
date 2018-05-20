@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {ClientEntity} from '../../entities/client.entity';
-import {FirestoreModel} from './firestore.model';
 import {RehabilitationPlan} from '../../entities/rehabilitation-plan.entity';
 
 @Injectable()
 export class ClientService {
+
+  private CLIENTS_COLLECTION = 'Clients';
 
   constructor(private afs: AngularFirestore) {
   }
@@ -15,7 +16,7 @@ export class ClientService {
    * @returns {Observable<any[]>}
    */
   getClients() {
-    return this.afs.collection<ClientEntity>(FirestoreModel.CLIENTS_COLLECTION,
+    return this.afs.collection<ClientEntity>(this.CLIENTS_COLLECTION,
       ref => ref
         .orderBy('fullName'))
       .valueChanges();
@@ -26,7 +27,7 @@ export class ClientService {
    * @returns {Observable<any[]>}
    */
   getClientsPaginated(limit: number, lastClient?: ClientEntity) {
-    return this.afs.collection<ClientEntity>(FirestoreModel.CLIENTS_COLLECTION,
+    return this.afs.collection<ClientEntity>(this.CLIENTS_COLLECTION,
       ref => ref.orderBy('fullName')
         .startAt(lastClient.fullName)
         .limit(limit))
@@ -39,7 +40,7 @@ export class ClientService {
    * @param newClient
    */
   createClient(newClient: ClientEntity) {
-    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION)
+    return this.afs.collection(this.CLIENTS_COLLECTION)
       .doc(newClient.uid)
       .set(newClient);
   }
@@ -51,7 +52,7 @@ export class ClientService {
    * @returns {AngularFirestoreCollection<any>}
    */
   deleteClient(clientToDelete: ClientEntity) {
-    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(clientToDelete.uid).delete();
+    return this.afs.collection(this.CLIENTS_COLLECTION).doc(clientToDelete.uid).delete();
   }
 
   /**
@@ -60,7 +61,7 @@ export class ClientService {
    * @returns {Promise<void>}
    */
   updateClient(clientToUpdate: ClientEntity) {
-    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION)
+    return this.afs.collection(this.CLIENTS_COLLECTION)
       .doc(clientToUpdate.uid)
       .set(clientToUpdate, {merge: true});
   }
@@ -72,7 +73,7 @@ export class ClientService {
    * @returns {Promise<void>}
    */
   updateRehabilitationPlanByClientUid(clientId: string, rehabilitationPlan: RehabilitationPlan) {
-    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION)
+    return this.afs.collection(this.CLIENTS_COLLECTION)
       .doc(clientId)
       .set(
         {rehabilitationPlan: rehabilitationPlan}
@@ -83,7 +84,7 @@ export class ClientService {
    * Get currentClient by id
    */
   getCurrentClientById(uid: string) {
-    return this.afs.collection<ClientEntity>(FirestoreModel.CLIENTS_COLLECTION)
+    return this.afs.collection<ClientEntity>(this.CLIENTS_COLLECTION)
       .doc(uid)
       .valueChanges();
   }

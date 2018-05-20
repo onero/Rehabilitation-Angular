@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ClientEntity} from '../../../shared/entities/client.entity';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {ClientService} from '../../../shared/services/firestore/client.service';
-import {e, E} from '@angular/core/src/render3';
 import {AssignedExerciseService} from '../../../shared/services/firestore/assigned-exercise.service';
 
 @Component({

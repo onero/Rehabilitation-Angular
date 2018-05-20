@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {FirestoreModel} from './firestore.model';
 
 @Injectable()
 export class AssignedExerciseService {
