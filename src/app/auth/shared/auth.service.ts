@@ -83,4 +83,12 @@ export class AuthService {
         this.message.displayMessage(`${user.fullName} is now deleted...`, 2);
       });
   }
+
+  /**
+   * Check if saved user key value in local storage matches therapist key
+   * @returns {boolean}
+   */
+  userIsTherapist() {
+    return localStorage.getItem(AuthService.USER_ID_KEY) === AuthService.THERAPIST_UID;
+  }
 }
