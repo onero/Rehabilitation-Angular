@@ -76,8 +76,8 @@ export class VisitListComponent implements OnInit, OnChanges {
     // }
     //
     // // Paginate from last element on current page
-    // this.clientService.getClientsPaginated(this.limit, latest).subscribe(paginatedClients => {
-    //   this.paginatedClients = paginatedClients;
+    // this.clientService.getClientsPaginated(this.limit, latest).subscribe($paginatedClients => {
+    //   this.$paginatedClients = $paginatedClients;
     // });
   }
 

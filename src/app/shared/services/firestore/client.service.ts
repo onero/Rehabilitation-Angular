@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {ClientEntity} from '../../entities/client.entity';
 import {RehabilitationPlan} from '../../entities/rehabilitation-plan.entity';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class ClientService {
@@ -9,6 +10,18 @@ export class ClientService {
   private CLIENTS_COLLECTION = 'Clients';
 
   constructor(private afs: AngularFirestore) {
+  }
+
+  /**
+   * Get amount of client documents in collection
+   * @returns {Observable<number>}
+   */
+  getAmountOfClients(): Observable<number> {
+    return this.afs.collection<ClientEntity>(this.CLIENTS_COLLECTION)
+      .valueChanges()
+      .map(clients => {
+        return clients.length;
+      });
   }
 
   /**
@@ -27,11 +40,22 @@ export class ClientService {
    * @returns {Observable<any[]>}
    */
   getClientsPaginated(limit: number, lastClient?: ClientEntity) {
-    return this.afs.collection<ClientEntity>(this.CLIENTS_COLLECTION,
-      ref => ref.orderBy('fullName')
-        .startAt(lastClient.fullName)
-        .limit(limit))
-      .valueChanges();
+    // Check if last client wasn't provided (we paginate from first page)
+    if (!lastClient) {
+      return this.afs.collection<ClientEntity>(this.CLIENTS_COLLECTION,
+        ref =>
+          ref.orderBy('fullName')
+            .limit(limit))
+        .valueChanges();
+      // Paginate, starting after last element on previous page
+    } else {
+      return this.afs.collection<ClientEntity>(this.CLIENTS_COLLECTION,
+        ref =>
+          ref.orderBy('fullName')
+            .startAfter(lastClient.fullName)
+            .limit(limit))
+        .valueChanges();
+    }
   }
 
   /**

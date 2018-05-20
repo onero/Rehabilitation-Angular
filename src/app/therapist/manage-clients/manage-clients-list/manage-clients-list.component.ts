@@ -18,9 +18,9 @@ export class ManageClientsListComponent implements OnInit {
   clientSelected = new EventEmitter<ClientEntity>();
 
   currentClient: ClientEntity;
-  allClients: ClientEntity[];
-  paginatedClients: ClientEntity[];
-  page: number;
+  $paginatedClients: Observable<ClientEntity[]>;
+  amountOfClients: number;
+  page = 1;
   limit = 5;
 
   constructor(private clientService: ClientService,
@@ -30,26 +30,7 @@ export class ManageClientsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.page = 1;
-    // This subscribe will trigger each time information is updated!
-    // TODO ALH: Refactor to not both subscribe to all and paginated?
-    this.clientService.getClients().subscribe(clients => {
-      // If a current client is selected we will update it with new info
-      this.updateSelectedClient(clients);
-      this.allClients = clients as ClientEntity[];
-      this.paginatedClients = this.allClients.slice(0, this.limit);
-    });
-  }
-
-  /**
-   * Update currently selected client
-   * @param clients
-   */
-  private updateSelectedClient(clients) {
-    // Check for a selected client
-    if (this.currentClient) {
-      this.currentClient = clients.find(client => client.uid === this.currentClient.uid);
-    }
+    this.paginate(this.page);
   }
 
   /**
@@ -57,20 +38,43 @@ export class ManageClientsListComponent implements OnInit {
    * @param {number} page
    */
   paginate(page: number) {
-    let latest: any;
-
+    // Get amount of all exercises in firestore collection
+    this.clientService.getAmountOfClients()
+      .take(1)
+      .subscribe(amount => this.amountOfClients = amount);
     // Check for first page
     if (page === 1) {
-      latest = this.allClients[0];
+      this.paginateFromBeginningOfCollection();
       // Get a hold of last element on current page
     } else {
-      latest = this.allClients[(page - 1) * this.limit];
+      this.page = page;
+      this.paginateFromPage(this.page);
     }
+  }
 
-    // Paginate from last element on current page
-    this.clientService.getClientsPaginated(this.limit, latest).subscribe(paginatedClients => {
-      this.paginatedClients = paginatedClients;
-    });
+  /**
+   * When on page 1 we just get the first {{this.limit}} clients
+   */
+  private paginateFromBeginningOfCollection() {
+    this.$paginatedClients = this.clientService.getClientsPaginated(this.limit);
+  }
+
+  /**
+   * Start paginating from provided page
+   * @param {number} page
+   */
+  private paginateFromPage(page: number) {
+    // Update page number for paginator
+    this.page = page;
+    // Get amount of all exercises in firestore collection
+    this.$paginatedClients = this.$paginatedClients
+      .map(paginatedExercises => {
+        // Get a hold of last element in current observable collection
+        return paginatedExercises[this.limit - 1];
+      })
+      .switchMap(latestExercise =>
+        // Get observable collection starting after last exercise in old observable collection
+        this.clientService.getClientsPaginated(this.limit, latestExercise));
   }
 
   /**
@@ -120,18 +124,24 @@ export class ManageClientsListComponent implements OnInit {
   clientSearch(query: string) {
     // Check if user entered text or cleared search
     if (query.length > 0) {
-      this.paginatedClients = [];
-      const queriedClients = this.allClients.filter(client => {
-        // Check if client has
-        return client.fullName.includes(query) || // Name.
-          client.address.includes(query) || // Address.
-          client.phone.includes(query) || // Phone number.
-          client.email.includes(query); // Email.
-      });
-      this.paginatedClients = queriedClients;
+      // Get all clients to search through
+      this.$paginatedClients = this.clientService.getClients()
+        .map(clients => {
+          // Filter on attributes from client
+          const filteredClients = clients.filter(client => {
+            // Check if client has
+            return client.fullName.includes(query) || // Name.
+              client.address.includes(query) || // Address.
+              client.phone.includes(query) || // Phone number.
+              client.email.includes(query); // Email.
+          });
+          // Update paginated amount of exercises to result amount
+          this.amountOfClients = filteredClients.length;
+          return filteredClients;
+        });
     } else {
-      // Reset to list of paginated exercises
-      this.paginatedClients = this.allClients.slice(0, this.limit);
+      // User cleared search field, so we reset to list of paginated exercises
+      this.paginate(1);
     }
   }
 
