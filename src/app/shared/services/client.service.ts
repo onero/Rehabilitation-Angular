@@ -79,20 +79,30 @@ export class ClientService {
    * @param {string} exerciseUid
    */
   assignExerciseToClient(clientUid: string, exerciseUid: string) {
-    this.afs.doc(`${FirestoreModel.ASSIGNED_EXERCISES_COLLECTION}/${exerciseUid}`)
-      .set({
+    return this.afs.collection(FirestoreModel.ASSIGNED_EXERCISES_COLLECTION)
+      .add({
         exerciseUid: exerciseUid,
         clientUid: clientUid
-      }, {merge: true});
+      });
   }
 
   /**
    * Unassign exercise from client, by provided exerciseId
    * @param exerciseUid
+   * @param clientUid
    */
-  unassignExerciseFromClient(exerciseUid: string) {
-    this.afs.doc(`${FirestoreModel.ASSIGNED_EXERCISES_COLLECTION}/${exerciseUid}`)
-      .delete();
+  unassignExerciseFromClient(exerciseUid: string, clientUid: string) {
+    // Get all AssignedExercise documents
+    this.afs.collection(FirestoreModel.ASSIGNED_EXERCISES_COLLECTION,
+      ref =>
+        ref.where('exerciseUid', '==', exerciseUid)
+          .where('clientUid', '==', clientUid))
+      .snapshotChanges()
+      .take(1)
+      .subscribe(assignedExercises => {
+        // Delete AssignedExercise document (can only exist once)
+        assignedExercises[0].payload.doc.ref.delete();
+      });
   }
 
   /**

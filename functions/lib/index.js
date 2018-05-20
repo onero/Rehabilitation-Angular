@@ -22,21 +22,36 @@ exports.onExerciseUpdated = functions.firestore.document(`${EXERCISE_COLLECTION}
             assignedExerciseQuery.docs.forEach(assignedExerciseSnapshot => {
                 const assignedExercise = assignedExerciseSnapshot.data();
                 const updatedExercise = event.after.data();
-                // Create updated data for CLIENT_COLLECTION document
-                const newClient = {
-                    rehabilitationPlan: {
-                        exercises: [{
-                                uid: updatedExercise.uid,
-                                title: updatedExercise.title,
-                                videoUrl: updatedExercise.videoUrl
-                            }]
-                    }
-                };
-                // Update Client document with updated exercise data
+                // Load client old list of exercises
                 admin.firestore()
-                    .doc(`${CLIENTS_COLLECTION}/${assignedExercise.clientUid}`)
-                    .set(newClient, { merge: true })
-                    .then(() => console.log('Client updated!'));
+                    .collection(CLIENTS_COLLECTION)
+                    .where('uid', '==', assignedExercise.clientUid)
+                    .get()
+                    .then(clientQuery => {
+                    const clientWithExercise = clientQuery.docs[0].data();
+                    // Update list of exercises, so new isn't in list
+                    const clientExercises = clientWithExercise.rehabilitationPlan.exercises
+                        .filter(exercise => exercise.uid !== updatedExercise.uid);
+                    // Construct partial exercise from updated exercise (only take attributes for patching client doc)
+                    const updatedPartialExercise = {
+                        uid: updatedExercise.uid,
+                        title: updatedExercise.title,
+                        videoUrl: updatedExercise.videoUrl
+                    };
+                    // Add updated exercise
+                    clientExercises.push(updatedPartialExercise);
+                    // Create updated data for CLIENT_COLLECTION document
+                    const newClient = {
+                        rehabilitationPlan: {
+                            exercises: clientExercises
+                        }
+                    };
+                    // Update Client document with updated exercise data
+                    admin.firestore()
+                        .doc(`${CLIENTS_COLLECTION}/${assignedExercise.clientUid}`)
+                        .set(newClient, { merge: true })
+                        .then(() => console.log(`${clientWithExercise.fullName} updated!`));
+                });
             });
         }
         else {

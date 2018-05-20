@@ -47,7 +47,7 @@ export class ManageClientsDetailComponent implements OnInit {
     // Reassign array of exercises to a new array without the exercise to remove
     this.currentClient.rehabilitationPlan.exercises =
       this.currentClient.rehabilitationPlan.exercises.filter(exercise => exercise.uid !== exerciseUid);
-    this.clientService.unassignExerciseFromClient(exerciseUid);
+    this.clientService.unassignExerciseFromClient(exerciseUid, this.currentClient.uid);
     this.updateRehabilitationPlan();
   }
 
