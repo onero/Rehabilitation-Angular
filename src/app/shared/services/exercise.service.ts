@@ -48,7 +48,7 @@ export class ExerciseService {
     return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION,
       ref => ref
         .orderBy('title')
-        .startAt(lastExercise.title)
+        .startAfter(lastExercise.title)
         .limit(limit))
       .valueChanges();
     }

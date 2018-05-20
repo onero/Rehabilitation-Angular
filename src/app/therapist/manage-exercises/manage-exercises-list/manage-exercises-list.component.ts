@@ -20,7 +20,6 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
 
   currentExercise: ExerciseEntity;
 
-  // TODO ALH: Refactor with better solution!
   @Input()
   allowAddExercise = true;
 
@@ -66,25 +65,52 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
   paginate(page: number) {
     // Check for first page
     if (page === 1) {
-      // When on page 1 we just get the first {{this.limit}} exercises
-      // Check which page we are displaying the exercises on
-      if (this.isManageExercisePage()) {
-        this.$paginatedExercises = this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit);
-        // Get amount of exercises in category
-        this.exerciseService.getAmountOfExercisesInCategory(this.currentCategoryName)
-          .take(1)
-          .subscribe(amount => this.amountOfExercises = amount);
-      } else {
-        // Get amount of all exercises in firestore collection
-        this.exerciseService.getAmountOfExercises()
-          .take(1)
-          .subscribe(amount => this.amountOfExercises = amount);
-        this.$paginatedExercises = this.exerciseService.getExercisesPaginated(this.limit);
-      }
+      this.paginateFromBeginningOfCollection();
     } else {
-      // Update page number for paginator
-      this.page = page;
-      // Get paginated observable list of exercises, starting after last element in current observable collection
+      this.paginateFromPage(page);
+    }
+  }
+
+  /**
+   * When on page 1 we just get the first {{this.limit}} exercises
+   */
+  private paginateFromBeginningOfCollection() {
+    // Check which page we are displaying the exercises on
+    if (this.isManageExercisePage()) {
+      this.$paginatedExercises = this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit);
+      // Get amount of exercises in category
+      this.exerciseService.getAmountOfExercisesInCategory(this.currentCategoryName)
+        .take(1)
+        .subscribe(amount => this.amountOfExercises = amount);
+    } else {
+      // Get amount of all exercises in firestore collection
+      this.exerciseService.getAmountOfExercises()
+        .take(1)
+        .subscribe(amount => this.amountOfExercises = amount);
+      this.$paginatedExercises = this.exerciseService.getExercisesPaginated(this.limit);
+    }
+  }
+
+  /**
+   * Start paginating from provided page
+   * @param {number} page
+   */
+  private paginateFromPage(page: number) {
+    // Update page number for paginator
+    this.page = page;
+    // Check which page we are displaying the exercises on
+    if (this.isManageExercisePage()) {
+    // Get paginated observable list of exercises, starting after last element in current observable collection
+    this.$paginatedExercises = this.$paginatedExercises
+      .map(paginatedExercises => {
+        // Get a hold of last element in current observable collection
+        return paginatedExercises[this.limit - 1];
+      })
+      .switchMap(latestExercise =>
+        // Get observable collection starting after last exercise in old observable collection
+        this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit, latestExercise);
+    } else {
+      // Get amount of all exercises in firestore collection
       this.$paginatedExercises = this.$paginatedExercises
         .map(paginatedExercises => {
           // Get a hold of last element in current observable collection
@@ -92,8 +118,7 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
         })
         .switchMap(latestExercise =>
           // Get observable collection starting after last exercise in old observable collection
-          this.exerciseService
-            .getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit, latestExercise));
+          this.exerciseService.getExercisesPaginated(this.limit, latestExercise));
     }
   }
 
