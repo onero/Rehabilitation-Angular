@@ -60,33 +60,28 @@ export class ExerciseService {
   }
 
   /**
-   * Get observable first exercise in provided category from FireStore
-   * @param {string} categoryName
-   * @returns {Observable<ExerciseEntity>}
-   */
-  public getFirstExerciseByCategoryName(categoryName: string): Observable<ExerciseEntity> {
-    return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION,
-      ref => ref
-        .where('category', '==', categoryName)
-        .limit(1))
-      .valueChanges()
-      .map(exercise => {
-        return exercise[0];
-      });
-  }
-
-  /**
    * Get observable list of exercise collection in provided category from FireStore
    * @returns {Observable<ExerciseEntity[]>}
    */
   public getExercisesByCategoryNamePaginated(categoryName: string, limit: number, lastExercise?: ExerciseEntity) {
+    // Check if last exercise wasn't provided (we paginate from first page)
+    if (!lastExercise) {
+      return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION,
+        ref => ref
+          .where('category', '==', categoryName)
+          .orderBy('title')
+          .limit(limit))
+        .valueChanges();
+    } else {
+      // Paginate, starting after last element on previous page
     return this.angularFireStore.collection<ExerciseEntity>(FirestoreModel.EXERCISES_COLLECTION,
       ref => ref
         .where('category', '==', categoryName)
         .orderBy('title')
-        .startAt(lastExercise.title)
+        .startAfter(lastExercise.title)
         .limit(limit))
       .valueChanges();
+    }
   }
 
   /**

@@ -24,9 +24,9 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
   @Input()
   allowAddExercise = true;
 
-  $amountOfExercises: Observable<number>;
+  amountOfExercises: number;
   $paginatedExercises: Observable<ExerciseEntity[]>;
-  page = 1;
+  page = 2;
   limit = 5;
 
   constructor(private exerciseService: ExerciseService,
@@ -39,10 +39,11 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
 
   ngOnInit() {
     // Set amount of exercises
-    this.$amountOfExercises = this.exerciseService.getAmountOfExercises();
+    this.exerciseService.getAmountOfExercises()
+      .subscribe(amount => this.amountOfExercises = amount);
     // Check for category name (if one is present, we are in Manage Exercises)
     if (this.currentCategoryName.length > 0) {
-      this.instantiateExercisesByCategoryName();
+      this.paginate(this.page);
       // Else we are just showing a paginated list of all exercises
     } else {
       this.instantiateExercisesWithoutCategory();
@@ -58,23 +59,13 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
         this.exerciseService.getExercisesPaginated(this.limit, exercise));
   }
 
-  /**
-   * Load paginated exercises for current category
-   */
-  private instantiateExercisesByCategoryName() {
-    this.$paginatedExercises = this.exerciseService.getFirstExerciseByCategoryName(this.currentCategoryName)
-      .switchMap(exercise =>
-        this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit, exercise)
-      );
-  }
-
   addExercise() {
     this.router.navigate(['therapist/exercises/new', {category: this.currentCategoryName}]);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.currentCategoryName.length > 0) {
-      this.instantiateExercisesByCategoryName();
+      this.paginate(1);
     }
   }
 
@@ -83,13 +74,23 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
    * @param {number} page
    */
   paginate(page: number) {
-    let latest: any;
     // Check for first page
-    if (page >= 1) {
-      // Get a hold of last element on current page
-      latest = this.$paginatedExercises[(page - 1) * this.limit];
-      this.$paginatedExercises = this.exerciseService
-        .getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit, latest);
+    if (page === 1) {
+      // When on page 1 we just get the first {{this.limit}} exercises
+      this.$paginatedExercises = this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit);
+    } else {
+      // Update page number for paginator
+      this.page = page;
+      // Get paginated observable list of exercises, starting after last element in current observable collection
+      this.$paginatedExercises = this.$paginatedExercises
+        .map(paginatedExercises => {
+          // Get a hold of last element in current observable collection
+          return paginatedExercises[this.limit - 1];
+        })
+        .switchMap(latestExercise =>
+          // Get observable collection starting after last exercise in old observable collection
+          this.exerciseService
+            .getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit, latestExercise));
     }
   }
 
@@ -109,7 +110,7 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
     } else {
       // Reset to list of paginated exercises
       if (this.currentCategoryName.length > 0) {
-        this.instantiateExercisesByCategoryName();
+        this.paginate(1);
         // Else we are just showing a paginated list of all exercises
       } else {
         this.instantiateExercisesWithoutCategory();

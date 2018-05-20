@@ -11,10 +11,10 @@
       <h5 class="card-title">{{exercise.title}}</h5>
     </div>
   </div>
-  <ngb-pagination [collectionSize]="$amountOfExercises | async"
+  <ngb-pagination [collectionSize]="amountOfExercises"
                   [(page)]="page"
-                  [maxSize]="5"
-                  [pageSize]="5"
+                  [pageSize]="limit"
+                  [maxSize]="limit"
                   (pageChange)="paginate($event)">
   </ngb-pagination>
 </div>
