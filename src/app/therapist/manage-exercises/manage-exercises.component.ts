@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ExerciseEntity} from '../../shared/entities/exercise.entity';
 import {ManageExercisesListComponent} from './manage-exercises-list/manage-exercises-list.component';
 import {ClientService} from '../../shared/services/client.service';
+
 interface AssignedExerciseEntity {
   clientUid: '';
   exerciseUid: '';
@@ -27,7 +28,9 @@ export class ManageExercisesComponent implements OnInit {
     this.selectedCategory = selectedCategory;
     this.selectedExercise = null;
     // Clear search field
-    this.childExerciseList.searchValue = ' ';
+    if (this.childExerciseList) {
+      this.childExerciseList.searchValue = ' ';
+    }
 
   }
 }
