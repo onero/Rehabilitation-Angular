@@ -108,7 +108,7 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
       })
       .switchMap(latestExercise =>
         // Get observable collection starting after last exercise in old observable collection
-        this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit, latestExercise);
+        this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit, latestExercise));
     } else {
       // Get amount of all exercises in firestore collection
       this.$paginatedExercises = this.$paginatedExercises
