@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {ClientEntity} from '../entities/client.entity';
+import {ClientEntity} from '../../entities/client.entity';
 import {FirestoreModel} from './firestore.model';
-import {RehabilitationPlan} from '../entities/rehabilitation-plan.entity';
+import {RehabilitationPlan} from '../../entities/rehabilitation-plan.entity';
 
 @Injectable()
 export class ClientService {
-
-  clients: ClientEntity[];
 
   constructor(private afs: AngularFirestore) {
   }
@@ -18,7 +16,9 @@ export class ClientService {
    */
   getClients() {
     return this.afs.collection<ClientEntity>(FirestoreModel.CLIENTS_COLLECTION,
-      ref => ref.orderBy('fullName')).valueChanges();
+      ref => ref
+        .orderBy('fullName'))
+      .valueChanges();
   }
 
   /**
@@ -27,7 +27,10 @@ export class ClientService {
    */
   getClientsPaginated(limit: number, lastClient?: ClientEntity) {
     return this.afs.collection<ClientEntity>(FirestoreModel.CLIENTS_COLLECTION,
-      ref => ref.orderBy('fullName').startAt(lastClient.fullName).limit(limit)).valueChanges();
+      ref => ref.orderBy('fullName')
+        .startAt(lastClient.fullName)
+        .limit(limit))
+      .valueChanges();
   }
 
   /**
@@ -36,7 +39,9 @@ export class ClientService {
    * @param newClient
    */
   createClient(newClient: ClientEntity) {
-    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(newClient.uid).set(newClient);
+    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION)
+      .doc(newClient.uid)
+      .set(newClient);
   }
 
   // TODO ALH: Implement with Cloud Functions!
@@ -55,7 +60,9 @@ export class ClientService {
    * @returns {Promise<void>}
    */
   updateClient(clientToUpdate: ClientEntity) {
-    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION).doc(clientToUpdate.uid).set(clientToUpdate, {merge: true});
+    return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION)
+      .doc(clientToUpdate.uid)
+      .set(clientToUpdate, {merge: true});
   }
 
   /**
@@ -65,44 +72,11 @@ export class ClientService {
    * @returns {Promise<void>}
    */
   updateRehabilitationPlanByClientUid(clientId: string, rehabilitationPlan: RehabilitationPlan) {
-    this.afs.collection(FirestoreModel.ASSIGNED_EXERCISES_COLLECTION);
     return this.afs.collection(FirestoreModel.CLIENTS_COLLECTION)
       .doc(clientId)
       .set(
         {rehabilitationPlan: rehabilitationPlan}
         , {merge: true});
-  }
-
-  /**
-   * Assign provided exercise id to client
-   * @param {string} clientUid
-   * @param {string} exerciseUid
-   */
-  assignExerciseToClient(clientUid: string, exerciseUid: string) {
-    return this.afs.collection(FirestoreModel.ASSIGNED_EXERCISES_COLLECTION)
-      .add({
-        exerciseUid: exerciseUid,
-        clientUid: clientUid
-      });
-  }
-
-  /**
-   * Unassign exercise from client, by provided exerciseId
-   * @param exerciseUid
-   * @param clientUid
-   */
-  unassignExerciseFromClient(exerciseUid: string, clientUid: string) {
-    // Get all AssignedExercise documents
-    this.afs.collection(FirestoreModel.ASSIGNED_EXERCISES_COLLECTION,
-      ref =>
-        ref.where('exerciseUid', '==', exerciseUid)
-          .where('clientUid', '==', clientUid))
-      .snapshotChanges()
-      .take(1)
-      .subscribe(assignedExercises => {
-        // Delete AssignedExercise document (can only exist once)
-        assignedExercises[0].payload.doc.ref.delete();
-      });
   }
 
   /**

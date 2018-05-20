@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ClientEntity} from '../../../shared/entities/client.entity';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
-import {ClientService} from '../../../shared/services/client.service';
+import {ClientService} from '../../../shared/services/firestore/client.service';
 import {e, E} from '@angular/core/src/render3';
+import {AssignedExerciseService} from '../../../shared/services/firestore/assigned-exercise.service';
 
 @Component({
   selector: 'rehab-manage-clients-detail',
@@ -19,7 +20,8 @@ export class ManageClientsDetailComponent implements OnInit {
   @Output()
   evaluationsClicked = new EventEmitter();
 
-  constructor(private clientService: ClientService) {
+  constructor(private clientService: ClientService,
+              private assignExerciseService: AssignedExerciseService) {
   }
 
   ngOnInit() {
@@ -47,7 +49,7 @@ export class ManageClientsDetailComponent implements OnInit {
     // Reassign array of exercises to a new array without the exercise to remove
     this.currentClient.rehabilitationPlan.exercises =
       this.currentClient.rehabilitationPlan.exercises.filter(exercise => exercise.uid !== exerciseUid);
-    this.clientService.unassignExerciseFromClient(exerciseUid, this.currentClient.uid);
+    this.assignExerciseService.unassignExerciseFromClient(exerciseUid, this.currentClient.uid);
     this.updateRehabilitationPlan();
   }
 
@@ -67,7 +69,7 @@ export class ManageClientsDetailComponent implements OnInit {
       this.currentClient.rehabilitationPlan.exercises = [];
     }
     this.currentClient.rehabilitationPlan.exercises.push(partialNewExercise);
-    this.clientService.assignExerciseToClient(this.currentClient.uid, exercise.uid);
+    this.assignExerciseService.assignExerciseToClient(this.currentClient.uid, exercise.uid);
     this.updateRehabilitationPlan();
   }
 }

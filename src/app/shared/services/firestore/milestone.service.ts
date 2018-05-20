@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {MilestoneEntity} from '../entities/milestone.entity';
+import {MilestoneEntity} from '../../entities/milestone.entity';
 import {FirestoreModel} from './firestore.model';
-import {VisitEntity} from '../entities/visit.entity';
+import {VisitEntity} from '../../entities/visit.entity';
 
 @Injectable()
 export class MilestoneService {

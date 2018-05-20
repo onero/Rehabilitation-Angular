@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {Observable} from 'rxjs/Observable';
-import {CategoryService} from '../../../shared/services/category.service';
+import {CategoryService} from '../../../shared/services/firestore/category.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RehabModalService} from '../../../shared/services/rehab-modal.service';
 

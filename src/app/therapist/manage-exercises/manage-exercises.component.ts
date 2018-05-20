@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ExerciseEntity} from '../../shared/entities/exercise.entity';
 import {ManageExercisesListComponent} from './manage-exercises-list/manage-exercises-list.component';
-import {ClientService} from '../../shared/services/client.service';
+import {ClientService} from '../../shared/services/firestore/client.service';
 
 interface AssignedExerciseEntity {
   clientUid: '';

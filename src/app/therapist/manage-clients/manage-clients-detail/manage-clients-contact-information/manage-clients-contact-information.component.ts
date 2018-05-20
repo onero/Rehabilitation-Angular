@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ClientEntity} from '../../../../shared/entities/client.entity';
-import {ClientService} from '../../../../shared/services/client.service';
+import {ClientService} from '../../../../shared/services/firestore/client.service';
 
 @Component({
   selector: 'rehab-manage-clients-contact-information',

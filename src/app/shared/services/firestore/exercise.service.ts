@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
-import {ExerciseEntity} from '../entities/exercise.entity';
+import {ExerciseEntity} from '../../entities/exercise.entity';
 import {FirestoreModel} from './firestore.model';
 
 @Injectable()

@@ -2,10 +2,10 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {YoutubeService} from '../../../shared/services/youtube.service';
 import {YoutubeResponse} from '../../../shared/entities/YoutubeResponse.entity';
-import {ExerciseService} from '../../../shared/services/exercise.service';
+import {ExerciseService} from '../../../shared/services/firestore/exercise.service';
 import {RehabilitationPlan} from '../../../shared/entities/rehabilitation-plan.entity';
 import {AuthService} from '../../../auth/shared/auth.service';
-import {ClientService} from '../../../shared/services/client.service';
+import {ClientService} from '../../../shared/services/firestore/client.service';
 import {ClientEntity} from '../../../shared/entities/client.entity';
 import {forEach} from '@angular/router/src/utils/collection';
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../auth/shared/auth.service';
-import {MilestoneService} from '../../shared/services/milestone.service';
+import {MilestoneService} from '../../shared/services/firestore/milestone.service';
 import {MilestoneEntity} from '../../shared/entities/milestone.entity';
 import {VisitEntity} from '../../shared/entities/visit.entity';
 

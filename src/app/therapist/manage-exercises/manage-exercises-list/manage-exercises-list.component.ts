@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
-import {ExerciseService} from '../../../shared/services/exercise.service';
+import {ExerciseService} from '../../../shared/services/firestore/exercise.service';
 import {Router} from '@angular/router';
 import {ISearch} from '../../../shared/component-interfaces/ISearch';
 import {Observable} from 'rxjs/Observable';

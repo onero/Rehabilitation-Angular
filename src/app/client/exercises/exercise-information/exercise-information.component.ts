@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
-import {ExerciseService} from '../../../shared/services/exercise.service';
+import {ExerciseService} from '../../../shared/services/firestore/exercise.service';
 import {Observable} from 'rxjs/Observable';
 import {E} from '@angular/core/src/render3';
 

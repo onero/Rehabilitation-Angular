@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
-import {ExerciseService} from '../../../shared/services/exercise.service';
+import {ExerciseService} from '../../../shared/services/firestore/exercise.service';
 
 @Component({
   selector: 'rehab-new-exercise',
