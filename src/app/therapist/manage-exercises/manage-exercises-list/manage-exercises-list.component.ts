@@ -24,9 +24,9 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
   @Input()
   allowAddExercise = true;
 
-  amountOfExercises: number;
   $paginatedExercises: Observable<ExerciseEntity[]>;
-  page = 2;
+  amountOfExercises: number;
+  page = 1;
   limit = 5;
 
   constructor(private exerciseService: ExerciseService,
@@ -38,25 +38,7 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
   }
 
   ngOnInit() {
-    // Set amount of exercises
-    this.exerciseService.getAmountOfExercises()
-      .subscribe(amount => this.amountOfExercises = amount);
-    // Check for category name (if one is present, we are in Manage Exercises)
-    if (this.currentCategoryName.length > 0) {
-      this.paginate(this.page);
-      // Else we are just showing a paginated list of all exercises
-    } else {
-      this.instantiateExercisesWithoutCategory();
-    }
-  }
-
-  /**
-   * Load all exercises for paginated list without category
-   */
-  private instantiateExercisesWithoutCategory() {
-    this.$paginatedExercises = this.exerciseService.getFirstExercise()
-      .switchMap(exercise =>
-        this.exerciseService.getExercisesPaginated(this.limit, exercise));
+    this.paginate(this.page);
   }
 
   addExercise() {
@@ -70,6 +52,14 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
   }
 
   /**
+   * Verify we are on the mange exercise page, by checking for a category name
+   * @returns {boolean}
+   */
+  isManageExercisePage(): boolean {
+    return this.currentCategoryName.length > 0;
+  }
+
+  /**
    * We will paginate
    * @param {number} page
    */
@@ -77,7 +67,20 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
     // Check for first page
     if (page === 1) {
       // When on page 1 we just get the first {{this.limit}} exercises
-      this.$paginatedExercises = this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit);
+      // Check which page we are displaying the exercises on
+      if (this.isManageExercisePage()) {
+        this.$paginatedExercises = this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit);
+        // Get amount of exercises in category
+        this.exerciseService.getAmountOfExercisesInCategory(this.currentCategoryName)
+          .take(1)
+          .subscribe(amount => this.amountOfExercises = amount);
+      } else {
+        // Get amount of all exercises in firestore collection
+        this.exerciseService.getAmountOfExercises()
+          .take(1)
+          .subscribe(amount => this.amountOfExercises = amount);
+        this.$paginatedExercises = this.exerciseService.getExercisesPaginated(this.limit);
+      }
     } else {
       // Update page number for paginator
       this.page = page;
@@ -97,24 +100,25 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
   search(query: string) {
     // Check if user entered text or cleared search
     if (query.length > 0) {
+      // Get all exercises to search through
       this.$paginatedExercises = this.exerciseService.getExercises()
-        .map(exercises =>
-          exercises.filter(exercise => {
+        .map(exercises => {
+          // Filter on attributes from exercise
+          const filteredExercises = exercises.filter(exercise => {
             // Check if exercise has
             return exercise.title.includes(query) || // title
               exercise.category.includes(query) || // category
               exercise.description.includes(query) || // description
               exercise.videoUrl.includes(query) || // url
               exercise.repetition.includes(query); // repetition
-          }));
+          });
+          // Update paginated amount of exercises to result amount
+          this.amountOfExercises = filteredExercises.length;
+          return filteredExercises;
+        });
     } else {
-      // Reset to list of paginated exercises
-      if (this.currentCategoryName.length > 0) {
-        this.paginate(1);
-        // Else we are just showing a paginated list of all exercises
-      } else {
-        this.instantiateExercisesWithoutCategory();
-      }
+      // User cleared search field, so we reset to list of paginated exercises
+      this.paginate(1);
     }
   }
 
