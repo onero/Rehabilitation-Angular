@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {ClientEntity} from '../../../shared/entities/client.entity';
 import {Observable} from 'rxjs/Observable';
 import {ClientService} from '../../../shared/services/firestore/client.service';
@@ -12,13 +12,14 @@ import 'rxjs/add/operator/find';
   templateUrl: './manage-clients-list.component.html',
   styleUrls: ['./manage-clients-list.component.scss']
 })
-export class ManageClientsListComponent implements OnInit {
+export class ManageClientsListComponent implements OnInit, OnDestroy {
 
   @Output()
   clientSelected = new EventEmitter<ClientEntity>();
 
   currentClient: ClientEntity;
   $paginatedClients: Observable<ClientEntity[]>;
+  $subscribe;
   amountOfClients: number;
   page = 1;
   limit = 5;
@@ -32,15 +33,20 @@ export class ManageClientsListComponent implements OnInit {
   ngOnInit() {
     this.paginate(this.page);
     // Subscribe to changes in list, to inform list of update to currentClient
-    this.$paginatedClients.subscribe(clients => {
+    this.$subscribe = this.$paginatedClients.subscribe(clients => {
       // Check for current client selected
       if (this.currentClient) {
+        console.log('Updated!')
         // Find current client among updates
         const updatedClient = clients.find(client => client.uid === this.currentClient.uid);
         // Emit update
         this.onClientSelected(updatedClient);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.$subscribe.unsubscribe();
   }
 
   /**
