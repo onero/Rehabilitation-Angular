@@ -32,17 +32,6 @@ export class ManageClientsListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.paginate(this.page);
-    // Subscribe to changes in list, to inform list of update to currentClient
-    this.$subscribe = this.$paginatedClients.subscribe(clients => {
-      // Check for current client selected
-      if (this.currentClient) {
-        console.log('Updated!')
-        // Find current client among updates
-        const updatedClient = clients.find(client => client.uid === this.currentClient.uid);
-        // Emit update
-        this.onClientSelected(updatedClient);
-      }
-    });
   }
 
   ngOnDestroy(): void {
