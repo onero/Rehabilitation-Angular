@@ -12,14 +12,13 @@ import 'rxjs/add/operator/find';
   templateUrl: './manage-clients-list.component.html',
   styleUrls: ['./manage-clients-list.component.scss']
 })
-export class ManageClientsListComponent implements OnInit, OnDestroy {
+export class ManageClientsListComponent implements OnInit {
 
   @Output()
   clientSelected = new EventEmitter<ClientEntity>();
 
   currentClient: ClientEntity;
   $paginatedClients: Observable<ClientEntity[]>;
-  $subscribe;
   amountOfClients: number;
   page = 1;
   limit = 5;
@@ -32,10 +31,6 @@ export class ManageClientsListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.paginate(this.page);
-  }
-
-  ngOnDestroy(): void {
-    this.$subscribe.unsubscribe();
   }
 
   /**
