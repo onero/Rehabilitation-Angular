@@ -5,6 +5,7 @@ import {ClientService} from '../../../shared/services/firestore/client.service';
 import {AuthService} from '../../../auth/shared/auth.service';
 import {RehabErrorService} from '../../../shared/services/rehab-error.service';
 import {RehabModalService} from '../../../shared/services/rehab-modal.service';
+import 'rxjs/add/operator/find';
 
 @Component({
   selector: 'rehab-manage-clients-list',
@@ -30,6 +31,16 @@ export class ManageClientsListComponent implements OnInit {
 
   ngOnInit() {
     this.paginate(this.page);
+    // Subscribe to changes in list, to inform list of update to currentClient
+    this.$paginatedClients.subscribe(clients => {
+      // Check for current client selected
+      if (this.currentClient) {
+        // Find current client among updates
+        const updatedClient = clients.find(client => client.uid === this.currentClient.uid);
+        // Emit update
+        this.onClientSelected(updatedClient);
+      }
+    });
   }
 
   /**
@@ -87,6 +98,7 @@ export class ManageClientsListComponent implements OnInit {
    * @param {ClientEntity} client
    */
   onClientSelected(client: ClientEntity) {
+    this.currentClient = client;
     this.clientSelected.emit(client);
   }
 
