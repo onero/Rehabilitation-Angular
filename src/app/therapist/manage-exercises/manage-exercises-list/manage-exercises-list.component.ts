@@ -77,18 +77,31 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
   private paginateFromBeginningOfCollection() {
     // Check which page we are displaying the exercises on
     if (this.isManageExercisePage()) {
-      this.$paginatedExercises = this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit);
-      // Get amount of exercises in category
-      this.exerciseService.getAmountOfExercisesInCategory(this.currentCategoryName)
-        .take(1)
-        .subscribe(amount => this.amountOfExercises = amount);
+      this.paginateExercisesFromBeginningOfCollectionByCurrentCategory();
     } else {
-      // Get amount of all exercises in firestore collection
-      this.exerciseService.getAmountOfExercises()
-        .take(1)
-        .subscribe(amount => this.amountOfExercises = amount);
-      this.$paginatedExercises = this.exerciseService.getExercisesPaginated(this.limit);
+      this.paginateExercisesFromBeginningOfCollection();
     }
+  }
+
+  /**
+   * Start paginating from very first exercise in collection
+   */
+  private paginateExercisesFromBeginningOfCollection() {
+    this.exerciseService.getAmountOfExercises()
+      .take(1)
+      .subscribe(amount => this.amountOfExercises = amount);
+    this.$paginatedExercises = this.exerciseService.getExercisesPaginated(this.limit);
+  }
+
+  /**
+   * Start paginating from very first exercise in collection, by current category
+   */
+  private paginateExercisesFromBeginningOfCollectionByCurrentCategory() {
+    this.$paginatedExercises = this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit);
+    // Get amount of exercises in category
+    this.exerciseService.getAmountOfExercisesInCategory(this.currentCategoryName)
+      .take(1)
+      .subscribe(amount => this.amountOfExercises = amount);
   }
 
   /**
@@ -100,7 +113,30 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
     this.page = page;
     // Check which page we are displaying the exercises on
     if (this.isManageExercisePage()) {
-    // Get paginated observable list of exercises, starting after last element in current observable collection
+      this.paginateExercisesFromProvidedPageByCurrentCategory();
+    } else {
+      this.paginateExercisesFromProvidedPage();
+    }
+  }
+
+  /**
+   * Paginate observable list of exercises, starting after last element in current observable collection
+   */
+  private paginateExercisesFromProvidedPage() {
+    this.$paginatedExercises = this.$paginatedExercises
+      .map(paginatedExercises => {
+        // Get a hold of last element in current observable collection
+        return paginatedExercises[this.limit - 1];
+      })
+      .switchMap(latestExercise =>
+        // Get observable collection starting after last exercise in old observable collection
+        this.exerciseService.getExercisesPaginated(this.limit, latestExercise));
+  }
+
+  /**
+   *  Paginate observable list of exercises by category, starting after last element in current observable collection
+   */
+  private paginateExercisesFromProvidedPageByCurrentCategory() {
     this.$paginatedExercises = this.$paginatedExercises
       .map(paginatedExercises => {
         // Get a hold of last element in current observable collection
@@ -109,17 +145,6 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
       .switchMap(latestExercise =>
         // Get observable collection starting after last exercise in old observable collection
         this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit, latestExercise));
-    } else {
-      // Get amount of all exercises in firestore collection
-      this.$paginatedExercises = this.$paginatedExercises
-        .map(paginatedExercises => {
-          // Get a hold of last element in current observable collection
-          return paginatedExercises[this.limit - 1];
-        })
-        .switchMap(latestExercise =>
-          // Get observable collection starting after last exercise in old observable collection
-          this.exerciseService.getExercisesPaginated(this.limit, latestExercise));
-    }
   }
 
   search(query: string) {

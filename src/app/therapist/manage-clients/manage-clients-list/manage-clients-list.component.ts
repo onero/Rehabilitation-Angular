@@ -1,8 +1,7 @@
-import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ClientEntity} from '../../../shared/entities/client.entity';
 import {Observable} from 'rxjs/Observable';
 import {ClientService} from '../../../shared/services/firestore/client.service';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../../auth/shared/auth.service';
 import {RehabErrorService} from '../../../shared/services/rehab-error.service';
 import {RehabModalService} from '../../../shared/services/rehab-modal.service';
@@ -38,10 +37,7 @@ export class ManageClientsListComponent implements OnInit {
    * @param {number} page
    */
   paginate(page: number) {
-    // Get amount of all exercises in firestore collection
-    this.clientService.getAmountOfClients()
-      .take(1)
-      .subscribe(amount => this.amountOfClients = amount);
+    this.setAmountOfClients();
     // Check for first page
     if (page === 1) {
       this.paginateFromBeginningOfCollection();
@@ -50,6 +46,15 @@ export class ManageClientsListComponent implements OnInit {
       this.page = page;
       this.paginateFromPage(this.page);
     }
+  }
+
+  /**
+   * Get amount of all exercises in firestore collection
+   */
+  private setAmountOfClients() {
+    this.clientService.getAmountOfClients()
+      .take(1)
+      .subscribe(amount => this.amountOfClients = amount);
   }
 
   /**
