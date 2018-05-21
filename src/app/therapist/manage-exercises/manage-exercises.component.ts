@@ -3,11 +3,6 @@ import {ExerciseEntity} from '../../shared/entities/exercise.entity';
 import {ManageExercisesListComponent} from './manage-exercises-list/manage-exercises-list.component';
 import {ClientService} from '../../shared/services/firestore/client.service';
 
-interface AssignedExerciseEntity {
-  clientUid: '';
-  exerciseUid: '';
-}
-
 @Component({
   selector: 'rehab-manage-exercises',
   templateUrl: './manage-exercises.component.html',
@@ -16,7 +11,6 @@ interface AssignedExerciseEntity {
 export class ManageExercisesComponent implements OnInit {
   @ViewChild('exerciseList') childExerciseList: ManageExercisesListComponent;
   selectedCategory: string;
-  selectedExercise: ExerciseEntity;
 
   constructor() {
   }
@@ -26,7 +20,6 @@ export class ManageExercisesComponent implements OnInit {
 
   onSelectedCategory(selectedCategory: string) {
     this.selectedCategory = selectedCategory;
-    this.selectedExercise = null;
     // Clear search field
     if (this.childExerciseList) {
       this.childExerciseList.searchValue = ' ';

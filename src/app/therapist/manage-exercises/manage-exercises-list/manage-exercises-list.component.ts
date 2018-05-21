@@ -33,11 +33,22 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
   }
 
   onExerciseSelected(exercise: ExerciseEntity) {
+    this.currentExercise = exercise;
     this.exerciseSelected.emit(exercise);
   }
 
   ngOnInit() {
     this.paginate(this.page);
+    // Subscribe to changes in list, to inform list of update to currentExercise
+    this.$paginatedExercises.subscribe(exercises => {
+      // Check for current exercise selected
+      if (this.currentExercise) {
+        // Find current exercise among updates
+        const updatedExercise = exercises.find(exercise => exercise.uid === this.currentExercise.uid);
+        // Emit update
+        this.onExerciseSelected(updatedExercise);
+      }
+    });
   }
 
   addExercise() {
