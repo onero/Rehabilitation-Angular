@@ -11,6 +11,7 @@ import {ClientService} from '../../shared/services/firestore/client.service';
 export class ManageExercisesComponent implements OnInit {
   @ViewChild('exerciseList') childExerciseList: ManageExercisesListComponent;
   selectedCategory: string;
+  selectedExercise: ExerciseEntity;
 
   constructor() {
   }
