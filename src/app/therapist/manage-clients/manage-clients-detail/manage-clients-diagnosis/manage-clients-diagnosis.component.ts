@@ -22,7 +22,6 @@ export class ManageClientsDiagnosisComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ClientMode:', environment.clientMode)
   }
 
   /**

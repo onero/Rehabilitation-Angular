@@ -15,10 +15,9 @@ import {ManageClientsContactInformationComponent} from './manage-clients/manage-
 import {ManageClientsGoalComponent} from './manage-clients/manage-clients-detail/manage-clients-goal/manage-clients-goal.component';
 import {AssignExerciseComponent} from './manage-clients/manage-clients-detail/assign-exercise/assign-exercise.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { MilestoneListComponent } from './manage-clients/client-evaluations/milestone-list/milestone-list.component';
-import { VisitListComponent } from './manage-clients/client-evaluations/visit-list/visit-list.component';
-import { MilestoneDetailComponent } from './manage-clients/client-evaluations/milestone-detail/milestone-detail.component';
-import {RouterModule} from '@angular/router';
+import {MilestoneListComponent} from './manage-clients/client-evaluations/milestone-list/milestone-list.component';
+import {VisitListComponent} from './manage-clients/client-evaluations/visit-list/visit-list.component';
+import {MilestoneDetailComponent} from './manage-clients/client-evaluations/milestone-detail/milestone-detail.component';
 
 @NgModule({
   imports: [

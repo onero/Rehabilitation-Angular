@@ -1,15 +1,70 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import {RehabilitationPlan} from '../../src/app/client/shared/rehabilitation-plan.model';
-import {forEach} from '@angular/router/src/utils/collection';
-import {ref} from 'firebase-functions/lib/providers/database';
-import {MilestoneEntity} from '../../src/app/shared/entities/milestone.entity';
-import {FirestoreModel} from '../../src/app/shared/services/firestore.model';
 
 admin.initializeApp(functions.config().firebase);
 
 const CLIENTS_COLLECTION = 'Clients';
 const MILESTONE_COLLECTION = 'Milestones';
+const EXERCISE_COLLECTION = 'Exercises';
+const ASSIGNED_EXERCISE_COLLECTION = 'AssignedExercises';
+
+exports.onExerciseUpdated = functions.firestore.document(`${EXERCISE_COLLECTION}/{uid}`).onUpdate(event => {
+  const updatedExerciseRef = event.after.ref;
+
+  console.log('Checking if updated exercise is assigned to any clients... Please stand by');
+  // Check Assigned Exercise collection if exercise was previously assigned to a client
+  return admin.firestore().collection(ASSIGNED_EXERCISE_COLLECTION)
+    .where('exerciseUid', '==', updatedExerciseRef.id)
+    .get()
+    .then(assignedExerciseQuery => {
+        // If we find any clients with the exercise assigned
+        if (assignedExerciseQuery.size > 0) {
+          console.log(`Found ${assignedExerciseQuery.size} clients with updated exercise assigned, updating clients rehabilitation plan!`);
+          // For each found AssignedExercise document
+          assignedExerciseQuery.docs.forEach(assignedExerciseSnapshot => {
+            const assignedExercise = assignedExerciseSnapshot.data();
+            const updatedExercise = event.after.data();
+
+            // Load client old list of exercises
+            admin.firestore()
+              .collection(CLIENTS_COLLECTION)
+              .where('uid', '==', assignedExercise.clientUid)
+              .get()
+              .then(clientQuery => {
+                const clientWithExercise = clientQuery.docs[0].data();
+                // Update list of exercises, so new isn't in list
+                const clientExercises = clientWithExercise.rehabilitationPlan.exercises
+                  .filter(exercise => exercise.uid !== updatedExercise.uid);
+
+                // Construct partial exercise from updated exercise (only take attributes for patching client doc)
+                const updatedPartialExercise = {
+                  uid: updatedExercise.uid,
+                  title: updatedExercise.title,
+                  videoUrl: updatedExercise.videoUrl
+                };
+
+                // Add updated exercise
+                clientExercises.push(updatedPartialExercise);
+
+                // Create updated data for CLIENT_COLLECTION document
+                const newClient = {
+                  rehabilitationPlan: {
+                    exercises: clientExercises
+                  }
+                };
+                // Update Client document with updated exercise data
+                admin.firestore()
+                  .doc(`${CLIENTS_COLLECTION}/${assignedExercise.clientUid}`)
+                  .set(newClient, {merge: true})
+                  .then(() => console.log(`${clientWithExercise.fullName} updated!`));
+              });
+          });
+        } else {
+          console.log('Exercise was not assigned to any clients. No update needed');
+        }
+      }
+    );
+});
 
 
 exports.onDeleteUser = functions.auth.user().onDelete(event => {
@@ -52,7 +107,7 @@ exports.onDeleteUser = functions.auth.user().onDelete(event => {
 // Commented out for possible future awesome reference!
 // exports.onClientUpdated = functions.firestore.document('Clients/{clientid}')
 //   .onUpdate(result => {
-//     // const client = result.after.data() as ClientModel;
+//     // const client = result.after.data() as ClientEntity;
 //     const lengthBefore = result.before.data().rehabilitationPlan.exerciseIds.length;
 //     const lengthAfter = result.after.data().rehabilitationPlan.exerciseIds.length;
 //     if (lengthAfter > lengthBefore) {

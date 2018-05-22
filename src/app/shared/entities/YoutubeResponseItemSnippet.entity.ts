@@ -1,4 +1,4 @@
-import {YoutubeResponseItemSnippetThumbnail} from './YoutubeResponseItemSnippetThumbnail.model';
+import {YoutubeResponseItemSnippetThumbnail} from './YoutubeResponseItemSnippetThumbnail.entity';
 
 export interface YoutubeResponseItemSnippet {
   title: string;

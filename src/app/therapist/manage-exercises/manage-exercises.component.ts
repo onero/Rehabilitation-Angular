@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ExerciseModel} from '../../client/shared/exercise.model';
+import {ExerciseEntity} from '../../shared/entities/exercise.entity';
 import {ManageExercisesListComponent} from './manage-exercises-list/manage-exercises-list.component';
+import {ClientService} from '../../shared/services/firestore/client.service';
 
 @Component({
   selector: 'rehab-manage-exercises',
@@ -10,18 +11,20 @@ import {ManageExercisesListComponent} from './manage-exercises-list/manage-exerc
 export class ManageExercisesComponent implements OnInit {
   @ViewChild('exerciseList') childExerciseList: ManageExercisesListComponent;
   selectedCategory: string;
-  selectedExercise: ExerciseModel;
+  selectedExercise: ExerciseEntity;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
   onSelectedCategory(selectedCategory: string) {
     this.selectedCategory = selectedCategory;
-    this.selectedExercise = null;
     // Clear search field
-    this.childExerciseList.searchValue = ' ';
+    if (this.childExerciseList) {
+      this.childExerciseList.searchValue = ' ';
+    }
 
   }
 }

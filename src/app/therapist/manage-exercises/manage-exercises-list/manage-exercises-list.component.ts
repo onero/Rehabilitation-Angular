@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {ExerciseModel} from '../../../client/shared/exercise.model';
-import {ExerciseService} from '../../../shared/services/exercise.service';
+import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
+import {ExerciseService} from '../../../shared/services/firestore/exercise.service';
 import {Router} from '@angular/router';
 import {ISearch} from '../../../shared/component-interfaces/ISearch';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'rehab-manage-exercises-list',
@@ -13,60 +14,31 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
   @Input()
   currentCategoryName = '';
   @Output()
-  exerciseSelected = new EventEmitter<ExerciseModel>();
+  exerciseSelected = new EventEmitter<ExerciseEntity>();
 
   searchValue = ' ';
 
-  @Input()
-  hiddenExercises: ExerciseModel[];
-
-  currentExercise: ExerciseModel;
+  currentExercise: ExerciseEntity;
 
   @Input()
   allowAddExercise = true;
 
-  allExercises: ExerciseModel[];
-  paginatedExercises: ExerciseModel[];
-  page: number;
+  $paginatedExercises: Observable<ExerciseEntity[]>;
+  amountOfExercises: number;
+  page = 1;
   limit = 5;
 
   constructor(private exerciseService: ExerciseService,
               private router: Router) {
   }
 
-  onExerciseSelected(exercise: ExerciseModel) {
+  onExerciseSelected(exercise: ExerciseEntity) {
+    this.currentExercise = exercise;
     this.exerciseSelected.emit(exercise);
   }
 
   ngOnInit() {
-    // Check for category name (if one is present, we are in Manage Exercises)
-    if (this.currentCategoryName.length > 0) {
-      this.instanciateExercises();
-    } else {
-      this.exerciseService.getExercises().subscribe(
-        exercises => {
-          this.allExercises = exercises as ExerciseModel[];
-          this.paginatedExercises = exercises as ExerciseModel[];
-        }
-      );
-    }
-  }
-
-  private updateSelectedExercise(exercises) {
-    if (this.currentExercise) {
-      this.currentExercise = exercises.find(exercise => exercise.uid === this.currentExercise.uid);
-    }
-  }
-
-  instanciateExercises() {
-    this.page = 1;
-    this.exerciseService.getExercisesByCategoryName(this.currentCategoryName).subscribe(
-      exercises => {
-        // If a current client is selected we will update it with new info
-        this.updateSelectedExercise(exercises);
-        this.allExercises = exercises as ExerciseModel[];
-        this.paginatedExercises = this.allExercises.slice(0, this.limit);
-      });
+    this.paginate(this.page);
   }
 
   addExercise() {
@@ -75,8 +47,16 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.currentCategoryName.length > 0) {
-      this.instanciateExercises();
+      this.paginate(1);
     }
+  }
+
+  /**
+   * Verify we are on the mange exercise page, by checking for a category name
+   * @returns {boolean}
+   */
+  isManageExercisePage(): boolean {
+    return this.currentCategoryName.length > 0;
   }
 
   /**
@@ -84,36 +64,112 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
    * @param {number} page
    */
   paginate(page: number) {
-    let latest: any;
     // Check for first page
     if (page === 1) {
-      latest = this.allExercises[0];
-      // Get a hold of last element on current page
+      this.paginateFromBeginningOfCollection();
     } else {
-      latest = this.allExercises[(page - 1) * this.limit];
+      this.paginateFromPage(page);
     }
+  }
 
-    this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit, latest).subscribe(paginatedExercises => {
-      this.paginatedExercises = paginatedExercises;
-    });
+  /**
+   * When on page 1 we just get the first {{this.limit}} exercises
+   */
+  private paginateFromBeginningOfCollection() {
+    // Check which page we are displaying the exercises on
+    if (this.isManageExercisePage()) {
+      this.paginateExercisesFromBeginningOfCollectionByCurrentCategory();
+    } else {
+      this.paginateExercisesFromBeginningOfCollection();
+    }
+  }
+
+  /**
+   * Start paginating from very first exercise in collection
+   */
+  private paginateExercisesFromBeginningOfCollection() {
+    this.exerciseService.getAmountOfExercises()
+      .take(1)
+      .subscribe(amount => this.amountOfExercises = amount);
+    this.$paginatedExercises = this.exerciseService.getExercisesPaginated(this.limit);
+  }
+
+  /**
+   * Start paginating from very first exercise in collection, by current category
+   */
+  private paginateExercisesFromBeginningOfCollectionByCurrentCategory() {
+    this.$paginatedExercises = this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit);
+    // Get amount of exercises in category
+    this.exerciseService.getAmountOfExercisesInCategory(this.currentCategoryName)
+      .take(1)
+      .subscribe(amount => this.amountOfExercises = amount);
+  }
+
+  /**
+   * Start paginating from provided page
+   * @param {number} page
+   */
+  private paginateFromPage(page: number) {
+    // Update page number for paginator
+    this.page = page;
+    // Check which page we are displaying the exercises on
+    if (this.isManageExercisePage()) {
+      this.paginateExercisesFromProvidedPageByCurrentCategory();
+    } else {
+      this.paginateExercisesFromProvidedPage();
+    }
+  }
+
+  /**
+   * Paginate observable list of exercises, starting after last element in current observable collection
+   */
+  private paginateExercisesFromProvidedPage() {
+    this.$paginatedExercises = this.$paginatedExercises
+      .map(paginatedExercises => {
+        // Get a hold of last element in current observable collection
+        return paginatedExercises[this.limit - 1];
+      })
+      .switchMap(latestExercise =>
+        // Get observable collection starting after last exercise in old observable collection
+        this.exerciseService.getExercisesPaginated(this.limit, latestExercise));
+  }
+
+  /**
+   *  Paginate observable list of exercises by category, starting after last element in current observable collection
+   */
+  private paginateExercisesFromProvidedPageByCurrentCategory() {
+    this.$paginatedExercises = this.$paginatedExercises
+      .map(paginatedExercises => {
+        // Get a hold of last element in current observable collection
+        return paginatedExercises[this.limit - 1];
+      })
+      .switchMap(latestExercise =>
+        // Get observable collection starting after last exercise in old observable collection
+        this.exerciseService.getExercisesByCategoryNamePaginated(this.currentCategoryName, this.limit, latestExercise));
   }
 
   search(query: string) {
     // Check if user entered text or cleared search
     if (query.length > 0) {
-      this.paginatedExercises = [];
-      const queriedExercises = this.allExercises.filter(exercise => {
-        // Check if exercise has
-        return exercise.title.includes(query) || // title
-          exercise.category.includes(query) || // category
-          exercise.description.includes(query) || // description
-          exercise.videoUrl.includes(query) || // url
-          exercise.repetition.includes(query); // repetition
-      });
-      this.paginatedExercises = queriedExercises;
+      // Get all exercises to search through
+      this.$paginatedExercises = this.exerciseService.getExercises()
+        .map(exercises => {
+          // Filter on attributes from exercise
+          const filteredExercises = exercises.filter(exercise => {
+            // Check if exercise has
+            return exercise.title.includes(query) || // title
+              exercise.category.includes(query) || // category
+              exercise.description.includes(query) || // description
+              exercise.videoUrl.includes(query) || // url
+              exercise.repetition.includes(query); // repetition
+          });
+          // Update paginated amount of exercises to result amount
+          this.amountOfExercises = filteredExercises.length;
+          return filteredExercises;
+        });
     } else {
-      // Reset to list of paginated exercises
-      this.paginatedExercises = this.allExercises.slice(0, this.limit);
+      // User cleared search field, so we reset to list of paginated exercises
+      this.paginate(1);
     }
   }
 
