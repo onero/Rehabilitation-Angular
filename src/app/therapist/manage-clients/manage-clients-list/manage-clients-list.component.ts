@@ -72,15 +72,15 @@ export class ManageClientsListComponent implements OnInit {
   private paginateFromPage(page: number) {
     // Update page number for paginator
     this.page = page;
-    // Get amount of all exercises in firestore collection
+    // Get amount of all clients in firestore collection
     this.$paginatedClients = this.$paginatedClients
-      .map(paginatedExercises => {
+      .map(paginatedClients => {
         // Get a hold of last element in current observable collection
-        return paginatedExercises[this.limit - 1];
+        return paginatedClients[this.limit - 1];
       })
-      .switchMap(latestExercise =>
-        // Get observable collection starting after last exercise in old observable collection
-        this.clientService.getClientsPaginated(this.limit, latestExercise));
+      .switchMap(latestClient =>
+        // Get observable collection starting after last clients in old observable collection
+        this.clientService.getClientsPaginated(this.limit, latestClient));
   }
 
   /**
