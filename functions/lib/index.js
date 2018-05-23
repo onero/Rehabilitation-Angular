@@ -15,6 +15,48 @@ exports.onClientDeletedFromFirestore = functions.firestore.document(`${CLIENTS_C
         console.log('Deleted client from Firestore');
     });
 });
+exports.onExerciseDeleted = functions.firestore.document(`${EXERCISE_COLLECTION}/{uid}`).onDelete(event => {
+    const deletedExerciseRef = event.ref;
+    // Check Assigned Exercise collection if exercise was previously assigned to a client
+    return admin.firestore().collection(ASSIGNED_EXERCISE_COLLECTION)
+        .where('exerciseUid', '==', deletedExerciseRef.id)
+        .get()
+        .then(assignedExerciseQuery => {
+        // If we find any clients with the exercise assigned
+        if (assignedExerciseQuery.size > 0) {
+            console.log(`Found ${assignedExerciseQuery.size} clients with updated exercise assigned, updating clients rehabilitation plan!`);
+            // For each found AssignedExercise document
+            assignedExerciseQuery.docs.forEach(assignedExerciseSnapshot => {
+                const assignedExercise = assignedExerciseSnapshot.data();
+                // Load client old list of exercises
+                admin.firestore()
+                    .collection(CLIENTS_COLLECTION)
+                    .where('uid', '==', assignedExercise.clientUid)
+                    .get()
+                    .then(clientQuery => {
+                    const clientWithExercise = clientQuery.docs[0].data();
+                    // Update list of exercises, so deleted isn't in list
+                    const clientExercises = clientWithExercise.rehabilitationPlan.exercises
+                        .filter(exercise => exercise.uid !== deletedExerciseRef.id);
+                    // Create updated data for CLIENT_COLLECTION document
+                    const newClient = {
+                        rehabilitationPlan: {
+                            exercises: clientExercises
+                        }
+                    };
+                    // Update Client document with updated exercise data
+                    admin.firestore()
+                        .doc(`${CLIENTS_COLLECTION}/${assignedExercise.clientUid}`)
+                        .set(newClient, { merge: true })
+                        .then(() => console.log(`${clientWithExercise.fullName} updated!`));
+                });
+            });
+        }
+        else {
+            console.log('Exercise was not assigned to any clients. No update needed');
+        }
+    });
+});
 exports.onExerciseUpdated = functions.firestore.document(`${EXERCISE_COLLECTION}/{uid}`).onUpdate(event => {
     const updatedExerciseRef = event.after.ref;
     console.log('Checking if updated exercise is assigned to any clients... Please stand by');
@@ -67,7 +109,7 @@ exports.onExerciseUpdated = functions.firestore.document(`${EXERCISE_COLLECTION}
         }
     });
 });
-exports.onDeleteUser = functions.auth.user().onDelete(event => {
+exports.onUserDeletedFromAuthentication = functions.auth.user().onDelete(event => {
     const uid = event.uid;
     // Delete milestones from client
     console.log('Checking for milestones for deleted user');
