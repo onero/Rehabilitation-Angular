@@ -12,7 +12,9 @@ export class YoutubeService {
   constructor(private http: HttpClient) {
   }
 
-  // TODO ALH: Add doc!
+  /**
+   *
+   */
   getVideoInformation(videoId: string) {
     return this.http.get(`${this.YOUTUBE_API}${this.YOUTUBE_QUERY_PARAMS}${videoId}${this.YOUTUBE_API_KEY}`);
   }
