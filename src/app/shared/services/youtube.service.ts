@@ -6,7 +6,6 @@ export class YoutubeService {
 
   private YOUTUBE_API = 'https://www.googleapis.com/youtube/v3/videos';
   private YOUTUBE_QUERY_PARAMS = '?part=id%2C+snippet&id=';
-  // TODO ALH: Replace with our key!
   private YOUTUBE_API_KEY = '&key=AIzaSyAsMiGn7Z09Yh1zYyJlmPf0ak8XwZ7lFJY';
 
   constructor(private http: HttpClient) {
