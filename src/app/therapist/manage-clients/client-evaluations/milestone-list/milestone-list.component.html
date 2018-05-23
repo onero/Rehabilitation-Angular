@@ -2,22 +2,15 @@
   <i *ngIf="allowEdit" class="fa fa-plus-circle pull-right add-button clickable"
      (click)="modalService.open(newMilestone)"></i></h1>
 <!--Paginated list of milestones-->
-<div *ngIf="paginatedMilestones">
-  <div *ngFor="let milestone of paginatedMilestones; let i = index"
+<div *ngIf="milestones">
+  <div *ngFor="let milestone of milestones; let i = index"
        class="card clickable"
        (click)="onMilestoneSelected(milestone); currentMilestone = milestone"
-       [ngClass]="{'selected': currentMilestone === milestone}">
+       [ngClass]="{'selected': currentMilestone?.uid === milestone.uid}">
     <div class="card-body">
       <h5 class="card-title">{{i + 1}} - {{milestone.title}}</h5>
     </div>
   </div>
-  <!--Awesome pagination component-->
-  <ngb-pagination [collectionSize]="milestones.length"
-                  [(page)]="page"
-                  [maxSize]="5"
-                  [pageSize]="5"
-                  (pageChange)="paginate($event)">
-  </ngb-pagination>
 </div>
 
 <!--New Milestone-->

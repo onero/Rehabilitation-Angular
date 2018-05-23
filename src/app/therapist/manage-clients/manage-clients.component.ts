@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientEntity} from '../../shared/entities/client.entity';
 import {ClientService} from '../../shared/services/firestore/client.service';
-import { AuthService } from '../../auth/shared/auth.service';
+import {AuthService} from '../../auth/shared/auth.service';
 import {MilestoneEntity} from '../../shared/entities/milestone.entity';
 import {VisitEntity} from '../../shared/entities/visit.entity';
 import {MilestoneService} from '../../shared/services/firestore/milestone.service';
@@ -15,14 +15,16 @@ export class ManageClientsComponent implements OnInit {
   selectedClient: ClientEntity;
   milestones: MilestoneEntity[];
   selectedMilestone: MilestoneEntity;
-  currentVisit: VisitEntity;
+  selectedVisit: VisitEntity;
   evaluationMode = false;
 
   constructor(private clientService: ClientService,
               private milestoneService: MilestoneService,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+  }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   /**
    * Load all milestones into client
@@ -31,6 +33,14 @@ export class ManageClientsComponent implements OnInit {
     this.milestoneService.getMilestonesByClientUid(this.selectedClient.uid)
       .subscribe(milestonesFromDB => {
         this.milestones = milestonesFromDB;
+        // Check for selected milestone
+        if (this.selectedMilestone) {
+          this.selectedMilestone = milestonesFromDB.find(milestone => milestone.uid === this.selectedMilestone.uid);
+          // Check for selected visit
+          if (this.selectedVisit) {
+            this.selectedVisit = this.selectedMilestone.visits.find(visit => visit.uid === this.selectedVisit.uid);
+          }
+        }
       });
   }
 
@@ -39,19 +49,7 @@ export class ManageClientsComponent implements OnInit {
    * @param {MilestoneEntity} newMilestone
    */
   addMilestone(newMilestone: MilestoneEntity) {
-    this.milestoneService.addMilestoneWithClientUid(this.selectedClient.uid, newMilestone)
-      .then(() => {
-        this.resetCurrentMilestoneSelection();
-      });
-  }
-
-  /**
-   * Reset the current selected milestone
-   */
-  // TODO ALH: Refactor this!
-  private resetCurrentMilestoneSelection() {
-    this.selectedMilestone = null;
-    this.currentVisit = null;
+    this.milestoneService.addMilestoneWithClientUid(this.selectedClient.uid, newMilestone);
   }
 
   /**
@@ -69,20 +67,14 @@ export class ManageClientsComponent implements OnInit {
       .then(() => {
         // Reset view afterwards
         this.selectedMilestone = null;
-        this.currentVisit = null;
+        this.selectedVisit = null;
       });
   }
 
   removeVisitFromMilestone() {
-    const indexOfVisitToRemove = this.selectedMilestone.visits.indexOf(this.currentVisit);
+    const indexOfVisitToRemove = this.selectedMilestone.visits.indexOf(this.selectedVisit);
     this.selectedMilestone.visits.splice(indexOfVisitToRemove, 1);
-    this.milestoneService.updateMilestone(this.selectedMilestone)
-      .then(() => {
-          // Reset view afterwards
-        // TODO ALH: Refactor
-          this.selectedMilestone = null;
-          this.currentVisit = null;
-      });
+    this.milestoneService.updateMilestone(this.selectedMilestone);
   }
 
   /**
@@ -121,19 +113,9 @@ export class ManageClientsComponent implements OnInit {
     this.evaluationMode = shouldBeEvaluation;
   }
 
-  /**
-   * Make sure to reset everything on back clicked
-   */
-  resetData() {
-    this.selectedClient = null;
-    this.currentVisit = null;
-    this.milestones = null;
-    this.selectedMilestone = null;
-  }
-
   onSelectedMilestone(milestone: MilestoneEntity) {
     this.selectedMilestone = milestone;
-    this.currentVisit = null;
+    this.selectedVisit = null;
   }
 
 }

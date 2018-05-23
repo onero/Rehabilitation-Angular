@@ -1,9 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ClientEntity} from '../../../../shared/entities/client.entity';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {VisitEntity} from '../../../../shared/entities/visit.entity';
 import {RehabModalService} from '../../../../shared/services/rehab-modal.service';
-import {V} from '@angular/core/src/render3';
 import {environment} from '../../../../../environments/environment';
 
 @Component({
@@ -25,18 +23,26 @@ export class VisitListComponent implements OnInit, OnChanges {
 
   @Input()
   currentVisit: VisitEntity;
-  paginatedVisits: VisitEntity[];
-  page: number;
-  limit = 5;
 
   constructor(public modalService: RehabModalService) {
   }
 
   ngOnInit() {
-    this.page = 1;
+    // Check for exercises
     if (this.allVisits) {
-      this.paginatedVisits = this.allVisits.slice(0, this.limit);
+      // Check for selected visit
+      if (this.currentVisit) {
+        // Locate updated visit
+        const updatedVisit = this.allVisits
+          .find(visit => visit.uid === this.currentVisit.uid);
+        // Reselect visit
+        this.visitSelected.emit(updatedVisit);
+      }
     }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('Visit list')
   }
 
   /**
@@ -57,34 +63,6 @@ export class VisitListComponent implements OnInit, OnChanges {
    */
   onVisitSelected(visit: VisitEntity) {
     this.visitSelected.emit(visit);
-  }
-
-  /**
-   * We will paginate
-   * @param {number} page
-   */
-  paginate(page: number) {
-    // TODO ALH: Remove
-    // let latest: any;
-    //
-    // // Check for first page
-    // if (page === 1) {
-    //   latest = this.allClients[0];
-    //   // Get a hold of last element on current page
-    // } else {
-    //   latest = this.allClients[(page - 1) * this.limit];
-    // }
-    //
-    // // Paginate from last element on current page
-    // this.clientService.getClientsPaginated(this.limit, latest).subscribe($paginatedClients => {
-    //   this.$paginatedClients = $paginatedClients;
-    // });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.allVisits) {
-      this.paginatedVisits = this.allVisits.slice(0, this.limit);
-    }
   }
 
 }

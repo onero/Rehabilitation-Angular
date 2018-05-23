@@ -34,18 +34,18 @@
         <rehab-visit-list *ngIf="selectedMilestone"
                           (visitAdded)="addVisitToMilestone($event)"
                           [allVisits]="selectedMilestone?.visits"
-                          (visitSelected)="currentVisit = $event"
-                          [currentVisit]="currentVisit"></rehab-visit-list>
+                          (visitSelected)="selectedVisit = $event"
+                          [currentVisit]="selectedVisit"></rehab-visit-list>
       </div>
       <div class="col-md-6">
         <!--Milestone Detail-->
-        <rehab-milestone-detail *ngIf="currentVisit"
+        <rehab-milestone-detail *ngIf="selectedVisit"
                                 (deletedVisit)="removeVisitFromMilestone()"
-                                [currentVisit]="currentVisit"
+                                [currentVisit]="selectedVisit"
                                 [title]="selectedMilestone.title"
                                 [purpose]="selectedMilestone.purpose"
                                 (updateEvaluation)="updateMilestone($event)"
-                                [note]="currentVisit.note"></rehab-milestone-detail>
+                                [note]="selectedVisit.note"></rehab-milestone-detail>
       </div>
     </div>
   </ng-template>
