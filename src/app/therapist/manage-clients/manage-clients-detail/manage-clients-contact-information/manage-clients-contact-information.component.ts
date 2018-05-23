@@ -32,7 +32,7 @@ export class ManageClientsContactInformationComponent implements OnInit {
    * @param {ClientEntity} newClient
    */
   public updateClientContactInformation() {
-    this.clientService.updateClient(this.currentModel)
+    this.clientService.updateClient(this.currentModel);
     this.editMode = false;
   }
 

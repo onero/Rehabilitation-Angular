@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+import {Injectable} from '@angular/core';
+import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs/Observable';
-import { UserEntity } from '../../shared/entities/user.entity';
-import { MessageService } from '../../shared/services/message.service';
+import {MessageService} from '../../shared/services/message.service';
 
 // Added to enable programmatic creation of clients, without also changing AuthState!
 const secondaryApp = firebase.initializeApp(environment.firebase, 'Secondary');
@@ -70,18 +69,6 @@ export class AuthService {
 
   isTherapistLogin() {
     return this.fireAuth.auth.currentUser.email === AuthService.THERAPIST_EMAIL;
-  }
-
-  /**
-   * Deletes the selected user from the DB.
-   * @param {UserEntity} user
-   */
-  deleteUser(user: UserEntity) {
-    secondaryApp.auth().signInAndRetrieveDataWithEmailAndPassword(user.email, AuthService.USER_PASSWORD)
-      .then(selectedUser => {
-      secondaryApp.auth().currentUser.delete();
-        this.message.displayMessage(`${user.fullName} is now deleted...`, 2);
-      });
   }
 
   /**

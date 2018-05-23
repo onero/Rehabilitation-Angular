@@ -7,6 +7,14 @@ const CLIENTS_COLLECTION = 'Clients';
 const MILESTONE_COLLECTION = 'Milestones';
 const EXERCISE_COLLECTION = 'Exercises';
 const ASSIGNED_EXERCISE_COLLECTION = 'AssignedExercises';
+exports.onClientDeletedFromFirestore = functions.firestore.document(`${CLIENTS_COLLECTION}/{uid}`).onDelete(event => {
+    const deletedClientRef = event.ref;
+    console.log('Starting to delete client from Authentication. Please hold on...');
+    return admin.auth().deleteUser(deletedClientRef.id)
+        .then(() => {
+        console.log('Deleted client from Firestore');
+    });
+});
 exports.onExerciseUpdated = functions.firestore.document(`${EXERCISE_COLLECTION}/{uid}`).onUpdate(event => {
     const updatedExerciseRef = event.after.ref;
     console.log('Checking if updated exercise is assigned to any clients... Please stand by');
@@ -61,9 +69,9 @@ exports.onExerciseUpdated = functions.firestore.document(`${EXERCISE_COLLECTION}
 });
 exports.onDeleteUser = functions.auth.user().onDelete(event => {
     const uid = event.uid;
-    const clientRef = admin.firestore().doc(`${CLIENTS_COLLECTION}/${uid}`);
     // Delete milestones from client
-    admin.firestore().collection(MILESTONE_COLLECTION)
+    console.log('Checking for milestones for deleted user');
+    return admin.firestore().collection(MILESTONE_COLLECTION)
         .where('clientUid', '==', uid)
         .get()
         .then(querySnapshot => {
@@ -81,17 +89,6 @@ exports.onDeleteUser = functions.auth.user().onDelete(event => {
     })
         .catch(() => {
         console.log('Error getting milestones');
-    });
-    // Deletes the client in the collection.
-    clientRef.get().then(doc => {
-        if (doc.exists) {
-            clientRef.delete().then(() => {
-                console.log('DELETED USER ID: ', uid);
-            });
-        }
-        else {
-            console.log('COULD NOT DELETED USER ID: ', uid);
-        }
     });
 });
 // Commented out for possible future awesome reference!

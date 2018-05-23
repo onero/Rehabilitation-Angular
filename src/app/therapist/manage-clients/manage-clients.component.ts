@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientEntity} from '../../shared/entities/client.entity';
 import {ClientService} from '../../shared/services/firestore/client.service';
-import {AuthService} from '../../auth/shared/auth.service';
 import {MilestoneEntity} from '../../shared/entities/milestone.entity';
 import {VisitEntity} from '../../shared/entities/visit.entity';
 import {MilestoneService} from '../../shared/services/firestore/milestone.service';
+import {MessageService} from '../../shared/services/message.service';
 
 @Component({
   selector: 'rehab-manage-clients',
@@ -20,7 +20,7 @@ export class ManageClientsComponent implements OnInit {
 
   constructor(private clientService: ClientService,
               private milestoneService: MilestoneService,
-              private authService: AuthService) {
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -98,7 +98,11 @@ export class ManageClientsComponent implements OnInit {
    * Delete selectedClient!
    */
   deleteClient() {
-    this.authService.deleteUser(this.selectedClient);
+    this.clientService.deleteClient(this.selectedClient)
+      .then(() => {
+        this.messageService.displayMessage(`${this.selectedClient.fullName} is now deleted...`, 2);
+        this.selectedClient = null;
+      });
   }
 
   /**

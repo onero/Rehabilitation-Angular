@@ -69,7 +69,6 @@ export class ClientService {
       .set(newClient);
   }
 
-  // TODO ALH: Implement with Cloud Functions!
   /**
    * Delete provided client
    * @param {ClientEntity} clientToDelete
