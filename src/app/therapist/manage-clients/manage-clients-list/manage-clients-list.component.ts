@@ -6,6 +6,7 @@ import {AuthService} from '../../../auth/shared/auth.service';
 import {RehabErrorService} from '../../../shared/services/rehab-error.service';
 import {RehabModalService} from '../../../shared/services/rehab-modal.service';
 import 'rxjs/add/operator/find';
+import {MessageService} from '../../../shared/services/message.service';
 
 @Component({
   selector: 'rehab-manage-clients-list',
@@ -26,7 +27,8 @@ export class ManageClientsListComponent implements OnInit {
   constructor(private clientService: ClientService,
               private authService: AuthService,
               private rehabErrorService: RehabErrorService,
-              public modalService: RehabModalService) {
+              public modalService: RehabModalService,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -116,7 +118,7 @@ export class ManageClientsListComponent implements OnInit {
         newClient.uid = authUser.user.uid;
         this.clientService.createClient(newClient)
           .then(() => {
-            // TODO Skovgaard: Add message to user.
+            this.messageService.displayMessage(`${newClient.fullName} has been created`, 2);
           });
       })
       .catch(error => {
