@@ -3,13 +3,17 @@ import {Observable} from 'rxjs/Observable';
 import {ExerciseEntity} from '../../../../shared/entities/exercise.entity';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RehabModalService} from '../../../../shared/services/rehab-modal.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'rehab-assign-exercise',
   templateUrl: './assign-exercise.component.html',
   styleUrls: ['./assign-exercise.component.scss']
 })
+
 export class AssignExerciseComponent implements OnInit {
+
+  private MANAGE_EXERCISES_ROUTE = 'therapist/exercises';
 
   @Input()
   exercises: ExerciseEntity[];
@@ -20,7 +24,8 @@ export class AssignExerciseComponent implements OnInit {
   @Output()
   exerciseAssigned = new EventEmitter<ExerciseEntity>();
 
-  constructor(public modalService: RehabModalService) {
+  constructor(public modalService: RehabModalService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -40,5 +45,9 @@ export class AssignExerciseComponent implements OnInit {
    */
   assignSelectedExercise(exercise: ExerciseEntity) {
     this.exerciseAssigned.emit(exercise);
+  }
+
+  routeToExercise() {
+    this.router.navigateByUrl(this.MANAGE_EXERCISES_ROUTE);
   }
 }

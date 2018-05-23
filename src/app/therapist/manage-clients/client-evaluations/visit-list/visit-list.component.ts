@@ -23,18 +23,15 @@ export class VisitListComponent implements OnInit, OnChanges {
 
   @Input()
   currentVisit: VisitEntity;
-  paginatedVisits: VisitEntity[];
-  page: number;
-  limit = 5;
 
   constructor(public modalService: RehabModalService) {
   }
 
   ngOnInit() {
-    this.page = 1;
-    if (this.allVisits) {
-      this.paginatedVisits = this.allVisits.slice(0, this.limit);
-    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('Visit list');
   }
 
   /**
@@ -55,34 +52,6 @@ export class VisitListComponent implements OnInit, OnChanges {
    */
   onVisitSelected(visit: VisitEntity) {
     this.visitSelected.emit(visit);
-  }
-
-  /**
-   * We will paginate
-   * @param {number} page
-   */
-  paginate(page: number) {
-    // TODO ALH: Remove
-    // let latest: any;
-    //
-    // // Check for first page
-    // if (page === 1) {
-    //   latest = this.allClients[0];
-    //   // Get a hold of last element on current page
-    // } else {
-    //   latest = this.allClients[(page - 1) * this.limit];
-    // }
-    //
-    // // Paginate from last element on current page
-    // this.clientService.getClientsPaginated(this.limit, latest).subscribe($paginatedClients => {
-    //   this.$paginatedClients = $paginatedClients;
-    // });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.allVisits) {
-      this.paginatedVisits = this.allVisits.slice(0, this.limit);
-    }
   }
 
 }
