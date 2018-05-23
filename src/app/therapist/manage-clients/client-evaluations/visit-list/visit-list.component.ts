@@ -28,21 +28,10 @@ export class VisitListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    // Check for exercises
-    if (this.allVisits) {
-      // Check for selected visit
-      if (this.currentVisit) {
-        // Locate updated visit
-        const updatedVisit = this.allVisits
-          .find(visit => visit.uid === this.currentVisit.uid);
-        // Reselect visit
-        this.visitSelected.emit(updatedVisit);
-      }
-    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('Visit list')
+    console.log('Visit list');
   }
 
   /**

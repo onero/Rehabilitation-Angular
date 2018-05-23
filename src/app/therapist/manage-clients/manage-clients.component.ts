@@ -63,12 +63,7 @@ export class ManageClientsComponent implements OnInit {
     }
     this.selectedMilestone.visits.push(newVisit);
     // Update milestone on firestore with new data
-    this.milestoneService.updateMilestone(this.selectedMilestone)
-      .then(() => {
-        // Reset view afterwards
-        this.selectedMilestone = null;
-        this.selectedVisit = null;
-      });
+    this.milestoneService.updateMilestone(this.selectedMilestone);
   }
 
   removeVisitFromMilestone() {
