@@ -1,9 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
-import {Observable} from 'rxjs/Observable';
 import {CategoryService} from '../../../shared/services/firestore/category.service';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RehabModalService} from '../../../shared/services/rehab-modal.service';
+import {MessageService} from '../../../shared/services/message.service';
 
 @Component({
   selector: 'rehab-manage-categories-list',
@@ -21,7 +20,8 @@ export class ManageCategoriesListComponent implements OnInit {
 
 
   constructor(private categoryService: CategoryService,
-              public modalService: RehabModalService) { }
+              public modalService: RehabModalService,
+              private messageService: MessageService) { }
 
   ngOnInit() {
     this.page = 1;
@@ -63,6 +63,9 @@ export class ManageCategoriesListComponent implements OnInit {
   * Add category with the parsed category name
   */
   addCategory(categoryName: string) {
-    this.categoryService.createCategory(categoryName);
+    this.categoryService.createCategory(categoryName)
+      .then(() => {
+        this.messageService.displayMessage(`${categoryName} has been created`, 2);
+      });
   }
 }
