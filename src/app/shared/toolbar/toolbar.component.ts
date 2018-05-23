@@ -33,7 +33,7 @@ export class ToolbarComponent implements OnInit {
    * @returns {boolean}
    */
   isUserLoggedIn() {
-    return this.authService.isAuthenticated();
+    return this.authService.userIsLoggedIn();
   }
 
   /**

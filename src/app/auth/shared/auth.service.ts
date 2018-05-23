@@ -91,4 +91,12 @@ export class AuthService {
   userIsTherapist() {
     return localStorage.getItem(AuthService.USER_ID_KEY) === AuthService.THERAPIST_UID;
   }
+
+  /**
+   * Check if user is loggedin
+   * @returns {boolean}
+   */
+  userIsLoggedIn() {
+    return localStorage.getItem(AuthService.USER_ID_KEY);
+  }
 }
