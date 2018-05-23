@@ -1,9 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ClientEntity} from '../../../../shared/entities/client.entity';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {VisitEntity} from '../../../../shared/entities/visit.entity';
 import {RehabModalService} from '../../../../shared/services/rehab-modal.service';
-import {V} from '@angular/core/src/render3';
 import {environment} from '../../../../../environments/environment';
 
 @Component({

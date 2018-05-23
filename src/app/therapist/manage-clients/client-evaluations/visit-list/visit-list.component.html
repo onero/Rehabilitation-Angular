@@ -8,7 +8,7 @@
        [ngClass]="{'selected': currentVisit === visit}">
     <div class="card-body">
       <h5 class="card-title"
-          style="text-align: center">{{visit.date | date: 'd/M - yyyy'}}</h5>
+          style="text-align: center">{{visit.date | date: 'EEE, d/M - yyyy'}}</h5>
     </div>
   </div>
   <ngb-pagination [collectionSize]="allVisits.length"
