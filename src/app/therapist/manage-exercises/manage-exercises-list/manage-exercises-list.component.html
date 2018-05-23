@@ -3,18 +3,18 @@
      (click)="addExercise()"></i>
 </h1>
 <h5>Search: <input #searchInput type="text" [(ngModel)]="searchValue" (keyup)="search(searchInput.value)"></h5>
-<div *ngIf="allExercises && paginatedExercises">
+<div *ngIf="$paginatedExercises | async as paginatedExercises">
   <div *ngFor="let exercise of paginatedExercises"
-       class="card clickable" (click)="onExerciseSelected(exercise); currentExercise = exercise"
-       [ngClass]="{'selected': currentExercise === exercise}">
+       class="card clickable" (click)="onExerciseSelected(exercise)"
+       [ngClass]="{'selected': currentExercise?.uid === exercise.uid}">
     <div class="card-body">
       <h5 class="card-title">{{exercise.title}}</h5>
     </div>
   </div>
-  <ngb-pagination [collectionSize]="allExercises.length"
+  <ngb-pagination [collectionSize]="amountOfExercises"
                   [(page)]="page"
-                  [maxSize]="5"
-                  [pageSize]="5"
+                  [pageSize]="limit"
+                  [maxSize]="limit"
                   (pageChange)="paginate($event)">
   </ngb-pagination>
 </div>

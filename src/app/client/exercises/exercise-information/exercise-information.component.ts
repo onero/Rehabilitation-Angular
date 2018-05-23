@@ -1,5 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { ExerciseModel } from '../../shared/exercise.model';
+import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
+import {ExerciseService} from '../../../shared/services/firestore/exercise.service';
+import {Observable} from 'rxjs/Observable';
+import {E} from '@angular/core/src/render3';
 
 @Component({
   selector: 'rehab-exercise-information',
@@ -9,15 +12,14 @@ import { ExerciseModel } from '../../shared/exercise.model';
 export class ExerciseInformationComponent implements OnInit {
 
   @Input()
-  exerciseModel: ExerciseModel;
+  exerciseUid: string;
 
-  constructor() {
+  $loadedExercise: Observable<ExerciseEntity>;
+
+  constructor(private exerciseService: ExerciseService) {
   }
 
   ngOnInit() {
-  }
-
-  public updateInformation(newExercise: ExerciseModel) {
-    this.exerciseModel = newExercise;
+    this.$loadedExercise = this.exerciseService.getExerciseById(this.exerciseUid);
   }
 }

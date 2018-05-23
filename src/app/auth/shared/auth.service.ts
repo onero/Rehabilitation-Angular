@@ -3,7 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs/Observable';
-import { UserModel } from '../../shared/entities/user.model';
+import { UserEntity } from '../../shared/entities/user.entity';
 import { MessageService } from '../../shared/services/message.service';
 
 // Added to enable programmatic creation of clients, without also changing AuthState!
@@ -74,13 +74,29 @@ export class AuthService {
 
   /**
    * Deletes the selected user from the DB.
-   * @param {UserModel} user
+   * @param {UserEntity} user
    */
-  deleteUser(user: UserModel) {
+  deleteUser(user: UserEntity) {
     secondaryApp.auth().signInAndRetrieveDataWithEmailAndPassword(user.email, AuthService.USER_PASSWORD)
       .then(selectedUser => {
       secondaryApp.auth().currentUser.delete();
         this.message.displayMessage(`${user.fullName} is now deleted...`, 2);
       });
+  }
+
+  /**
+   * Check if saved user key value in local storage matches therapist key
+   * @returns {boolean}
+   */
+  userIsTherapist() {
+    return localStorage.getItem(AuthService.USER_ID_KEY) === AuthService.THERAPIST_UID;
+  }
+
+  /**
+   * Check if user is loggedin
+   * @returns {boolean}
+   */
+  userIsLoggedIn() {
+    return localStorage.getItem(AuthService.USER_ID_KEY);
   }
 }

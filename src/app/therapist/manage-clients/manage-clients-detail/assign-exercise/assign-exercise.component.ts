@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {ExerciseModel} from '../../../../client/shared/exercise.model';
+import {ExerciseEntity} from '../../../../shared/entities/exercise.entity';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RehabModalService} from '../../../../shared/services/rehab-modal.service';
 import {Router} from '@angular/router';
@@ -16,13 +16,13 @@ export class AssignExerciseComponent implements OnInit {
   private MANAGE_EXERCISES_ROUTE = 'therapist/exercises';
 
   @Input()
-  exercises: ExerciseModel[] = [];
+  exercises: ExerciseEntity[];
 
   @Output()
   exerciseUnassigned = new EventEmitter<string>();
 
   @Output()
-  exerciseAssigned = new EventEmitter<string>();
+  exerciseAssigned = new EventEmitter<ExerciseEntity>();
 
   constructor(public modalService: RehabModalService,
               private router: Router) {
@@ -41,11 +41,10 @@ export class AssignExerciseComponent implements OnInit {
 
   /**
    * Assign selected exercise
-   * @param {ExerciseModel} exercise
+   * @param {ExerciseEntity} exercise
    */
-  assignSelectedExercise(exercise: ExerciseModel) {
-    this.exercises.push(exercise);
-    this.exerciseAssigned.emit(exercise.uid);
+  assignSelectedExercise(exercise: ExerciseEntity) {
+    this.exerciseAssigned.emit(exercise);
   }
 
   routeToExercise() {

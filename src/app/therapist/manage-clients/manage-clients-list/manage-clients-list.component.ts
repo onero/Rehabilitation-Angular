@@ -1,11 +1,11 @@
-import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {ClientModel} from '../../../shared/entities/client.model';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {ClientEntity} from '../../../shared/entities/client.entity';
 import {Observable} from 'rxjs/Observable';
-import {ClientService} from '../../../shared/services/client.service';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ClientService} from '../../../shared/services/firestore/client.service';
 import {AuthService} from '../../../auth/shared/auth.service';
 import {RehabErrorService} from '../../../shared/services/rehab-error.service';
 import {RehabModalService} from '../../../shared/services/rehab-modal.service';
+import 'rxjs/add/operator/find';
 
 @Component({
   selector: 'rehab-manage-clients-list',
@@ -15,11 +15,12 @@ import {RehabModalService} from '../../../shared/services/rehab-modal.service';
 export class ManageClientsListComponent implements OnInit {
 
   @Output()
-  clientSelected = new EventEmitter<ClientModel>();
-  currentClient: ClientModel;
-  allClients: ClientModel[];
-  paginatedClients: ClientModel[];
-  page: number;
+  clientSelected = new EventEmitter<ClientEntity>();
+
+  currentClient: ClientEntity;
+  $paginatedClients: Observable<ClientEntity[]>;
+  amountOfClients: number;
+  page = 1;
   limit = 5;
 
   constructor(private clientService: ClientService,
@@ -29,25 +30,7 @@ export class ManageClientsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.page = 1;
-    // This subscribe will trigger each time information is updated!
-    this.clientService.getClients().subscribe(clients => {
-      // If a current client is selected we will update it with new info
-      this.updateSelectedClient(clients);
-      this.allClients = clients as ClientModel[];
-      this.paginatedClients = this.allClients.slice(0, this.limit);
-    });
-  }
-
-  /**
-   * Update currently selected client
-   * @param clients
-   */
-  private updateSelectedClient(clients) {
-    // Check for a selected client
-    if (this.currentClient) {
-      this.currentClient = clients.find(client => client.uid === this.currentClient.uid);
-    }
+    this.paginate(this.page);
   }
 
   /**
@@ -55,27 +38,57 @@ export class ManageClientsListComponent implements OnInit {
    * @param {number} page
    */
   paginate(page: number) {
-    let latest: any;
-
+    this.setAmountOfClients();
     // Check for first page
     if (page === 1) {
-      latest = this.allClients[0];
+      this.paginateFromBeginningOfCollection();
       // Get a hold of last element on current page
     } else {
-      latest = this.allClients[(page - 1) * this.limit];
+      this.page = page;
+      this.paginateFromPage(this.page);
     }
+  }
 
-    // Paginate from last element on current page
-    this.clientService.getClientsPaginated(this.limit, latest).subscribe(paginatedClients => {
-      this.paginatedClients = paginatedClients;
-    });
+  /**
+   * Get amount of all exercises in firestore collection
+   */
+  private setAmountOfClients() {
+    this.clientService.getAmountOfClients()
+      .take(1)
+      .subscribe(amount => this.amountOfClients = amount);
+  }
+
+  /**
+   * When on page 1 we just get the first {{this.limit}} clients
+   */
+  private paginateFromBeginningOfCollection() {
+    this.$paginatedClients = this.clientService.getClientsPaginated(this.limit);
+  }
+
+  /**
+   * Start paginating from provided page
+   * @param {number} page
+   */
+  private paginateFromPage(page: number) {
+    // Update page number for paginator
+    this.page = page;
+    // Get amount of all clients in firestore collection
+    this.$paginatedClients = this.$paginatedClients
+      .map(paginatedClients => {
+        // Get a hold of last element in current observable collection
+        return paginatedClients[this.limit - 1];
+      })
+      .switchMap(latestClient =>
+        // Get observable collection starting after last clients in old observable collection
+        this.clientService.getClientsPaginated(this.limit, latestClient));
   }
 
   /**
    * Gets the information when the client is selected
-   * @param {ClientModel} client
+   * @param {ClientEntity} client
    */
-  onClientSelected(client: ClientModel) {
+  onClientSelected(client: ClientEntity) {
+    this.currentClient = client;
     this.clientSelected.emit(client);
   }
 
@@ -88,15 +101,14 @@ export class ManageClientsListComponent implements OnInit {
    */
   addClient(clientName: string, clientAddress: string, clientPhone, clientEmail: string) {
     const clientPhoneAsString = `${clientPhone}`;
-    const newClient: ClientModel = {
+    const newClient: ClientEntity = {
       fullName: clientName,
       address: clientAddress,
       phone: clientPhoneAsString,
       email: clientEmail,
       rehabilitationPlan: {
         diagnosis: '',
-        goal: '',
-        exerciseIds: []
+        goal: ''
       }
     };
     this.authService.createClientAuthUser(newClient.email)
@@ -119,18 +131,23 @@ export class ManageClientsListComponent implements OnInit {
   clientSearch(query: string) {
     // Check if user entered text or cleared search
     if (query.length > 0) {
-      this.paginatedClients = [];
-      const queriedClients = this.allClients.filter(client => {
-        // Check if client has
-        return client.fullName.includes(query) || // Name.
-          client.address.includes(query) || // Address.
-          client.phone.includes(query) || // Phone number.
-          client.email.includes(query); // Email.
-      });
-      this.paginatedClients = queriedClients;
+      // Get all clients to search through
+      this.$paginatedClients = this.clientService.getClients()
+        .map(clients => {
+          // Filter on attributes from client
+          const filteredClients = clients.filter((client: ClientEntity) => {
+            // Check if client has
+            return client.fullName.includes(query) || // Name.
+              client.address.includes(query) || // Address.
+              client.email.includes(query); // Email.
+          });
+          // Update paginated amount of exercises to result amount
+          this.amountOfClients = filteredClients.length;
+          return filteredClients;
+        });
     } else {
-      // Reset to list of paginated exercises
-      this.paginatedClients = this.allClients.slice(0, this.limit);
+      // User cleared search field, so we reset to list of paginated exercises
+      this.paginate(1);
     }
   }
 

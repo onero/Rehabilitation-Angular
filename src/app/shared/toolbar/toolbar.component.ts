@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../../auth/shared/auth.service';
-import { environment } from '../../../environments/environment';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthService} from '../../auth/shared/auth.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'rehab-toolbar',
@@ -33,26 +33,20 @@ export class ToolbarComponent implements OnInit {
    * @returns {boolean}
    */
   isUserLoggedIn() {
-    return this.authService.getUserId();
+    return this.authService.userIsLoggedIn();
   }
 
   /**
    * Checks if we are in Client or Therapist mode.
-   * TODO SKOV: Refactor method (no nested if's).
    * @returns {boolean}
    */
-  isClientMode() {
-    if (this.authService.fireAuth.auth.currentUser) {
-      // Checks if the uid is the same as the Therapist's UID.
-      if (this.authService.fireAuth.auth.currentUser.uid === AuthService.THERAPIST_UID) {
-        environment.clientMode = false;
-        return false;
-      } else {
-        environment.clientMode = true;
-        return true;
-      }
+  isClientMode(): boolean {
+    // Checks if the uid is the same as the Therapist's UID.
+    if (this.authService.userIsTherapist()) {
+      environment.clientMode = false;
+      return false;
     } else {
-      // We're not logged in
+      environment.clientMode = true;
       return true;
     }
   }

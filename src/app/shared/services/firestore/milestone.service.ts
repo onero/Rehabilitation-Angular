@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {MilestoneEntity} from '../entities/milestone.entity';
-import {FirestoreModel} from './firestore.model';
-import {VisitEntity} from '../entities/visit.entity';
+import {MilestoneEntity} from '../../entities/milestone.entity';
 
 @Injectable()
 export class MilestoneService {
+
+  private MILESTONE_COLLECTION = 'Milestones';
 
   constructor(private angularFireStore: AngularFirestore) { }
 
@@ -14,7 +14,7 @@ export class MilestoneService {
    * @param {string} milestoneId
    */
   getMilestoneById(milestoneId: string) {
-    return this.angularFireStore.collection<MilestoneEntity>(FirestoreModel.MILESTONE_COLLECTION,
+    return this.angularFireStore.collection<MilestoneEntity>(this.MILESTONE_COLLECTION,
       ref => ref.where('uid', '==', milestoneId))
       .valueChanges();
   }
@@ -24,7 +24,7 @@ export class MilestoneService {
    * @param {string} clientUid
    */
   getMilestonesByClientUid(clientUid: string) {
-    return this.angularFireStore.collection<MilestoneEntity>(FirestoreModel.MILESTONE_COLLECTION,
+    return this.angularFireStore.collection<MilestoneEntity>(this.MILESTONE_COLLECTION,
       ref => ref.where('clientUid', '==', clientUid)).valueChanges();
   }
 
@@ -44,7 +44,7 @@ export class MilestoneService {
       title: newMilestone.title
     };
     return this.angularFireStore
-      .collection<MilestoneEntity>(FirestoreModel.MILESTONE_COLLECTION)
+      .collection<MilestoneEntity>(this.MILESTONE_COLLECTION)
       .ref.doc(docUid).set(milestoneDoc);
   }
 
@@ -54,7 +54,7 @@ export class MilestoneService {
    * @returns {Promise<void>}
    */
   updateMilestone(selectedMilestone: MilestoneEntity) {
-    return this.angularFireStore.collection<MilestoneEntity>(FirestoreModel.MILESTONE_COLLECTION)
+    return this.angularFireStore.collection<MilestoneEntity>(this.MILESTONE_COLLECTION)
       .doc(selectedMilestone.uid)
       .set(selectedMilestone, {merge: true});
   }

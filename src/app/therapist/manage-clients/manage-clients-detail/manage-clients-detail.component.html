@@ -13,14 +13,14 @@
       <!--Clients Diagnosis-->
       <div class="col">
         <rehab-manage-clients-diagnosis
-          (diagnosisUpdated)="rehabilitationPlan.diagnosis = $event; updateRehabilitationPlan()"
+          (diagnosisUpdated)="currentClient.rehabilitationPlan.diagnosis = $event; updateRehabilitationPlan()"
           [currentDiagnosis]="currentClient.rehabilitationPlan.diagnosis"></rehab-manage-clients-diagnosis>
       </div>
 
       <!--Clients goal-->
       <div class="col">
         <rehab-manage-clients-goal
-          (goalUpdated)="rehabilitationPlan.goal = $event; updateRehabilitationPlan()"
+          (goalUpdated)="currentClient.rehabilitationPlan.goal = $event; updateRehabilitationPlan()"
           [currentGoal]="currentClient.rehabilitationPlan.goal"></rehab-manage-clients-goal>
       </div>
       <div class="col">
@@ -32,7 +32,7 @@
     <!--YouTube assignments-->
     <div class="col-md-5">
       <!--Insert Youtube HTML in HERE!-->
-      <rehab-assign-exercise [exercises]="exercises"
+      <rehab-assign-exercise [exercises]="currentClient?.rehabilitationPlan?.exercises"
                              (exerciseUnassigned)="unassignExerciseFromClient($event)"
                              (exerciseAssigned)="assignExerciseToClient($event)"></rehab-assign-exercise>
     </div>

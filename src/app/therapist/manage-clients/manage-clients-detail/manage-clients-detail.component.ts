@@ -1,64 +1,36 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {ClientModel} from '../../../shared/entities/client.model';
-import {RehabilitationPlanService} from '../../../shared/services/rehabilitation-plan.service';
-import {RehabilitationPlan} from '../../../client/shared/rehabilitation-plan.model';
-import {ExerciseModel} from '../../../client/shared/exercise.model';
-import {ExerciseService} from '../../../shared/services/exercise.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ClientEntity} from '../../../shared/entities/client.entity';
+import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
+import {ClientService} from '../../../shared/services/firestore/client.service';
+import {AssignedExerciseService} from '../../../shared/services/firestore/assigned-exercise.service';
 
 @Component({
   selector: 'rehab-manage-clients-detail',
   templateUrl: './manage-clients-detail.component.html',
   styleUrls: ['./manage-clients-detail.component.scss']
 })
-export class ManageClientsDetailComponent implements OnInit, OnChanges {
+export class ManageClientsDetailComponent implements OnInit {
 
   @Input()
-  currentClient: ClientModel;
-
-  rehabilitationPlan: RehabilitationPlan;
-
-  exercises: ExerciseModel[] = [];
+  currentClient: ClientEntity;
 
   @Output()
   clientDeleted = new EventEmitter();
   @Output()
   evaluationsClicked = new EventEmitter();
 
-  constructor(private rehabilitationPlanService: RehabilitationPlanService,
-              private exerciseService: ExerciseService) {
+  constructor(private clientService: ClientService,
+              private assignExerciseService: AssignedExerciseService) {
   }
 
   ngOnInit() {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.rehabilitationPlan = this.currentClient.rehabilitationPlan;
-    this.updateExercises();
-  }
-
-  /**
-   * Update exercises in rehabilitationplan
-   */
-  updateExercises() {
-    this.exercises = [];
-    if (this.rehabilitationPlan.exerciseIds) {
-      if (this.rehabilitationPlan.exerciseIds.length > 0) {
-        this.rehabilitationPlan.exerciseIds.forEach(exerciseId => {
-          this.exerciseService.getExerciseById(exerciseId)
-            .subscribe(clientExercise => this.exercises.push(clientExercise));
-        });
-      }
-
-    }
   }
 
   /**
    * Update rehabilitation plan on database
    */
   updateRehabilitationPlan() {
-    this.rehabilitationPlanService.updatePlan(this.currentClient.uid, this.rehabilitationPlan)
-      .then(() => {
-      });
+    this.clientService.updateRehabilitationPlanByClientUid(this.currentClient.uid, this.currentClient.rehabilitationPlan);
   }
 
   /**
@@ -70,21 +42,33 @@ export class ManageClientsDetailComponent implements OnInit, OnChanges {
 
   /**
    * Unassign exercise from client
-   * @param {string} exerciseId
+   * @param {string} exerciseUid
    */
-  unassignExerciseFromClient(exerciseId: string) {
-    const id = this.rehabilitationPlan.exerciseIds.findIndex(eId => eId === exerciseId);
-    this.exercises.splice(id, 1);
-    this.rehabilitationPlan.exerciseIds.splice(id, 1);
+  unassignExerciseFromClient(exerciseUid: string) {
+    // Reassign array of exercises to a new array without the exercise to remove
+    this.currentClient.rehabilitationPlan.exercises =
+      this.currentClient.rehabilitationPlan.exercises.filter(exercise => exercise.uid !== exerciseUid);
+    this.assignExerciseService.unassignExerciseFromClient(exerciseUid, this.currentClient.uid);
     this.updateRehabilitationPlan();
   }
 
   /**
    * Assign exercise to plan
-   * @param {string} exerciseId
+   * @param exercise
    */
-  assignExerciseToClient(exerciseId: string) {
-    this.rehabilitationPlan.exerciseIds.push(exerciseId);
+  assignExerciseToClient(exercise: ExerciseEntity) {
+    // Create partial exercise to save information load for DB
+    const partialNewExercise: ExerciseEntity = {
+      uid: exercise.uid,
+      title: exercise.title,
+      videoUrl: exercise.videoUrl
+    };
+    // Ensure exercises array is instantiated
+    if (!this.currentClient.rehabilitationPlan.exercises) {
+      this.currentClient.rehabilitationPlan.exercises = [];
+    }
+    this.currentClient.rehabilitationPlan.exercises.push(partialNewExercise);
+    this.assignExerciseService.assignExerciseToClient(this.currentClient.uid, exercise.uid);
     this.updateRehabilitationPlan();
   }
 }

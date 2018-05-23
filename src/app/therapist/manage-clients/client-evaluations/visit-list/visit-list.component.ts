@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {ClientModel} from '../../../../shared/entities/client.model';
+import {ClientEntity} from '../../../../shared/entities/client.entity';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {VisitEntity} from '../../../../shared/entities/visit.entity';
 import {RehabModalService} from '../../../../shared/services/rehab-modal.service';
@@ -53,7 +53,7 @@ export class VisitListComponent implements OnInit, OnChanges {
 
   /**
    * Gets the information when the visit is selected
-   * @param {ClientModel} visit
+   * @param {ClientEntity} visit
    */
   onVisitSelected(visit: VisitEntity) {
     this.visitSelected.emit(visit);
@@ -76,8 +76,8 @@ export class VisitListComponent implements OnInit, OnChanges {
     // }
     //
     // // Paginate from last element on current page
-    // this.clientService.getClientsPaginated(this.limit, latest).subscribe(paginatedClients => {
-    //   this.paginatedClients = paginatedClients;
+    // this.clientService.getClientsPaginated(this.limit, latest).subscribe($paginatedClients => {
+    //   this.$paginatedClients = $paginatedClients;
     // });
   }
 

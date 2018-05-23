@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ClientModel} from '../../shared/entities/client.model';
-import {ClientService} from '../../shared/services/client.service';
+import {ClientEntity} from '../../shared/entities/client.entity';
+import {ClientService} from '../../shared/services/firestore/client.service';
 import {AuthService} from '../../auth/shared/auth.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {AuthService} from '../../auth/shared/auth.service';
 })
 export class ProfileComponent implements OnInit {
 
-  clientFromUser: ClientModel;
+  clientFromUser: ClientEntity;
 
   constructor(private clientService: ClientService) {
   }
@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
     const uid = localStorage.getItem(AuthService.USER_ID_KEY);
     this.clientService.getCurrentClientById(uid)
       .subscribe(clientFromDB => {
-        this.clientFromUser = clientFromDB as ClientModel;
+        this.clientFromUser = clientFromDB as ClientEntity;
       });
   }
 }

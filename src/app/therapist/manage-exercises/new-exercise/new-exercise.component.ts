@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ExerciseModel} from '../../../client/shared/exercise.model';
-import {ExerciseService} from '../../../shared/services/exercise.service';
+import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
+import {ExerciseService} from '../../../shared/services/firestore/exercise.service';
 
 @Component({
   selector: 'rehab-new-exercise',
@@ -29,9 +29,9 @@ export class NewExerciseComponent implements OnInit {
   /**
   * Create new exercise with information from the form
   */
-  createNewExercise(newExerciseForm: ExerciseModel) {
+  createNewExercise(newExerciseForm: ExerciseEntity) {
     // Create exercise object with information from fields
-    const newExercise: ExerciseModel = {
+    const newExercise: ExerciseEntity = {
       title: newExerciseForm.title,
       description: newExerciseForm.description,
       repetition: newExerciseForm.repetition,

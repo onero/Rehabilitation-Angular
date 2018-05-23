@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ExerciseModel} from '../../../client/shared/exercise.model';
+import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {Observable} from 'rxjs/Observable';
-import {CategoryService} from '../../../shared/services/category.service';
+import {CategoryService} from '../../../shared/services/firestore/category.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RehabModalService} from '../../../shared/services/rehab-modal.service';
 
@@ -13,7 +13,7 @@ import {RehabModalService} from '../../../shared/services/rehab-modal.service';
 export class ManageCategoriesListComponent implements OnInit {
   @Output()
   categorySelected = new EventEmitter<string>();
-  currentCategory: ExerciseModel;
+  currentCategory: ExerciseEntity;
   allCategories: any[];
   paginatedCategories: any[];
   page: number;
@@ -63,9 +63,6 @@ export class ManageCategoriesListComponent implements OnInit {
   * Add category with the parsed category name
   */
   addCategory(categoryName: string) {
-    this.categoryService.createCategory(categoryName)
-      .then(() => {
-      //  TODO ALH: Add awesome message to user!
-      });
+    this.categoryService.createCategory(categoryName);
   }
 }

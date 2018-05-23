@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ClientModel} from '../../shared/entities/client.model';
-import {ClientService} from '../../shared/services/client.service';
+import {ClientEntity} from '../../shared/entities/client.entity';
+import {ClientService} from '../../shared/services/firestore/client.service';
 import { AuthService } from '../../auth/shared/auth.service';
 import {MilestoneEntity} from '../../shared/entities/milestone.entity';
 import {VisitEntity} from '../../shared/entities/visit.entity';
-import {MilestoneService} from '../../shared/services/milestone.service';
+import {MilestoneService} from '../../shared/services/firestore/milestone.service';
 
 @Component({
   selector: 'rehab-manage-clients',
@@ -12,7 +12,7 @@ import {MilestoneService} from '../../shared/services/milestone.service';
   styleUrls: ['./manage-clients.component.scss']
 })
 export class ManageClientsComponent implements OnInit {
-  selectedClient: ClientModel;
+  selectedClient: ClientEntity;
   milestones: MilestoneEntity[];
   selectedMilestone: MilestoneEntity;
   currentVisit: VisitEntity;
@@ -48,6 +48,7 @@ export class ManageClientsComponent implements OnInit {
   /**
    * Reset the current selected milestone
    */
+  // TODO ALH: Refactor this!
   private resetCurrentMilestoneSelection() {
     this.selectedMilestone = null;
     this.currentVisit = null;
@@ -78,6 +79,7 @@ export class ManageClientsComponent implements OnInit {
     this.milestoneService.updateMilestone(this.selectedMilestone)
       .then(() => {
           // Reset view afterwards
+        // TODO ALH: Refactor
           this.selectedMilestone = null;
           this.currentVisit = null;
       });
