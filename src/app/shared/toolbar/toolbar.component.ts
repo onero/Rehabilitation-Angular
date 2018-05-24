@@ -29,31 +29,24 @@ export class ToolbarComponent implements OnInit {
   }
 
   /**
-   * Checks if we are logged in.
+   * Checks if the user is logged in.
    * @returns {boolean}
    */
-  loggedIn() {
-    if (this.authService.getUserId()) {
-      return true;
-    }
+  isUserLoggedIn() {
+    return this.authService.userIsLoggedIn();
   }
 
   /**
    * Checks if we are in Client or Therapist mode.
    * @returns {boolean}
    */
-  isClientMode() {
-    if (this.authService.fireAuth.auth.currentUser) {
-      // Checks if the uid is the same as the Therapist's UID.
-      if (this.authService.fireAuth.auth.currentUser.uid === AuthService.THERAPIST_UID) {
-        environment.clientMode = false;
-        return false;
-      } else {
-        environment.clientMode = true;
-        return true;
-      }
+  isClientMode(): boolean {
+    // Checks if the uid is the same as the Therapist's UID.
+    if (this.authService.userIsTherapist()) {
+      environment.clientMode = false;
+      return false;
     } else {
-      // We're not logged in
+      environment.clientMode = true;
       return true;
     }
   }

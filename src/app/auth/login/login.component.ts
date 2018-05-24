@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginEntity} from '../shared/login.entity';
 import {AuthService} from '../shared/auth.service';
 import {Router} from '@angular/router';
-import { environment } from '../../../environments/environment';
+import {environment} from '../../../environments/environment';
 import {RehabErrorService} from '../../shared/services/rehab-error.service';
+import {LoginEntity} from '../shared/login.entity';
 
 @Component({
   selector: 'rehab-login',
@@ -16,11 +16,15 @@ export class LoginComponent implements OnInit {
   private static THERAPIST_URL = 'therapist/clients';
   private static CLIENT_URL = 'client/profile';
 
-  user = new LoginEntity('', '');
+  user: LoginEntity = {
+    email: '',
+    password: ''
+  };
 
   constructor(private authService: AuthService,
               private router: Router,
-              private errorService: RehabErrorService) { }
+              private errorService: RehabErrorService) {
+  }
 
   ngOnInit() {
   }
@@ -34,7 +38,7 @@ export class LoginComponent implements OnInit {
    * @param {string} email
    * @param {string} password
    */
-  login(email: string, password: string)  {
+  login(email: string, password: string) {
     this.authService.login(email, password)
       .then(authUser => {
         localStorage.setItem(AuthService.USER_ID_KEY, authUser.user.uid);

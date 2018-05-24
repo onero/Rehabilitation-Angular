@@ -1,7 +1,4 @@
-export class LoginEntity {
-
-  constructor(
-    public email: string,
-    public password: any,
-  ) {}
+export interface LoginEntity {
+  email: string;
+  password: string;
 }

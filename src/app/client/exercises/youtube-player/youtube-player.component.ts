@@ -1,7 +1,5 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {YoutubeService} from '../../../shared/services/youtube.service';
-import {YoutubeResponse} from '../../../shared/entities/YoutubeResponse.model';
 
 @Component({
   selector: 'rehab-youtube-player',
@@ -10,7 +8,7 @@ import {YoutubeResponse} from '../../../shared/entities/YoutubeResponse.model';
 })
 export class YoutubePlayerComponent implements OnInit, OnChanges {
 
-  @Input() videoUrl = '';
+  @Input() videoId = '';
   @Input() width = 640;
   @Input() height = 390;
   @Input() playerId = 'player';
@@ -28,7 +26,7 @@ export class YoutubePlayerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.loadVideoByUrl(this.videoUrl);
+    this.loadVideoByUrl(this.videoId);
   }
 
   /**
@@ -61,22 +59,23 @@ export class YoutubePlayerComponent implements OnInit, OnChanges {
 
   private instantiateVideo() {
     // Check for video ID (single video"
-    if (this.videoUrl) {
-      this.videoUrl = this.ytService.getIdFromURL(this.videoUrl);
+    if (this.videoId) {
+      this.videoId = this.ytService.getIdFromURL(this.videoId);
     } else if (this.playlistId !== '') {
-      this.videoUrl = '';
+      this.videoId = '';
     } else {
-      this.videoUrl = 'vntAEVjPBzQ'; // Ghostbusters!
+      this.videoId = 'vntAEVjPBzQ'; // Ghostbusters!
     }
 
+    // Commented out for possible future use of playlist
     // // Check for playlist
     // if (this.playlistId !== '') {
     //   this.src =
-    //     this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videoUrl + '?listType=playlist&list=' + this.playlistId);
+    //     this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videoId + '?listType=playlist&list=' + this.playlistId);
     // } else {
     //   // Sanitize the entry
     //   this.src =
-    //     this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videoUrl + '?enablejsapi=1');
+    //     this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.videoId + '?enablejsapi=1');
     // }
   }
 

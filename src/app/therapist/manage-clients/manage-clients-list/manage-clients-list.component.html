@@ -6,18 +6,18 @@
 <h5>Search: <input #searchInput type="text" (keyup)="clientSearch(searchInput.value)"></h5>
 
 <!--Pagination-->
-<div *ngIf="paginatedClients">
+<div *ngIf="$paginatedClients | async as paginatedClients">
   <div *ngFor="let client of paginatedClients"
-       class="card" (click)="onClientSelected(client); currentClient = client"
-       [ngClass]="{'selected': currentClient === client}">
+       class="card" (click)="onClientSelected(client)"
+       [ngClass]="{'selected': currentClient?.uid === client.uid}">
     <div class="card-body clickable">
       <h5 class="card-title">{{client.fullName}}</h5>
     </div>
   </div>
-  <ngb-pagination [collectionSize]="allClients.length"
+  <ngb-pagination [collectionSize]="amountOfClients"
                   [(page)]="page"
-                  [maxSize]="5"
-                  [pageSize]="5"
+                  [maxSize]="limit"
+                  [pageSize]="limit"
                   (pageChange)="paginate($event)">
   </ngb-pagination>
 </div>

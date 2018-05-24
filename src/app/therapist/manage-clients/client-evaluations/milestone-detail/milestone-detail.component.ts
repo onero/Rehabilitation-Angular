@@ -55,7 +55,7 @@ export class MilestoneDetailComponent implements OnInit {
       title: this.title,
       purpose: this.purpose,
       visits: []
-    }
+    };
     newMilestone.visits.push(this.currentVisit);
     this.updateEvaluation.emit(newMilestone);
     this.editMode = false;

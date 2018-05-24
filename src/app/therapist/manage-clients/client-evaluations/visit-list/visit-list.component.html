@@ -2,21 +2,16 @@
   <i *ngIf="allowEdit" class="fa fa-plus-circle pull-right add-button clickable"
      (click)="modalService.open(newVisit)"></i>
 </h1>
-<div *ngIf="allVisits && paginatedVisits">
-  <div *ngFor="let visit of paginatedVisits"
+<div *ngIf="allVisits">
+  <div *ngFor="let visit of allVisits"
        class="card clickable" (click)="onVisitSelected(visit); currentVisit = visit"
        [ngClass]="{'selected': currentVisit === visit}">
     <div class="card-body">
+      <!--Date format EEE is to get the first 3 letters of the weekday: 'Sun, 8/8 - 1993'-->
       <h5 class="card-title"
-          style="text-align: center">{{visit.date | date: 'd/M - yyyy'}}</h5>
+          style="text-align: center">{{visit.date | date: 'EEE, d/M - yyyy'}}</h5>
     </div>
   </div>
-  <ngb-pagination [collectionSize]="allVisits.length"
-                  [(page)]="page"
-                  [maxSize]="5"
-                  [pageSize]="5"
-                  (pageChange)="paginate($event)">
-  </ngb-pagination>
 </div>
 
 <!--NEW VISIT-->
