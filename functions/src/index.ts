@@ -55,6 +55,7 @@ exports.onExerciseDeleted = functions.firestore.document(`${EXERCISE_COLLECTION}
                 .set(newClient, {merge: true})
                 .then(() => console.log(`${clientWithExercise.fullName} updated!`));
             });
+          assignedExerciseSnapshot.ref.delete();
         });
       } else {
         console.log('Exercise was not assigned to any clients. No update needed');

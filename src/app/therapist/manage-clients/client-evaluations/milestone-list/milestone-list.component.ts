@@ -30,7 +30,6 @@ export class MilestoneListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('Milestone list')
   }
 
   /**

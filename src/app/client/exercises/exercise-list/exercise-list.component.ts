@@ -43,7 +43,7 @@ export class ExerciseListComponent implements OnInit {
     this.clientService.getCurrentClientById(userId).subscribe(user => {
       const loggedInUser = user as ClientEntity;
       const exercises = loggedInUser.rehabilitationPlan.exercises;
-      //
+
       exercises.forEach(exercise => {
         this.addExerciseToList(exercise);
       });

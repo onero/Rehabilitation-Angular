@@ -31,7 +31,6 @@ export class VisitListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('Visit list');
   }
 
   /**
