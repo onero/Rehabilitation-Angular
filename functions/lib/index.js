@@ -50,6 +50,7 @@ exports.onExerciseDeleted = functions.firestore.document(`${EXERCISE_COLLECTION}
                         .set(newClient, { merge: true })
                         .then(() => console.log(`${clientWithExercise.fullName} updated!`));
                 });
+                assignedExerciseSnapshot.ref.delete();
             });
         }
         else {
