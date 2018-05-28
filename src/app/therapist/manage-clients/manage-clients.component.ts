@@ -77,9 +77,12 @@ export class ManageClientsComponent implements OnInit, OnChanges {
    * Remove visit from milestone
    */
   removeVisitFromMilestone() {
+    // Hide EvaluationDetail
     this.selectedVisitIndex = this.NO_SELECTED_VISIT_INDEX;
     const currentMilestone = this.getCurrentMilestone();
+    // Remove visit from milestone
     currentMilestone.visits.splice(this.selectedVisitIndex, 1);
+    // Update milestone on firestore
     this.milestoneService.updateMilestone(currentMilestone);
   }
 
