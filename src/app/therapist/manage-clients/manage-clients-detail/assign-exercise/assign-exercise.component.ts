@@ -1,7 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import {ExerciseEntity} from '../../../../shared/entities/exercise.entity';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RehabModalService} from '../../../../shared/services/rehab-modal.service';
 import {Router} from '@angular/router';
 

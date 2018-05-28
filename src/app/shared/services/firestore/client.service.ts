@@ -3,7 +3,6 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {ClientEntity} from '../../entities/client.entity';
 import {RehabilitationPlan} from '../../entities/rehabilitation-plan.entity';
 import {Observable} from 'rxjs/Observable';
-import {C} from '@angular/core/src/render3';
 
 @Injectable()
 export class ClientService {

@@ -18,8 +18,11 @@ export class ExercisesComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Get currently logged in user
     const userId = this.authService.getUserId();
+    // Load client
     this.clientService.getCurrentClientById(userId)
+    // Load first exercise from client's  list of exercises
       .map(client => client.rehabilitationPlan.exercises[0])
       .subscribe(firstExercise => this.currentExercise = firstExercise);
   }

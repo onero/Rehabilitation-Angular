@@ -42,11 +42,14 @@ export class NewExerciseComponent implements OnInit {
       videoUrl: newExerciseForm.videoUrl,
       category: this.category
     };
+    // Extract id from videoUrl
     const newExerciseVideoId = this.youtubeService.getIdFromURL(newExercise.videoUrl);
+    // Retrieve videoInfo to extract thumbnail url for firestore
     this.youtubeService.getVideoInformation(newExerciseVideoId)
       .subscribe(result => {
         // Gets the imgUrl from the youtubeService.
         const ytResponse = result as YoutubeResponse;
+        // Update new exercise with thumbnail url
         newExercise.imgUrl = ytResponse.items[0].snippet.thumbnails.default.url;
         this.exerciseService.addExercise(newExercise)
           .then(() => {

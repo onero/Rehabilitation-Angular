@@ -21,7 +21,8 @@ export class ManageCategoriesListComponent implements OnInit {
 
   constructor(private categoryService: CategoryService,
               public modalService: RehabModalService,
-              private messageService: MessageService) { }
+              private messageService: MessageService) {
+  }
 
   ngOnInit() {
     this.page = 1;
@@ -53,15 +54,15 @@ export class ManageCategoriesListComponent implements OnInit {
   }
 
   /**
-  * When a category is clicked emit update
-  */
+   * When a category is clicked emit update
+   */
   onCategorySelected(category) {
     this.categorySelected.emit(category.name);
   }
 
   /**
-  * Add category with the parsed category name
-  */
+   * Add category with the parsed category name
+   */
   addCategory(categoryName: string) {
     this.categoryService.createCategory(categoryName)
       .then(() => {

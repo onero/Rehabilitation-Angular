@@ -8,11 +8,11 @@ import {YoutubeService} from '../shared/services/youtube.service';
 import {YoutubePlayerModule} from 'ngx-youtube-player';
 import {ExerciseInformationComponent} from './exercises/exercise-information/exercise-information.component';
 import {SharedModule} from '../shared/shared.module';
-import { ProfileComponent } from './profile/profile.component';
+import {ProfileComponent} from './profile/profile.component';
 import {FormsModule} from '@angular/forms';
 import {TherapistModule} from '../therapist/therapist.module';
-import { ContactComponent } from './contact/contact.component';
-import { EvaluationComponent } from './evaluation/evaluation.component';
+import {ContactComponent} from './contact/contact.component';
+import {EvaluationComponent} from './evaluation/evaluation.component';
 
 @NgModule({
   imports: [
@@ -26,4 +26,5 @@ import { EvaluationComponent } from './evaluation/evaluation.component';
   declarations: [ExercisesComponent, ExerciseInformationComponent, YoutubePlayerComponent, ExerciseListComponent, ProfileComponent, ContactComponent, EvaluationComponent],
   providers: [YoutubeService]
 })
-export class ClientModule { }
+export class ClientModule {
+}

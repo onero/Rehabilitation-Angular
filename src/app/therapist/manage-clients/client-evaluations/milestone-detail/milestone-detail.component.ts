@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {VisitEntity} from '../../../../shared/entities/visit.entity';
-import { environment } from '../../../../../environments/environment';
-import { MilestoneEntity } from '../../../../shared/entities/milestone.entity';
+import {environment} from '../../../../../environments/environment';
+import {MilestoneEntity} from '../../../../shared/entities/milestone.entity';
 
 @Component({
   selector: 'rehab-milestone-detail',
@@ -22,7 +22,8 @@ export class MilestoneDetailComponent implements OnInit {
   deletedVisit = new EventEmitter();
 
 
-  constructor() { }
+  constructor() {
+  }
 
   @Output()
   updateEvaluation = new EventEmitter<MilestoneEntity>();

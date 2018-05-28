@@ -1,6 +1,6 @@
 <h1>Exercises
   <i class="fa fa-plus-circle pull-right add-button clickable"
-  (click)="modalService.open(assignExercise)"></i></h1>
+     (click)="modalService.open(assignExercise)"></i></h1>
 <!--List of assigned exercises-->
 <div *ngFor="let exercise of exercises"
      class="card" style="text-align: center">
@@ -32,9 +32,11 @@
     <button type="button"
             class="btn btn-primary"
             (click)="routeToExercise();
-                     c('Close click')">Go to Exercises</button>
+                     c('Close click')">Go to Exercises
+    </button>
     <button type="button"
             class="btn btn-danger"
-            (click)="c('Close click')">Close</button>
+            (click)="c('Close click')">Close
+    </button>
   </div>
 </ng-template>

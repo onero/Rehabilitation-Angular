@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 import {AuthService} from './auth.service';
 import {MessageService} from '../../shared/services/message.service';
 
@@ -9,7 +9,8 @@ export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private messageService: MessageService) {}
+              private messageService: MessageService) {
+  }
 
   // TODO: MSP constants + DOC!!!!
   canActivate(
@@ -17,7 +18,9 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.isAuthenticated()
       .map(isLoggedIn => {
-        if (isLoggedIn) { return true; }
+        if (isLoggedIn) {
+          return true;
+        }
         this.router.navigateByUrl('/login')
           .then(() => {
             this.messageService

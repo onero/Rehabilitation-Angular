@@ -34,6 +34,7 @@ export class ExerciseListComponent implements OnInit {
    */
   private loadExercisesFromLoggedInClient() {
     const userId = this.authService.getUserId();
+    // Load client, since we can't "lazy-subscribe" directly to assigned exercises on firestore
     this.$client = this.clientService.getCurrentClientById(userId);
   }
 

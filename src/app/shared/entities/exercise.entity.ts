@@ -1,4 +1,3 @@
-
 export class ExerciseEntity {
   uid?: string;
   title?: string;
