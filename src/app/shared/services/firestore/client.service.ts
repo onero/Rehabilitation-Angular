@@ -3,6 +3,7 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {ClientEntity} from '../../entities/client.entity';
 import {RehabilitationPlan} from '../../entities/rehabilitation-plan.entity';
 import {Observable} from 'rxjs/Observable';
+import {C} from '@angular/core/src/render3';
 
 @Injectable()
 export class ClientService {
@@ -106,9 +107,8 @@ export class ClientService {
   /**
    * Get currentClient by id
    */
-  getCurrentClientById(uid: string) {
-    return this.afs.collection<ClientEntity>(this.CLIENTS_COLLECTION)
-      .doc(uid)
+  getCurrentClientById(clientUid: string): Observable<ClientEntity> {
+    return this.afs.doc<ClientEntity>(`${this.CLIENTS_COLLECTION}/${clientUid}`)
       .valueChanges();
   }
 }

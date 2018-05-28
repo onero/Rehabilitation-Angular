@@ -61,7 +61,8 @@ export class ManageClientsDetailComponent implements OnInit {
     const partialNewExercise: ExerciseEntity = {
       uid: exercise.uid,
       title: exercise.title,
-      videoUrl: exercise.videoUrl
+      videoUrl: exercise.videoUrl,
+      imgUrl: exercise.imgUrl
     };
     // Ensure exercises array is instantiated
     if (!this.currentClient.rehabilitationPlan.exercises) {
