@@ -58,6 +58,10 @@ export class ManageClientsComponent implements OnInit, OnChanges {
    */
   addVisitToMilestone(newVisit: VisitEntity) {
     const currentMilestone = this.getCurrentMilestone();
+    // Check visits for layer 8 error!
+    if (currentMilestone.visits == null) {
+      currentMilestone.visits = [];
+    }
     // Add visit to milestone
     currentMilestone.visits.push(newVisit);
     // Update milestone on firestore with new data
