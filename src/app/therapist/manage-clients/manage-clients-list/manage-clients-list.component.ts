@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ClientEntity} from '../../../shared/entities/client.entity';
 import {Observable} from 'rxjs/Observable';
 import {ClientService} from '../../../shared/services/firestore/client.service';
@@ -7,6 +7,7 @@ import {RehabErrorService} from '../../../shared/services/rehab-error.service';
 import {RehabModalService} from '../../../shared/services/rehab-modal.service';
 import 'rxjs/add/operator/find';
 import {MessageService} from '../../../shared/services/message.service';
+import {C} from '@angular/core/src/render3';
 
 @Component({
   selector: 'rehab-manage-clients-list',
@@ -18,7 +19,9 @@ export class ManageClientsListComponent implements OnInit {
   @Output()
   clientSelected = new EventEmitter<ClientEntity>();
 
-  currentClient: ClientEntity;
+  @Input()
+  currentClientUid: string;
+
   $paginatedClients: Observable<ClientEntity[]>;
   amountOfClients: number;
   page = 1;
@@ -90,7 +93,6 @@ export class ManageClientsListComponent implements OnInit {
    * @param {ClientEntity} client
    */
   onClientSelected(client: ClientEntity) {
-    this.currentClient = client;
     this.clientSelected.emit(client);
   }
 

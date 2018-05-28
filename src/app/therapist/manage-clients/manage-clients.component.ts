@@ -117,4 +117,8 @@ export class ManageClientsComponent implements OnInit {
     this.selectedVisit = null;
   }
 
+  onClientSelected(client: ClientEntity) {
+    this.selectedClient = client;
+  }
+
 }
