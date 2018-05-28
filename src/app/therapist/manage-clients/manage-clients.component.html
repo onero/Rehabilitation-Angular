@@ -27,7 +27,7 @@
         <!--MILESTONES-->
         <rehab-milestone-list (milestoneSelected)="onSelectedMilestone($event)"
                               (milestoneCreated)="addMilestone($event)"
-                              [milestones]="milestones"></rehab-milestone-list>
+                              [milestones]="selectedClient.rehabilitationPlan.milestones"></rehab-milestone-list>
       </div>
       <div class="col-md-3">
         <!--VISITS-->
@@ -38,8 +38,9 @@
       </div>
       <div class="col-md-6">
         <!--Milestone Detail-->
-        <rehab-milestone-detail *ngIf="selectedVisitIndex !== -1"
+        <rehab-milestone-detail *ngIf="selectedVisitIndex !== NO_SELECTED_VISIT_INDEX"
                                 (updateMilestone)="updateMilestone($event)"
+                                (deletedVisit)="removeVisitFromMilestone()"
                                 [milestoneUid]="selectedMilestoneUid"
                                 [visitIndex]="selectedVisitIndex"></rehab-milestone-detail>
       </div>

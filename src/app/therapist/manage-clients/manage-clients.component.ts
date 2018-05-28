@@ -13,10 +13,9 @@ import {MessageService} from '../../shared/services/message.service';
 })
 export class ManageClientsComponent implements OnInit, OnChanges {
 
-  private NO_SELECTED_VISIT_INDEX = -1;
+  NO_SELECTED_VISIT_INDEX = -1;
 
   selectedClient: ClientEntity;
-  milestones: MilestoneEntity[];
   selectedMilestoneUid: string;
   selectedVisitIndex: number;
   evaluationMode = false;
@@ -41,7 +40,7 @@ export class ManageClientsComponent implements OnInit, OnChanges {
   loadClientMilestones() {
     this.milestoneService.getMilestonesByClientUid(this.selectedClient.uid)
       .subscribe(milestonesFromDB => {
-        this.milestones = milestonesFromDB;
+        this.selectedClient.rehabilitationPlan.milestones = milestonesFromDB;
       });
   }
 
@@ -53,26 +52,37 @@ export class ManageClientsComponent implements OnInit, OnChanges {
     this.milestoneService.addMilestoneWithClientUid(this.selectedClient.uid, newMilestone);
   }
 
-  // /**
-  //  * Add new visit to selectedMilestone
-  //  * @param {VisitEntity} newVisit
-  //  */
-  // addVisitToMilestone(newVisit: VisitEntity) {
-  //   // Check for visits in selected milestone
-  //   if (!this.selectedMilestone.visits) {
-  //     this.selectedMilestone.visits = [];
-  //   }
-  //   this.selectedMilestone.visits.push(newVisit);
-  //   // Update milestone on firestore with new data
-  //   this.milestoneService.updateMilestone(this.selectedMilestone);
-  // }
-  //
-  // removeVisitFromMilestone() {
-  //   const indexOfVisitToRemove = this.selectedMilestone.visits.indexOf(this.selectedVisitIndex);
-  //   this.selectedMilestone.visits.splice(indexOfVisitToRemove, 1);
-  //   this.milestoneService.updateMilestone(this.selectedMilestone);
-  // }
-  //
+  /**
+   * Add new visit to selectedMilestone
+   * @param {VisitEntity} newVisit
+   */
+  addVisitToMilestone(newVisit: VisitEntity) {
+    const currentMilestone = this.getCurrentMilestone();
+    // Add visit to milestone
+    currentMilestone.visits.push(newVisit);
+    // Update milestone on firestore with new data
+    this.milestoneService.updateMilestone(currentMilestone);
+  }
+
+  /**
+   * Retrieve current milestone from selected client
+   * @returns {T | undefined}
+   */
+  private getCurrentMilestone() {
+    return this.selectedClient.rehabilitationPlan.milestones
+      .find(milestoneFromList => milestoneFromList.uid === this.selectedMilestoneUid);
+  }
+
+  /**
+   * Remove visit from milestone
+   */
+  removeVisitFromMilestone() {
+    this.selectedVisitIndex = this.NO_SELECTED_VISIT_INDEX;
+    const currentMilestone = this.getCurrentMilestone();
+    currentMilestone.visits.splice(this.selectedVisitIndex, 1);
+    this.milestoneService.updateMilestone(currentMilestone);
+  }
+
   /**
    * Updates the milestone for the client.
    * @param {MilestoneEntity} milestoneToUpdate
