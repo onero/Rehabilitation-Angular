@@ -13,6 +13,8 @@ import {MessageService} from '../../shared/services/message.service';
 })
 export class ManageClientsComponent implements OnInit, OnChanges {
 
+  private NO_SELECTED_VISIT_INDEX = -1;
+
   selectedClient: ClientEntity;
   milestones: MilestoneEntity[];
   selectedMilestoneUid: string;
@@ -22,6 +24,7 @@ export class ManageClientsComponent implements OnInit, OnChanges {
   constructor(private clientService: ClientService,
               private milestoneService: MilestoneService,
               private messageService: MessageService) {
+    this.selectedVisitIndex = this.NO_SELECTED_VISIT_INDEX;
   }
 
   ngOnInit() {
@@ -112,7 +115,7 @@ export class ManageClientsComponent implements OnInit, OnChanges {
 
   onSelectedMilestone(milestoneUid: string) {
     this.selectedMilestoneUid = milestoneUid;
-    // this.selectedVisitIndex = null;
+    this.selectedVisitIndex = this.NO_SELECTED_VISIT_INDEX;
   }
 
   onSelectedVisit(visitIndex: number) {

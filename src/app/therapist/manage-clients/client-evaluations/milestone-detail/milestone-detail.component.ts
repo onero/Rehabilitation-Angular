@@ -36,8 +36,6 @@ export class MilestoneDetailComponent implements OnInit {
   editMode = false;
 
   ngOnInit() {
-    console.log(this.milestoneUid);
-    console.log(this.visitIndex);
     this.$loadedMilestone = this.milestoneService.getMilestoneById(this.milestoneUid);
   }
 

@@ -38,11 +38,9 @@
       </div>
       <div class="col-md-6">
         <!--Milestone Detail-->
-        <rehab-milestone-detail *ngIf="selectedVisitIndex"
-                                (deletedVisit)="removeVisitFromMilestone()"
+        <rehab-milestone-detail *ngIf="selectedVisitIndex !== -1"
                                 [milestoneUid]="selectedMilestoneUid"
-                                [visitIndex]="selectedVisitIndex"
-                                (updateEvaluation)="updateMilestone($event)"></rehab-milestone-detail>
+                                [visitIndex]="selectedVisitIndex"></rehab-milestone-detail>
       </div>
     </div>
   </ng-template>
