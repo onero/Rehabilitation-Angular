@@ -28,6 +28,7 @@ export class ManageClientsDetailComponent implements OnInit, OnChanges, OnDestro
   }
 
   ngOnInit() {
+    // Save subscribe for possibility to unsubscribe on page change!
     this.$subscribe = this.clientService.getCurrentClientById(this.currentClientUid)
       .subscribe(client => this.currentClient = client);
   }
@@ -38,6 +39,7 @@ export class ManageClientsDetailComponent implements OnInit, OnChanges, OnDestro
   }
 
   ngOnDestroy() {
+    // Unsubscribe on page change!
     this.$subscribe.unsubscribe();
   }
 
