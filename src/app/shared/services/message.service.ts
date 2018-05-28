@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {SnackbarService} from 'ngx-snackbar';
 
 @Injectable()
 export class MessageService {
 
-  constructor(private snackbarService: SnackbarService) {}
+  constructor(private snackbarService: SnackbarService) {
+  }
 
   displayMessage(message: string, durationInSeconds: number) {
     this.snackbarService.add({

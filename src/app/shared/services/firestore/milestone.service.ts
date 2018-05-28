@@ -7,7 +7,8 @@ export class MilestoneService {
 
   private MILESTONE_COLLECTION = 'Milestones';
 
-  constructor(private angularFireStore: AngularFirestore) { }
+  constructor(private angularFireStore: AngularFirestore) {
+  }
 
   /**
    * Get milestone by id

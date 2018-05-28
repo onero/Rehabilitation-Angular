@@ -15,7 +15,7 @@ export const AppRoutes = RouterModule.forRoot(
   [
     {
       path: '',
-        redirectTo: 'login',
+      redirectTo: 'login',
       pathMatch: 'full'
     },
     {
@@ -61,6 +61,6 @@ export const AppRoutes = RouterModule.forRoot(
       canActivate: [AuthGuard],
       data: [{category: ''}]
     },
-    { path: '**', component: PageNotFoundComponent } // This must be last!
+    {path: '**', component: PageNotFoundComponent} // This must be last!
   ]
 );
