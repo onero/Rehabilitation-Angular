@@ -1,18 +1,22 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ClientEntity} from '../../../shared/entities/client.entity';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {ClientService} from '../../../shared/services/firestore/client.service';
 import {AssignedExerciseService} from '../../../shared/services/firestore/assigned-exercise.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'rehab-manage-clients-detail',
   templateUrl: './manage-clients-detail.component.html',
   styleUrls: ['./manage-clients-detail.component.scss']
 })
-export class ManageClientsDetailComponent implements OnInit {
+export class ManageClientsDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
+  currentClientUid: string;
+
   currentClient: ClientEntity;
+  $subscribe;
 
   @Output()
   clientDeleted = new EventEmitter();
@@ -24,6 +28,17 @@ export class ManageClientsDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.$subscribe = this.clientService.getCurrentClientById(this.currentClientUid)
+      .subscribe(client => this.currentClient = client);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.$subscribe = this.clientService.getCurrentClientById(this.currentClientUid)
+      .subscribe(client => this.currentClient = client);
+  }
+
+  ngOnDestroy() {
+    this.$subscribe.unsubscribe();
   }
 
   /**
@@ -72,4 +87,5 @@ export class ManageClientsDetailComponent implements OnInit {
     this.assignExerciseService.assignExerciseToClient(this.currentClient.uid, exercise.uid);
     this.updateRehabilitationPlan();
   }
+
 }

@@ -6,7 +6,8 @@
     <div class="row">
       <!--Clients list-->
       <div class="col-md-4">
-        <rehab-manage-clients-list (clientSelected)="selectedClient = $event"></rehab-manage-clients-list>
+        <rehab-manage-clients-list (clientSelected)="onClientSelected($event)"
+                                   [currentClientUid]="selectedClient?.uid"></rehab-manage-clients-list>
       </div>
 
       <!--Clients detail-->
@@ -14,7 +15,7 @@
         <rehab-manage-clients-detail *ngIf="selectedClient"
                                      (clientDeleted)="deleteClient()"
                                      (evaluationsClicked)="evaluationMode = true; loadClientMilestones()"
-                                     [currentClient]="selectedClient"></rehab-manage-clients-detail>
+                                     [currentClientUid]="selectedClient.uid"></rehab-manage-clients-detail>
       </div>
     </div>
   </ng-template>

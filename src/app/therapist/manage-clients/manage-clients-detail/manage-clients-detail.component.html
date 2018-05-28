@@ -1,13 +1,11 @@
 <div class="container">
-
   <div class="row" *ngIf="currentClient">
     <div class="col-md-7">
 
       <!--Clients contact information-->
       <div class="col">
         <rehab-manage-clients-contact-information
-          [currentModel]="currentClient"
-          (contactInfoUpdated)="currentClient = null"></rehab-manage-clients-contact-information>
+          [selectedClient]="currentClient"></rehab-manage-clients-contact-information>
       </div>
 
       <!--Clients Diagnosis-->
@@ -33,7 +31,7 @@
     <!--YouTube assignments-->
     <div class="col-md-5">
       <!--Insert Youtube HTML in HERE!-->
-      <rehab-assign-exercise [exercises]="currentClient?.rehabilitationPlan?.exercises"
+      <rehab-assign-exercise [exercises]="currentClient.rehabilitationPlan.exercises"
                              (exerciseUnassigned)="unassignExerciseFromClient($event)"
                              (exerciseAssigned)="assignExerciseToClient($event)"></rehab-assign-exercise>
     </div>
