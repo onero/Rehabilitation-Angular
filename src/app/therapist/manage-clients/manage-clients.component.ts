@@ -11,7 +11,7 @@ import {MessageService} from '../../shared/services/message.service';
   templateUrl: './manage-clients.component.html',
   styleUrls: ['./manage-clients.component.scss']
 })
-export class ManageClientsComponent implements OnInit, OnChanges {
+export class ManageClientsComponent implements OnInit {
 
   NO_SELECTED_VISIT_INDEX = -1;
 
@@ -27,11 +27,6 @@ export class ManageClientsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.selectedMilestoneUid);
-    console.log(this.selectedVisitIndex);
   }
 
   /**

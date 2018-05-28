@@ -2,17 +2,20 @@
   <div class="row">
     <div class="col-md-3">
       <!--MILESTONES-->
-      <rehab-milestone-list (milestoneSelected)="selectedMilestone = $event"
+      <rehab-milestone-list (milestoneSelected)="onSelectedMilestone($event)"
                             [milestones]="milestones"></rehab-milestone-list>
     </div>
     <div class="col-md-3">
       <!--VISITS-->
-      <rehab-visit-list *ngIf="selectedMilestone"
-                        (visitSelected)="currentVisit = $event"></rehab-visit-list>
+      <rehab-visit-list *ngIf="selectedMilestoneUid"
+                        [selectedMilestoneUid]="selectedMilestoneUid"
+                        (visitSelected)="onSelectedVisit($event)"></rehab-visit-list>
     </div>
     <div class="col-md-6">
       <!--Milestone Detail-->
-      <rehab-milestone-detail *ngIf="currentVisit"></rehab-milestone-detail>
+      <rehab-milestone-detail *ngIf="selectedVisitIndex !== NO_SELECTED_VISIT_INDEX"
+                              [milestoneUid]="selectedMilestoneUid"
+                              [visitIndex]="selectedVisitIndex"></rehab-milestone-detail>
     </div>
   </div>
 </div>
