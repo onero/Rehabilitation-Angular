@@ -39,6 +39,7 @@
       <div class="col-md-6">
         <!--Milestone Detail-->
         <rehab-milestone-detail *ngIf="selectedVisitIndex !== -1"
+                                (updateMilestone)="updateMilestone($event)"
                                 [milestoneUid]="selectedMilestoneUid"
                                 [visitIndex]="selectedVisitIndex"></rehab-milestone-detail>
       </div>

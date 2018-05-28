@@ -12,10 +12,7 @@
     </div>
     <div class="col-md-6">
       <!--Milestone Detail-->
-      <rehab-milestone-detail *ngIf="currentVisit"
-                              [title]="selectedMilestone.title"
-                              [purpose]="selectedMilestone.purpose"
-                              [note]="currentVisit.note"></rehab-milestone-detail>
+      <rehab-milestone-detail *ngIf="currentVisit"></rehab-milestone-detail>
     </div>
   </div>
 </div>

@@ -23,7 +23,7 @@
           <!--EDIT-->
           <ng-template #editEvaluationTitle>
             <input type="text"
-                   [(ngModel)]="title"
+                   [(ngModel)]="loadedMilestone.title"
                    class="edit-mode evaluation-text"
                    #titleInput
                    name="titleInput">
@@ -34,7 +34,7 @@
           </ng-template>
           <!--Save icon-->
           <ng-template #saveIcon>
-            <i class="fa fa-floppy-o fa-1x pull-right clickable" (click)="onEvaluationUpdated()"></i>
+            <i class="fa fa-floppy-o fa-1x pull-right clickable" (click)="onEvaluationUpdated(loadedMilestone)"></i>
           </ng-template>
         </div>
       </div>
@@ -56,11 +56,10 @@
           <!--EDIT-->
           <ng-template #editEvaluationPurpose>
           <textarea type="text"
-                    [(ngModel)]="purpose"
+                    [(ngModel)]="loadedMilestone.purpose"
                     class="edit-mode evaluation-text"
                     #evaluationInput
                     name="evaluationInput">
-            {{purpose}}
           </textarea>
           </ng-template>
         </div>
@@ -80,11 +79,10 @@
           <!--EDIT-->
           <ng-template #editEvaluationNote>
           <textarea type="text"
-                    [(ngModel)]="note"
+                    [(ngModel)]="loadedMilestone.visits[visitIndex].note"
                     class="edit-mode evaluation-text"
                     #evaluationInput
                     name="evaluationInput">
-            {{note}}
           </textarea>
           </ng-template>
         </div>
