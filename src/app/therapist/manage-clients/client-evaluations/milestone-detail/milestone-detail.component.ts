@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {VisitEntity} from '../../../../shared/entities/visit.entity';
 import { environment } from '../../../../../environments/environment';
 import { MilestoneEntity } from '../../../../shared/entities/milestone.entity';
+import {MilestoneService} from '../../../../shared/services/firestore/milestone.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'rehab-milestone-detail',
@@ -11,18 +12,22 @@ import { MilestoneEntity } from '../../../../shared/entities/milestone.entity';
 export class MilestoneDetailComponent implements OnInit {
 
   @Input()
+  milestoneUid: string;
+  @Input()
+  visitIndex: number;
+  @Input()
   title: string;
   @Input()
   purpose: string;
   @Input()
   note: string;
-  @Input()
-  currentVisit: VisitEntity;
   @Output()
   deletedVisit = new EventEmitter();
 
+  $loadedMilestone: Observable<MilestoneEntity>;
 
-  constructor() { }
+
+  constructor(private milestoneService: MilestoneService) { }
 
   @Output()
   updateEvaluation = new EventEmitter<MilestoneEntity>();
@@ -32,6 +37,9 @@ export class MilestoneDetailComponent implements OnInit {
   editMode = false;
 
   ngOnInit() {
+    console.log(this.milestoneUid);
+    console.log(this.visitIndex);
+    this.$loadedMilestone = this.milestoneService.getMilestoneById(this.milestoneUid);
   }
 
 
@@ -49,16 +57,16 @@ export class MilestoneDetailComponent implements OnInit {
   /**
    * Tells when the update is called.
    */
-  onEvaluationUpdated() {
-    this.currentVisit.note = this.note;
-    const newMilestone: MilestoneEntity = {
-      title: this.title,
-      purpose: this.purpose,
-      visits: []
-    };
-    newMilestone.visits.push(this.currentVisit);
-    this.updateEvaluation.emit(newMilestone);
-    this.editMode = false;
-  }
+  // onEvaluationUpdated() {
+  //   this.currentVisit.note = this.note;
+  //   const newMilestone: MilestoneEntity = {
+  //     title: this.title,
+  //     purpose: this.purpose,
+  //     visits: []
+  //   };
+  //   newMilestone.visits.push(this.currentVisit);
+  //   this.updateEvaluation.emit(newMilestone);
+  //   this.editMode = false;
+  // }
 
 }

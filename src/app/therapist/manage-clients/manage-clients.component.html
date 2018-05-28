@@ -31,21 +31,18 @@
       </div>
       <div class="col-md-3">
         <!--VISITS-->
-        <rehab-visit-list *ngIf="selectedMilestone"
+        <rehab-visit-list *ngIf="selectedMilestoneUid"
+                          [selectedMilestoneUid]="selectedMilestoneUid"
                           (visitAdded)="addVisitToMilestone($event)"
-                          [allVisits]="selectedMilestone?.visits"
-                          (visitSelected)="selectedVisit = $event"
-                          [currentVisit]="selectedVisit"></rehab-visit-list>
+                          (visitSelected)="onSelectedVisit($event)"></rehab-visit-list>
       </div>
       <div class="col-md-6">
         <!--Milestone Detail-->
-        <rehab-milestone-detail *ngIf="selectedVisit"
+        <rehab-milestone-detail *ngIf="selectedVisitIndex"
                                 (deletedVisit)="removeVisitFromMilestone()"
-                                [currentVisit]="selectedVisit"
-                                [title]="selectedMilestone.title"
-                                [purpose]="selectedMilestone.purpose"
-                                (updateEvaluation)="updateMilestone($event)"
-                                [note]="selectedVisit.note"></rehab-milestone-detail>
+                                [milestoneUid]="selectedMilestoneUid"
+                                [visitIndex]="selectedVisitIndex"
+                                (updateEvaluation)="updateMilestone($event)"></rehab-milestone-detail>
       </div>
     </div>
   </ng-template>

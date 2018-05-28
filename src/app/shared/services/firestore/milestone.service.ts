@@ -16,7 +16,10 @@ export class MilestoneService {
   getMilestoneById(milestoneId: string) {
     return this.angularFireStore.collection<MilestoneEntity>(this.MILESTONE_COLLECTION,
       ref => ref.where('uid', '==', milestoneId))
-      .valueChanges();
+      .valueChanges()
+      .map(
+        milestones => milestones[0]
+      );
   }
 
   /**
