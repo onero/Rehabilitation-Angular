@@ -85,13 +85,15 @@
           </div>
         </div>
         <button class="btn btn-danger clickable"
-                (click)="cancelForm()">Cancel</button>
+                (click)="cancelForm()">Cancel
+        </button>
         <!--NgClass check whether or not the requirements are fulfilled, if not,
         then the button is disabled and without a fat finger-->
-        <button  [disabled]="!newExerciseForm.valid"
-                 [ngClass]="{'btn btn-success pull-right fat-finger' : newExerciseForm.valid,
+        <button [disabled]="!newExerciseForm.valid"
+                [ngClass]="{'btn btn-success pull-right fat-finger' : newExerciseForm.valid,
                              'btn btn-success pull-right' : true}"
-                 type="submit">Add</button>
+                type="submit">Add
+        </button>
       </form>
     </div>
     <div class="col-3"></div>

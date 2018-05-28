@@ -6,7 +6,8 @@ export class AssignedExerciseService {
 
   private ASSIGNED_EXERCISES_COLLECTION = 'AssignedExercises';
 
-  constructor(private angularFireStore: AngularFirestore) { }
+  constructor(private angularFireStore: AngularFirestore) {
+  }
 
   /**
    * Assign provided exercise id to client

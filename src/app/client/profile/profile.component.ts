@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ClientEntity} from '../../shared/entities/client.entity';
 import {ClientService} from '../../shared/services/firestore/client.service';
 import {AuthService} from '../../auth/shared/auth.service';

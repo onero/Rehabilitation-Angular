@@ -26,7 +26,6 @@ export class MilestoneDetailComponent implements OnInit {
 
   $loadedMilestone: Observable<MilestoneEntity>;
 
-
   constructor(private milestoneService: MilestoneService) { }
 
   @Output()

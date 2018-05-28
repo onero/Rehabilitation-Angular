@@ -25,32 +25,39 @@ body {
   padding: 10px;
   font-family: 'Varela Round';
 }
+
 /*=== 2. Anchor Link ===*/
 a {
   color: #aaaaaa;
   transition: all ease-in-out 200ms;
 }
+
 a:hover {
   color: #333333;
   text-decoration: none;
 }
+
 /*=== 3. Text Outside the Box ===*/
 .etc-login-form {
   color: #919191;
   padding: 10px 20px;
 }
+
 .etc-login-form p {
   margin-bottom: 5px;
 }
+
 /*=== 4. Main Form ===*/
 .login-form-1 {
   max-width: 300px;
   border-radius: 5px;
   display: inline-block;
 }
+
 .main-login-form {
   position: relative;
 }
+
 .login-form-1 .form-control {
   border: 0;
   box-shadow: 0 0 0;
@@ -59,37 +66,45 @@ a:hover {
   color: #555555;
   padding: 7px 0;
   font-weight: bold;
-  height:auto;
+  height: auto;
 }
+
 .login-form-1 .form-control::-webkit-input-placeholder {
   color: #999999;
 }
+
 .login-form-1 .form-control:-moz-placeholder,
 .login-form-1 .form-control::-moz-placeholder,
 .login-form-1 .form-control:-ms-input-placeholder {
   color: #999999;
 }
+
 .login-form-1 .form-group {
   margin-bottom: 0;
   border-bottom: 2px solid #efefef;
   padding-right: 20px;
   position: relative;
 }
+
 .bottom-border {
   border-bottom: 2px solid #efefef;
 }
+
 .login-form-1 .form-group:last-child {
   border-bottom: 0;
 }
+
 .login-group {
   background: #ffffff;
   color: #999999;
   border-radius: 8px;
   padding: 10px 20px;
 }
+
 .login-group-checkbox {
   padding: 5px 0;
 }
+
 /*=== 5. Login Button ===*/
 .login-form-1 .login-button {
   position: absolute;
@@ -105,22 +120,28 @@ a:hover {
   border-radius: 50%;
   transition: all ease-in-out 500ms;
 }
+
 .login-form-1 .login-button:hover {
   color: #555555;
   transform: rotate(450deg);
 }
+
 .login-form-1 .login-button.clicked {
   color: #555555;
 }
+
 .login-form-1 .login-button.clicked:hover {
   transform: none;
 }
+
 .login-form-1 .login-button.clicked.success {
   color: #2ecc71;
 }
+
 .login-form-1 .login-button.clicked.error {
   color: #e74c3c;
 }
+
 /*=== 6. Form Invalid ===*/
 label.form-invalid {
   position: absolute;
@@ -136,6 +157,7 @@ label.form-invalid {
   font-weight: bold;
   font-size: 11px;
 }
+
 label.form-invalid:after {
   top: 100%;
   right: 10px;
@@ -149,6 +171,7 @@ label.form-invalid:after {
   border-top-color: #777777;
   border-width: 6px;
 }
+
 /*=== 7. Form - Main Message ===*/
 .login-form-main-message {
   background: #ffffff;
@@ -162,14 +185,17 @@ label.form-invalid:after {
   opacity: 0;
   transition: all ease-in-out 200ms;
 }
+
 .login-form-main-message.show {
   height: auto;
   opacity: 1;
   padding: 10px 20px 10px 17px;
 }
+
 .login-form-main-message.success {
   border-left-color: #2ecc71;
 }
+
 .login-form-main-message.error {
   border-left-color: #e74c3c;
 }
@@ -181,10 +207,12 @@ label.form-invalid:after {
 [type="checkbox"]:not(:checked):focus + label:before {
   border: 1px dotted #f6f6f6;
 }
+
 /* hover style just for information */
 label:hover:before {
   border: 1px solid #f6f6f6 !important;
 }
+
 /*=== 9. Misc ===*/
 .logo {
   padding: 15px 0;

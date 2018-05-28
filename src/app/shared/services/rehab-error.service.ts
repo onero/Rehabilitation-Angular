@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {SnackbarService} from 'ngx-snackbar';
 
 @Injectable()
 export class RehabErrorService {
 
-  constructor(private snackbarService: SnackbarService) { }
+  constructor(private snackbarService: SnackbarService) {
+  }
 
   displayError(message: string) {
     this.snackbarService.add({
