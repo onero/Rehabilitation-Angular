@@ -16,6 +16,10 @@ $body-bg: $rehab-grey;
 
 @import "~bootstrap/scss/bootstrap";
 
+h1, h3 {
+  color: $rehab-orange;
+}
+
 .fa-edit {
   color: $rehab-blue;
 }
