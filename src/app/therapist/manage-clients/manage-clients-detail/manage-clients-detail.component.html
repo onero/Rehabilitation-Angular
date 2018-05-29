@@ -13,7 +13,8 @@
                (click)="deleteClient()"></i>
           </div>
           <div class="col">
-            <i class="fa fa-bookmark fa-2x pull-right delete-button clickable"></i>
+            <i class="fa fa-bookmark fa-2x pull-right evaluation-button clickable"
+            (click)="evaluationsClicked.emit()"></i>
           </div>
         </div>
 
@@ -33,11 +34,6 @@
         <rehab-manage-clients-goal
           (goalUpdated)="currentClient.rehabilitationPlan.goal = $event; updateRehabilitationPlan()"
           [currentGoal]="currentClient.rehabilitationPlan.goal"></rehab-manage-clients-goal>
-      </div>
-      <div class="col">
-        <button class="btn btn-primary clickable"
-                (click)="evaluationsClicked.emit()">Evaluationsss
-        </button>
       </div>
     </div>
 
