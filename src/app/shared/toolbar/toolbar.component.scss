@@ -5,10 +5,20 @@
 }
 
 .logoutBtn:hover {
-  color: #000;
+  color: grey;
 }
 
 .router-link-active {
   border-radius: 15%;
   background-color: $secondary;
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  border-radius: 15%;
+  color: white;
+  background-color: $rehab-dark-blue;
 }
