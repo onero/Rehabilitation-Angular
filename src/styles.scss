@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 
-$rehab-blue: #1726f0;
+$rehab-blue: #0164a7;
 $rehab-orange: #a75401;
 $rehab-red: #ad2817;
 $rehab-grey: #eee;
@@ -16,8 +16,12 @@ $body-bg: $rehab-grey;
 
 @import "~bootstrap/scss/bootstrap";
 
-h1, h3 {
+h1, h3, h5 {
   color: $rehab-orange;
+}
+
+a {
+  color: white;
 }
 
 .fa-edit {

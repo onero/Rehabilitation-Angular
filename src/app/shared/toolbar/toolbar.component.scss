@@ -1,12 +1,14 @@
+@import "../../../styles";
+
 .logoutBtn {
-  color: #babbbc;
+  color: $rehab-grey;
 }
 
 .logoutBtn:hover {
-  color: #69727b;
+  color: #000;
 }
 
 .router-link-active {
-  background-color: #c1c1c1;
-  color: #000;
+  border-radius: 15%;
+  background-color: $secondary;
 }
