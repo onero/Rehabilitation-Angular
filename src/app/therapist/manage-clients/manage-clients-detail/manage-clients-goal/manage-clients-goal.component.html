@@ -3,13 +3,18 @@
     <div class="row">
 
       <!--GOAL HEADLINE-->
-      <div class="col">
+      <div class="col-md-12">
         <h3>Goal
           <div *ngIf="allowEdit">
+            <!--Mode-->
             <div *ngIf="!editMode; then editIcon else saveIcon"></div>
+
+            <!--Saved-->
             <ng-template #editIcon>
               <i class="fa fa-edit fa-1x pull-right clickable" (click)="toggleGoalEdit()"></i>
             </ng-template>
+
+            <!--Edit-->
             <ng-template #saveIcon>
               <i class="fa fa-floppy-o fa-1x pull-right clickable" (click)="onGoalUpdated()"></i>
             </ng-template>
