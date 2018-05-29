@@ -1,7 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {VisitEntity} from '../../../../shared/entities/visit.entity';
 import {environment} from '../../../../../environments/environment';
 import {MilestoneEntity} from '../../../../shared/entities/milestone.entity';
+import {MilestoneService} from '../../../../shared/services/firestore/milestone.service';
+import {Observable} from 'rxjs/Observable';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'rehab-milestone-detail',
@@ -11,28 +13,27 @@ import {MilestoneEntity} from '../../../../shared/entities/milestone.entity';
 export class MilestoneDetailComponent implements OnInit {
 
   @Input()
-  title: string;
+  milestoneUid: string;
   @Input()
-  purpose: string;
-  @Input()
-  note: string;
-  @Input()
-  currentVisit: VisitEntity;
+  visitIndex: number;
+
   @Output()
   deletedVisit = new EventEmitter();
 
+  $loadedMilestone: Observable<MilestoneEntity>;
 
-  constructor() {
+  constructor(private milestoneService: MilestoneService) {
   }
 
   @Output()
-  updateEvaluation = new EventEmitter<MilestoneEntity>();
+  updateMilestone = new EventEmitter<MilestoneEntity>();
 
   allowEdit = !environment.clientMode;
 
   editMode = false;
 
   ngOnInit() {
+    this.$loadedMilestone = this.milestoneService.getMilestoneById(this.milestoneUid);
   }
 
 
@@ -50,15 +51,8 @@ export class MilestoneDetailComponent implements OnInit {
   /**
    * Tells when the update is called.
    */
-  onEvaluationUpdated() {
-    this.currentVisit.note = this.note;
-    const newMilestone: MilestoneEntity = {
-      title: this.title,
-      purpose: this.purpose,
-      visits: []
-    };
-    newMilestone.visits.push(this.currentVisit);
-    this.updateEvaluation.emit(newMilestone);
+  onEvaluationUpdated(loadedMilestone: MilestoneEntity) {
+    this.updateMilestone.emit(loadedMilestone);
     this.editMode = false;
   }
 
