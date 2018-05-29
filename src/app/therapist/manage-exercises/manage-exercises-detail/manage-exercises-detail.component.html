@@ -3,10 +3,9 @@
   <form novalidate #updateExerciseForm="ngForm">
     <!--DELETE TITLE EDIT-->
     <div class="row">
-      <div class="col">
-        <button style="margin-top: 1.5%" class="btn btn-danger pull-left clickable" (click)="deleteExercise()">
-          Delete
-        </button>
+      <div class="col-2">
+          <i class="fa fa-trash fa-2x pull-left delete-button clickable"
+             (click)="deleteExercise()"></i>
       </div>
       <div class="col">
         <div *ngIf="!editMode; then title else editTitle"></div>
@@ -14,7 +13,7 @@
           <h1 class="center">{{currentExercise.title}}</h1>
         </ng-template>
         <ng-template #editTitle>
-          <input class="center-input edit-mode"
+          <input class="center-input edit-mode input-top-margin"
                  type="text"
                  #titleInput
                  [(ngModel)]="currentExercise.title"
@@ -22,13 +21,13 @@
                  required>
         </ng-template>
       </div>
-      <div class="col">
+      <div class="col-2">
         <div *ngIf="!editMode; then editIcon else saveIcon"></div>
         <ng-template #editIcon>
-          <i class="fa fa-edit fa-3x pull-right clickable" (click)="toggleEdit()"></i>
+          <i class="fa fa-pencil-square fa-2x pull-right clickable edit-button" (click)="toggleEdit()"></i>
         </ng-template>
         <ng-template #saveIcon>
-          <i class="fa fa-floppy-o fa-3x pull-right clickable"
+          <i class="fa fa-floppy-o fa-2x pull-right clickable save-button"
              (click)="updateExercise(updateExerciseForm.value)"></i>
         </ng-template>
       </div>

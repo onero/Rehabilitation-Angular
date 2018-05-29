@@ -39,10 +39,26 @@ h1, h3, h5 {
 
 .add-button {
   color: $rehab-green;
+  margin-top: 2%
+}
+
+.delete-button {
+  color: $warning;
+  margin-top: 10%
+}
+
+.edit-button {
+  color: $primary;
+  margin-top: 10%;
+}
+
+.save-button {
+  color: $success;
+  margin-top: 10%;
 }
 
 .center {
-  text-align: center
+  text-align: center;
 }
 .fa-edit {
   color: $rehab-blue;
