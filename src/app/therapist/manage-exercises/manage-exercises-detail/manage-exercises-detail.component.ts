@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {ExerciseService} from '../../../shared/services/firestore/exercise.service';
-import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'rehab-manage-exercises-detail',
@@ -16,7 +15,8 @@ export class ManageExercisesDetailComponent implements OnInit {
 
   editMode = false;
 
-  constructor(private exerciseService: ExerciseService) { }
+  constructor(private exerciseService: ExerciseService) {
+  }
 
   ngOnInit() {
   }
@@ -46,6 +46,7 @@ export class ManageExercisesDetailComponent implements OnInit {
       description: updateExerciseForm.description ? updateExerciseForm.description : this.currentExercise.description,
       repetition: updateExerciseForm.repetition ? updateExerciseForm.repetition : this.currentExercise.repetition,
       videoUrl: updateExerciseForm.videoUrl ? updateExerciseForm.videoUrl : this.currentExercise.videoUrl,
+      imgUrl: this.currentExercise.imgUrl,
       category: this.currentExercise.category
     };
     this.exerciseService.updateExercise(updatedExercise)

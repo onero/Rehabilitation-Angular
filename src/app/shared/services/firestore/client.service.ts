@@ -106,9 +106,8 @@ export class ClientService {
   /**
    * Get currentClient by id
    */
-  getCurrentClientById(uid: string) {
-    return this.afs.collection<ClientEntity>(this.CLIENTS_COLLECTION)
-      .doc(uid)
+  getCurrentClientById(clientUid: string): Observable<ClientEntity> {
+    return this.afs.doc<ClientEntity>(`${this.CLIENTS_COLLECTION}/${clientUid}`)
       .valueChanges();
   }
 }

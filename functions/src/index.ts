@@ -95,7 +95,8 @@ exports.onExerciseUpdated = functions.firestore.document(`${EXERCISE_COLLECTION}
                 const updatedPartialExercise = {
                   uid: updatedExercise.uid,
                   title: updatedExercise.title,
-                  videoUrl: updatedExercise.videoUrl
+                  videoUrl: updatedExercise.videoUrl,
+                  imgUrl: updatedExercise.imgUrl
                 };
 
                 // Add updated exercise

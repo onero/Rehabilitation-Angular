@@ -10,7 +10,7 @@ import {ClientService} from '../../../../shared/services/firestore/client.servic
 export class ManageClientsContactInformationComponent implements OnInit {
 
   @Input()
-  currentModel: ClientEntity;
+  selectedClient: ClientEntity;
 
   @Output()
   contactInfoUpdated = new EventEmitter();
@@ -32,7 +32,7 @@ export class ManageClientsContactInformationComponent implements OnInit {
    * @param {ClientEntity} newClient
    */
   public updateClientContactInformation() {
-    this.clientService.updateClient(this.currentModel);
+    this.clientService.updateClient(this.selectedClient);
     this.editMode = false;
   }
 

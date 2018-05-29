@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ClientEntity} from '../../shared/entities/client.entity';
 import {ClientService} from '../../shared/services/firestore/client.service';
 import {MilestoneEntity} from '../../shared/entities/milestone.entity';
@@ -12,15 +12,18 @@ import {MessageService} from '../../shared/services/message.service';
   styleUrls: ['./manage-clients.component.scss']
 })
 export class ManageClientsComponent implements OnInit {
+
+  NO_SELECTED_VISIT_INDEX = -1;
+
   selectedClient: ClientEntity;
-  milestones: MilestoneEntity[];
-  selectedMilestone: MilestoneEntity;
-  selectedVisit: VisitEntity;
+  selectedMilestoneUid: string;
+  selectedVisitIndex: number;
   evaluationMode = false;
 
   constructor(private clientService: ClientService,
               private milestoneService: MilestoneService,
               private messageService: MessageService) {
+    this.selectedVisitIndex = this.NO_SELECTED_VISIT_INDEX;
   }
 
   ngOnInit() {
@@ -32,15 +35,7 @@ export class ManageClientsComponent implements OnInit {
   loadClientMilestones() {
     this.milestoneService.getMilestonesByClientUid(this.selectedClient.uid)
       .subscribe(milestonesFromDB => {
-        this.milestones = milestonesFromDB;
-        // Check for selected milestone
-        if (this.selectedMilestone) {
-          this.selectedMilestone = milestonesFromDB.find(milestone => milestone.uid === this.selectedMilestone.uid);
-          // Check for selected visit
-          if (this.selectedVisit) {
-            this.selectedVisit = this.selectedMilestone.visits.find(visit => visit.uid === this.selectedVisit.uid);
-          }
-        }
+        this.selectedClient.rehabilitationPlan.milestones = milestonesFromDB;
       });
   }
 
@@ -57,19 +52,37 @@ export class ManageClientsComponent implements OnInit {
    * @param {VisitEntity} newVisit
    */
   addVisitToMilestone(newVisit: VisitEntity) {
-    // Check for visits in selected milestone
-    if (!this.selectedMilestone.visits) {
-      this.selectedMilestone.visits = [];
+    const currentMilestone = this.getCurrentMilestone();
+    // Check visits for layer 8 error!
+    if (currentMilestone.visits == null) {
+      currentMilestone.visits = [];
     }
-    this.selectedMilestone.visits.push(newVisit);
+    // Add visit to milestone
+    currentMilestone.visits.push(newVisit);
     // Update milestone on firestore with new data
-    this.milestoneService.updateMilestone(this.selectedMilestone);
+    this.milestoneService.updateMilestone(currentMilestone);
   }
 
+  /**
+   * Retrieve current milestone from selected client
+   * @returns {T | undefined}
+   */
+  private getCurrentMilestone() {
+    return this.selectedClient.rehabilitationPlan.milestones
+      .find(milestoneFromList => milestoneFromList.uid === this.selectedMilestoneUid);
+  }
+
+  /**
+   * Remove visit from milestone
+   */
   removeVisitFromMilestone() {
-    const indexOfVisitToRemove = this.selectedMilestone.visits.indexOf(this.selectedVisit);
-    this.selectedMilestone.visits.splice(indexOfVisitToRemove, 1);
-    this.milestoneService.updateMilestone(this.selectedMilestone);
+    // Hide EvaluationDetail
+    this.selectedVisitIndex = this.NO_SELECTED_VISIT_INDEX;
+    const currentMilestone = this.getCurrentMilestone();
+    // Remove visit from milestone
+    currentMilestone.visits.splice(this.selectedVisitIndex, 1);
+    // Update milestone on firestore
+    this.milestoneService.updateMilestone(currentMilestone);
   }
 
   /**
@@ -77,21 +90,7 @@ export class ManageClientsComponent implements OnInit {
    * @param {MilestoneEntity} milestoneToUpdate
    */
   updateMilestone(milestoneToUpdate: MilestoneEntity) {
-    this.selectedMilestone.title = milestoneToUpdate.title;
-    this.selectedMilestone.purpose = milestoneToUpdate.purpose;
-
-    // Finds the index of the updated visit.
-    const indexOfVisitToUpdate = this.selectedMilestone.visits.indexOf(milestoneToUpdate.visits[0]);
-
-    // Find updated visit.
-    const visitToUpdate = this.selectedMilestone.visits[indexOfVisitToUpdate];
-
-    // Updates the visit.
-    visitToUpdate.note = milestoneToUpdate.visits[0].note;
-
-    this.milestoneService.updateMilestone(this.selectedMilestone)
-      .then(() => {
-      });
+    this.milestoneService.updateMilestone(milestoneToUpdate);
   }
 
   /**
@@ -112,9 +111,17 @@ export class ManageClientsComponent implements OnInit {
     this.evaluationMode = shouldBeEvaluation;
   }
 
-  onSelectedMilestone(milestone: MilestoneEntity) {
-    this.selectedMilestone = milestone;
-    this.selectedVisit = null;
+  onSelectedMilestone(milestoneUid: string) {
+    this.selectedMilestoneUid = milestoneUid;
+    this.selectedVisitIndex = this.NO_SELECTED_VISIT_INDEX;
+  }
+
+  onSelectedVisit(visitIndex: number) {
+    this.selectedVisitIndex = visitIndex;
+  }
+
+  onClientSelected(client: ClientEntity) {
+    this.selectedClient = client;
   }
 
 }
