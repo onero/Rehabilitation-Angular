@@ -13,7 +13,6 @@
       <!--Clients detail-->
       <div class="col-md-8">
         <rehab-manage-clients-detail *ngIf="selectedClient"
-                                     (clientDeleted)="deleteClient()"
                                      (evaluationsClicked)="evaluationMode = true; loadClientMilestones()"
                                      [currentClientUid]="selectedClient.uid"></rehab-manage-clients-detail>
       </div>

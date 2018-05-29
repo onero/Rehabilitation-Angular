@@ -20,9 +20,7 @@ export class ManageClientsComponent implements OnInit {
   selectedVisitIndex: number;
   evaluationMode = false;
 
-  constructor(private clientService: ClientService,
-              private milestoneService: MilestoneService,
-              private messageService: MessageService) {
+  constructor(private milestoneService: MilestoneService) {
     this.selectedVisitIndex = this.NO_SELECTED_VISIT_INDEX;
   }
 
@@ -91,17 +89,6 @@ export class ManageClientsComponent implements OnInit {
    */
   updateMilestone(milestoneToUpdate: MilestoneEntity) {
     this.milestoneService.updateMilestone(milestoneToUpdate);
-  }
-
-  /**
-   * Delete selectedClient!
-   */
-  deleteClient() {
-    this.clientService.deleteClient(this.selectedClient)
-      .then(() => {
-        this.messageService.displayMessage(`${this.selectedClient.fullName} is now deleted...`, 2);
-        this.selectedClient = null;
-      });
   }
 
   /**
