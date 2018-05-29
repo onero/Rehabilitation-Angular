@@ -26,13 +26,12 @@
 <!--NEW CLIENT-->
 <ng-template #newClient let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">New Client</h4>
+    <h3 class="modal-title">New Client</h3>
   </div>
   <div class="modal-body">
 
     <!--Client name-->
     <input #clientName="ngModel"
-           class="marginBetweenInputs"
            name="clientName"
            minlength="3"
            ngModel
@@ -42,7 +41,6 @@
 
     <!--Client Address-->
     <input #clientAddress="ngModel"
-           class="marginBetweenInputs"
            name="clientAddress"
            minlength="3"
            ngModel
@@ -53,7 +51,6 @@
     <!--Client Phone-->
     <input #clientPhone="ngModel"
            name="clientPhone"
-           class="marginBetweenInputs"
            minlength="8"
            ngModel
            required
@@ -63,7 +60,6 @@
     <input #clientEmail="ngModel"
            name="clientEmail"
            minlength="3"
-           class="marginBetweenInputs"
            ngModel
            required
            type="email"

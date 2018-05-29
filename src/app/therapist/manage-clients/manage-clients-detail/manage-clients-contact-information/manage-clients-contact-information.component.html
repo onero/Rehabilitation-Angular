@@ -1,12 +1,16 @@
+<!--Fullname display-->
 <h1 class="center">{{selectedClient.fullName}}</h1>
+
 <!--Contact Information-->
 <div *ngIf="!editMode; then contactInformation else editContactInformation"></div>
 <ng-template #contactInformation>
   <div class="card">
     <div class="center">
-      <div class="row" style="justify-items: center">
+      <div class="row">
         <div class="col-3">
         </div>
+
+        <!--Contact info-->
         <div class="col">
           <h5>Address</h5>
           <p>{{selectedClient.address}}</p>
@@ -15,6 +19,7 @@
           <h5>Email</h5>
           <p>{{selectedClient.email}}</p>
         </div>
+
         <div class="col-3">
           <i class="fa fa-edit fa-2x pull-right clickable edit-button" (click)="toggleEdit()"></i>
         </div>
@@ -26,36 +31,33 @@
   <div class="card">
     <form novalidate #contactInformationForm="ngForm">
       <div class="row">
-        <div class="col"></div>
-        <div class="col">
-          <label for="addressInput">Name: </label>
-          <input style="width: 50%"
-                 type="text"
+        <div class="col-md-9">
+
+          <!--Name-->
+          <h4 for="addressInput">Name: </h4>
+          <input type="text"
                  #emailInput="ngModel"
                  required
                  name="nameInput"
                  id="nameInput"
-                 class="edit-mode"
                  [(ngModel)]="selectedClient.fullName">
-          <br>
-          <label for="addressInput">Address: </label>
-          <input style="width: 50%"
-                 type="text"
+
+          <!--Address-->
+          <h4 for="addressInput">Address: </h4>
+          <input type="text"
                  #addressInput="ngModel"
                  required
                  id="addressInput"
                  name="addressInput"
-                 class="edit-mode"
                  [(ngModel)]="selectedClient.address">
-          <br>
-          <label for="addressInput">Phone: </label>
-          <input style="width: 50%"
-                 type="text"
+
+          <!--Phone-->
+          <h4 for="addressInput">Phone: </h4>
+          <input type="text"
                  #phoneInput="ngModel"
                  required
                  name="phoneInput"
                  id="phoneInput"
-                 class="edit-mode"
                  [(ngModel)]="selectedClient.phone">
         </div>
         <div class="col">
