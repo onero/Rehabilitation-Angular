@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {YoutubeService} from '../../../shared/services/youtube.service';
 import {ExerciseService} from '../../../shared/services/firestore/exercise.service';
@@ -6,6 +6,7 @@ import {AuthService} from '../../../auth/shared/auth.service';
 import {ClientService} from '../../../shared/services/firestore/client.service';
 import {ClientEntity} from '../../../shared/entities/client.entity';
 import {Observable} from 'rxjs/Observable';
+import {s} from '@angular/core/src/render3';
 
 @Component({
   selector: 'rehab-exercise-list',
@@ -16,6 +17,9 @@ export class ExerciseListComponent implements OnInit {
 
   @Output()
   exerciseSelected = new EventEmitter<ExerciseEntity>();
+
+  @Input()
+  currentExerciseUid: string;
 
   $client: Observable<ClientEntity>;
 

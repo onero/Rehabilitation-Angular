@@ -1,18 +1,33 @@
-<h2>Exercises</h2>
+<h1 class="center">Exercises</h1>
 
 <div class="list-group" *ngIf="$client | async as client">
-  <div *ngFor="let exercise of client.rehabilitationPlan.exercises; let i = index">
-    <div class="card clickable"
-         (click)="onExerciseClick(exercise)">
-      <div class="card-body">
-        {{i + 1}}.
-        <a class="list-group-item-action">
-          <!--The exercise thumbnail-->
-          <img src="{{exercise.imgUrl}}" alt="" style="float: left">
-          <!--The Exercise list information-->
-          <h5>{{exercise.title}}</h5>
-        </a>
+  <div style="align-items: center"
+       class="row"
+       *ngFor="let exercise of client.rehabilitationPlan.exercises; let i = index">
+    <!--INDEX NUMBER-->
+    <div class="col-1">
+      <h3 class="pull-left">{{i + 1}}.</h3>
+    </div>
+
+    <!--EXERCISE-->
+    <div class="col">
+        <div class="card clickable"
+             (click)="onExerciseClick(exercise)"
+             [ngClass]="{'selected': currentExerciseUid === exercise.uid}">
+          <div class="card-body">
+            <div class="row" style="align-items: center">
+              <div class="col-3">
+                <!--The exercise thumbnail-->
+                <img align="center" src="{{exercise.imgUrl}}" alt="" style="float: left">
+              </div>
+              <div class="col">
+                <!--The Exercise list information-->
+                <h5 align="center"
+                    [ngClass]="{'white-text': currentExerciseUid === exercise.uid}">{{exercise.title}}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 </div>

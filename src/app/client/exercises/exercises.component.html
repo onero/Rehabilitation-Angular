@@ -1,17 +1,27 @@
 <div class="container">
   <div class="row">
-    <div *ngIf="!currentExercise">
-      <h1>You Currently Don't Have Any Exercise</h1>
-    </div>
-    <div *ngIf="currentExercise" class="col">
-      <!--YOUTUBE COMPONENT-->
-      <rehab-youtube-player [videoId]="currentExercise.videoUrl"></rehab-youtube-player>
-      <!--VIDEO INFO COMPONENT-->
-      <rehab-exercise-information [exerciseUid]="currentExercise.uid"></rehab-exercise-information>
-    </div>
-    <div class="col">
-      <!--VIDEO PLAYLIST COMPONENT-->
-      <rehab-exercise-list (exerciseSelected)="currentExercise = $event"></rehab-exercise-list>
-    </div>
+    <div *ngIf="!currentExercise; then noExercises else exercises"></div>
+
+    <!--DISPLAYED WHEN NO EXERCISES ARE AVAILABLE-->
+    <ng-template #noExercises>
+      <div class="col">
+        <h1 style="text-align: center">You Currently Don't Have Any Exercises</h1>
+      </div>
+    </ng-template>
+
+    <!--LOADED EXERCISE-->
+    <ng-template #exercises>
+      <div class="col">
+        <!--YOUTUBE COMPONENT-->
+        <rehab-youtube-player [videoId]="currentExercise.videoUrl"></rehab-youtube-player>
+        <!--VIDEO INFO COMPONENT-->
+        <rehab-exercise-information [exerciseUid]="currentExercise.uid"></rehab-exercise-information>
+      </div>
+      <div class="col">
+        <!--VIDEO PLAYLIST COMPONENT-->
+        <rehab-exercise-list (exerciseSelected)="currentExercise = $event"
+                             [currentExerciseUid]="currentExercise.uid"></rehab-exercise-list>
+      </div>
+    </ng-template>
   </div>
 </div>
