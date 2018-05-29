@@ -87,9 +87,10 @@ export class ManageClientsDetailComponent implements OnInit, OnChanges, OnDestro
    * Delete selectedClient!
    */
   deleteClient() {
+    const clientName = this.currentClient.fullName;
     this.clientService.deleteClient(this.currentClient)
       .then(() => {
-        this.messageService.displayMessage(`${this.currentClient.fullName} is now deleted...`, 2);
+        this.messageService.displayMessage(`${clientName} is now deleted...`, 2);
         this.currentClient = null;
       });
   }
