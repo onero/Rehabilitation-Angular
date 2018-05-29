@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {environment} from '../../../../../environments/environment';
 
 @Component({
@@ -18,7 +18,8 @@ export class ManageClientsGoalComponent implements OnInit {
 
   allowEdit = !environment.clientMode;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

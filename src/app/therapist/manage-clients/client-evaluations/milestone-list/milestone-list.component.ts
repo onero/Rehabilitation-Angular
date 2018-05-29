@@ -15,7 +15,7 @@ export class MilestoneListComponent implements OnInit, OnChanges {
   milestones: MilestoneEntity[];
 
   @Output()
-  milestoneSelected = new EventEmitter<MilestoneEntity>();
+  milestoneSelected = new EventEmitter<string>();
   @Output()
   milestoneCreated = new EventEmitter<MilestoneEntity>();
 
@@ -36,7 +36,7 @@ export class MilestoneListComponent implements OnInit, OnChanges {
    * When a milestone is clicked, emit update
    */
   onMilestoneSelected(milestone: MilestoneEntity) {
-    this.milestoneSelected.emit(milestone);
+    this.milestoneSelected.emit(milestone.uid);
   }
 
   /**

@@ -1,4 +1,4 @@
-<h1>{{currentModel.fullName}}</h1>
+<h1>{{selectedClient.fullName}}</h1>
 <div class="row" style="text-align:left">
   <div class="col-md-12">
     <a class="list-group-item">
@@ -18,9 +18,9 @@
       <div *ngIf="!editMode; then contactInformation else editContactInformation"></div>
       <ng-template #contactInformation>
 
-        <h6>Address: {{currentModel.address}}</h6>
-        <h6>Phone number: {{currentModel.phone}}</h6>
-        <h6>Email: {{currentModel.email}}</h6>
+        <h6>Address: {{selectedClient.address}}</h6>
+        <h6>Phone number: {{selectedClient.phone}}</h6>
+        <h6>Email: {{selectedClient.email}}</h6>
 
       </ng-template>
       <ng-template #editContactInformation>
@@ -34,7 +34,7 @@
                  name="nameInput"
                  id="nameInput"
                  class="edit-mode"
-                 [(ngModel)]="currentModel.fullName">
+                 [(ngModel)]="selectedClient.fullName">
           <br>
           <label for="addressInput">Address: </label>
           <input style="width: 50%"
@@ -44,7 +44,7 @@
                  id="addressInput"
                  name="addressInput"
                  class="edit-mode"
-                 [(ngModel)]="currentModel.address">
+                 [(ngModel)]="selectedClient.address">
           <br>
           <label for="addressInput">Phone: </label>
           <input style="width: 50%"
@@ -54,7 +54,7 @@
                  name="phoneInput"
                  id="phoneInput"
                  class="edit-mode"
-                 [(ngModel)]="currentModel.phone">
+                 [(ngModel)]="selectedClient.phone">
         </form>
       </ng-template>
     </a>

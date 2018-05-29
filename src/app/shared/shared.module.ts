@@ -7,10 +7,10 @@ import {ExerciseService} from './services/firestore/exercise.service';
 import {ClientService} from './services/firestore/client.service';
 import {RouterModule} from '@angular/router';
 import {RehabErrorService} from './services/rehab-error.service';
-import { MessageService } from './services/message.service';
-import { RehabModalService } from './services/rehab-modal.service';
-import { MilestoneService } from './services/firestore/milestone.service';
-import { AssignedExerciseService } from './services/firestore/assigned-exercise.service';
+import {MessageService} from './services/message.service';
+import {RehabModalService} from './services/rehab-modal.service';
+import {MilestoneService} from './services/firestore/milestone.service';
+import {AssignedExerciseService} from './services/firestore/assigned-exercise.service';
 
 @NgModule({
   imports: [

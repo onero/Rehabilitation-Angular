@@ -1,6 +1,6 @@
 <h1>Exercises
   <i class="fa fa-plus-circle pull-right add-button clickable"
-  (click)="modalService.open(assignExercise)"></i></h1>
+     (click)="modalService.open(assignExercise)"></i></h1>
 <!--List of assigned exercises-->
 <div *ngFor="let exercise of exercises"
      class="card" style="text-align: center">
@@ -11,7 +11,7 @@
     </button>
   </div>
   <div class="card-body">
-    <img src="/assets/placeholders/youtube-icon.png">
+    <img src="{{exercise.imgUrl}}" alt="">
     <h5 class="card-title">{{exercise.repetition}}</h5>
     <a href="{{exercise.videoUrl}}"
        target="_blank">Youtube Link</a>
@@ -32,9 +32,11 @@
     <button type="button"
             class="btn btn-primary"
             (click)="routeToExercise();
-                     c('Close click')">Go to Exercises</button>
+                     c('Close click')">Go to Exercises
+    </button>
     <button type="button"
             class="btn btn-danger"
-            (click)="c('Close click')">Close</button>
+            (click)="c('Close click')">Close
+    </button>
   </div>
 </ng-template>

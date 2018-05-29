@@ -5,12 +5,13 @@
       <!--Clients contact information-->
       <div class="col">
         <rehab-manage-clients-contact-information
-          [currentModel]="clientFromUser"></rehab-manage-clients-contact-information>
+          [selectedClient]="clientFromUser"></rehab-manage-clients-contact-information>
       </div>
 
       <!--Clients Diagnosis-->
       <div class="col">
-        <rehab-manage-clients-diagnosis [currentDiagnosis]="clientFromUser.rehabilitationPlan.diagnosis"></rehab-manage-clients-diagnosis>
+        <rehab-manage-clients-diagnosis
+          [currentDiagnosis]="clientFromUser.rehabilitationPlan.diagnosis"></rehab-manage-clients-diagnosis>
       </div>
 
       <!--Clients goal-->
