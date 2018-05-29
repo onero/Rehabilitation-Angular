@@ -18,8 +18,7 @@ export class ManageClientsContactInformationComponent implements OnInit {
 
   editMode = false;
 
-  constructor(private clientService: ClientService,
-              private messageService: MessageService) {
+  constructor(private clientService: ClientService) {
   }
 
   ngOnInit() {
@@ -37,18 +36,4 @@ export class ManageClientsContactInformationComponent implements OnInit {
     this.clientService.updateClient(this.selectedClient);
     this.editMode = false;
   }
-
-  /**
-   * Delete selectedClient!
-   */
-  deleteClient() {
-    this.clientService.deleteClient(this.selectedClient)
-      .then(() => {
-        this.messageService.displayMessage(`${this.selectedClient.fullName} is now deleted...`, 2);
-        this.selectedClient = null;
-      });
-  }
-
-
-
 }

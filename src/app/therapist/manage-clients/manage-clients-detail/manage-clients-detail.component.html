@@ -5,6 +5,18 @@
 
       <!--Clients contact information-->
       <div class="col">
+
+        <!--Delete/Evaluation-->
+        <div class="row">
+          <div class="col">
+            <i class="fa fa-trash fa-2x pull-left delete-button clickable"
+               (click)="deleteClient()"></i>
+          </div>
+          <div class="col">
+            <i class="fa fa-bookmark fa-2x pull-right delete-button clickable"></i>
+          </div>
+        </div>
+
         <rehab-manage-clients-contact-information
           [selectedClient]="currentClient"></rehab-manage-clients-contact-information>
       </div>

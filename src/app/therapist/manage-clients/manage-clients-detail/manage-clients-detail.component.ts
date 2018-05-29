@@ -4,6 +4,7 @@ import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {ClientService} from '../../../shared/services/firestore/client.service';
 import {AssignedExerciseService} from '../../../shared/services/firestore/assigned-exercise.service';
 import {Observable} from 'rxjs/Observable';
+import { MessageService } from '../../../shared/services/message.service';
 
 @Component({
   selector: 'rehab-manage-clients-detail',
@@ -22,7 +23,8 @@ export class ManageClientsDetailComponent implements OnInit, OnChanges, OnDestro
   evaluationsClicked = new EventEmitter();
 
   constructor(private clientService: ClientService,
-              private assignExerciseService: AssignedExerciseService) {
+              private assignExerciseService: AssignedExerciseService,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -79,6 +81,17 @@ export class ManageClientsDetailComponent implements OnInit, OnChanges, OnDestro
     this.currentClient.rehabilitationPlan.exercises.push(partialNewExercise);
     this.assignExerciseService.assignExerciseToClient(this.currentClient.uid, exercise.uid);
     this.updateRehabilitationPlan();
+  }
+
+  /**
+   * Delete selectedClient!
+   */
+  deleteClient() {
+    this.clientService.deleteClient(this.currentClient)
+      .then(() => {
+        this.messageService.displayMessage(`${this.currentClient.fullName} is now deleted...`, 2);
+        this.currentClient = null;
+      });
   }
 
 }
