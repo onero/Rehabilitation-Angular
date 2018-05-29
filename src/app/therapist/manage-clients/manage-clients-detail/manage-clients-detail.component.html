@@ -1,3 +1,4 @@
+
 <div class="container">
   <div class="row" *ngIf="currentClient">
     <div class="col-md-7">
@@ -34,16 +35,6 @@
       <rehab-assign-exercise [exercises]="currentClient.rehabilitationPlan.exercises"
                              (exerciseUnassigned)="unassignExerciseFromClient($event)"
                              (exerciseAssigned)="assignExerciseToClient($event)"></rehab-assign-exercise>
-    </div>
-
-  </div>
-
-  <div class="container">
-    <div class="row">
-      <!--Delete-->
-      <div class="col-md-12">
-        <button class="btn btn-danger clickable" (click)="deleteClient()">Delete</button>
-      </div>
     </div>
   </div>
 </div>

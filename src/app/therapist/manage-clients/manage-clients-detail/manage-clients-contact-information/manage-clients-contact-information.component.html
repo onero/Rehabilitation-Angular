@@ -1,3 +1,16 @@
+
+<!--Delete/Evaluation-->
+<div class="row">
+  <div class="col">
+    <i class="fa fa-trash fa-2x pull-left delete-button clickable"
+    (click)="deleteClient()"></i>
+  </div>
+  <div class="col">
+    <i class="fa fa-bookmark fa-2x pull-right delete-button clickable"></i>
+  </div>
+</div>
+
+<div class="center">
 <h1>{{selectedClient.fullName}}</h1>
 <!--Contact Information-->
 <div *ngIf="!editMode; then contactInformation else editContactInformation"></div>
@@ -66,3 +79,4 @@
     </form>
   </div>
 </ng-template>
+</div>

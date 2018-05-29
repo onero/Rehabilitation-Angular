@@ -31,9 +31,16 @@ export class ManageClientsContactInformationComponent implements OnInit {
    * Updates the client contact information
    * @param {ClientEntity} newClient
    */
-  public updateClientContactInformation() {
+  updateClientContactInformation() {
     this.clientService.updateClient(this.selectedClient);
     this.editMode = false;
+  }
+
+  /**
+   * Deletes the selected client.
+   */
+  deleteClient() {
+    this.clientService.deleteClient(this.selectedClient);
   }
 
 }

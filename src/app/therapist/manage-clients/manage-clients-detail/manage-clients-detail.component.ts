@@ -19,8 +19,6 @@ export class ManageClientsDetailComponent implements OnInit, OnChanges, OnDestro
   $subscribe;
 
   @Output()
-  clientDeleted = new EventEmitter();
-  @Output()
   evaluationsClicked = new EventEmitter();
 
   constructor(private clientService: ClientService,
@@ -48,13 +46,6 @@ export class ManageClientsDetailComponent implements OnInit, OnChanges, OnDestro
    */
   updateRehabilitationPlan() {
     this.clientService.updateRehabilitationPlanByClientUid(this.currentClient.uid, this.currentClient.rehabilitationPlan);
-  }
-
-  /**
-   * Send request to delete currentClient
-   */
-  deleteClient() {
-    this.clientDeleted.emit();
   }
 
   /**
