@@ -32,7 +32,7 @@
 
     <!--Client name-->
     <input #clientName="ngModel"
-           style="width: 100%"
+           class="marginBetweenInputs"
            name="clientName"
            minlength="3"
            ngModel
@@ -42,7 +42,7 @@
 
     <!--Client Address-->
     <input #clientAddress="ngModel"
-           style="width: 100%"
+           class="marginBetweenInputs"
            name="clientAddress"
            minlength="3"
            ngModel
@@ -52,8 +52,8 @@
 
     <!--Client Phone-->
     <input #clientPhone="ngModel"
-           style="width: 100%"
            name="clientPhone"
+           class="marginBetweenInputs"
            minlength="8"
            ngModel
            required
@@ -61,9 +61,9 @@
            placeholder="Phone number">
 
     <input #clientEmail="ngModel"
-           style="width: 100%"
            name="clientEmail"
            minlength="3"
+           class="marginBetweenInputs"
            ngModel
            required
            type="email"
