@@ -4,6 +4,12 @@ import {Observable} from 'rxjs/Observable';
 import {AuthService} from './auth.service';
 import {MessageService} from '../../shared/services/message.service';
 
+const loginRoute = '/login';
+const loginFailMessage = 'Please login';
+
+/**
+ * AuthGuard checks whether or not the user is logged in through the Auth Service.
+ */
 @Injectable()
 export class AuthGuard implements CanActivate {
 
@@ -12,7 +18,6 @@ export class AuthGuard implements CanActivate {
               private messageService: MessageService) {
   }
 
-  // TODO: MSP constants + DOC!!!!
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
@@ -21,10 +26,10 @@ export class AuthGuard implements CanActivate {
         if (isLoggedIn) {
           return true;
         }
-        this.router.navigateByUrl('/login')
+        this.router.navigateByUrl(loginRoute)
           .then(() => {
             this.messageService
-              .displayMessage('Please login', 2);
+              .displayMessage(loginFailMessage, 2);
           });
         return false;
       });
