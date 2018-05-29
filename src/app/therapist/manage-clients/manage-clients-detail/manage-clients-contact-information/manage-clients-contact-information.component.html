@@ -1,31 +1,33 @@
 <h1>{{selectedClient.fullName}}</h1>
-<div class="row" style="text-align:left">
-  <div class="col-md-12">
-    <a class="list-group-item">
-
-      <!--Contact Information-->
-      <h3>
-        <div *ngIf="!editMode; then editIcon else saveIcon"></div>
-        <ng-template #editIcon>
-          <i class="fa fa-edit pull-right clickable" (click)="toggleEdit()"></i>
-        </ng-template>
-        <ng-template #saveIcon>
-          <i class="fa fa-floppy-o pull-right clickable"
-             (click)="updateClientContactInformation()"></i>
-        </ng-template>
-      </h3>
-
-      <div *ngIf="!editMode; then contactInformation else editContactInformation"></div>
-      <ng-template #contactInformation>
-
-        <h6>Address: {{selectedClient.address}}</h6>
-        <h6>Phone number: {{selectedClient.phone}}</h6>
-        <h6>Email: {{selectedClient.email}}</h6>
-
-      </ng-template>
-      <ng-template #editContactInformation>
-        <form novalidate #contactInformationForm="ngForm">
-
+<!--Contact Information-->
+<div *ngIf="!editMode; then contactInformation else editContactInformation"></div>
+<ng-template #contactInformation>
+  <div class="card">
+    <div class="center">
+      <div class="row" style="justify-items: center">
+        <div class="col-3">
+        </div>
+        <div class="col">
+          <h5>Address</h5>
+          <p>{{selectedClient.address}}</p>
+          <h5>Phone number</h5>
+          <p>{{selectedClient.phone}}</p>
+          <h5>Email</h5>
+          <p>{{selectedClient.email}}</p>
+        </div>
+        <div class="col-3">
+          <i class="fa fa-edit fa-2x pull-right clickable edit-button" (click)="toggleEdit()"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #editContactInformation>
+  <div class="card">
+    <form novalidate #contactInformationForm="ngForm">
+      <div class="row">
+        <div class="col"></div>
+        <div class="col">
           <label for="addressInput">Name: </label>
           <input style="width: 50%"
                  type="text"
@@ -55,9 +57,12 @@
                  id="phoneInput"
                  class="edit-mode"
                  [(ngModel)]="selectedClient.phone">
-        </form>
-      </ng-template>
-    </a>
+        </div>
+        <div class="col">
+          <i class="fa fa-floppy-o fa-2x pull-right clickable save-button"
+             (click)="updateClientContactInformation()"></i>
+        </div>
+      </div>
+    </form>
   </div>
-</div>
-
+</ng-template>
