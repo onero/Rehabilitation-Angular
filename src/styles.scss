@@ -30,6 +30,12 @@ input {
   outline: none;
 }
 
+textarea {
+  resize: none;
+  border-radius: 4px;
+  text-align: left;
+}
+
 .fa-edit {
   color: $rehab-blue;
 }

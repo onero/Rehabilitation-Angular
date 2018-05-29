@@ -18,7 +18,7 @@
           <ng-template #editEvaluationTitle>
             <input type="text"
                    [(ngModel)]="loadedMilestone.title"
-                   class="edit-mode center"
+                   class="edit-mode center header"
                    #titleInput
                    name="titleInput">
           </ng-template>
@@ -55,8 +55,8 @@
               <!--SAVED-->
               <ng-template #evaluationPurpose>
           <textarea disabled
+                    [(ngModel)]="loadedMilestone.purpose"
                     rows="4">
-            {{loadedMilestone.purpose}}
           </textarea>
               </ng-template>
               <!--EDIT-->
@@ -79,8 +79,8 @@
               <!--SAVED-->
               <ng-template #evaluationNote>
           <textarea disabled
-                    rows="4">
-            {{loadedMilestone.visits[visitIndex].note}}
+                    rows="4"
+                    [(ngModel)]="loadedMilestone.visits[visitIndex].note">
           </textarea>
               </ng-template>
 
