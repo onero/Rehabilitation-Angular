@@ -1,10 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '~bootstrap/dist/css/bootstrap.min.css';
 
 $rehab-blue: #1726f0;
-$rehab-green: green;
-$rehab-edit: #00FFFF;
+$rehab-orange: #a75401;
+$rehab-red: #ad2817;
+$rehab-grey: #eee;
+$rehab-green: #16ac16;
+
+$primary: $rehab-blue;
+$secondary: $rehab-orange;
+$warning: $rehab-red;
+$success: $rehab-green;
+$body-bg: $rehab-grey;
+
+
+@import "~bootstrap/scss/bootstrap";
+
+h1, h3 {
+  color: $rehab-orange;
+}
 
 .fa-edit {
   color: $rehab-blue;
@@ -38,7 +52,7 @@ $rehab-edit: #00FFFF;
 }
 
 .edit-mode {
-  border-color: $rehab-edit;
+  border-color: $secondary;
 }
 
 .clickable {
