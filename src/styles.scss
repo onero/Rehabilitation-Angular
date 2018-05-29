@@ -21,6 +21,15 @@ h1, h3, h5 {
   color: $rehab-orange;
 }
 
+input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 2px solid;
+  color: $rehab-blue;
+  outline: none;
+}
+
 .fa-edit {
   color: $rehab-blue;
 }
