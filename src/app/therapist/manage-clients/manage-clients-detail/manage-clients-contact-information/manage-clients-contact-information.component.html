@@ -8,7 +8,7 @@
 <ng-template #contactInformation>
   <div class="card col-md-12">
     <div class="row">
-      <div class="col-md-10">
+      <div class="card-body col-md-10">
 
       <!--Contact info-->
         <!--Address-->
@@ -41,7 +41,7 @@
 <ng-template #editContactInformation>
   <div class="card col-md-12">
     <div class="row marginLeft">
-      <div class="col-md-10 marginBottom">
+      <div class="card-body col-md-10 marginBottom">
 
         <form novalidate #contactInformationForm="ngForm">
 
@@ -77,7 +77,7 @@
 
       <!--Save btn-->
       <div class="col-md-2">
-        <i class="fa fa-floppy-o fa-2x clickable pull-left save-button"
+        <i class="fa fa-floppy-o fa-2x clickable pull-right save-button"
            (click)="updateClientContactInformation()"></i>
       </div>
     </div>
