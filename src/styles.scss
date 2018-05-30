@@ -1,18 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '~bootstrap/dist/css/bootstrap.min.css';
+/*-----PROJECT COLORS-----*/
 
-$rehab-blue: #1726f0;
-$rehab-green: green;
-$rehab-edit: #00FFFF;
+$rehab-blue: #0164a7;
+$rehab-dark-blue: #003a72;
+$rehab-orange: #a75401;
+$rehab-red: #ad2817;
+$rehab-grey: #eee;
+$rehab-green: #16ac16;
 
-.fa-edit {
-  color: $rehab-blue;
+$primary: $rehab-blue;
+$secondary: $rehab-orange;
+$warning: $rehab-red;
+$success: $rehab-green;
+$body-bg: $rehab-grey;
+
+/*-----THIS IMPORT MUST BE AFTER OUR THEME COLOR OVERRIDES-----*/
+
+@import "~bootstrap/scss/bootstrap";
+
+/*-----FIRST LEVEL SELECTORS-----*/
+html, body {
+  height: 100vh;
+  min-height: 100vh;
 }
 
-.fa-floppy-o {
-  color: $rehab-green;
+a {
+  cursor: pointer;
 }
+
+button {
+  cursor: pointer;
+}
+
+h1, h3, h5 {
+  color: $rehab-orange;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 2px solid $rehab-blue;
+  outline: none;
+  margin-bottom: 5px;
+}
+
+textarea {
+  resize: none;
+  border-radius: 4px;
+  text-align: left;
+}
+
+/*-----PROJECT CLASSES-----*/
+
+/*-----CARDS-----*/
 
 .card.selected {
   background-color: $rehab-blue;
@@ -22,23 +64,47 @@ $rehab-edit: #00FFFF;
   }
 }
 
+/*-----TEXT-----*/
+
+.white-text {
+  color: white;
+}
+
+/*-----BUTTONS-----*/
+
 .add-button {
   color: $rehab-green;
+  margin-top: 0.25em;
 }
+
+.delete-button {
+  color: $warning;
+  margin-top: 0.4em;
+}
+
+.edit-button {
+  color: $primary;
+  margin-top: 10%;
+}
+
+.evaluation-button {
+  color: $primary;
+  margin-top: 0.4em;
+}
+
+.save-button {
+  color: $success;
+  margin-top: 10%;
+}
+
+/*-----GENERAL-----*/
 
 .center {
-  text-align: center
-}
-.fa-edit {
-  color: $rehab-blue;
-}
-
-.fa-floppy-o {
-  color: $rehab-green;
+  text-align: center;
 }
 
 .edit-mode {
-  border-color: $rehab-edit;
+  border-color: $secondary;
 }
 
 .clickable {

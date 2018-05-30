@@ -7,7 +7,8 @@ export class CategoryService {
   private CATEGORIES_COLLECTION = 'Categories';
 
 
-  constructor(private angularFireStore: AngularFirestore) { }
+  constructor(private angularFireStore: AngularFirestore) {
+  }
 
   /**
    * Get list of category

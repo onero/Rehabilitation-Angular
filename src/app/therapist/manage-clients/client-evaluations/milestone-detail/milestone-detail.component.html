@@ -1,95 +1,102 @@
 <div class="container">
-  <div class="row">
-
-    <!--MILESTONE DATE-->
-    <h1>{{currentVisit.date | date: 'd/M - yyyy'}}</h1>
-
-    <!--MILESTONE TITLE-->
-    <div class="col-md-12">
-
-      <div *ngIf="allowEdit">
-        <div *ngIf="!editMode; then editIcon else saveIcon"></div>
+  <div *ngIf="$loadedMilestone | async as loadedMilestone">
+    <div class="row">
+      <div class="col-md-2">
+        <i *ngIf="allowEdit" class="fa fa-trash fa-2x clickable pull-left delete-button" (click)="deleteVisit()"></i>
+      </div>
+      <!--Title-->
+      <div class="col center">
         <div *ngIf="!editMode; then evaluationTitle else editEvaluationTitle"></div>
-
         <!--SAVED-->
         <ng-template #evaluationTitle>
-          <h3 disabled class="evaluation-text">
-            {{title}}
-          </h3>
-          <button class="btn btn-danger pull-right clickable" (click)="deleteVisit()">Delete</button>
+          <h1 disabled class="center">{{loadedMilestone.title}}</h1>
         </ng-template>
 
         <!--EDIT-->
         <ng-template #editEvaluationTitle>
-          <input     type="text"
-                    [(ngModel)]="title"
-                    class="edit-mode evaluation-text"
-                    #titleInput
-                    name="titleInput">
+          <input type="text"
+                 [(ngModel)]="loadedMilestone.title"
+                 class="edit-mode center header"
+                 #titleInput
+                 name="titleInput">
         </ng-template>
+      </div>
 
+      <!--Delete and edit-->
+      <div class="col-md-2">
+        <div *ngIf="!editMode; then editIcon else saveIcon"></div>
         <!--Edit icon-->
         <ng-template #editIcon>
-          <i class="fa fa-edit fa-1x pull-right clickable" (click)="toggleEvaluationEdit()"></i>
+          <i *ngIf="allowEdit" class="fa fa-pencil-square fa-2x clickable pull-right editSaveButton edit-button"
+             (click)="toggleEvaluationEdit()"></i>
         </ng-template>
         <!--Save icon-->
         <ng-template #saveIcon>
-          <i class="fa fa-floppy-o fa-1x pull-right clickable" (click)="onEvaluationUpdated()"></i>
+          <i *ngIf="allowEdit" class="fa fa-floppy-o fa-2x clickable pull-right editSaveButton save-button"
+             (click)="onEvaluationUpdated(loadedMilestone)"></i>
         </ng-template>
       </div>
     </div>
 
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">
+          <!--MILESTONE DATE-->
+          <h3 class="center">{{loadedMilestone.visits[visitIndex].date | date: 'EEEE d/M - yyyy'}}</h3>
+        </div>
 
-    <!--Purpose-->
-    <div class="row">
-      <div class="col-md-6">
-        <h3>Purpose</h3>
-        <div *ngIf="!editMode; then evaluationPurpose else editEvaluationPurpose"></div>
 
-        <!--SAVED-->
-        <ng-template #evaluationPurpose>
-          <textarea disabled class="evaluation-text">
-            {{purpose}}
+        <!--Purpose-->
+        <div class="row">
+          <div class="col-md-6">
+            <h5 class="center">Purpose</h5>
+            <div *ngIf="!editMode; then evaluationPurpose else editEvaluationPurpose"></div>
+
+            <!--SAVED-->
+            <ng-template #evaluationPurpose>
+          <textarea disabled
+                    [(ngModel)]="loadedMilestone.purpose"
+                    rows="4">
           </textarea>
-        </ng-template>
-
-        <!--EDIT-->
-        <ng-template #editEvaluationPurpose>
+            </ng-template>
+            <!--EDIT-->
+            <ng-template #editEvaluationPurpose>
           <textarea type="text"
-                    [(ngModel)]="purpose"
-                    class="edit-mode evaluation-text"
+                    [(ngModel)]="loadedMilestone.purpose"
+                    class="edit-mode"
                     #evaluationInput
-                    name="evaluationInput">
-            {{purpose}}
+                    name="evaluationInput"
+                    rows="4">
           </textarea>
-        </ng-template>
-      </div>
+            </ng-template>
+          </div>
 
-      <!--Note-->
-      <div class="col-md-6">
-        <h3>Note</h3>
-        <div *ngIf="!editMode; then evaluationNote else editEvaluationNote"></div>
+          <!--Note-->
+          <div class="col-md-6">
+            <h5 class="center">Note</h5>
+            <div *ngIf="!editMode; then evaluationNote else editEvaluationNote"></div>
 
-        <!--SAVED-->
-        <ng-template #evaluationNote>
-          <textarea disabled class="evaluation-text">
-            {{note}}
+            <!--SAVED-->
+            <ng-template #evaluationNote>
+          <textarea disabled
+                    rows="4"
+                    [(ngModel)]="loadedMilestone.visits[visitIndex].note">
           </textarea>
-        </ng-template>
+            </ng-template>
 
-        <!--EDIT-->
-        <ng-template #editEvaluationNote>
+            <!--EDIT-->
+            <ng-template #editEvaluationNote>
           <textarea type="text"
-                    [(ngModel)]="note"
-                    class="edit-mode evaluation-text"
+                    [(ngModel)]="loadedMilestone.visits[visitIndex].note"
+                    class="edit-mode"
                     #evaluationInput
-                    name="evaluationInput">
-            {{note}}
+                    name="evaluationInput"
+                    rows="4">
           </textarea>
-        </ng-template>
+            </ng-template>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-
 </div>

@@ -6,46 +6,45 @@
     <div class="row">
       <!--Clients list-->
       <div class="col-md-4">
-        <rehab-manage-clients-list (clientSelected)="selectedClient = $event"></rehab-manage-clients-list>
+        <rehab-manage-clients-list (clientSelected)="onClientSelected($event)"
+                                   [currentClientUid]="selectedClient?.uid"></rehab-manage-clients-list>
       </div>
 
       <!--Clients detail-->
       <div class="col-md-8">
         <rehab-manage-clients-detail *ngIf="selectedClient"
-                                     (clientDeleted)="deleteClient()"
                                      (evaluationsClicked)="evaluationMode = true; loadClientMilestones()"
-                                     [currentClient]="selectedClient"></rehab-manage-clients-detail>
+                                     [currentClientUid]="selectedClient.uid"></rehab-manage-clients-detail>
       </div>
     </div>
   </ng-template>
 
   <!--Client Evaluations View-->
   <ng-template #ClientEvaluations>
-    <button class="btn btn-primary clickable" (click)="setEvaluationMode(false)">Back</button>
     <div class="row">
+      <div class="col-md-1">
+        <i class="fa fa-arrow-left fa-2x edit-button clickable" (click)="setEvaluationMode(false)"></i>
+      </div>
       <div class="col-md-3">
         <!--MILESTONES-->
         <rehab-milestone-list (milestoneSelected)="onSelectedMilestone($event)"
                               (milestoneCreated)="addMilestone($event)"
-                              [milestones]="milestones"></rehab-milestone-list>
+                              [milestones]="selectedClient.rehabilitationPlan.milestones"></rehab-milestone-list>
       </div>
       <div class="col-md-3">
         <!--VISITS-->
-        <rehab-visit-list *ngIf="selectedMilestone"
+        <rehab-visit-list *ngIf="selectedMilestoneUid"
+                          [selectedMilestoneUid]="selectedMilestoneUid"
                           (visitAdded)="addVisitToMilestone($event)"
-                          [allVisits]="selectedMilestone?.visits"
-                          (visitSelected)="selectedVisit = $event"
-                          [currentVisit]="selectedVisit"></rehab-visit-list>
+                          (visitSelected)="onSelectedVisit($event)"></rehab-visit-list>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5">
         <!--Milestone Detail-->
-        <rehab-milestone-detail *ngIf="selectedVisit"
+        <rehab-milestone-detail *ngIf="selectedVisitIndex !== NO_SELECTED_VISIT_INDEX"
+                                (updateMilestone)="updateMilestone($event)"
                                 (deletedVisit)="removeVisitFromMilestone()"
-                                [currentVisit]="selectedVisit"
-                                [title]="selectedMilestone.title"
-                                [purpose]="selectedMilestone.purpose"
-                                (updateEvaluation)="updateMilestone($event)"
-                                [note]="selectedVisit.note"></rehab-milestone-detail>
+                                [milestoneUid]="selectedMilestoneUid"
+                                [visitIndex]="selectedVisitIndex"></rehab-milestone-detail>
       </div>
     </div>
   </ng-template>

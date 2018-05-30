@@ -3,6 +3,9 @@ import {ClientEntity} from '../../../../shared/entities/client.entity';
 import {VisitEntity} from '../../../../shared/entities/visit.entity';
 import {RehabModalService} from '../../../../shared/services/rehab-modal.service';
 import {environment} from '../../../../../environments/environment';
+import {MilestoneEntity} from '../../../../shared/entities/milestone.entity';
+import {Observable} from 'rxjs/Observable';
+import {MilestoneService} from '../../../../shared/services/firestore/milestone.service';
 
 @Component({
   selector: 'rehab-visit-list',
@@ -12,25 +15,26 @@ import {environment} from '../../../../../environments/environment';
 export class VisitListComponent implements OnInit, OnChanges {
 
   @Output()
-  visitSelected = new EventEmitter<VisitEntity>();
+  visitSelected = new EventEmitter<number>();
   @Output()
   visitAdded = new EventEmitter<VisitEntity>();
+  @Input()
+  selectedMilestoneUid: string;
+  selectedVisitIndex: number;
+  $loadedMilestone: Observable<MilestoneEntity>;
 
   allowEdit = !environment.clientMode;
 
-  @Input()
-  allVisits: VisitEntity[];
-
-  @Input()
-  currentVisit: VisitEntity;
-
-  constructor(public modalService: RehabModalService) {
-  }
+  constructor(public modalService: RehabModalService,
+              private milestoneService: MilestoneService) { }
 
   ngOnInit() {
+    this.$loadedMilestone = this.milestoneService.getMilestoneById(this.selectedMilestoneUid);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.selectedVisitIndex = null;
+    this.$loadedMilestone = this.milestoneService.getMilestoneById(this.selectedMilestoneUid);
   }
 
   /**
@@ -47,10 +51,12 @@ export class VisitListComponent implements OnInit, OnChanges {
 
   /**
    * Gets the information when the visit is selected
-   * @param {ClientEntity} visit
+   * @param visitIndex
    */
-  onVisitSelected(visit: VisitEntity) {
-    this.visitSelected.emit(visit);
+  onVisitSelected(visitIndex: number) {
+    this.selectedVisitIndex = visitIndex;
+    // Grab index of selected visit to emit.
+    this.visitSelected.emit(visitIndex);
   }
 
 }

@@ -1,15 +1,21 @@
-<div>
-  <div *ngIf="$loadedExercise | async as loadedExercise" class="card" style="width: 18rem;">
+<div align="center">
+  <div *ngIf="$loadedExercise | async as loadedExercise" class="card">
     <div class="card-body">
-      <h5 class="card-title"> <u> Title:</u> {{loadedExercise.title}} </h5>
-      <br>
-      <h6 class="card-subtitle"> <u> Category:</u> {{loadedExercise.category}} </h6>
-      <br>
-      <p class="card-text"> <u> Description:</u>
-        <br>
-        {{loadedExercise.description}}</p>
-      <p class="card-text"> <u> Repetition:</u>
-        {{loadedExercise.repetition}}</p>
+      <h3 class="card-title center">{{loadedExercise.title}} </h3>
+      <div class="row">
+        <div class="col-4">
+          <h5>Category</h5>
+          <p>{{loadedExercise.category}}</p>
+        </div>
+        <div class="col-4">
+          <h5>Description</h5>
+          <p>{{loadedExercise.description}}</p>
+        </div>
+        <div class="col-4">
+          <h5>Repetition</h5>
+          <p>{{loadedExercise.repetition}}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

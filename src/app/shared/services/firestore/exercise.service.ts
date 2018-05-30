@@ -46,12 +46,12 @@ export class ExerciseService {
         .valueChanges();
       // Paginate, starting after last element on previous page
     } else {
-    return this.angularFireStore.collection<ExerciseEntity>(this.EXERCISES_COLLECTION,
-      ref => ref
-        .orderBy('title')
-        .startAfter(lastExercise.title)
-        .limit(limit))
-      .valueChanges();
+      return this.angularFireStore.collection<ExerciseEntity>(this.EXERCISES_COLLECTION,
+        ref => ref
+          .orderBy('title')
+          .startAfter(lastExercise.title)
+          .limit(limit))
+        .valueChanges();
     }
   }
 

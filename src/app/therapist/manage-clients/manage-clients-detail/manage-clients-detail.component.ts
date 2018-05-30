@@ -1,29 +1,46 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ClientEntity} from '../../../shared/entities/client.entity';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {ClientService} from '../../../shared/services/firestore/client.service';
 import {AssignedExerciseService} from '../../../shared/services/firestore/assigned-exercise.service';
+import {Observable} from 'rxjs/Observable';
+import { MessageService } from '../../../shared/services/message.service';
 
 @Component({
   selector: 'rehab-manage-clients-detail',
   templateUrl: './manage-clients-detail.component.html',
   styleUrls: ['./manage-clients-detail.component.scss']
 })
-export class ManageClientsDetailComponent implements OnInit {
+export class ManageClientsDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
-  currentClient: ClientEntity;
+  currentClientUid: string;
 
-  @Output()
-  clientDeleted = new EventEmitter();
+  currentClient: ClientEntity;
+  $subscribe;
+
   @Output()
   evaluationsClicked = new EventEmitter();
 
   constructor(private clientService: ClientService,
-              private assignExerciseService: AssignedExerciseService) {
+              private assignExerciseService: AssignedExerciseService,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
+    // Save subscribe for possibility to unsubscribe on page change!
+    this.$subscribe = this.clientService.getCurrentClientById(this.currentClientUid)
+      .subscribe(client => this.currentClient = client);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.$subscribe = this.clientService.getCurrentClientById(this.currentClientUid)
+      .subscribe(client => this.currentClient = client);
+  }
+
+  ngOnDestroy() {
+    // Unsubscribe on page change!
+    this.$subscribe.unsubscribe();
   }
 
   /**
@@ -31,13 +48,6 @@ export class ManageClientsDetailComponent implements OnInit {
    */
   updateRehabilitationPlan() {
     this.clientService.updateRehabilitationPlanByClientUid(this.currentClient.uid, this.currentClient.rehabilitationPlan);
-  }
-
-  /**
-   * Send request to delete currentClient
-   */
-  deleteClient() {
-    this.clientDeleted.emit();
   }
 
   /**
@@ -61,7 +71,8 @@ export class ManageClientsDetailComponent implements OnInit {
     const partialNewExercise: ExerciseEntity = {
       uid: exercise.uid,
       title: exercise.title,
-      videoUrl: exercise.videoUrl
+      videoUrl: exercise.videoUrl,
+      imgUrl: exercise.imgUrl
     };
     // Ensure exercises array is instantiated
     if (!this.currentClient.rehabilitationPlan.exercises) {
@@ -71,4 +82,17 @@ export class ManageClientsDetailComponent implements OnInit {
     this.assignExerciseService.assignExerciseToClient(this.currentClient.uid, exercise.uid);
     this.updateRehabilitationPlan();
   }
+
+  /**
+   * Delete selectedClient!
+   */
+  deleteClient() {
+    const clientName = this.currentClient.fullName;
+    this.clientService.deleteClient(this.currentClient)
+      .then(() => {
+        this.messageService.displayMessage(`${clientName} is now deleted...`, 2);
+        this.currentClient = null;
+      });
+  }
+
 }
