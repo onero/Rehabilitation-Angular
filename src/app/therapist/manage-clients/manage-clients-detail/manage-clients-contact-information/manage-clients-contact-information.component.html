@@ -4,80 +4,83 @@
 <!--Mode-->
 <div *ngIf="!editMode; then contactInformation else editContactInformation"></div>
 
-  <!--SAVED-->
-  <ng-template #contactInformation>
-    <div class="card">
-      <div class="row marginLeft">
+<!--SAVED-->
+<ng-template #contactInformation>
+  <div class="card col-md-12">
+    <div class="row">
+      <div class="col-md-10">
 
-        <!--Contact info-->
-        <div class="col-md-10">
-          <!--Address-->
-          <div class="row">
-            <h5 class="marginRight">Address: </h5>
-            <h5 class="contactInfo">{{selectedClient.address}}</h5>
-          </div>
-          <!--Phone Number-->
-          <div class="row">
-            <h5 class="marginRight">Phone number: </h5>
-            <h5 class="contactInfo">{{selectedClient.phone}}</h5>
-          </div>
-          <!--Email-->
-          <div class="row">
-            <h5 class="marginRight">Email: </h5>
-            <h5 class="contactInfo">{{selectedClient.email}}</h5>
-          </div>
+      <!--Contact info-->
+        <!--Address-->
+        <div class="row">
+          <h5 class="marginRight">Address: </h5>
+          <h5 class="contactInfo">{{selectedClient.address}}</h5>
         </div>
-
-        <!--EDIT btn-->
-        <div class="col-md-2">
-          <i class="fa fa-edit fa-2x pull-right clickable edit-button"
-             (click)="toggleEdit()"></i>
+        <!--Phone Number-->
+        <div class="row">
+          <h5 class="marginRight">Phone number: </h5>
+          <h5 class="contactInfo">{{selectedClient.phone}}</h5>
+        </div>
+        <!--Email-->
+        <div class="row">
+          <h5 class="marginRight">Email: </h5>
+          <h5 class="contactInfo">{{selectedClient.email}}</h5>
         </div>
       </div>
+
+      <!--EDIT btn-->
+      <div class="col-md-2">
+        <i class="fa fa-edit fa-2x pull-right clickable edit-button"
+           (click)="toggleEdit()"></i>
+      </div>
     </div>
-  </ng-template>
+  </div>
+</ng-template>
 
-  <!--EDIT-->
-  <ng-template #editContactInformation>
-    <div class="card">
-      <form novalidate #contactInformationForm="ngForm">
+<!--EDIT-->
+<ng-template #editContactInformation>
+  <div class="card col-md-12">
+    <div class="row marginLeft">
+      <div class="col-md-10 marginBottom">
 
-        <div class="row marginLeft">
-          <div class="col-md-10 marginBottom">
-            <!--Name-->
-            <h4>Name: </h4>
-            <input type="text"
-                   #emailInput="ngModel"
-                   required
-                   name="nameInput"
-                   id="nameInput"
-                   [(ngModel)]="selectedClient.fullName">
+        <form novalidate #contactInformationForm="ngForm">
 
-            <!--Address-->
-            <h4>Address: </h4>
-            <input type="text"
-                   #addressInput="ngModel"
-                   required
-                   id="addressInput"
-                   name="addressInput"
-                   [(ngModel)]="selectedClient.address">
+          <!--Name-->
+          <h4>Name: </h4>
+          <input type="text"
+                 #emailInput="ngModel"
+                 required
+                 name="nameInput"
+                 id="nameInput"
+                 [(ngModel)]="selectedClient.fullName">
 
-            <!--Phone-->
-            <h4>Phone: </h4>
-            <input type="text"
-                   #phoneInput="ngModel"
-                   required
-                   name="phoneInput"
-                   id="phoneInput"
-                   [(ngModel)]="selectedClient.phone">
-          </div>
+          <!--Address-->
+          <h4>Address: </h4>
+          <input type="text"
+                 #addressInput="ngModel"
+                 required
+                 id="addressInput"
+                 name="addressInput"
+                 [(ngModel)]="selectedClient.address">
 
-          <!--Save btn-->
-          <div class="col-md-2">
-            <i class="fa fa-floppy-o fa-2x clickable pull-left save-button"
-               (click)="updateClientContactInformation()"></i>
-          </div>
-        </div>
-      </form>
+          <!--Phone-->
+          <h4>Phone: </h4>
+          <input type="text"
+                 #phoneInput="ngModel"
+                 required
+                 name="phoneInput"
+                 id="phoneInput"
+                 [(ngModel)]="selectedClient.phone">
+
+        </form>
+      </div>
+
+      <!--Save btn-->
+      <div class="col-md-2">
+        <i class="fa fa-floppy-o fa-2x clickable pull-left save-button"
+           (click)="updateClientContactInformation()"></i>
+      </div>
     </div>
-  </ng-template>
+
+  </div>
+</ng-template>
