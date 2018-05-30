@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
+/*-----PROJECT COLORS-----*/
 
 $rehab-blue: #0164a7;
 $rehab-dark-blue: #003a72;
@@ -14,8 +15,11 @@ $warning: $rehab-red;
 $success: $rehab-green;
 $body-bg: $rehab-grey;
 
+/*-----THIS IMPORT MUST BE AFTER OUR THEME COLOR OVERRIDES-----*/
 
 @import "~bootstrap/scss/bootstrap";
+
+/*-----FIRST LEVEL SELECTORS-----*/
 
 h1, h3, h5 {
   color: $rehab-orange;
@@ -35,13 +39,9 @@ textarea {
   text-align: left;
 }
 
-.fa-edit {
-  color: $rehab-blue;
-}
+/*-----PROJECT CLASSES-----*/
 
-.fa-floppy-o {
-  color: $rehab-green;
-}
+/*-----CARDS-----*/
 
 .card.selected {
   background-color: $rehab-blue;
@@ -51,9 +51,13 @@ textarea {
   }
 }
 
+/*-----TEXT-----*/
+
 .white-text {
   color: white;
 }
+
+/*-----BUTTONS-----*/
 
 .add-button {
   color: $rehab-green;
@@ -80,16 +84,10 @@ textarea {
   margin-top: 10%;
 }
 
+/*-----GENERAL-----*/
+
 .center {
   text-align: center;
-}
-
-.fa-edit {
-  color: $rehab-blue;
-}
-
-.fa-floppy-o {
-  color: $rehab-green;
 }
 
 .edit-mode {
