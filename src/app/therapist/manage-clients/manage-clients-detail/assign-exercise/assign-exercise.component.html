@@ -1,21 +1,31 @@
 <h1>Exercises
   <i class="fa fa-plus-circle pull-right add-button clickable"
      (click)="modalService.open(assignExercise)"></i></h1>
-<!--List of assigned exercises-->
-<div *ngFor="let exercise of exercises"
-     class="card" style="text-align: center">
-  <div class="card-header">
-    <h3 class="pull-left">{{exercise.title}}</h3>
-    <button class="btn btn-danger pull-right clickable"
-            (click)="onExerciseUnassigned(exercise.uid)">X
-    </button>
-  </div>
-  <div class="card-body">
-    <img src="{{exercise.imgUrl}}" alt="">
-    <h5 class="card-title">{{exercise.repetition}}</h5>
-    <a href="{{exercise.videoUrl}}"
-       target="_blank">Youtube Link</a>
-    <p class="card-text">{{exercise.description}}</p>
+<div class="list-group" *ngIf="exercises">
+  <div style="align-items: center"
+       class="row"
+       *ngFor="let exercise of exercises; let i = index">
+    <!--INDEX NUMBER-->
+    <div class="col-1">
+      <h3 class="pull-left">{{i + 1}}.</h3>
+    </div>
+
+    <!--EXERCISE-->
+    <div class="col">
+      <div class="card"
+           [ngClass]="{'selected': currentExerciseUid === exercise.uid}">
+        <img class="card-img-top" src="{{exercise.imgUrl}}" alt="Card image cap">
+        <div class="card-body">
+          <div align="center">
+            <!--The Exercise list information-->
+            <h5 align="center"
+                [ngClass]="{'white-text': currentExerciseUid === exercise.uid}">{{exercise.title}}</h5>
+            <i class="fa fa-trash fa-2x delete-button clickable"
+               (click)="onExerciseUnassigned(exercise.uid)"></i>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
