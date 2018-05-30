@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {ExerciseService} from '../../../shared/services/firestore/exercise.service';
 import {Observable} from 'rxjs/Observable';
@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Observable';
   templateUrl: './exercise-information.component.html',
   styleUrls: ['./exercise-information.component.scss']
 })
-export class ExerciseInformationComponent implements OnInit {
+export class ExerciseInformationComponent implements OnInit, OnChanges {
 
   @Input()
   exerciseUid: string;
@@ -19,6 +19,10 @@ export class ExerciseInformationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.$loadedExercise = this.exerciseService.getExerciseById(this.exerciseUid);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.$loadedExercise = this.exerciseService.getExerciseById(this.exerciseUid);
   }
 }
