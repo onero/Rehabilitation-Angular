@@ -23,7 +23,11 @@ export class ExercisesComponent implements OnInit {
     // Load client
     this.clientService.getCurrentClientById(userId)
     // Load first exercise from client's  list of exercises
-      .map(client => client.rehabilitationPlan.exercises[0])
+      .map(client => {
+        if (client.rehabilitationPlan.exercises) {
+          return client.rehabilitationPlan.exercises[0];
+        }
+      })
       .subscribe(firstExercise => this.currentExercise = firstExercise);
   }
 
