@@ -1,12 +1,30 @@
-.logoutBtn {
-  color: #babbbc;
-}
+@import "../../../styles";
 
-.logoutBtn:hover {
-  color: #69727b;
+.logoutBtn {
+  color: $rehab-grey;
 }
 
 .router-link-active {
-  background-color: #c1c1c1;
-  color: #000;
+  border-radius: 15%;
+  background-color: $secondary;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(167, 84, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.navbar-toggler {
+  border-color: $secondary;
+}
+
+/*-----LINKS IN NAVBAR SHOULD ALWAYS BE WHITE*/
+
+a {
+  color: white;
+}
+
+a:hover {
+  border-radius: 15%;
+  color: white;
+  background-color: $rehab-dark-blue;
 }

@@ -1,9 +1,27 @@
+
 <div class="container">
   <div class="row" *ngIf="currentClient">
     <div class="col-md-7">
 
       <!--Clients contact information-->
       <div class="col">
+
+        <!--Delete/Evaluation-->
+        <div class="row">
+          <div class="col col-md-2">
+            <i class="fa fa-trash fa-2x delete-button clickable"
+               (click)="deleteClient()"></i>
+          </div>
+          <div class="col">
+            <!--Fullname display-->
+            <h1 class="center">{{currentClient.fullName}}</h1>
+          </div>
+          <div class="col col-md-2 vcenter">
+            <i class="fa fa-calendar fa-2x pull-right evaluation-button clickable"
+            (click)="evaluationsClicked.emit()"></i>
+          </div>
+        </div>
+
         <rehab-manage-clients-contact-information
           [selectedClient]="currentClient"></rehab-manage-clients-contact-information>
       </div>
@@ -21,11 +39,6 @@
           (goalUpdated)="currentClient.rehabilitationPlan.goal = $event; updateRehabilitationPlan()"
           [currentGoal]="currentClient.rehabilitationPlan.goal"></rehab-manage-clients-goal>
       </div>
-      <div class="col">
-        <button class="btn btn-primary clickable"
-                (click)="evaluationsClicked.emit()">Evaluations
-        </button>
-      </div>
     </div>
 
     <!--YouTube assignments-->
@@ -34,16 +47,6 @@
       <rehab-assign-exercise [exercises]="currentClient.rehabilitationPlan.exercises"
                              (exerciseUnassigned)="unassignExerciseFromClient($event)"
                              (exerciseAssigned)="assignExerciseToClient($event)"></rehab-assign-exercise>
-    </div>
-
-  </div>
-
-  <div class="container">
-    <div class="row">
-      <!--Delete-->
-      <div class="col-md-12">
-        <button class="btn btn-danger clickable" (click)="deleteClient()">Delete</button>
-      </div>
     </div>
   </div>
 </div>

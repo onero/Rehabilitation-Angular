@@ -10,6 +10,8 @@ import {environment} from '../../../environments/environment';
 })
 export class ToolbarComponent implements OnInit {
 
+  isCollapsed = true;
+
   constructor(private router: Router,
               private authService: AuthService) {
   }

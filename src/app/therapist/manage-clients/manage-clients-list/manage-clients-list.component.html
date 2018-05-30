@@ -1,5 +1,5 @@
 <h1 class="center">Clients
-  <i class="fa fa-plus-circle pull-right add-button clickable"
+  <i class="fa fa-plus-square pull-right add-button clickable"
      (click)="modalService.open(newClient)"></i></h1>
 
 <!--Seach-->
@@ -26,13 +26,12 @@
 <!--NEW CLIENT-->
 <ng-template #newClient let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">New Client</h4>
+    <h3 class="modal-title">New Client</h3>
   </div>
   <div class="modal-body">
 
     <!--Client name-->
     <input #clientName="ngModel"
-           style="width: 100%"
            name="clientName"
            minlength="3"
            ngModel
@@ -42,7 +41,6 @@
 
     <!--Client Address-->
     <input #clientAddress="ngModel"
-           style="width: 100%"
            name="clientAddress"
            minlength="3"
            ngModel
@@ -52,7 +50,6 @@
 
     <!--Client Phone-->
     <input #clientPhone="ngModel"
-           style="width: 100%"
            name="clientPhone"
            minlength="8"
            ngModel
@@ -61,7 +58,6 @@
            placeholder="Phone number">
 
     <input #clientEmail="ngModel"
-           style="width: 100%"
            name="clientEmail"
            minlength="3"
            ngModel

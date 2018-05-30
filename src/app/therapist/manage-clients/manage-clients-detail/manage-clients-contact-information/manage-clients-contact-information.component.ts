@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ClientEntity} from '../../../../shared/entities/client.entity';
 import {ClientService} from '../../../../shared/services/firestore/client.service';
+import { MessageService } from '../../../../shared/services/message.service';
 
 @Component({
   selector: 'rehab-manage-clients-contact-information',
@@ -31,9 +32,8 @@ export class ManageClientsContactInformationComponent implements OnInit {
    * Updates the client contact information
    * @param {ClientEntity} newClient
    */
-  public updateClientContactInformation() {
+  updateClientContactInformation() {
     this.clientService.updateClient(this.selectedClient);
     this.editMode = false;
   }
-
 }

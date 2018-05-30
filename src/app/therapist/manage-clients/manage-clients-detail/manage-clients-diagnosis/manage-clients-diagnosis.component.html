@@ -20,7 +20,7 @@
     <div class="row">
       <div *ngIf="!editMode; then diagnosis else editDiagnosis"></div>
       <ng-template #diagnosis>
-  <textarea disabled class="diagnosis-text" rows="10">
+  <textarea disabled class="diagnosis-text" rows="4">
   {{currentDiagnosis}}
   </textarea>
       </ng-template>
