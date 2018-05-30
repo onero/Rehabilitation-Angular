@@ -1,7 +1,7 @@
 <div class="container">
   <div *ngIf="$loadedMilestone | async as loadedMilestone">
     <div class="row">
-      <div *ngIf="!editMode" class="col-md-2">
+      <div *ngIf="allowEdit" class="col-md-2">
         <i class="fa fa-trash fa-2x clickable pull-left delete-button" (click)="deleteVisit()"></i>
       </div>
       <!--Title-->
@@ -27,12 +27,12 @@
         <div *ngIf="!editMode; then editIcon else saveIcon"></div>
         <!--Edit icon-->
         <ng-template #editIcon>
-          <i class="fa fa-pencil-square fa-2x clickable pull-right editSaveButton edit-button"
+          <i *ngIf="allowEdit" class="fa fa-pencil-square fa-2x clickable pull-right editSaveButton edit-button"
              (click)="toggleEvaluationEdit()"></i>
         </ng-template>
         <!--Save icon-->
         <ng-template #saveIcon>
-          <i class="fa fa-floppy-o fa-2x clickable pull-right editSaveButton save-button"
+          <i *ngIf="allowEdit" class="fa fa-floppy-o fa-2x clickable pull-right editSaveButton save-button"
              (click)="onEvaluationUpdated(loadedMilestone)"></i>
         </ng-template>
       </div>
