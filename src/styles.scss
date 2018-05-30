@@ -20,6 +20,11 @@ $body-bg: $rehab-grey;
 @import "~bootstrap/scss/bootstrap";
 
 /*-----FIRST LEVEL SELECTORS-----*/
+html, body {
+  height: 100vh;
+  min-height: 100vh;
+}
+
 a {
   cursor: pointer;
 }
