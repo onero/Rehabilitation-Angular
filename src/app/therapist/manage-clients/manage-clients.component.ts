@@ -96,6 +96,8 @@ export class ManageClientsComponent implements OnInit {
    */
   setEvaluationMode(shouldBeEvaluation: boolean) {
     this.evaluationMode = shouldBeEvaluation;
+    this.selectedVisitIndex = -1;
+    this.selectedMilestoneUid = null;
   }
 
   onSelectedMilestone(milestoneUid: string) {
