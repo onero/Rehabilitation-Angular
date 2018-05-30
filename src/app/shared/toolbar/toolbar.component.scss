@@ -4,14 +4,12 @@
   color: $rehab-grey;
 }
 
-.logoutBtn:hover {
-  color: grey;
-}
-
 .router-link-active {
   border-radius: 15%;
   background-color: $secondary;
 }
+
+/*-----LINKS IN NAVBAR SHOULD ALWAYS BE WHITE*/
 
 a {
   color: white;

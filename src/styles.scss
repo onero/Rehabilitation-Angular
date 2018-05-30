@@ -20,6 +20,13 @@ $body-bg: $rehab-grey;
 @import "~bootstrap/scss/bootstrap";
 
 /*-----FIRST LEVEL SELECTORS-----*/
+a {
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
 
 h1, h3, h5 {
   color: $rehab-orange;
@@ -31,6 +38,7 @@ input {
   border-radius: 5px;
   border: 2px solid $rehab-blue;
   outline: none;
+  margin-bottom: 5px;
 }
 
 textarea {
