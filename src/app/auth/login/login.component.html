@@ -1,46 +1,81 @@
-<br>
-<br>
-<h1 class="text-center">GetRehabilitated</h1>
-<!-- Where all the magic happens -->
-<!-- LOGIN FORM -->
-<div class="text-center" style="padding:50px 0">
-  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-    <div class="logo">Login</div>
+<div class="container">
 
-    <!-- Main Form -->
-    <div class="login-form-1">
-      <div class="main-login-form">
+  <div class="row align-items-center">
 
-        <!--Email-->
-        <div class="form-group">
-          <input type="text" class="form-control" id="email" placeholder="Email"
-                 required
-                 [(ngModel)]="user.email" name="email"
-                 #email="ngModel">
-          <div [hidden]="email.valid || email.pristine"
-               class="alert alert-warning">
-            <div [hidden]="!email.hasError('required')">Please enter <strong>email</strong></div>
+    <div class="col-md-3"></div>
+
+    <div class="col">
+
+      <div class="card">
+        <div class="card-body">
+
+          <!--Title-->
+          <div class="row login-title-row">
+            <div class="col">
+              <h1 class="center login-title-text">Login</h1>
+            </div>
           </div>
-        </div>
 
-        <!--Password-->
-        <div class="form-group">
-          <input type="password" class="form-control" id="password" placeholder="Password"
-                 required
-                 [(ngModel)]="user.password" name="password"
-                 #password="ngModel">
-          <div [hidden]="password.valid || password.pristine"
-               class="alert alert-warning">
-            <div [hidden]="!password.hasError('required')">Please enter a <strong>password</strong></div>
-          </div>
+          <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+
+            <!--Email-->
+            <div class="row">
+              <div class="col">
+
+                <div class="form-group">
+                  <input type="text" class="form-control" id="email" placeholder="Email"
+                         required
+                         [(ngModel)]="user.email" name="email"
+                         #email="ngModel">
+                  <div [hidden]="email.valid || email.pristine"
+                       class="alert alert-warning">
+                    <div [hidden]="!email.hasError('required')">Please enter <strong>email</strong></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+            <!--Password-->
+            <div class="row">
+              <div class="col">
+
+                <div class="form-group">
+                  <input type="password" class="form-control" id="password" placeholder="Password"
+                         required
+                         [(ngModel)]="user.password" name="password"
+                         #password="ngModel">
+                  <div [hidden]="password.valid || password.pristine"
+                       class="alert alert-warning">
+                    <div [hidden]="!password.hasError('required')">Please enter a <strong>password</strong></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!--Login Button-->
+            <div class="row align-items-center">
+              <div class="col-md">
+                <button [ngClass]="{'login-button-enabled': loginForm.form.valid, 'login-button-disabled': !loginForm.form.valid}"
+                        type="submit" class="btn"
+                        [disabled]="!loginForm.form.valid"
+                        (click)="login(email.value, password.value)">
+                  <i [ngClass]="{'login-icon-enabled': loginForm.form.valid, 'login-icon-disabled': !loginForm.form.valid}"
+                     class="fa fa-sign-in"></i>
+                </button>
+              </div>
+            </div>
+
+          </form>
+
         </div>
-        <button type="submit" class="login-button"
-                [disabled]="!loginForm.form.valid"
-                (click)="login(email.value, password.value)">OK
-        </button>
       </div>
-
     </div>
-    <!-- end:Main Form -->
-  </form>
+
+    <div class="col-md-3"></div>
+
+  </div>
+
 </div>
