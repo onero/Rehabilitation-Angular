@@ -1,5 +1,9 @@
 @import "../../../styles";
 
+.input-fields {
+  margin-bottom: 8%;
+}
+
 .container {
   height: 100%;
 }
@@ -22,10 +26,12 @@
 
 .login-button-enabled {
   background-color: $success;
+  cursor: pointer;
 }
 
 .login-button-disabled {
   background-color: $rehab-grey;
+  cursor: default;
 }
 
 .login-icon-enabled {
@@ -33,5 +39,10 @@
 }
 
 .login-icon-disabled {
-  color: black
+  color: black;
+}
+
+.center-block {
+  display: table;
+  margin: auto;
 }
