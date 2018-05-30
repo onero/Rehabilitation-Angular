@@ -57,12 +57,12 @@ textarea {
 
 .add-button {
   color: $rehab-green;
-  margin-top: 2%
+  margin-top: 0.25em;
 }
 
 .delete-button {
   color: $warning;
-  margin-top: 10%
+  margin-top: 0.4em;
 }
 
 .edit-button {
@@ -72,7 +72,7 @@ textarea {
 
 .evaluation-button {
   color: $primary;
-  margin-top: 10%;
+  margin-top: 0.4em;
 }
 
 .save-button {
@@ -83,6 +83,7 @@ textarea {
 .center {
   text-align: center;
 }
+
 .fa-edit {
   color: $rehab-blue;
 }

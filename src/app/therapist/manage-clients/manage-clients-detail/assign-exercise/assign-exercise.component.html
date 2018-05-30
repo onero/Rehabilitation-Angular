@@ -1,8 +1,8 @@
 <h1>Exercises
-  <i class="fa fa-plus-circle pull-right add-button clickable"
+  <i class="fa fa-plus-square pull-right add-button clickable"
      (click)="modalService.open(assignExercise)"></i></h1>
 <div class="list-group" *ngIf="exercises">
-  <div style="align-items: center"
+  <div align="center"
        class="row"
        *ngFor="let exercise of exercises; let i = index">
     <!--INDEX NUMBER-->

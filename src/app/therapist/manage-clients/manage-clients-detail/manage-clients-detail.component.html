@@ -8,11 +8,15 @@
 
         <!--Delete/Evaluation-->
         <div class="row">
-          <div class="col">
-            <i class="fa fa-trash fa-2x pull-left delete-button clickable"
+          <div class="col col-md-2">
+            <i class="fa fa-trash fa-2x delete-button clickable"
                (click)="deleteClient()"></i>
           </div>
           <div class="col">
+            <!--Fullname display-->
+            <h1 class="center">{{currentClient.fullName}}</h1>
+          </div>
+          <div class="col col-md-2 vcenter">
             <i class="fa fa-bookmark fa-2x pull-right evaluation-button clickable"
             (click)="evaluationsClicked.emit()"></i>
           </div>
