@@ -1,8 +1,8 @@
 <div class="container">
   <div *ngIf="$loadedMilestone | async as loadedMilestone">
     <div class="row">
-      <div *ngIf="allowEdit" class="col-md-2">
-        <i class="fa fa-trash fa-2x clickable pull-left delete-button" (click)="deleteVisit()"></i>
+      <div class="col-md-2">
+        <i *ngIf="allowEdit" class="fa fa-trash fa-2x clickable pull-left delete-button" (click)="deleteVisit()"></i>
       </div>
       <!--Title-->
       <div class="col center">
