@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ClientEntity} from '../../../shared/entities/client.entity';
 import {Observable} from 'rxjs/Observable';
 import {ClientService} from '../../../shared/services/firestore/client.service';
@@ -14,7 +14,7 @@ import {C} from '@angular/core/src/render3';
   templateUrl: './manage-clients-list.component.html',
   styleUrls: ['./manage-clients-list.component.scss']
 })
-export class ManageClientsListComponent implements OnInit {
+export class ManageClientsListComponent implements OnInit, OnDestroy {
 
   @Output()
   clientSelected = new EventEmitter<ClientEntity>();
@@ -24,6 +24,7 @@ export class ManageClientsListComponent implements OnInit {
 
   $paginatedClients: Observable<ClientEntity[]>;
   amountOfClients: number;
+  $amountSubscribe;
   page = 1;
   limit = 5;
 
@@ -36,6 +37,12 @@ export class ManageClientsListComponent implements OnInit {
 
   ngOnInit() {
     this.paginate(this.page);
+  }
+
+  ngOnDestroy(): void {
+    if (this.$amountSubscribe) {
+      this.$amountSubscribe.unsubscribe();
+    }
   }
 
   /**
@@ -58,8 +65,7 @@ export class ManageClientsListComponent implements OnInit {
    * Get amount of all exercises in firestore collection
    */
   private setAmountOfClients() {
-    this.clientService.getAmountOfClients()
-      .take(1)
+    this.$amountSubscribe = this.clientService.getAmountOfClients()
       .subscribe(amount => this.amountOfClients = amount);
   }
 

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {ExerciseEntity} from '../../../shared/entities/exercise.entity';
 import {CategoryService} from '../../../shared/services/firestore/category.service';
 import {RehabModalService} from '../../../shared/services/rehab-modal.service';
@@ -9,7 +9,7 @@ import {MessageService} from '../../../shared/services/message.service';
   templateUrl: './manage-categories-list.component.html',
   styleUrls: ['./manage-categories-list.component.scss']
 })
-export class ManageCategoriesListComponent implements OnInit {
+export class ManageCategoriesListComponent implements OnInit, OnDestroy {
   @Output()
   categorySelected = new EventEmitter<string>();
   currentCategory: ExerciseEntity;
@@ -18,6 +18,7 @@ export class ManageCategoriesListComponent implements OnInit {
   page: number;
   limit = 5;
 
+  $subscribe;
 
   constructor(private categoryService: CategoryService,
               public modalService: RehabModalService,
@@ -26,10 +27,17 @@ export class ManageCategoriesListComponent implements OnInit {
 
   ngOnInit() {
     this.page = 1;
-    this.categoryService.getCategories().subscribe(categories => {
+    this.$subscribe = this.categoryService.getCategories()
+      .subscribe(categories => {
       this.allCategories = categories;
       this.paginatedCategories = this.allCategories.slice(0, this.limit);
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.$subscribe) {
+      this.$subscribe.unsubscribe();
+    }
   }
 
   /**

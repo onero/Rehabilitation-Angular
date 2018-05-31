@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../auth/shared/auth.service';
 import {MilestoneService} from '../../shared/services/firestore/milestone.service';
 import {MilestoneEntity} from '../../shared/entities/milestone.entity';
@@ -8,12 +8,14 @@ import {MilestoneEntity} from '../../shared/entities/milestone.entity';
   templateUrl: './evaluation.component.html',
   styleUrls: ['./evaluation.component.scss']
 })
-export class EvaluationComponent implements OnInit {
+export class EvaluationComponent implements OnInit, OnDestroy {
   NO_SELECTED_VISIT_INDEX = -1;
 
   milestones: MilestoneEntity[];
   selectedMilestoneUid: string;
   selectedVisitIndex: number;
+
+  $subscribe;
 
   constructor(private authService: AuthService,
               private milestoneService: MilestoneService) {
@@ -24,10 +26,16 @@ export class EvaluationComponent implements OnInit {
     this.selectedVisitIndex = this.NO_SELECTED_VISIT_INDEX;
 
     const clientUid = this.authService.getUserId();
-    this.milestoneService.getMilestonesByClientUid(clientUid)
+    this.$subscribe = this.milestoneService.getMilestonesByClientUid(clientUid)
       .subscribe(milestonesFromDB => {
         this.milestones = milestonesFromDB;
       });
+  }
+
+  ngOnDestroy(): void {
+    if (this.$subscribe) {
+      this.$subscribe.unsubscribe();
+    }
   }
 
   onSelectedMilestone(milestoneUid: string) {

@@ -40,7 +40,9 @@ export class ManageClientsDetailComponent implements OnInit, OnChanges, OnDestro
 
   ngOnDestroy() {
     // Unsubscribe on page change!
+    if (this.$subscribe) {
     this.$subscribe.unsubscribe();
+    }
   }
 
   /**

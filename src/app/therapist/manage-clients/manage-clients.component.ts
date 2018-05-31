@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {ClientEntity} from '../../shared/entities/client.entity';
 import {ClientService} from '../../shared/services/firestore/client.service';
 import {MilestoneEntity} from '../../shared/entities/milestone.entity';
@@ -11,7 +11,7 @@ import {MessageService} from '../../shared/services/message.service';
   templateUrl: './manage-clients.component.html',
   styleUrls: ['./manage-clients.component.scss']
 })
-export class ManageClientsComponent implements OnInit {
+export class ManageClientsComponent implements OnInit, OnDestroy {
 
   NO_SELECTED_VISIT_INDEX = -1;
 
@@ -20,6 +20,8 @@ export class ManageClientsComponent implements OnInit {
   selectedVisitIndex: number;
   evaluationMode = false;
 
+  $subscribe;
+
   constructor(private milestoneService: MilestoneService) {
     this.selectedVisitIndex = this.NO_SELECTED_VISIT_INDEX;
   }
@@ -27,11 +29,17 @@ export class ManageClientsComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy(): void {
+    if (this.$subscribe) {
+      this.$subscribe.unsubscribe();
+    }
+  }
+
   /**
    * Load all milestones into client
    */
   loadClientMilestones() {
-    this.milestoneService.getMilestonesByClientUid(this.selectedClient.uid)
+    this.$subscribe = this.milestoneService.getMilestonesByClientUid(this.selectedClient.uid)
       .subscribe(milestonesFromDB => {
         this.selectedClient.rehabilitationPlan.milestones = milestonesFromDB;
       });
