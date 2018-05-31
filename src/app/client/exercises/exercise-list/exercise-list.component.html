@@ -15,15 +15,17 @@
              (click)="onExerciseClick(exercise)"
              [ngClass]="{'selected': currentExerciseUid === exercise.uid}">
           <div class="card-body">
-            <div class="row" style="align-items: center">
+            <div class="row" style="align-items: center;">
               <div class="col-3">
                 <!--The exercise thumbnail-->
                 <img align="center" src="{{exercise.imgUrl}}" alt="" style="float: left">
               </div>
               <div class="col">
                 <!--The Exercise list information-->
-                <h5 align="center"
-                    [ngClass]="{'white-text': currentExerciseUid === exercise.uid}">{{exercise.title}}</h5>
+                <h5 align="end"
+                    [ngClass]="{'white-text': currentExerciseUid === exercise.uid}">
+                  {{exercise.title}}
+                </h5>
               </div>
             </div>
           </div>
