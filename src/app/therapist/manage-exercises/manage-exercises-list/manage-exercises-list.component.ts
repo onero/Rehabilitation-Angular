@@ -158,9 +158,7 @@ export class ManageExercisesListComponent implements OnInit, OnChanges, ISearch 
           const filteredExercises = exercises.filter(exercise => {
             // Check if exercise has
             return exercise.title.includes(query) || // title
-              exercise.category.includes(query) || // category
               exercise.description.includes(query) || // description
-              exercise.videoUrl.includes(query) || // url
               exercise.repetition.includes(query); // repetition
           });
           // Update paginated amount of exercises to result amount
